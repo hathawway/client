@@ -1,0 +1,42 @@
+.nav-link {
+    color: #000;
+    font-weight: 500;
+}
+
+.nav-link:active {
+    color:  #007bff;
+}
+
+.nav-link:hover {
+    color:  #007bff;
+}
+
+
+.sidebar {
+    background: #f8f9fa!important;
+    box-shadow: inset -1px 0 0 rgb(0 0 0 / 10%);
+
+}
+
+.sidebar-sticky{
+    top: 0;
+    height: calc(100vh - 48px);
+    padding-top: 0.5rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.col-md-2  {
+    width: auto;
+    /*display: block;*/
+}
+
+.col {
+    width: 80%;
+}
+
+.row {
+    flex-wrap: nowrap;
+    width: auto;
+}
+
