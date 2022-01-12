@@ -25,6 +25,17 @@ import { ModalSurveyActivityTableComponent } from './components/umu/modal-survey
 import { ModalAddStavkaTableComponent } from './components/umu/modal-add-stavka-table/modal-add-stavka-table.component';
 import { ModalAddOfficeTableComponent } from './components/admin/modal-add-office-table/modal-add-office-table.component';
 import { ModalAddPostTableComponent } from './components/admin/modal-add-post-table/modal-add-post-table.component';
+import { ScheduleComponent } from './components/zavkaf/schedule/schedule.component';
+import { IpComponent } from './components/zavkaf/ip/ip.component';
+import { ReportComponent } from './components/zavkaf/report/report.component';
+import { PpComponent } from './components/pps/pp/pp.component';
+import { StatisticsComponent } from './components/pps/statistics/statistics.component';
+import { WorksComponent } from './components/curator/works/works.component';
+import { WorksDoneComponent } from './components/curator/works-done/works-done.component';
+import { TypeWorkComponent } from './components/curator/type-work/type-work.component';
+import { StaffAddComponent } from './components/zavkaf/staff-add/staff-add.component';
+import { ModalStaffEditComponent } from './components/zavkaf/modal-staff-edit/modal-staff-edit.component';
+import { ModalSurveyScheduleComponent } from './components/zavkaf/modal-survey-schedule/modal-survey-schedule.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +56,18 @@ import { ModalAddPostTableComponent } from './components/admin/modal-add-post-ta
     ModalSurveyActivityTableComponent,
     ModalAddStavkaTableComponent,
     ModalAddOfficeTableComponent,
-    ModalAddPostTableComponent
+    ModalAddPostTableComponent,
+    ScheduleComponent,
+    IpComponent,
+    ReportComponent,
+    PpComponent,
+    StatisticsComponent,
+    WorksComponent,
+    WorksDoneComponent,
+    TypeWorkComponent,
+    StaffAddComponent,
+    ModalStaffEditComponent,
+    ModalSurveyScheduleComponent
   ],
   imports: [
     BrowserModule,

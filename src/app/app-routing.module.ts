@@ -14,6 +14,16 @@ import {KindActivityTableComponent} from './components/umu/kind-activity-table/k
 import {StavkaTableComponent} from './components/umu/stavka-table/stavka-table.component'
 import {MaketComponent} from './components/umu/maket/maket.component'
 
+import { ScheduleComponent } from './components/zavkaf/schedule/schedule.component';
+import { IpComponent } from './components/zavkaf/ip/ip.component';
+import { ReportComponent } from './components/zavkaf/report/report.component';
+import { PpComponent } from './components/pps/pp/pp.component';
+import { StatisticsComponent } from './components/pps/statistics/statistics.component';
+import { WorksDoneComponent } from './components/curator/works-done/works-done.component';
+import { WorksComponent } from './components/curator/works/works.component';
+import { TypeWorkComponent } from './components/curator/type-work/type-work.component';
+import { StaffAddComponent } from './components/zavkaf/staff-add/staff-add.component';
+
 
 const routes: Routes = [
   {path:'login', component: LoginComponent},
@@ -29,7 +39,25 @@ const routes: Routes = [
         {path: 'stavka', component:StavkaTableComponent},
         {path: 'maket', component:MaketComponent}
       
-    ]}   
+    ]},
+    {path:'zavkaf', component:SidebarComponent, children:[
+      {path: 'staff', component:StaffAddComponent},
+      {path: 'schedule', component:ScheduleComponent},
+      {path: 'ip', component:IpComponent},
+      {path: 'report', component:ReportComponent}
+    
+    ]},
+    {path:'pps', component:SidebarComponent, children:[
+      {path: 'pp', component:PpComponent},
+      {path: 'statistics', component:StatisticsComponent}
+    
+    ]},
+    {path:'curator', component:SidebarComponent, children:[
+      {path: 'type-work', component:TypeWorkComponent},
+      {path: 'works', component:WorksComponent},
+      {path: 'works-done', component:WorksDoneComponent}
+
+    ]}
   ]}
 ];
 
