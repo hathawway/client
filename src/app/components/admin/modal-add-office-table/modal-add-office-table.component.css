@@ -1,0 +1,13 @@
+:host {
+    border: 2px solid rgb(0 0 0 / 10%);
+    position: absolute;
+    z-index: 999;
+    left: 30%;
+    right: 70%;
+    cursor: pointer;
+    background: white;
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 0 0 9999px rgba(0,0,0, 0.3);
+}

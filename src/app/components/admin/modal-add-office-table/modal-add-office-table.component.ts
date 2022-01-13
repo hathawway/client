@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding, HostListener, Input } from '@angular/core';
 
 @Component({
   selector: 'app-modal-add-office-table',
@@ -7,9 +7,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModalAddOfficeTableComponent implements OnInit {
 
+  @HostBinding("style.visibility") visibility = "hidden"
+  @Input() @HostBinding("style.width") width = "600px"
+ 
   constructor() { }
-
-  ngOnInit(): void {
+ 
+  ngOnInit() {
   }
+
+  open(e:MouseEvent) {
+
+ 
+    this.visibility = "visible"
+ 
+    e.stopPropagation()
+  }
+ 
+  close() {
+    this.visibility = "hidden"
+  }
+ 
+  
 
 }

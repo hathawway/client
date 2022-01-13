@@ -38,10 +38,34 @@
     text-align: center;
 }
 
-.btn-group {
-    float: right;
-}
 
 .btn-outline-secondary:hover {
     background: rgb(78, 78, 78);
 }
+
+.title {
+    margin: 0px;
+    padding: 10px;
+    border-bottom:  2px solid #f8f9fa;
+}
+ 
+.items {
+    padding: 10px;
+    align-items: center;
+    margin-top: 10px;
+    margin-left: 15px;
+    margin-right: 15px;
+    display: block;
+}
+ 
+.items:hover {
+    color: white;
+}
+
+.cen {
+    float: none;
+    margin-top: 20px;
+    justify-content: space-around;
+    margin-right: 10px;
+}
+
