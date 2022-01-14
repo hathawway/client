@@ -1,12 +1,12 @@
 import { Component, OnInit, HostBinding, HostListener, Input  } from '@angular/core';
 
 @Component({
-  selector: 'app-modal-add-post-table',
-  templateUrl: './modal-add-post-table.component.html',
-  styleUrls: ['./modal-add-post-table.component.css']
+  selector: 'app-modal-survey-user',
+  templateUrl: './modal-survey-user.component.html',
+  styleUrls: ['./modal-survey-user.component.css']
 })
-export class ModalAddPostTableComponent implements OnInit {
-  
+export class ModalSurveyUserComponent implements OnInit {
+
   @HostBinding("style.visibility") visibility = "hidden"
   @Input() @HostBinding("style.width") width = "600px"
  
@@ -24,10 +24,6 @@ export class ModalAddPostTableComponent implements OnInit {
   }
  
   close() {
-    this.visibility = "hidden"
-  }
-
-  save() {
     this.visibility = "hidden"
   }
 

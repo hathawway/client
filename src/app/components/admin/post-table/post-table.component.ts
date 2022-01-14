@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalAddPostTableComponent } from '../modal-add-post-table/modal-add-post-table.component';
+
 
 @Component({
   selector: 'app-post-table',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PostTableComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild(ModalAddPostTableComponent) menu:ModalAddPostTableComponent 
+ 
+  openMenu(e) {
+    this.menu.open(e)
+  }
 
   ngOnInit(): void {
+    
   }
+
 
 }

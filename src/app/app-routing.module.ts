@@ -26,7 +26,12 @@ import { StaffAddComponent } from './components/zavkaf/staff-add/staff-add.compo
 
 
 const routes: Routes = [
-  {path:'login', component: LoginComponent},
+  {path: '', component: LoginComponent, children: [
+    {path: '', redirectTo:'/login', pathMatch:'full'},
+    {path: 'login', component: LoginComponent}
+]},
+
+
   {path:'dashboard', component:LayoutComponent, children:[
     {path:'admin', component:SidebarComponent, children:[
         {path: 'post', component:PostTableComponent},

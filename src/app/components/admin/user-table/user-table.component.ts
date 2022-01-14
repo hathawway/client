@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalAddUserComponent } from '../modal-add-user/modal-add-user.component';
+import { ModalSurveyUserComponent } from '../modal-survey-user/modal-survey-user.component';
+
 
 @Component({
   selector: 'app-user-table',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserTableComponent implements OnInit {
 
-  constructor() { }
+ 
+  @ViewChild(ModalAddUserComponent) menu:ModalAddUserComponent 
+  @ViewChild(ModalSurveyUserComponent) table:ModalSurveyUserComponent 
+ 
+  openMenu(e) {
+    this.menu.open(e)
+  }
+
+  openTable(e) {
+    this.table.open(e)
+  }
 
   ngOnInit(): void {
+    
   }
 
 }

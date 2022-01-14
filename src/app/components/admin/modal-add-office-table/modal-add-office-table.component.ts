@@ -27,6 +27,8 @@ export class ModalAddOfficeTableComponent implements OnInit {
     this.visibility = "hidden"
   }
  
-  
+  save() {
+    this.visibility = "hidden"
+  }
 
 }

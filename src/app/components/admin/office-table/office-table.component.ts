@@ -14,16 +14,8 @@ export class OfficeTableComponent implements OnInit {
     this.menu.open(e)
   }
 
-  closeMenu() {
-    this.menu.close()
-  }
- 
-  itemSelected(item:number) {
-    console.log("Item", item)
-  }
-
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    
   }
 
 

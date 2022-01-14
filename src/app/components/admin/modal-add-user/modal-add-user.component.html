@@ -1,1 +1,48 @@
-<p>modal-add-user works!</p>
+<ng-content select=".title"></ng-content>
+<ng-content select=".items"></ng-content>
+
+
+<p class="title">Пользователи</p>
+<form class="items">
+    <input class="form-control me-2 mb-2" placeholder="Логин" aria-label="Логин">
+    <input class="form-control me-2 mb-2" placeholder="Пароль" aria-label="Пароль">
+    <input class="form-control me-2 mb-2" placeholder="Фамилия" aria-label="Фамилия">
+    <input class="form-control me-2 mb-2" placeholder="Имя" aria-label="Имя">
+    <input class="form-control me-2 mb-2" placeholder="Отчество" aria-label="Отчество">
+    <select class="form-select mb-2" aria-label="Роль в системе">
+        <option selected>Роль в системе</option>
+        <option type="text" value="1">Администратор</option>
+        <option type="text" value="2">Уму</option>
+        <option type="text" value="3">Завкаф</option>
+        <option type="text" value="4">ППС</option>
+        <option type="text" value="5">Руководитель</option>
+    </select>
+    <select class="form-select mb-2" aria-label="Структурное подразделение">
+        <option selected>Структурное подразделение</option>
+        <option type="text" value="1">СТ</option>
+    </select>
+    <select class="form-select mb-2" aria-label="Должность">
+        <option selected>Должность</option>
+        <option type="text" value="1">Д</option>
+    </select>
+    <select class="form-select mb-2" aria-label="Условие приема на работу">
+        <option selected>Условие приема на работу</option>
+        <option type="text" value="1">У</option>
+    </select>
+    <select class="form-select mb-2" aria-label="Статус">
+        <option selected>Статус</option>
+        <option type="text" value="1">С</option>
+    </select>
+    <select class="form-select mb-2" aria-label="Ученая степень">
+        <option selected>Ученая степень</option>
+        <option type="text" value="1">А</option>
+    </select>
+    <select class="form-select mb-2" aria-label="Ученое звание">
+        <option selected>Ученое звание</option>
+        <option type="text" value="1">А</option>
+    </select>
+    <input class="form-control me-2 mb-2" placeholder="Телефон" aria-label="Телефон">
+    <input class="form-control me-2 mb-2" placeholder="Email" aria-label="Email">
+    <button class="btn btn-primary" type="submit" (click)="save()">Сохранить</button>
+    <button class="btn btn-primary" type="button" (click)="close()">Закрыть</button>
+</form>   

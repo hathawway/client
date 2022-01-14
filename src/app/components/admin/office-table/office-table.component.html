@@ -5,7 +5,7 @@
             <button class="btn btn-primary" type="submit">Поиск</button>
         </form>
         <div class="btn-group">
-          <button class="btn btn-sm btn-outline-secondary ms-2" (click)="openMenu($event)" >Добавить</button>
+          <button class="btn btn-sm btn-outline-secondary ms-2" type="button" (click)="openMenu($event)" >Добавить</button>
 
         </div>
         
@@ -15,19 +15,13 @@
 
 
 <app-modal-add-office-table>
-      <p class="title">Структурные подразделения</p>
-      <form class="items">
-        <input class="form-control me-2" placeholder="Структурное подразделение" aria-label="Структурное подразделение">
-        <button class="cen btn btn-primary" type="submit">Сохранить</button>
-        <button class="cen btn btn-primary" type="button" (click)="closeMenu()">Закрыть</button>
-      </form>   
 </app-modal-add-office-table>
 
 <table class="table table-hover">
 <thead>
   <tr>
     <th scope="col">#</th>
-    <th scope="col">Название стуктурного подразделения</th>
+    <th scope="col">Стуктурное подразделение</th>
     <th scope="col">Редактировать</th>
     <th scope="col">Удалить</th>
   </tr>
@@ -36,19 +30,19 @@
   <tr>
     <th scope="row">1</th>
     <td>Mark</td>
-    <td class="td"><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
+    <td class="td" (click)="openMenu($event)" ><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
     <td class="td"><img src="https://img.icons8.com/ios-filled/24/000000/delete--v1.png"/></td>
   </tr>
   <tr>
     <th scope="row">2</th>
     <td>Jacob</td>
-    <td class="td"><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
+    <td class="td" (click)="openMenu($event)" ><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
     <td class="td"><img src="https://img.icons8.com/ios-filled/24/000000/delete--v1.png"/></td>
   </tr>
   <tr>
     <th scope="row">3</th>
     <td>Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the BirdLarry the Bird</td>
-    <td class="td"><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
+    <td class="td" (click)="openMenu($event)" ><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
     <td class="td"><img src="https://img.icons8.com/ios-filled/24/000000/delete--v1.png"/></td>
   </tr>
 </tbody>

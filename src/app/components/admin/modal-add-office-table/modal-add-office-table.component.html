@@ -1,4 +1,10 @@
 <ng-content select=".title"></ng-content>
 <ng-content select=".items"></ng-content>
 
-
+<p class="title">Структурные подразделения</p>
+<form class="items">
+    <input class="form-control me-2" placeholder="Структурное подразделение" aria-label="Структурное подразделение">
+    <button class="btn btn-primary" type="submit" (click)="save()">Сохранить</button>
+    <button class="btn btn-primary" type="button" (click)="close()">Закрыть</button>
+</form>   
+      

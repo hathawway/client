@@ -36,6 +36,7 @@ import { TypeWorkComponent } from './components/curator/type-work/type-work.comp
 import { StaffAddComponent } from './components/zavkaf/staff-add/staff-add.component';
 import { ModalStaffEditComponent } from './components/zavkaf/modal-staff-edit/modal-staff-edit.component';
 import { ModalSurveyScheduleComponent } from './components/zavkaf/modal-survey-schedule/modal-survey-schedule.component';
+import { ModalSurveyUserComponent } from './components/admin/modal-survey-user/modal-survey-user.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { ModalSurveyScheduleComponent } from './components/zavkaf/modal-survey-s
     TypeWorkComponent,
     StaffAddComponent,
     ModalStaffEditComponent,
-    ModalSurveyScheduleComponent
+    ModalSurveyScheduleComponent,
+    ModalSurveyUserComponent
   ],
   imports: [
     BrowserModule,

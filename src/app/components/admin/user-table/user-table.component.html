@@ -5,12 +5,17 @@
             <button class="btn btn-primary" type="submit">Поиск</button>
         </form>
         <div class="btn-group">
-          <button class="btn btn-sm btn-outline-secondary ms-2">Добавить</button>
+          <button class="btn btn-sm btn-outline-secondary ms-2" type="button" (click)="openMenu($event)">Добавить</button>
         </div>
         
     </div>
 </nav>
 
+<app-modal-add-user>
+</app-modal-add-user>
+
+<app-modal-survey-user>
+</app-modal-survey-user>
 
 <table class="table table-hover">
 <thead>
@@ -28,24 +33,24 @@
     <th scope="row">1</th>
     <td>Mark</td>
     <td>Mark</td>
-    <td class="td"><img src="https://img.icons8.com/ios-glyphs/24/000000/fine-print--v1.png"/></td>
-    <td class="td"><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
+    <td class="td" (click)="openTable($event)"><img src="https://img.icons8.com/ios-glyphs/24/000000/fine-print--v1.png"/></td>
+    <td class="td" (click)="openMenu($event)"><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
     <td class="td"><img src="https://img.icons8.com/ios-filled/24/000000/delete--v1.png"/></td>
   </tr>
   <tr>
     <th scope="row">2</th>
     <td>Jacob</td>
     <td>Jacob</td>
-    <td class="td"><img src="https://img.icons8.com/ios-glyphs/24/000000/fine-print--v1.png"/></td>
-    <td class="td"><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
+    <td class="td" (click)="openTable($event)"><img src="https://img.icons8.com/ios-glyphs/24/000000/fine-print--v1.png"/></td>
+    <td class="td" (click)="openMenu($event)"><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
     <td class="td"><img src="https://img.icons8.com/ios-filled/24/000000/delete--v1.png"/></td>
   </tr>
   <tr>
     <th scope="row">3</th>
     <td>Larry the Bird</td>
     <td>Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the BirdLarry the Bird</td>
-    <td class="td"><img src="https://img.icons8.com/ios-glyphs/24/000000/fine-print--v1.png"/></td>
-    <td class="td"><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
+    <td class="td" (click)="openTable($event)"><img src="https://img.icons8.com/ios-glyphs/24/000000/fine-print--v1.png"/></td>
+    <td class="td" (click)="openMenu($event)"><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
     <td class="td"><img src="https://img.icons8.com/ios-filled/24/000000/delete--v1.png"/></td>
   </tr>
 </tbody>
