@@ -1,1 +1,20 @@
-<p>modal-survey-activity-table works!</p>
+<ng-content select=".title"></ng-content>
+<ng-content select=".items"></ng-content>
+
+
+<p class="title">Пользователи</p>
+<div class="items">
+    <div class="item">
+        <input class="form-control me-2 mb-2" type="text" placeholder="Должность" aria-label="Должность" disabled>
+        <input class="form-control me-2 mb-2" type="number" placeholder="Значение на ставку" aria-label="Значение на ставку" disabled>
+    </div> 
+    <div class="item">
+        <input class="form-control me-2 mb-2" type="text" placeholder="Должность" aria-label="Должность" disabled>
+        <input class="form-control me-2 mb-2" type="number" placeholder="Значение на ставку" aria-label="Значение на ставку" disabled>
+    </div>
+    <div class="item">
+        <input class="form-control me-2 mb-2" type="text" placeholder="Должность" aria-label="Должность" disabled>
+        <input class="form-control me-2 mb-2" type="number" placeholder="Значение на ставку" aria-label="Значение на ставку" disabled>
+    </div>   
+    <button class="btn btn-primary" type="button" (click)="close()">Закрыть</button>
+</div>   

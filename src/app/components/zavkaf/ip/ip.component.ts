@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalIpEditComponent } from '../modal-ip-edit/modal-ip-edit.component';
 
 @Component({
   selector: 'app-ip',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IpComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild(ModalIpEditComponent) menu:ModalIpEditComponent 
+
+  openMenu(e) {
+    this.menu.open(e)
+  }
 
   ngOnInit(): void {
+    
   }
 
 }

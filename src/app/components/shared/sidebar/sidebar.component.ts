@@ -9,31 +9,38 @@ import { Router } from '@angular/router';
 export class SidebarComponent implements OnInit {
 
 
-  links = [  
+  /*links = [  
     {url: '/dashboard/admin/post', name: 'Структурные подразделения'},
     {url: '/dashboard/admin/office', name: 'Должности'},
     {url: '/dashboard/admin/user', name: 'Пользователи'}
-  ]
+  ]*/
 
-  /*links = [  
-    {url: '/dashboard/umu/kind-active', name: 'Виды деятельности'},
-    {url: '/dashboard/umu/active', name: 'Виды работ'},
-    {url: '/dashboard/umu/stavka', name: 'Размер ставки ППС'}
+  /*
+  links = [  
+    {url: '/dashboard/umu/kind-activity', name: 'Виды деятельности'},
+    {url: '/dashboard/umu/activity', name: 'Виды работ'},
+    {url: '/dashboard/umu/stavka', name: 'Количество часов на ставку'},
     {url: '/dashboard/umu/maket', name: 'Макет ИП'}
   ]
+  */
 
+  
   links = [  
-    {url: '/dashboard/zavkaf/staff-add', name: 'Состав кафедры'},
+    {url: '/dashboard/zavkaf/staff', name: 'Состав кафедры'},
     {url: '/dashboard/zavkaf/schedule', name: 'Штатное расписание'},
-    {url: '/dashboard/zavkaf/ip', name: 'Индивидуальные планы'}
+    {url: '/dashboard/zavkaf/ip', name: 'Индивидуальные планы'},
     {url: '/dashboard/zavkaf/report', name: 'Отчеты'}
   ]
+  
 
+  /*
   links = [  
     {url: '/dashboard/pps/pp', name: 'Индивидуальные планы'},
     {url: '/dashboard/pps/statistics', name: 'Статистика'}
   ]
+  */
 
+  /*
   links = [  
     {url: '/dashboard/curator/type-work', name: 'Работа'},
     {url: '/dashboard/curator/works', name: 'Мониторинг заполненого ИП'},

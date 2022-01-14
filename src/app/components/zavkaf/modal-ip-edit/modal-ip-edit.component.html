@@ -1,0 +1,20 @@
+<ng-content select=".title"></ng-content>
+<ng-content select=".items"></ng-content>
+
+
+<p class="title">ФИО *</p>
+<form class="items">     
+
+    <div class="item">
+        <input class="form-control me-2 mb-2" type="text" placeholder="Согласован" aria-label="Согласован" disabled>
+        <td class="td"><input class="checkbox" type="checkbox" id="scales" name="scales" checked></td>
+        <input class="form-control me-2 mb-2" type="date" placeholder="Дата согласования" aria-label="Дата согласования">
+    </div>
+    <div class="item">
+        <input class="form-control me-2 mb-2" type="text" placeholder="Выполнен" aria-label="Выполнен" disabled>
+        <td class="td"><input class="checkbox" type="checkbox" id="scales" name="scales" checked></td>
+        <input class="form-control me-2 mb-2" type="date" placeholder="Дата выполнения" aria-label="Дата выполнения">
+    </div> 
+    <button class="btn btn-primary" type="submit" (click)="save()">Сохранить</button>
+    <button class="btn btn-primary" type="button" (click)="close()">Закрыть</button>
+</form>   

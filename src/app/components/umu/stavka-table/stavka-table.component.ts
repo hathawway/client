@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalAddStavkaTableComponent } from '../modal-add-stavka-table/modal-add-stavka-table.component';
 
 @Component({
   selector: 'app-stavka-table',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StavkaTableComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild(ModalAddStavkaTableComponent) menu:ModalAddStavkaTableComponent 
+ 
+  openMenu(e) {
+    this.menu.open(e)
+  }
 
   ngOnInit(): void {
+    
   }
+
 
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalAddKindActivityTableComponent } from '../modal-add-kind-activity-table/modal-add-kind-activity-table.component';
 
 @Component({
   selector: 'app-kind-activity-table',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class KindActivityTableComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild(ModalAddKindActivityTableComponent) menu:ModalAddKindActivityTableComponent 
+ 
+  openMenu(e) {
+    this.menu.open(e)
+  }
 
   ngOnInit(): void {
+    
   }
+
 
 }

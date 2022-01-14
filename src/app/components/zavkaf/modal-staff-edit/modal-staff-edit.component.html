@@ -1,1 +1,15 @@
-<p>modal-staff-edit works!</p>
+<ng-content select=".title"></ng-content>
+<ng-content select=".items"></ng-content>
+
+
+<p class="title">Состав кафедры на * год</p>
+<form class="items">
+    <div class="item">
+        <td class="td"><input class="checkbox" type="checkbox" id="scales" name="scales" checked></td>
+        <input class="form-control me-2" placeholder="ФИО" aria-label="ФИО" disabled>
+        <input class="form-control me-2" placeholder="Структурное подразделение" aria-label="Структурное подразделение" disabled>
+        <input class="form-control me-2" placeholder="Должность" aria-label="Должность" disabled>
+    </div>
+    <button class="btn btn-primary" type="submit" (click)="save()">Сохранить</button>
+    <button class="btn btn-primary" type="button" (click)="close()">Закрыть</button>
+</form>   

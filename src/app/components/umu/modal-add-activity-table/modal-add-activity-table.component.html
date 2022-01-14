@@ -1,1 +1,20 @@
-<p>modal-add-activity-table works!</p>
+<ng-content select=".title"></ng-content>
+<ng-content select=".items"></ng-content>
+
+
+<p class="title">Вид работы</p>
+<form class="items">
+  <select class="form-select mb-2" aria-label="Вид деятельности">
+    <option selected>Вид деятельности</option>
+    <option type="text" value="1">1</option>
+    <option type="text" value="2">2</option>
+</select>
+  <input class="form-control me-2" placeholder="Вид работы" aria-label="Вид работы">
+  <button class="btn btn-primary" type="submit" (click)="add()">Добавить</button>
+  <div class="item">
+    <input class="form-control me-2 mb-2" type="text" placeholder="Должность" aria-label="Должность">
+    <input class="form-control me-2 mb-2" type="number" placeholder="Значение на ставку" aria-label="Значение на ставку">
+  </div>
+  <button class="btn btn-primary" type="submit" (click)="save()">Сохранить</button>
+  <button class="btn btn-primary" type="button" (click)="close()">Закрыть</button>
+</form>   

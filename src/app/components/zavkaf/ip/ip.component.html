@@ -1,17 +1,16 @@
-<select class="form-select" aria-label="Default select example">
-    <option selected>Выбрать год</option>
-    <option type="date" value="1">One</option>
-</select>
-
 <nav class="navbar">
     <div class="container-fluid">
-        <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск">
-            <button class="btn btn-primary" type="submit">Поиск</button>
-        </form>       
+        <div class="d-flex">
+          <select class="form-select" aria-label="Default select example">
+            <option selected>Выбрать год</option>
+            <option type="date" value="1">One</option>
+        </select>
+        </div>       
     </div>
 </nav>
 
+<app-modal-ip-edit>
+</app-modal-ip-edit>
 
 <table class="table table-hover">
 <thead>
@@ -37,7 +36,7 @@
     <td class="td"><input type="checkbox" id="scales" name="scales" checked></td>
     <td>Mark</td>
     <td class="td"><img src="https://img.icons8.com/ios-glyphs/24/000000/fine-print--v1.png"/></td>
-    <td class="td"><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
+    <td class="td" (click)="openMenu($event)"><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
   </tr>
   <tr>
     <th scope="row">2</th>

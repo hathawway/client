@@ -8,13 +8,15 @@
     </div>
 </nav>
 
+<app-modal-add-stavka-table>
+</app-modal-add-stavka-table>
 
 <table class="table table-hover">
 <thead>
   <tr>
     <th scope="col">#</th>
     <th scope="col">Должность</th>
-    <th scope="col">Размер ставки</th>
+    <th scope="col">Количество часов на ставку</th>
     <th scope="col">Редактировать</th>
   </tr>
 </thead>
@@ -23,19 +25,19 @@
     <th scope="row">1</th>
     <td>Mark</td>
     <td>Mark</td>
-    <td class="td"><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
+    <td class="td" (click)="openMenu($event)"><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
   </tr>
   <tr>
     <th scope="row">2</th>
     <td>Jacob</td>
     <td>Jacob</td>
-    <td class="td"><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
+    <td class="td" (click)="openMenu($event)"><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
   </tr>
   <tr>
     <th scope="row">3</th>
     <td>Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the BirdLarry the Bird</td>
     <td>Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the BirdLarry the Bird</td>
-    <td class="td"><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
+    <td class="td" (click)="openMenu($event)"><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
   </tr>
 </tbody>
 </table>

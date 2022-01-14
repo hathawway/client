@@ -1,1 +1,15 @@
-<p>modal-add-kind-activity-table works!</p>
+<ng-content select=".title"></ng-content>
+<ng-content select=".items"></ng-content>
+
+
+<p class="title">Вид деятельности</p>
+<form class="items">
+  <input class="form-control me-2" placeholder="Вид деятельности" aria-label="Вид деятельности">
+  <select class="form-select mb-2 mt-2" aria-label="Куратор">
+    <option selected>Куратор</option>
+    <option type="text" value="1">1</option>
+    <option type="text" value="2">2</option>
+</select>
+  <button class="btn btn-primary" type="submit" (click)="save()">Сохранить</button>
+  <button class="btn btn-primary" type="button" (click)="close()">Закрыть</button>
+</form>   

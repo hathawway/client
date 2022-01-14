@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalSurveyScheduleComponent } from '../modal-survey-schedule/modal-survey-schedule.component';
 
 @Component({
   selector: 'app-schedule',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ScheduleComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild(ModalSurveyScheduleComponent) menu:ModalSurveyScheduleComponent 
+
+  openMenu(e) {
+    this.menu.open(e)
+  }
 
   ngOnInit(): void {
+    
   }
+
 
 }

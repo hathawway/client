@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalStaffEditComponent } from '../modal-staff-edit/modal-staff-edit.component';
 
 @Component({
   selector: 'app-staff-add',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StaffAddComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild(ModalStaffEditComponent) menu:ModalStaffEditComponent 
+ 
+  openMenu(e) {
+    this.menu.open(e)
+  }
 
   ngOnInit(): void {
+    
   }
+
 
 }

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalAddActivityTableComponent } from '../modal-add-activity-table/modal-add-activity-table.component';
+import { ModalSurveyActivityTableComponent } from '../modal-survey-activity-table/modal-survey-activity-table.component';
 
 @Component({
   selector: 'app-activity-table',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ActivityTableComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild(ModalAddActivityTableComponent) menu:ModalAddActivityTableComponent 
+  @ViewChild(ModalSurveyActivityTableComponent) table:ModalSurveyActivityTableComponent 
+ 
+  openMenu(e) {
+    this.menu.open(e)
+  }
+
+  openTable(e) {
+    this.table.open(e)
+  }
 
   ngOnInit(): void {
+    
   }
 
 }

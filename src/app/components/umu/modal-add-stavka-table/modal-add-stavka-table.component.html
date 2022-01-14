@@ -1,1 +1,10 @@
-<p>modal-add-stavka-table works!</p>
+<ng-content select=".title"></ng-content>
+<ng-content select=".items"></ng-content>
+
+
+<p class="title">Количество часов на ставку</p>
+<form class="items">
+  <input class="form-control me-2" type="number" min="1" max="1000" placeholder="Ставка" aria-label="Ставка">
+  <button class="btn btn-primary" type="submit" (click)="save()">Сохранить</button>
+  <button class="btn btn-primary" type="button" (click)="close()">Закрыть</button>
+</form>   
