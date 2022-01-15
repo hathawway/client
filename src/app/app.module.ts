@@ -38,6 +38,7 @@ import { ModalStaffEditComponent } from './components/zavkaf/modal-staff-edit/mo
 import { ModalSurveyScheduleComponent } from './components/zavkaf/modal-survey-schedule/modal-survey-schedule.component';
 import { ModalSurveyUserComponent } from './components/admin/modal-survey-user/modal-survey-user.component';
 import { ModalIpEditComponent } from './components/zavkaf/modal-ip-edit/modal-ip-edit.component';
+import { ModalRoleComponent } from './components/shared/modal-role/modal-role.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { ModalIpEditComponent } from './components/zavkaf/modal-ip-edit/modal-ip
     ModalStaffEditComponent,
     ModalSurveyScheduleComponent,
     ModalSurveyUserComponent,
-    ModalIpEditComponent
+    ModalIpEditComponent,
+    ModalRoleComponent
   ],
   imports: [
     BrowserModule,

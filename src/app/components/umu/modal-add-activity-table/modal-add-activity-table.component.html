@@ -12,8 +12,13 @@
   <input class="form-control me-2" placeholder="Вид работы" aria-label="Вид работы">
   <button class="btn btn-primary" type="submit" (click)="add()">Добавить</button>
   <div class="item">
-    <input class="form-control me-2 mb-2" type="text" placeholder="Должность" aria-label="Должность">
+    <select class="form-select mb-2 me-2" aria-label="Должность">
+      <option selected>Должность</option>
+      <option type="text" value="1">1</option>
+      <option type="text" value="2">2</option>
+  </select>
     <input class="form-control me-2 mb-2" type="number" placeholder="Значение на ставку" aria-label="Значение на ставку">
+    <td class="td"><img src="https://img.icons8.com/ios-filled/24/000000/delete--v1.png"/></td>
   </div>
   <button class="btn btn-primary" type="submit" (click)="save()">Сохранить</button>
   <button class="btn btn-primary" type="button" (click)="close()">Закрыть</button>

@@ -2,11 +2,13 @@
     <div class="container-fluid"> 
         <a class="navbar-brand">ИС "Индивидуальный план ППС"</a>
         <ul class="navbar-nav">
-            <div class="p">Пользователь имя</div>
-            <button class="btn btn-primary my-2 my-sm-0" type="submit" routerLink="/login">Выход</button>
+            <div class="p" (click)="openMenu($event)">Пользователь имя</div>
+            <button class="btn btn-primary my-2 my-sm-0" type="button" routerLink="/login">Выход</button>
         </ul>
     </div>
 </nav>
+
+<app-modal-role></app-modal-role>
 
 <main class="container">
     <router-outlet></router-outlet>
