@@ -3,7 +3,7 @@
         <a class="navbar-brand">ИС "Индивидуальный план ППС"</a>
         <ul class="navbar-nav">
             <div class="p" (click)="openMenu($event)">Пользователь имя</div>
-            <button class="btn btn-primary my-2 my-sm-0" type="button" routerLink="/login">Выход</button>
+            <button class="btn btn-primary my-2 my-sm-0" type="button" (click)="logout($event)">Выход</button>
         </ul>
     </div>
 </nav>

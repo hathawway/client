@@ -23,6 +23,7 @@ import { WorksDoneComponent } from './components/curator/works-done/works-done.c
 import { WorksComponent } from './components/curator/works/works.component';
 import { TypeWorkComponent } from './components/curator/type-work/type-work.component';
 import { StaffAddComponent } from './components/zavkaf/staff-add/staff-add.component';
+import { AuthGuard } from './classes/auth.guard';
 
 
 const routes: Routes = [
@@ -32,7 +33,7 @@ const routes: Routes = [
 ]},
 
 
-  {path:'dashboard', component:LayoutComponent, children:[
+  {path:'dashboard', component:LayoutComponent, canActivate: [AuthGuard], children:[
     {path:'admin', component:SidebarComponent, children:[
         {path: 'post', component:PostTableComponent},
         {path: 'office', component:OfficeTableComponent},

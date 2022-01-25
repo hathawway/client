@@ -39,6 +39,9 @@ import { ModalSurveyScheduleComponent } from './components/zavkaf/modal-survey-s
 import { ModalSurveyUserComponent } from './components/admin/modal-survey-user/modal-survey-user.component';
 import { ModalIpEditComponent } from './components/zavkaf/modal-ip-edit/modal-ip-edit.component';
 import { ModalRoleComponent } from './components/shared/modal-role/modal-role.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './classes/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -77,9 +80,17 @@ import { ModalRoleComponent } from './components/shared/modal-role/modal-role.co
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [ {
+    provide: HTTP_INTERCEPTORS,
+    multi: true,
+    useClass: TokenInterceptor
+  }  
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
