@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { User } from "../interfaces/interfaces";
-import { Observable } from "rxjs";
+import { Roles } from "../interfaces/interfaces";
+import { BehaviorSubject, Observable } from "rxjs";
 import { tap } from 'rxjs/operators';
 
 import {environment} from "src/environments/environment.prod";
@@ -13,6 +14,7 @@ import {environment} from "src/environments/environment.prod";
 export class Auth {
 
     private token: string = '';
+    user$: Observable<User> | undefined;
 
     constructor(private http: HttpClient) {}
 
@@ -37,6 +39,34 @@ export class Auth {
         );
     }
 
+    /*register(user: User): Observable<User> {
+      return this.http.post<{token:string}>(`${environment.api}/api/user/register`, user).
+        pipe(
+          tap(
+            ({ token}) => {
+              localStorage.setItem('auth-token', token)
+              this.setToken(token)
+            }
+          )
+        );
+    }*/
+
+    /*setUser(user: User | null): void {
+      if (user) {
+        //user.role = user.roles.includes('admin');
+      }
+  
+      this.user$.next(user);
+    }
+
+    getUser(): Observable<User | null> {
+      return this.user$.asObservable();
+    }*/
+
+    getUser(): Observable<User>{
+      return this.http.get<User>(`${environment.api}/api/user/get-user`)
+    }
+
     setToken(token: string): void {
         this.token = token;
     }
@@ -53,6 +83,8 @@ export class Auth {
         this.setToken('')
         localStorage.clear()
     }
+
+    
 
 
 }

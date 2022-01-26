@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { Auth } from 'src/app/services/auth';
+import { User } from '../../../interfaces/interfaces'
 
 @Component({
   selector: 'app-sidebar',
@@ -8,8 +11,8 @@ import { Router } from '@angular/router';
 })
 export class SidebarComponent implements OnInit {
 
-
-  /*links = [  
+  user$: Observable<User> | undefined;
+  /*admin = [  
     {url: '/dashboard/admin/post', name: 'Структурные подразделения'},
     {url: '/dashboard/admin/office', name: 'Должности'},
     {url: '/dashboard/admin/user', name: 'Пользователи'}
@@ -26,10 +29,12 @@ export class SidebarComponent implements OnInit {
 
   
   links = [  
-    {url: '/dashboard/zavkaf/staff', name: 'Состав кафедры'},
-    {url: '/dashboard/zavkaf/schedule', name: 'Штатное расписание'},
-    {url: '/dashboard/zavkaf/ip', name: 'Индивидуальные планы'},
-    {url: '/dashboard/zavkaf/report', name: 'Отчеты'}
+    {role: 'zavkaf', url: '/dashboard/zavkaf/staff', name: 'Состав кафедры'},
+    {role: 'zavkaf', url: '/dashboard/zavkaf/schedule', name: 'Штатное расписание'},
+    {role: 'zavkaf', url: '/dashboard/zavkaf/ip', name: 'Индивидуальные планы'},
+    {role: 'zavkaf', url: '/dashboard/zavkaf/report', name: 'Отчеты'},
+    {role: 'pps', url: '/dashboard/pps/pp', name: 'Индивидуальные планы'},
+    {role: 'pps', url: '/dashboard/pps/statistics', name: 'Статистика'}
   ]
   
 
@@ -48,11 +53,21 @@ export class SidebarComponent implements OnInit {
   ]
   
 */
+  role:string | undefined;
 
-  constructor(private router: Router) { }
+  constructor(private auth: Auth, private router: Router) { }
 
   ngOnInit(): void {
+    this.user$ = this.auth.getUser()
+    this.user$.subscribe(
+      () => this.router.navigate([`${this.role}`])
+    )
+
+
   }
+  
+
+
 
 }
 

@@ -42,6 +42,7 @@ import { ModalRoleComponent } from './components/shared/modal-role/modal-role.co
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './classes/token.interceptor';
+import { PageNotFoundComponent } from './components/shared/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { TokenInterceptor } from './classes/token.interceptor';
     ModalSurveyScheduleComponent,
     ModalSurveyUserComponent,
     ModalIpEditComponent,
-    ModalRoleComponent
+    ModalRoleComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

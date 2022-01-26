@@ -3,3 +3,7 @@ export interface User {
     password: string,
     role: string
 }
+
+export interface Roles {
+    name: string
+}

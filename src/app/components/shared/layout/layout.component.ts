@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalRoleComponent } from '../modal-role/modal-role.component';
 import { Router } from '@angular/router';
 import { Auth } from './../../../services/auth';
+import { User } from 'src/app/interfaces/interfaces';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-layout',
@@ -12,11 +14,13 @@ export class LayoutComponent implements OnInit {
 
   @ViewChild(ModalRoleComponent) menu:ModalRoleComponent
 
-  constructor(private auth: Auth,
-    private router: Router) { }
+  user$: Observable<User> | undefined;
+
+  constructor(private auth: Auth, private router: Router) { }
 
   ngOnInit(): void {
-    
+    this.user$ = this.auth.getUser()
+    this.router.navigate([`${this.role}`])
   }
  
   openMenu(e) {

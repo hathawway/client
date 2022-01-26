@@ -2,7 +2,9 @@
         <nav class="col-md-2 d-none d-md-block sidebar">
             <div class="sidebar-sticky">
                 <ul class="nav flex-column">                                      
-                    <li class="nav-item" *ngFor="let link of links" routerLinkActive="active"><a class="nav-link" [routerLink]="[link.url]">{{link.name}}</a></li>
+                    <li class="nav-item" *ngFor="let link of links" routerLinkActive="active">
+                        <a class="nav-link" [routerLink]="[link.url]">{{link.name}}</a>
+                    </li>
                 </ul>
             </div>
         </nav>

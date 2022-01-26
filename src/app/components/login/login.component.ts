@@ -6,7 +6,7 @@ import { Auth } from './../../services/auth';
 import {MaterialService} from './../../classes/material.service';
 // @ts-ignore
 import * as forge from 'node-forge';
-import * as CryptoJS from 'crypto-js';
+//import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-login',

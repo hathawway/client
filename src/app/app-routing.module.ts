@@ -24,41 +24,42 @@ import { WorksComponent } from './components/curator/works/works.component';
 import { TypeWorkComponent } from './components/curator/type-work/type-work.component';
 import { StaffAddComponent } from './components/zavkaf/staff-add/staff-add.component';
 import { AuthGuard } from './classes/auth.guard';
-
+import { PageNotFoundComponent } from './components/shared/page-not-found/page-not-found.component';
+import { RoleGuard } from './classes/role.guard';
 
 const routes: Routes = [
   {path: '', component: LoginComponent, children: [
     {path: '', redirectTo:'/login', pathMatch:'full'},
     {path: 'login', component: LoginComponent}
 ]},
-
+  {path: '**', component: PageNotFoundComponent},
 
   {path:'dashboard', component:LayoutComponent, canActivate: [AuthGuard], children:[
-    {path:'admin', component:SidebarComponent, children:[
+    {path:'admin', component:SidebarComponent, canActivateChild: [RoleGuard], data: { roles : ['ROLE_ADMIN'] }, children:[
         {path: 'post', component:PostTableComponent},
         {path: 'office', component:OfficeTableComponent},
         {path: 'user', component:UserTableComponent}
     ]},
-    {path:'umu', component:SidebarComponent, children:[
+    {path:'umu', component:SidebarComponent, canActivateChild: [RoleGuard], data: { roles : ['ROLE_UMU'] }, children:[
         {path: 'activity', component:ActivityTableComponent},
         {path: 'kind-activity', component:KindActivityTableComponent},
         {path: 'stavka', component:StavkaTableComponent},
         {path: 'maket', component:MaketComponent}
       
     ]},
-    {path:'zavkaf', component:SidebarComponent, children:[
+    {path:'zavkaf', component:SidebarComponent, canActivateChild: [RoleGuard], data: { roles : ['ROLE_ZAVKAF'] }, children:[
       {path: 'staff', component:StaffAddComponent},
       {path: 'schedule', component:ScheduleComponent},
       {path: 'ip', component:IpComponent},
       {path: 'report', component:ReportComponent}
     
     ]},
-    {path:'pps', component:SidebarComponent, children:[
+    {path:'pps', component:SidebarComponent, canActivateChild: [RoleGuard], data: { roles : ['ROLE_PPS'] }, children:[
       {path: 'pp', component:PpComponent},
       {path: 'statistics', component:StatisticsComponent}
     
     ]},
-    {path:'curator', component:SidebarComponent, children:[
+    {path:'curator', component:SidebarComponent, canActivateChild: [RoleGuard], data: { roles : ['ROLE_CURATOR'] }, children:[
       {path: 'type-work', component:TypeWorkComponent},
       {path: 'works', component:WorksComponent},
       {path: 'works-done', component:WorksDoneComponent}
