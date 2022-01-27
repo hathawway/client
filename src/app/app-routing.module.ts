@@ -32,7 +32,7 @@ const routes: Routes = [
     {path: '', redirectTo:'/login', pathMatch:'full'},
     {path: 'login', component: LoginComponent}
 ]},
-  {path: '**', component: PageNotFoundComponent},
+  //{path: '**', component: PageNotFoundComponent},
 
   {path:'dashboard', component:LayoutComponent, canActivate: [AuthGuard], children:[
     {path:'admin', component:SidebarComponent, canActivateChild: [RoleGuard], data: { roles : ['ROLE_ADMIN'] }, children:[
