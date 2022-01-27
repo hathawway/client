@@ -10,6 +10,8 @@ export class ModalAddPostTableComponent implements OnInit {
   @HostBinding("style.visibility") visibility = "hidden"
   @Input() @HostBinding("style.width") width = "600px"
  
+  name: String | undefined;
+  
   constructor() { }
  
   ngOnInit(): void {

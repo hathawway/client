@@ -20,7 +20,7 @@ export class OfficeService {
             }
         }
 
-        addOffice(offce: Office) {
+        addOffice(office: Office) {
             return this.http.get<Office>(`${environment.api}/api/office/add-office`)
         }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit, HostBinding, HostListener, Input } from '@angular/core';
+import { OfficeService } from 'src/app/services/office.service';
 
 @Component({
   selector: 'app-modal-add-office-table',
@@ -10,7 +11,9 @@ export class ModalAddOfficeTableComponent implements OnInit {
   @HostBinding("style.visibility") visibility = "hidden"
   @Input() @HostBinding("style.width") width = "600px"
  
-  constructor() { }
+  name!: String;
+
+  constructor(private officeService : OfficeService) { }
  
   ngOnInit() {
   }
@@ -28,7 +31,14 @@ export class ModalAddOfficeTableComponent implements OnInit {
   }
  
   save() {
-    this.visibility = "hidden"
+    const office = {
+      name: this.name
+    }
+    if (this.officeService.checkName(office.name)) {     
+      this.officeService.addOffice(office)
+      this.visibility = "hidden"
+    }
+    
   }
 
 }

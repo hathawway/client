@@ -3,9 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { User } from "../interfaces/interfaces";
 import { Roles } from "../interfaces/interfaces";
 import { BehaviorSubject, Observable } from "rxjs";
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 
 import {environment} from "src/environments/environment.prod";
+import { ResolveStart } from "@angular/router";
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +15,7 @@ import {environment} from "src/environments/environment.prod";
 export class Auth {
 
     private token: string = '';
-    user$: Observable<User> | undefined;
+
 
     constructor(private http: HttpClient) {}
 
@@ -51,20 +52,13 @@ export class Auth {
         );
     }*/
 
-    /*setUser(user: User | null): void {
-      if (user) {
-        //user.role = user.roles.includes('admin');
-      }
-  
-      this.user$.next(user);
-    }
-
-    getUser(): Observable<User | null> {
-      return this.user$.asObservable();
-    }*/
 
     getUser(): Observable<User>{
       return this.http.get<User>(`${environment.api}/api/user/get-user`)
+    }
+
+    getUserRole(): Observable<Roles>{
+      return this.http.get<Roles>(`${environment.api}/api/user/get-user-role`)
     }
 
     setToken(token: string): void {
