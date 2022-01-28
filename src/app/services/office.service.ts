@@ -21,6 +21,23 @@ export class OfficeService {
         }
 
         addOffice(office: Office) {
-            return this.http.get<Office>(`${environment.api}/api/office/add-office`)
+            return this.http.get<Office>(`${environment.api}/api/office/office/`)
+        }
+
+
+        updateOffice(office: Office) {
+            //return this.http.patch<Office>(`${environment.api}/api/office/:id`)
+        }
+
+        deleteOffice(office: Office) {
+            //return this.http.delete<Office>(`${environment.api}/api/office/:id`)
+        }
+
+        getOfficeOne(office: Office) {
+            //return this.http.get<Office>(`${environment.api}/api/office/:id`)
+        }
+
+        getOffice(): Observable<Office[]> {
+            return this.http.get<Office[]>(`${environment.api}/api/office/`)
         }
 }

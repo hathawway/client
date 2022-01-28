@@ -15,5 +15,11 @@ export interface Roles {
 }
 
 export interface Office {
+    id?: string,
+    name: string
+}
+
+export interface Post {
+    id?: string,
     name: string
 }

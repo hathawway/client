@@ -26,22 +26,10 @@
     <th scope="col">Удалить</th>
   </tr>
 </thead>
-<tbody>
-  <tr>
-    <th scope="row">1</th>
-    <td>Mark</td>
-    <td class="td" (click)="openMenu($event)" ><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
-    <td class="td"><img src="https://img.icons8.com/ios-filled/24/000000/delete--v1.png"/></td>
-  </tr>
-  <tr>
-    <th scope="row">2</th>
-    <td>Jacob</td>
-    <td class="td" (click)="openMenu($event)" ><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
-    <td class="td"><img src="https://img.icons8.com/ios-filled/24/000000/delete--v1.png"/></td>
-  </tr>
-  <tr>
-    <th scope="row">3</th>
-    <td>Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the BirdLarry the Bird</td>
+<tbody *ngIf="offices$" >
+  <tr *ngFor="let office of offices; let i = index">
+    <th scope="row">{{i}}/th>
+    <td>{{office.name}}</td>
     <td class="td" (click)="openMenu($event)" ><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
     <td class="td"><img src="https://img.icons8.com/ios-filled/24/000000/delete--v1.png"/></td>
   </tr>

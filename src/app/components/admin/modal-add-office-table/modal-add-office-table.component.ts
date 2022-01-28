@@ -35,7 +35,7 @@ export class ModalAddOfficeTableComponent implements OnInit {
       name: this.name
     }
     if (this.officeService.checkName(office.name)) {     
-      this.officeService.addOffice(office)
+      //this.officeService.addOffice(office)
       this.visibility = "hidden"
     }
     

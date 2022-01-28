@@ -15,15 +15,15 @@ export class LayoutComponent implements OnInit {
 
   @ViewChild(ModalRoleComponent) menu:ModalRoleComponent
 
-  user$: Observable<User> | undefined;
+  users$: Observable<User> | undefined;
 
-  role$: Observable<Roles> | undefined;
+  roles$: Observable<Roles> | undefined;
 
   constructor(private auth: Auth, private router: Router) { }
 
   ngOnInit(): void {
-    //this.role$ = this.auth.getUserRole()
-    this.user$ = this.auth.getUser()
+    //this.roles$ = this.auth.getUserRole()
+    this.users$ = this.auth.getUser()
     console.log(this.auth.getUser())
   }
  
