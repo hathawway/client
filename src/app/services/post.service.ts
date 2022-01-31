@@ -2,9 +2,11 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment.prod";
-import { Post } from "../interfaces/interfaces";
+import { BookPost } from "../interfaces/interfaces";
 
-@Injectable()
+@Injectable({
+    providedIn:'root'
+})
 
 export class PostService {
 
@@ -20,27 +22,27 @@ export class PostService {
             }
         }
 
-        addPost(post: Post) {
+        addPost(post: BookPost) {
             //return this.http.post<Post>(`${environment.api}/api/post/`)
         }
 
-        updatePost(post: Post) {
+        updatePost(post: BookPost) {
             //return this.http.patch<Post>(`${environment.api}/api/post/:id`)
         }
 
         deletePost(id: number | string) {
-            return this.http.delete(`${environment.api}/api/post/:id`, {
+            /*return this.http.delete(`${environment.api}/api/post/:id`, {
                 params: new HttpParams().set(`id`, id)
-            })
+            })*/
         }
 
-        getPostOne(id: number | string): Observable<Post[]> {
-            return this.http.get<Post[]>(`${environment.api}/api/post/:id`, {
+        getPostOne(id: number | string) {
+            /*return this.http.get<Post[]>(`${environment.api}/api/post/:id`, {
                 params: new HttpParams().set('id', id)
-            })
+            })*/
         }
 
-        getPost(): Observable<Post[]> {
-            return this.http.get<Post[]>(`${environment.api}/api/post/`)
+        getPost(): Observable<BookPost[]> {
+            return this.http.get<BookPost[]>(`${environment.api}/api/post/`)
         }
 }

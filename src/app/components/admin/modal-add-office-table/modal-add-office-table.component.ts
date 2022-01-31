@@ -1,4 +1,8 @@
 import { Component, OnInit, HostBinding, HostListener, Input } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Params } from '@angular/router';
+import { of, switchMap } from 'rxjs';
+import { MaterialService } from 'src/app/classes/material.service';
 import { OfficeService } from 'src/app/services/office.service';
 
 @Component({
@@ -12,18 +16,41 @@ export class ModalAddOfficeTableComponent implements OnInit {
   @Input() @HostBinding("style.width") width = "600px"
  
   name!: String;
+  form!: FormGroup;
 
-  constructor(private officeService : OfficeService) { }
+  constructor(private officeService : OfficeService,
+    private route: ActivatedRoute) { }
  
   ngOnInit() {
+
   }
 
   open(e:MouseEvent) {
 
  
     this.visibility = "visible"
- 
+    console.log('jedj')
+    /*this.form = new FormGroup({
+      name: new FormControl(null, Validators.required)
+    })
+
+    this.route.params.pipe(switchMap( (params: Params) => {
+        if (params['id']) {
+          return this.officeService.getOfficeById(params['id'])
+        }
+
+        return of(null)
+      })).subscribe(office => {
+        if (office) {
+          this.form.patchValue( {
+            name: office.name
+          })
+        }
+      }, error => MaterialService.toast(error.error.message)
+      )*/
     e.stopPropagation()
+    console.log('j111111edj')
+    
   }
  
   close() {
@@ -39,6 +66,10 @@ export class ModalAddOfficeTableComponent implements OnInit {
       this.visibility = "hidden"
     }
     
+  }
+
+  onSubmit() {
+
   }
 
 }

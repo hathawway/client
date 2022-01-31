@@ -3,7 +3,7 @@ export interface User {
     password: string
 }
 
-export interface Book_role {
+export interface BookRole {
     id?: string,
     name: string
 }
@@ -14,12 +14,17 @@ export interface Roles {
     role: string
 }
 
-export interface Office {
+export interface BookOffice {
+    id: string,
+    name: string
+}
+
+export interface BookPost {
     id?: string,
     name: string
 }
 
-export interface Post {
-    id?: string,
-    name: string
+export interface Message {
+    error: any;
+    message: string
 }

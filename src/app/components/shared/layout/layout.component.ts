@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalRoleComponent } from '../modal-role/modal-role.component';
 import { Router } from '@angular/router';
-import { Auth } from './../../../services/auth';
+import { Auth } from '../../../services/auth';
 import { Roles } from 'src/app/interfaces/interfaces';
 import { User } from 'src/app/interfaces/interfaces';
 import { Observable } from 'rxjs';
@@ -23,8 +23,8 @@ export class LayoutComponent implements OnInit {
 
   ngOnInit(): void {
     //this.roles$ = this.auth.getUserRole()
-    this.users$ = this.auth.getUser()
-    console.log(this.auth.getUser())
+    //this.users$ = this.auth.getUser()
+    //console.log(this.auth.getUser())
   }
  
   openMenu(e) {

@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Auth } from './../../services/auth';
+import { Auth } from '../../services/auth';
 import {MaterialService} from './../../classes/material.service';
 // @ts-ignore
 import * as forge from 'node-forge';
@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           // @ts-ignore
           this.form.value.password = window.btoa(rsaKey.encrypt(this.form.value.password));
           this.auth.login(this.form.value).subscribe(
-            () => this.router.navigate(['/dashboard']),
+            () => this.router.navigate(['/dashboard/admin/']),
             error => {
               MaterialService.toast(error.error.message)
               this.form.enable()

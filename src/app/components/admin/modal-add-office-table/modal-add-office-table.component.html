@@ -2,8 +2,16 @@
 <ng-content select=".items"></ng-content>
 
 <p class="title">Структурное подразделение</p>
-<form class="items">
-    <input class="form-control me-2" type="text" [(ngModel)]="name" name="name" placeholder="Структурное подразделение" aria-label="Структурное подразделение">
+<form class="items" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <input class="form-control me-2" 
+    formControlName="name"
+    id="name"
+    type="text" 
+    [(ngModel)]="name" 
+    placeholder="Структурное подразделение" 
+    aria-label="Структурное подразделение">
+
     <button class="btn btn-primary" type="submit" (click)="save()">Сохранить</button>
     <button class="btn btn-primary" type="button" (click)="close()">Закрыть</button>
 </form>   

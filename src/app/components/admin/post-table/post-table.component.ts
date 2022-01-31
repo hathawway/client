@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Post } from 'src/app/interfaces/interfaces';
+import { BookPost } from 'src/app/interfaces/interfaces';
 import { PostService } from 'src/app/services/post.service';
 import { ModalAddPostTableComponent } from '../modal-add-post-table/modal-add-post-table.component';
 
@@ -14,7 +14,7 @@ export class PostTableComponent implements OnInit {
 
   @ViewChild(ModalAddPostTableComponent) menu:ModalAddPostTableComponent 
  
-  posts$: Observable<Post[]> | undefined
+  posts$: Observable<BookPost[]> | undefined
 
   constructor(private postService: PostService) { }
   

@@ -1,4 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Observable } from 'rxjs';
+import { User } from 'src/app/interfaces/interfaces';
+import { Auth } from 'src/app/services/auth';
 import { ModalAddUserComponent } from '../modal-add-user/modal-add-user.component';
 import { ModalSurveyUserComponent } from '../modal-survey-user/modal-survey-user.component';
 
@@ -13,6 +16,10 @@ export class UserTableComponent implements OnInit {
  
   @ViewChild(ModalAddUserComponent) menu:ModalAddUserComponent 
   @ViewChild(ModalSurveyUserComponent) table:ModalSurveyUserComponent 
+
+  users$: Observable<User[]> | undefined
+
+  constructor(private authService: Auth) { }
  
   openMenu(e) {
     this.menu.open(e)
@@ -23,7 +30,7 @@ export class UserTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    this.users$ = this.authService.getUserAll()
   }
 
 }

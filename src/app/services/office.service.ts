@@ -2,9 +2,11 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment.prod";
-import { Office } from "../interfaces/interfaces";
+import { BookOffice, Message } from "../interfaces/interfaces";
 
-@Injectable()
+@Injectable({
+    providedIn:'root'
+})
 
 export class OfficeService {
 
@@ -20,24 +22,28 @@ export class OfficeService {
             }
         }
 
-        addOffice(office: Office) {
-            return this.http.get<Office>(`${environment.api}/api/office/office/`)
+        addOffice(office: BookOffice) {
+            return this.http.get<BookOffice>(`${environment.api}/api/office/office/`)
         }
 
 
-        updateOffice(office: Office) {
+        updateOffice(office: BookOffice) {
             //return this.http.patch<Office>(`${environment.api}/api/office/:id`)
         }
 
-        deleteOffice(office: Office) {
-            //return this.http.delete<Office>(`${environment.api}/api/office/:id`)
+        deleteOffice(id:string):Observable<Message> {
+            return this.http.delete<Message>(`${environment.api}/api/office/${id}`)
         }
 
-        getOfficeOne(office: Office) {
+        getOfficeOne(office: BookOffice) {
             //return this.http.get<Office>(`${environment.api}/api/office/:id`)
         }
 
-        getOffice(): Observable<Office[]> {
-            return this.http.get<Office[]>(`${environment.api}/api/office/`)
+        getOffice(): Observable<BookOffice[]> {
+            return this.http.get<BookOffice[]>(`${environment.api}/api/office/`)
+        }
+
+        getOfficeById(id: string): Observable<BookOffice> {
+            return this.http.get<BookOffice>(`${environment.api}/api/office/${id}`)
         }
 }

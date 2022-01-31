@@ -53,8 +53,8 @@ export class Auth {
     }*/
 
 
-    getUser(): Observable<User>{
-      return this.http.get<User>(`${environment.api}/api/user/get-user`)
+    getUserAll(): Observable<User[]>{
+      return this.http.get<User[]>(`${environment.api}/api/user/get-user-all/`)
     }
 
     getUserRole(): Observable<Roles>{
