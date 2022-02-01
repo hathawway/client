@@ -1,15 +1,16 @@
 export interface User {
+    id: string,
     login: string,
     password: string
 }
 
 export interface BookRole {
-    id?: string,
+    id: string,
     name: string
 }
 
 export interface Roles {
-    id?: string,
+    id: string,
     user: User,
     role: string
 }
@@ -20,7 +21,7 @@ export interface BookOffice {
 }
 
 export interface BookPost {
-    id?: string,
+    id: string,
     name: string
 }
 

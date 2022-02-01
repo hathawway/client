@@ -33,7 +33,8 @@ export class OfficeTableComponent implements OnInit {
     const decision = window.confirm("Удалить?")
     console.log(id)
     if (decision) {
-      this.officeService.deleteOffice(id).subscribe()
+      this.offices$ = this.officeService.deleteOffice(id)
+      
     }
   }
 

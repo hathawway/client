@@ -31,8 +31,8 @@ export class OfficeService {
             //return this.http.patch<Office>(`${environment.api}/api/office/:id`)
         }
 
-        deleteOffice(id:string):Observable<Message> {
-            return this.http.delete<Message>(`${environment.api}/api/office/${id}`)
+        deleteOffice(id:string):Observable<BookOffice[]> {
+            return this.http.delete<BookOffice[]>(`${environment.api}/api/office/${id}`)
         }
 
         getOfficeOne(office: BookOffice) {

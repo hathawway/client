@@ -33,4 +33,13 @@ export class UserTableComponent implements OnInit {
     this.users$ = this.authService.getUserAll()
   }
 
+  delete(id:string) {
+    const decision = window.confirm("Удалить?")
+    console.log(id)
+    if (decision) {
+      this.users$ = this.authService.deleteUser(id)
+      
+    }
+  }
+
 }

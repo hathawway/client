@@ -30,10 +30,8 @@ export class PostService {
             //return this.http.patch<Post>(`${environment.api}/api/post/:id`)
         }
 
-        deletePost(id: number | string) {
-            /*return this.http.delete(`${environment.api}/api/post/:id`, {
-                params: new HttpParams().set(`id`, id)
-            })*/
+        deletePost(id:string):Observable<BookPost[]> {
+            return this.http.delete<BookPost[]>(`${environment.api}/api/post/${id}`)
         }
 
         getPostOne(id: number | string) {

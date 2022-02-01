@@ -57,9 +57,13 @@ export class Auth {
       return this.http.get<User[]>(`${environment.api}/api/user/get-user-all/`)
     }
 
-    getUserRole(): Observable<Roles>{
+    /*getUserRole(): Observable<Roles>{
       return this.http.get<Roles>(`${environment.api}/api/user/get-user-role`)
-    }
+    }*/
+
+    deleteUser(id:string):Observable<User[]> {
+      return this.http.delete<User[]>(`${environment.api}/api/user/${id}`)
+  }
 
     setToken(token: string): void {
         this.token = token;

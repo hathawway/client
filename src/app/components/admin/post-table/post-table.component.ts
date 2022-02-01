@@ -26,8 +26,13 @@ export class PostTableComponent implements OnInit {
     this.posts$ = this.postService.getPost()
   }
 
-  delete() {
-    
+  delete(id:string) {
+    const decision = window.confirm("Удалить?")
+    console.log(id)
+    if (decision) {
+      this.posts$ = this.postService.deletePost(id)
+      
+    }
   }
 
 
