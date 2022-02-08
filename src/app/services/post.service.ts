@@ -22,25 +22,23 @@ export class PostService {
             }
         }
 
-        addPost(post: BookPost) {
-            //return this.http.post<Post>(`${environment.api}/api/post/`)
+        addPost(post: BookPost): Observable<BookPost[]> {
+            return this.http.post<BookPost[]>(`${environment.api}/api/post/`, post)
         }
 
-        updatePost(post: BookPost) {
-            //return this.http.patch<Post>(`${environment.api}/api/post/:id`)
+        updatePost(post: BookPost): Observable<BookPost[]> {
+            return this.http.patch<BookPost[]>(`${environment.api}/api/post/${post.id}`, post)
         }
 
-        deletePost(id:string):Observable<BookPost[]> {
-            return this.http.delete<BookPost[]>(`${environment.api}/api/post/${id}`)
-        }
-
-        getPostOne(id: number | string) {
-            /*return this.http.get<Post[]>(`${environment.api}/api/post/:id`, {
-                params: new HttpParams().set('id', id)
-            })*/
+        deletePost(post: BookPost):Observable<BookPost[]> {
+            return this.http.delete<BookPost[]>(`${environment.api}/api/post/${post.id}`)
         }
 
         getPost(): Observable<BookPost[]> {
-            return this.http.get<BookPost[]>(`${environment.api}/api/post/`)
+            return this.http.get<BookPost[]>(`${environment.api}/api/post`)
+        }
+
+        getPostById(post: BookPost): Observable<BookPost> {
+            return this.http.get<BookPost>(`${environment.api}/api/post/${post.id}`)
         }
 }

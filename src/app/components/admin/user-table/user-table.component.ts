@@ -30,14 +30,14 @@ export class UserTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.users$ = this.authService.getUserAll()
+    this.users$ = this.authService.getUser()
   }
 
-  delete(id:string) {
+  delete(user:User) {
     const decision = window.confirm("Удалить?")
-    console.log(id)
+    console.log(user.id)
     if (decision) {
-      this.users$ = this.authService.deleteUser(id)
+      this.users$ = this.authService.deleteUser(user)
       
     }
   }

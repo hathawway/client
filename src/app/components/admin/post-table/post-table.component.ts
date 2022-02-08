@@ -26,11 +26,11 @@ export class PostTableComponent implements OnInit {
     this.posts$ = this.postService.getPost()
   }
 
-  delete(id:string) {
+  delete(post:BookPost) {
     const decision = window.confirm("Удалить?")
-    console.log(id)
+    console.log(post.id)
     if (decision) {
-      this.posts$ = this.postService.deletePost(id)
+      this.posts$ = this.postService.deletePost(post)
       
     }
   }

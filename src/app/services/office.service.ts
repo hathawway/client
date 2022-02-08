@@ -22,28 +22,23 @@ export class OfficeService {
             }
         }
 
-        addOffice(office: BookOffice) {
-            return this.http.get<BookOffice>(`${environment.api}/api/office/office/`)
+        addOffice(office: BookOffice): Observable<BookOffice[]> {
+            return this.http.post<BookOffice[]>(`${environment.api}/api/office/`, office)
         }
 
-
-        updateOffice(office: BookOffice) {
-            //return this.http.patch<Office>(`${environment.api}/api/office/:id`)
+        updateOffice(office: BookOffice): Observable<BookOffice[]> {
+            return this.http.patch<BookOffice[]>(`${environment.api}/api/office/${office.id}`, office)
         }
 
-        deleteOffice(id:string):Observable<BookOffice[]> {
-            return this.http.delete<BookOffice[]>(`${environment.api}/api/office/${id}`)
-        }
-
-        getOfficeOne(office: BookOffice) {
-            //return this.http.get<Office>(`${environment.api}/api/office/:id`)
+        deleteOffice(office: BookOffice):Observable<BookOffice[]> {
+            return this.http.delete<BookOffice[]>(`${environment.api}/api/office/${office.id}`)
         }
 
         getOffice(): Observable<BookOffice[]> {
             return this.http.get<BookOffice[]>(`${environment.api}/api/office/`)
         }
 
-        getOfficeById(id: string): Observable<BookOffice> {
-            return this.http.get<BookOffice>(`${environment.api}/api/office/${id}`)
+        getOfficeById(office: BookOffice): Observable<BookOffice> {
+            return this.http.get<BookOffice>(`${environment.api}/api/office/${office.id}`)
         }
 }

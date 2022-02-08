@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { of, switchMap } from 'rxjs';
 import { MaterialService } from 'src/app/classes/material.service';
+import { BookOffice } from 'src/app/interfaces/interfaces';
 import { OfficeService } from 'src/app/services/office.service';
 
 @Component({
@@ -25,7 +26,7 @@ export class ModalAddOfficeTableComponent implements OnInit {
 
   }
 
-  open(e:MouseEvent) {
+  open(e:MouseEvent, office:BookOffice) {
 
  
     this.visibility = "visible"
@@ -34,7 +35,7 @@ export class ModalAddOfficeTableComponent implements OnInit {
       name: new FormControl(null, Validators.required)
     })
 
-    this.route.params.pipe(switchMap( (params: Params) => {
+    /*this.route.params.pipe(switchMap( (params: Params) => {
         if (params['id']) {
           return this.officeService.getOfficeById(params['id'])
         }

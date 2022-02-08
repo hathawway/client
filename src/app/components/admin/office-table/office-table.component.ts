@@ -20,21 +20,19 @@ export class OfficeTableComponent implements OnInit {
   constructor(private officeService: OfficeService,
     private router: Router) { }
 
-  openMenu(e) {
-    this.menu.open(e)
+  openMenu(e, office:BookOffice) {
+    this.menu.open(e, office)
   }
 
   ngOnInit(): void {
     this.offices$ = this.officeService.getOffice()
   }
 
-
-  delete(id:string) {
+  delete(office:BookOffice) {
     const decision = window.confirm("Удалить?")
-    console.log(id)
+    console.log(office.id)
     if (decision) {
-      this.offices$ = this.officeService.deleteOffice(id)
-      
+      this.offices$ = this.officeService.deleteOffice(office)      
     }
   }
 

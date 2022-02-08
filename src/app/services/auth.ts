@@ -50,20 +50,7 @@ export class Auth {
             }
           )
         );
-    }*/
-
-
-    getUserAll(): Observable<User[]>{
-      return this.http.get<User[]>(`${environment.api}/api/user/get-user-all/`)
-    }
-
-    /*getUserRole(): Observable<Roles>{
-      return this.http.get<Roles>(`${environment.api}/api/user/get-user-role`)
-    }*/
-
-    deleteUser(id:string):Observable<User[]> {
-      return this.http.delete<User[]>(`${environment.api}/api/user/${id}`)
-  }
+    }*/    
 
     setToken(token: string): void {
         this.token = token;
@@ -82,7 +69,22 @@ export class Auth {
         localStorage.clear()
     }
 
-    
 
+    updateUser(user: User): Observable<User[]> {
+        //недоделан
+        return this.http.patch<User[]>(`${environment.api}/api/user/${user.id}`, user)
+    }
 
+    deleteUser(user: User):Observable<User[]> {
+        return this.http.delete<User[]>(`${environment.api}/api/user/${user.id}`)
+    }
+
+    getUser(): Observable<User[]> {
+        return this.http.get<User[]>(`${environment.api}/api/user/get-user-all`)
+    }
+
+    getUserById(user: User): Observable<User> {
+        return this.http.get<User>(`${environment.api}/api/user/get-user-one/${user.id}`)
+    }
+   
 }
