@@ -2,17 +2,18 @@
 <ng-content select=".items"></ng-content>
 
 <p class="title">Структурное подразделение</p>
-<form class="items">
+<form class="items" *ngIf="postForm" [formGroup]="postForm" (ngSubmit)="onSubmit()">
 
     <input class="form-control me-2" 
-    
-    id="name"
     type="text" 
-     
+    name="name" 
+    formControlName="name"
+    
     placeholder="Структурное подразделение" 
     aria-label="Структурное подразделение">
 
-    <button class="btn btn-primary" type="submit" (click)="save()">Сохранить</button>
+    
+    <button class="btn btn-primary" type="submit">Сохранить</button>
     <button class="btn btn-primary" type="button" (click)="close()">Закрыть</button>
 </form>   
       
