@@ -22,16 +22,16 @@ export class RoleService {
             }
         }
 
-        addRole(role: BookRole): Observable<BookRole[]> {
-            return this.http.post<BookRole[]>(`${environment.api}/api/role/`, role)
+        addRole(role: BookRole): Observable<BookRole> {
+            return this.http.post<BookRole>(`${environment.api}/api/role/`, role)
         }
 
-        updateRole(role: BookRole): Observable<BookRole[]> {
-            return this.http.patch<BookRole[]>(`${environment.api}/api/role/${role.id}`, role)
+        updateRole(role: BookRole): Observable<BookRole> {
+            return this.http.patch<BookRole>(`${environment.api}/api/role/${role.id}`, role)
         }
 
-        deleteRole(role: BookRole):Observable<BookRole[]> {
-            return this.http.delete<BookRole[]>(`${environment.api}/api/role/${role.id}`)
+        deleteRole(role: BookRole):Observable<BookRole> {
+            return this.http.delete<BookRole>(`${environment.api}/api/role/${role.id}`)
         }
 
         getRole(): Observable<BookRole[]> {

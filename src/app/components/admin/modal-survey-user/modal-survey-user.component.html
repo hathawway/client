@@ -3,20 +3,23 @@
 
 
 <p class="title">Пользователь</p>
-<div class="items">
-    <input class="form-control me-2 mb-2" type="text" placeholder="Логин" aria-label="Логин" disabled>
-    <input class="form-control me-2 mb-2" type="password" placeholder="Пароль" aria-label="Пароль" disabled>
-    <input class="form-control me-2 mb-2" type="text" placeholder="Фамилия" aria-label="Фамилия" disabled>
-    <input class="form-control me-2 mb-2" type="text" placeholder="Имя" aria-label="Имя" disabled>
-    <input class="form-control me-2 mb-2" type="text" placeholder="Отчество" aria-label="Отчество" disabled>
-    <input class="form-control me-2 mb-2" type="text" placeholder="Роль в системе" aria-label="Роль в системе" disabled>
-    <input class="form-control me-2 mb-2" type="text" placeholder="Структурное подразделение" aria-label="Структурное подразделение" disabled>
-    <input class="form-control me-2 mb-2" type="text" placeholder="Должность" aria-label="Должность" disabled>
-    <input class="form-control me-2 mb-2" type="text" placeholder="Условие приема на работу" aria-label="Условие приема на работу" disabled>
-    <input class="form-control me-2 mb-2" type="text" placeholder="Статус" aria-label="Статус" disabled>
-    <input class="form-control me-2 mb-2" type="text" placeholder="Ученая степень" aria-label="Ученая степень" disabled>
-    <input class="form-control me-2 mb-2" type="text" placeholder="Ученое звание" aria-label="Ученое звание" disabled>
-    <input class="form-control me-2 mb-2" type="tel" placeholder="Телефон" aria-label="Телефон" disabled>
-    <input class="form-control me-2 mb-2" type="email" placeholder="Email" aria-label="Email" disabled>
+<div class="items" *ngIf="user$ | async as user">
+    <input class="form-control me-2 mb-2" type="text" [value]="{{user.login}}" placeholder="Логин" aria-label="Логин" disabled>
+    <input class="form-control me-2 mb-2" type="password" name="password" formControlName="password" placeholder="Пароль" aria-label="Пароль" disabled>
+    <input class="form-control me-2 mb-2" type="text" name="secondName" formControlName="secondName" placeholder="Фамилия" aria-label="Фамилия" disabled>
+    <input class="form-control me-2 mb-2" type="text" name="firstName" formControlName="firstName" placeholder="Имя" aria-label="Имя" disabled>
+    <input class="form-control me-2 mb-2" type="text" name="thirdName" formControlName="thirdName" placeholder="Отчество" aria-label="Отчество" disabled>
+    <input class="form-control me-2 mb-2" type="text" name="role" formControlName="role" placeholder="Роль в системе" aria-label="Роль в системе" disabled>
+    <input class="form-control me-2 mb-2" type="text" name="office" formControlName="office" placeholder="Структурное подразделение" aria-label="Структурное подразделение" disabled>
+    <input class="form-control me-2 mb-2" type="text" name="post" formControlName="post" placeholder="Должность" aria-label="Должность" disabled>
+    <input class="form-control me-2 mb-2" type="text" name="work" formControlName="work" placeholder="Условие приема на работу" aria-label="Условие приема на работу" disabled>
+    <input class="form-control me-2 mb-2" type="text" name="status" formControlName="status" placeholder="Статус" aria-label="Статус" disabled>
+    <input class="form-control me-2 mb-2" type="text" name="stepen" formControlName="stepen" placeholder="Ученая степень" aria-label="Ученая степень" disabled>
+    <input class="form-control me-2 mb-2" type="text" name="zvanie" formControlName="zvanie" placeholder="Ученое звание" aria-label="Ученое звание" disabled>
+    <input class="form-control me-2 mb-2" type="tel" name="tel" formControlName="tel" placeholder="Телефон" aria-label="Телефон" disabled>
+    <input class="form-control me-2 mb-2" type="email" name="email" placeholder="Email" aria-label="Email" disabled>
     <button class="btn btn-primary" type="button" (click)="close()">Закрыть</button>
 </div>   
+
+
+    

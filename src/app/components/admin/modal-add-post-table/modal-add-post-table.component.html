@@ -3,8 +3,15 @@
 
 
 <p class="title">Должность</p>
-<form class="items">
-  <input class="form-control me-2" type="text" [(ngModel)]="name" name="name" placeholder="Должности" aria-label="Должности">
-  <button class="btn btn-primary" type="submit" (click)="save()">Сохранить</button>
+<form class="items" *ngIf="postForm" [formGroup]="postForm" (ngSubmit)="onSubmit()">
+
+    <input class="form-control me-2" 
+  type="text" 
+  name="name" 
+  formControlName="name"
+  placeholder="Должности"
+  aria-label="Должности">
+
+  <button class="btn btn-primary" type="submit">Сохранить</button>
   <button class="btn btn-primary" type="button" (click)="close()">Закрыть</button>
 </form>   

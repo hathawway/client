@@ -3,7 +3,7 @@
 
 
 <p class="title">Пользователь</p>
-<form class="items">
+<form class="items" *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
     <input class="form-control me-2 mb-2" type="text" placeholder="Логин" aria-label="Логин">
     <input class="form-control me-2 mb-2" type="password" placeholder="Пароль" aria-label="Пароль">
     <input class="form-control me-2 mb-2" type="text" placeholder="Фамилия" aria-label="Фамилия">
@@ -43,6 +43,6 @@
     </select>
     <input class="form-control me-2 mb-2" type="tel" placeholder="Телефон" aria-label="Телефон">
     <input class="form-control me-2 mb-2" type="email" placeholder="Email" aria-label="Email">
-    <button class="btn btn-primary" type="submit" (click)="save()">Сохранить</button>
+    <button class="btn btn-primary" type="submit">Сохранить</button>
     <button class="btn btn-primary" type="button" (click)="close()">Закрыть</button>
 </form>   

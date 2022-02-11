@@ -69,14 +69,13 @@ export class Auth {
         localStorage.clear()
     }
 
-
-    updateUser(user: User): Observable<User[]> {
-        //недоделан
-        return this.http.patch<User[]>(`${environment.api}/api/user/${user.id}`, user)
+    // на бэке метода такого нет
+    updateUser(user: User): Observable<User> {
+        return this.http.patch<User>(`${environment.api}/api/user/${user.id}`, user)
     }
 
-    deleteUser(user: User):Observable<User[]> {
-        return this.http.delete<User[]>(`${environment.api}/api/user/${user.id}`)
+    deleteUser(user: User):Observable<User> {
+        return this.http.delete<User>(`${environment.api}/api/user/${user.id}`)
     }
 
     getUser(): Observable<User[]> {

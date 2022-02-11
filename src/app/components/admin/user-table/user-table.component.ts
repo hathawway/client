@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { MaterialService } from 'src/app/classes/material.service';
 import { User } from 'src/app/interfaces/interfaces';
 import { Auth } from 'src/app/services/auth';
 import { ModalAddUserComponent } from '../modal-add-user/modal-add-user.component';
@@ -19,14 +21,19 @@ export class UserTableComponent implements OnInit {
 
   users$: Observable<User[]> | undefined
 
-  constructor(private authService: Auth) { }
+  constructor(private authService: Auth,
+    private router: Router) { }
  
-  openMenu(e) {
-    this.menu.open(e)
+  openMenuAdd(e) {
+    this.menu.openAdd(e)
   }
 
-  openTable(e) {
-    this.table.open(e)
+  openMenuEdit(e, user:User) {
+    this.menu.openEdit(e, user)
+  }
+
+  openMenuSurvey(e, user:User) {
+    this.table.openSurvey(e, user)
   }
 
   ngOnInit(): void {
@@ -35,10 +42,14 @@ export class UserTableComponent implements OnInit {
 
   delete(user:User) {
     const decision = window.confirm("Удалить?")
-    console.log(user.id)
     if (decision) {
-      this.users$ = this.authService.deleteUser(user)
-      
+      this.authService.deleteUser(user).subscribe(
+        () => this.router.navigate(['/dashboard/admin/user/']),
+        error => {
+          MaterialService.toast(error.error.message)
+        }
+      )  
+      window.location.reload()    
     }
   }
 

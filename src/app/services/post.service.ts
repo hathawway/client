@@ -22,16 +22,16 @@ export class PostService {
             }
         }
 
-        addPost(post: BookPost): Observable<BookPost[]> {
-            return this.http.post<BookPost[]>(`${environment.api}/api/post/`, post)
+        addPost(post: BookPost): Observable<BookPost> {
+            return this.http.post<BookPost>(`${environment.api}/api/post/`, post)
         }
 
-        updatePost(post: BookPost): Observable<BookPost[]> {
-            return this.http.patch<BookPost[]>(`${environment.api}/api/post/${post.id}`, post)
+        updatePost(post: BookPost): Observable<BookPost> {
+            return this.http.patch<BookPost>(`${environment.api}/api/post/${post.id}`, post)
         }
 
-        deletePost(post: BookPost):Observable<BookPost[]> {
-            return this.http.delete<BookPost[]>(`${environment.api}/api/post/${post.id}`)
+        deletePost(post: BookPost):Observable<BookPost> {
+            return this.http.delete<BookPost>(`${environment.api}/api/post/${post.id}`)
         }
 
         getPost(): Observable<BookPost[]> {

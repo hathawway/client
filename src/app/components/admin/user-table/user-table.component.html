@@ -5,7 +5,7 @@
             <button class="btn btn-primary" type="submit">Поиск</button>
         </form>
         <div class="btn-group">
-          <button class="btn btn-sm btn-outline-secondary ms-2" type="button" (click)="openMenu($event)">Добавить</button>
+          <button class="btn btn-sm btn-outline-secondary ms-2" type="button" (click)="openMenuAdd($event)">Добавить</button>
         </div>
         
     </div>
@@ -34,8 +34,8 @@
       <th scope="row">{{i+1}}</th>
       <td>{{user.login}}</td>
       <td>{{user.password}}</td>
-      <td class="td" (click)="openTable($event)"><img src="https://img.icons8.com/ios-glyphs/24/000000/fine-print--v1.png"/></td>
-      <td class="td" (click)="openMenu($event)"><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
+      <td class="td" (click)="openMenuSurvey($event, user)"><img src="https://img.icons8.com/ios-glyphs/24/000000/fine-print--v1.png"/></td>
+      <td class="td" (click)="openMenuEdit($event, user)"><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
       <td class="td" (click)="delete(user)"><img src="https://img.icons8.com/ios-filled/24/000000/delete--v1.png"/></td>
   </tr>
 </tbody>

@@ -1,7 +1,20 @@
 export interface User {
     id: string,
     login: string,
-    password: string
+    password: string,
+    first: string,
+    second: string,
+    third: string,
+    role: string,
+    office: string,
+    post: string,
+    work: string,
+    status: string,
+    stepen: string,
+    zvanie: string,
+    tel: string,
+    email:string
+
 }
 
 export interface BookRole {
