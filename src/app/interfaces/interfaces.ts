@@ -5,13 +5,12 @@ export interface User {
     first: string,
     second: string,
     third: string,
-    role: string,
-    office: string,
-    post: string,
-    work: string,
-    status: string,
-    stepen: string,
-    zvanie: string,
+    office: BookOffice,
+    post: BookPost,
+    work: BookWork,
+    status: BookStatus,
+    stepen: BookStepen,
+    zvanie: BookZvanie,
     tel: string,
     email:string
 
@@ -35,6 +34,26 @@ export interface BookOffice {
 }
 
 export interface BookPost {
+    id: string,
+    name: string
+}
+
+export interface BookWork {
+    id: string,
+    name: string
+}
+
+export interface BookStatus {
+    id: string,
+    name: string
+}
+
+export interface BookZvanie {
+    id: string,
+    name: string
+}
+
+export interface BookStepen {
     id: string,
     name: string
 }

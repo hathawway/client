@@ -1,6 +1,9 @@
 import { Component, OnInit, HostBinding, HostListener, Input  } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MaterialService } from 'src/app/classes/material.service';
 import { User } from 'src/app/interfaces/interfaces';
+import { Auth } from 'src/app/services/auth';
 
 @Component({
   selector: 'app-modal-add-user',
@@ -15,7 +18,9 @@ export class ModalAddUserComponent implements OnInit {
   form!: FormGroup;
   flag = false;
  
-  constructor() { }
+  constructor(private authService : Auth,
+    private router: Router,
+    private route: ActivatedRoute) { }
  
   ngOnInit(): void {
 
@@ -55,7 +60,7 @@ export class ModalAddUserComponent implements OnInit {
       secondName: new FormControl(user.second, Validators.required),
       firstName: new FormControl(user.first, Validators.required),
       thirdName: new FormControl(user.third, Validators.required),
-      role: new FormControl(user.role, Validators.required),
+      role: new FormControl(null, Validators.required),
       office: new FormControl(user.office, Validators.required),
       post: new FormControl(user.post, Validators.required),
       work: new FormControl(user.work, Validators.required),
@@ -74,19 +79,19 @@ export class ModalAddUserComponent implements OnInit {
   }
 
   onSubmit() {
-    /*this.form.disable()
+    this.form.disable()
     if (this.flag) {
-      this.officeService.addOffice(this.postForm.value).subscribe(
-        () => this.router.navigate(['/dashboard/admin/office/']),
+      this.authService.register(this.form.value).subscribe(
+        () => this.router.navigate(['/dashboard/admin/user/']),
         error => {
           MaterialService.toast(error.error.message)
-          this.postForm.enable()
+          this.form.enable()
         }
       )
     }
     else {
-      this.officeService.updateOffice(this.postForm.value).subscribe(
-        () => this.router.navigate(['/dashboard/admin/office/']),
+      this.authService.updateUser(this.form.value).subscribe(
+        () => this.router.navigate(['/dashboard/admin/user/']),
         error => {
           MaterialService.toast(error.error.message)
           this.form.enable()
@@ -94,7 +99,7 @@ export class ModalAddUserComponent implements OnInit {
       )
     }            
     this.visibility = "hidden"
-    window.location.reload()*/
+    window.location.reload()
     
   }
 

@@ -2,7 +2,7 @@ import { Component, OnInit, HostBinding, HostListener, Input  } from '@angular/c
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { User } from 'src/app/interfaces/interfaces';
+import { BookOffice, User, BookPost } from 'src/app/interfaces/interfaces';
 import { Auth } from 'src/app/services/auth';
 
 @Component({
@@ -16,7 +16,7 @@ export class ModalSurveyUserComponent implements OnInit {
   @Input() @HostBinding("style.width") width = "600px"
 
   form!: FormGroup;
-  user$ : Observable<User> | undefined;
+  users$ : Observable<User> | undefined;
  
   constructor(private authService: Auth,
     private router: Router) { }
@@ -28,7 +28,8 @@ export class ModalSurveyUserComponent implements OnInit {
   openSurvey(e:MouseEvent, user: User) {
  
     this.visibility = "visible"
-    this.user$ = this.authService.getUserById(user)
+    this.users$ = this.authService.getUserById(user)
+    console.log(user)
     e.stopPropagation()  
   }
  
