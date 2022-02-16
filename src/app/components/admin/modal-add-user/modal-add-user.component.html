@@ -4,11 +4,11 @@
 
 <p class="title">Пользователь</p>
 <form class="items" *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
-    <input class="form-control me-2 mb-2" type="text" placeholder="Логин" aria-label="Логин">
-    <input class="form-control me-2 mb-2" type="password" placeholder="Пароль" aria-label="Пароль">
-    <input class="form-control me-2 mb-2" type="text" placeholder="Фамилия" aria-label="Фамилия">
-    <input class="form-control me-2 mb-2" type="text" placeholder="Имя" aria-label="Имя">
-    <input class="form-control me-2 mb-2" type="text" placeholder="Отчество" aria-label="Отчество">
+    <input class="form-control me-2 mb-2" type="text" autocomplete="off" placeholder="Логин" aria-label="Логин">
+    <input class="form-control me-2 mb-2" type="password" autocomplete="off" placeholder="Пароль" aria-label="Пароль">
+    <input class="form-control me-2 mb-2" type="text" autocomplete="off" placeholder="Фамилия" aria-label="Фамилия">
+    <input class="form-control me-2 mb-2" type="text" autocomplete="off" placeholder="Имя" aria-label="Имя">
+    <input class="form-control me-2 mb-2" type="text" autocomplete="off" placeholder="Отчество" aria-label="Отчество">
     <select class="form-select mb-2" aria-label="Роль в системе">
         <option selected>Роль в системе</option>
         <option type="text" value="1">Администратор</option>
@@ -41,8 +41,8 @@
         <option selected>Ученое звание</option>
         <option type="text" value="1">А</option>
     </select>
-    <input class="form-control me-2 mb-2" type="tel" placeholder="Телефон" aria-label="Телефон">
-    <input class="form-control me-2 mb-2" type="email" placeholder="Email" aria-label="Email">
+    <input class="form-control me-2 mb-2" type="tel" autocomplete="off" placeholder="Телефон" aria-label="Телефон">
+    <input class="form-control me-2 mb-2" type="email" autocomplete="off" placeholder="Email" aria-label="Email">
     <button class="btn btn-primary" type="submit">Сохранить</button>
     <button class="btn btn-primary" type="button" (click)="close()">Закрыть</button>
 </form>   
