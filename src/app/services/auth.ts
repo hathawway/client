@@ -1,8 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { User } from "../interfaces/interfaces";
-import { Roles } from "../interfaces/interfaces";
-import { BehaviorSubject, Observable } from "rxjs";
+import { Observable } from "rxjs";
 import { tap, map } from 'rxjs/operators';
 
 import {environment} from "src/environments/environment.prod";

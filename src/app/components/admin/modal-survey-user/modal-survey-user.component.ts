@@ -29,7 +29,6 @@ export class ModalSurveyUserComponent implements OnInit {
  
     this.visibility = "visible"
     this.users$ = this.authService.getUserById(user)
-    console.log(user)
     e.stopPropagation()  
   }
  

@@ -2,8 +2,16 @@ import { Component, OnInit, HostBinding, HostListener, Input  } from '@angular/c
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MaterialService } from 'src/app/classes/material.service';
-import { User } from 'src/app/interfaces/interfaces';
+import { User, BookOffice, BookPost, BookWork, BookRole, BookStepen, BookZvanie, BookStatus } from 'src/app/interfaces/interfaces';
 import { Auth } from 'src/app/services/auth';
+import { Observable } from 'rxjs';
+import { OfficeService } from 'src/app/services/office.service';
+import { PostService } from 'src/app/services/post.service';
+import { RoleService } from 'src/app/services/role.service';
+import { StatusService } from './../../../services/status.service';
+import { WorkService } from 'src/app/services/work.service';
+import { StepenService } from 'src/app/services/stepen.service';
+import { ZvanieService } from 'src/app/services/zvanie.service';
 
 @Component({
   selector: 'app-modal-add-user',
@@ -17,13 +25,33 @@ export class ModalAddUserComponent implements OnInit {
 
   form!: FormGroup;
   flag = false;
+  offices$: Observable<BookOffice[]> | undefined;
+  posts$: Observable<BookPost[]> | undefined;
+  works$: Observable<BookWork[]> | undefined;
+  roles$: Observable<BookRole[]> | undefined;
+  statuses$: Observable<BookStatus[]> | undefined;
+  stepens$: Observable<BookStepen[]> | undefined;
+  zvanies$: Observable<BookZvanie[]> | undefined;
  
   constructor(private authService : Auth,
+    private officeService: OfficeService,
+    private postService: PostService,
+    private roleService: RoleService,
+    private workService: WorkService,
+    private statusService: StatusService,
+    private stepenService: StepenService,
+    private zvanieService: ZvanieService,
     private router: Router,
     private route: ActivatedRoute) { }
  
   ngOnInit(): void {
-
+    this.offices$ = this.officeService.getOffice()
+    this.posts$ = this.postService.getPost()
+    this.works$ = this.workService.getWork()
+    this.roles$ = this.roleService.getRole()
+    this.statuses$ = this.statusService.getStatus()
+    this.stepens$ = this.stepenService.getStepen()
+    this.zvanies$ = this.zvanieService.getZvanie()
   }
 
   openAdd(e:MouseEvent) {
@@ -33,16 +61,16 @@ export class ModalAddUserComponent implements OnInit {
       id: new FormControl(null, Validators.required),
       login: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
-      secondName: new FormControl(null, Validators.required),
-      firstName: new FormControl(null, Validators.required),
-      thirdName: new FormControl(null, Validators.required),
-      role: new FormControl(null, Validators.required),
-      office: new FormControl(null, Validators.required),
-      post: new FormControl(null, Validators.required),
-      work: new FormControl(null, Validators.required),
-      status: new FormControl(null, Validators.required),
-      stepen: new FormControl(null, Validators.required),
-      zvanie: new FormControl(null, Validators.required),
+      second: new FormControl(null, Validators.required),
+      first: new FormControl(null, Validators.required),
+      third: new FormControl(null, Validators.required),
+      book_role: new FormControl(null, Validators.required),
+      book_office: new FormControl(null, Validators.required),
+      book_post: new FormControl(null, Validators.required),
+      book_work: new FormControl(null, Validators.required),
+      book_status: new FormControl(null, Validators.required),
+      book_stepen: new FormControl(null, Validators.required),
+      book_zvanie: new FormControl(null, Validators.required),
       tel: new FormControl(null, Validators.required),
       email: new FormControl(null, Validators.required)
     })
@@ -57,16 +85,16 @@ export class ModalAddUserComponent implements OnInit {
       id: new FormControl(user.id, Validators.required),
       login: new FormControl(user.login, Validators.required),
       password: new FormControl(user.password, Validators.required),
-      secondName: new FormControl(user.second, Validators.required),
-      firstName: new FormControl(user.first, Validators.required),
-      thirdName: new FormControl(user.third, Validators.required),
-      role: new FormControl(null, Validators.required),
-      office: new FormControl(user.office, Validators.required),
-      post: new FormControl(user.post, Validators.required),
-      work: new FormControl(user.work, Validators.required),
-      status: new FormControl(user.status, Validators.required),
-      stepen: new FormControl(user.stepen, Validators.required),
-      zvanie: new FormControl(user.zvanie, Validators.required),
+      second: new FormControl(user.second, Validators.required),
+      first: new FormControl(user.first, Validators.required),
+      third: new FormControl(user.third, Validators.required),
+      book_role: new FormControl(user.book_role.name, Validators.required),
+      book_office: new FormControl(user.book_office.name, Validators.required),
+      book_post: new FormControl(user.book_post.name, Validators.required),
+      book_work: new FormControl(user.book_work.name, Validators.required),
+      book_status: new FormControl(user.book_status.name, Validators.required),
+      book_stepen: new FormControl(user.book_stepen.name, Validators.required),
+      book_zvanie: new FormControl(user.book_zvanie.name, Validators.required),
       tel: new FormControl(user.tel, Validators.required),
       email: new FormControl(user.email, Validators.required)
     })

@@ -26,7 +26,7 @@
 </thead>
 <tbody *ngIf="offices$ | async as offices" >
   <tr *ngFor="let office of offices; let i = index">
-    <th scope="row">{{i+1}}</th>
+    <th scope="row" >{{i+1}}</th>
     <td>{{office.name}}</td>
     <td class="td" (click)="openMenuEdit($event, office)"><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
     <td class="td" (click)="delete(office)"><img src="https://img.icons8.com/ios-filled/24/000000/delete--v1.png"/></td>

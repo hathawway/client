@@ -9,13 +9,13 @@
     <input class="form-control me-2 mb-2" type="text" value="{{users.second}}" placeholder="Фамилия" aria-label="Фамилия" disabled>
     <input class="form-control me-2 mb-2" type="text" value="{{users.first}}" placeholder="Имя" aria-label="Имя" disabled>
     <input class="form-control me-2 mb-2" type="text" value="{{users.third}}" placeholder="Отчество" aria-label="Отчество" disabled>
-    <input class="form-control me-2 mb-2" type="text" value="role" placeholder="Роль в системе" aria-label="Роль в системе" disabled>
-    <input class="form-control me-2 mb-2" type="text" value="{{users.office}}" placeholder="Структурное подразделение" aria-label="Структурное подразделение" disabled>
-    <input class="form-control me-2 mb-2" type="text" value="{{users.post}}" placeholder="Должность" aria-label="Должность" disabled>
-    <input class="form-control me-2 mb-2" type="text" value="{{users.work}}" placeholder="Условие приема на работу" aria-label="Условие приема на работу" disabled>
-    <input class="form-control me-2 mb-2" type="text" value="{{users.status}}" placeholder="Статус" aria-label="Статус" disabled>
-    <input class="form-control me-2 mb-2" type="text" value="{{users.stepen}}" placeholder="Ученая степень" aria-label="Ученая степень" disabled>
-    <input class="form-control me-2 mb-2" type="text" value="{{users.zvanie}}" placeholder="Ученое звание" aria-label="Ученое звание" disabled>
+    <input class="form-control me-2 mb-2" type="text" value="{{users.book_role.name}}" placeholder="Роль в системе" aria-label="Роль в системе" disabled>
+    <input class="form-control me-2 mb-2" type="text" value="{{users.book_office.name}}" placeholder="Структурное подразделение" aria-label="Структурное подразделение" disabled>
+    <input class="form-control me-2 mb-2" type="text" value="{{users.book_post.name}}" placeholder="Должность" aria-label="Должность" disabled>
+    <input class="form-control me-2 mb-2" type="text" value="{{users.book_work.name}}" placeholder="Условие приема на работу" aria-label="Условие приема на работу" disabled>
+    <input class="form-control me-2 mb-2" type="text" value="{{users.book_status.name}}" placeholder="Статус" aria-label="Статус" disabled>
+    <input class="form-control me-2 mb-2" type="text" value="{{users.book_stepen.name}}" placeholder="Ученая степень" aria-label="Ученая степень" disabled>
+    <input class="form-control me-2 mb-2" type="text" value="{{users.book_zvanie.name}}" placeholder="Ученое звание" aria-label="Ученое звание" disabled>
     <input class="form-control me-2 mb-2" type="tel" value="{{users.tel}}" placeholder="Телефон" aria-label="Телефон" disabled>
     <input class="form-control me-2 mb-2" type="email" value="{{users.email}}" aria-label="Email" disabled>
     <button class="btn btn-primary" type="button" (click)="close()">Закрыть</button>

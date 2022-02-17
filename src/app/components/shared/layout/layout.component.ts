@@ -2,8 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalRoleComponent } from '../modal-role/modal-role.component';
 import { Router } from '@angular/router';
 import { Auth } from '../../../services/auth';
-import { Roles } from 'src/app/interfaces/interfaces';
-import { User } from 'src/app/interfaces/interfaces';
+import { BookRole, User } from 'src/app/interfaces/interfaces';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -17,7 +16,7 @@ export class LayoutComponent implements OnInit {
 
   users$: Observable<User> | undefined;
 
-  roles$: Observable<Roles> | undefined;
+  roles$: Observable<BookRole> | undefined;
 
   constructor(private auth: Auth, private router: Router) { }
 
