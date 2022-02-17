@@ -19,7 +19,8 @@ export class UserTableComponent implements OnInit {
   @ViewChild(ModalAddUserComponent) menu:ModalAddUserComponent 
   @ViewChild(ModalSurveyUserComponent) table:ModalSurveyUserComponent 
 
-  users$: Observable<User[]> | undefined
+  users$: Observable<User[]> | undefined;
+  term: string;
 
   constructor(private authService: Auth,
     private router: Router) { }

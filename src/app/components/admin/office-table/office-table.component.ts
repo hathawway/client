@@ -16,6 +16,7 @@ export class OfficeTableComponent implements OnInit {
   @ViewChild(ModalAddOfficeTableComponent) menu:ModalAddOfficeTableComponent 
  
   offices$: Observable<BookOffice[]> | undefined;
+  term: string;
 
   constructor(private officeService: OfficeService,
     private router: Router) { }
@@ -45,6 +46,5 @@ export class OfficeTableComponent implements OnInit {
       window.location.reload() 
     }
   }
-
 
 }

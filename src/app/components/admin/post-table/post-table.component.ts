@@ -16,7 +16,8 @@ export class PostTableComponent implements OnInit {
 
   @ViewChild(ModalAddPostTableComponent) menu:ModalAddPostTableComponent 
  
-  posts$: Observable<BookPost[]> | undefined
+  posts$: Observable<BookPost[]> | undefined;
+  term: string;
 
   constructor(private postService: PostService,
     private router: Router) { }

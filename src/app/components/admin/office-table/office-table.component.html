@@ -1,9 +1,8 @@
 <nav class="navbar">
     <div class="container-fluid">
-        <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск">
-            <button class="btn btn-primary" type="submit">Поиск</button>
-        </form>
+        <div class="d-flex">
+            <input class="form-control me-2" type="search" [(ngModel)]="term" placeholder="Поиск" aria-label="Поиск">
+        </div>
         <div class="btn-group">
         <button class="btn btn-sm btn-outline-secondary ms-2" type="button" (click)="openMenuAdd($event)">Добавить</button>         
         </div>       
@@ -25,7 +24,7 @@
   </tr>
 </thead>
 <tbody *ngIf="offices$ | async as offices" >
-  <tr *ngFor="let office of offices; let i = index">
+  <tr *ngFor="let office of offices | filter:term; let i = index">
     <th scope="row" >{{i+1}}</th>
     <td>{{office.name}}</td>
     <td class="td" (click)="openMenuEdit($event, office)"><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>

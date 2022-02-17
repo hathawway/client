@@ -39,9 +39,7 @@ const routes: Routes = [
   {path:'dashboard', component:LayoutComponent, canActivate: [AuthGuard], children:[
     {path:'admin', component:SidebarComponent, children:[
         {path: 'post', component:PostTableComponent},
-        //{path: 'post/:id', component:ModalAddPostTableComponent},
         {path: 'office', component:OfficeTableComponent},
-        //{path: 'office/:id', component:ModalAddOfficeTableComponent},
         {path: 'user', component:UserTableComponent}
     ]},
     {path:'umu', component:SidebarComponent, /*canActivateChild: [RoleGuard], data: { roles : ['ROLE_UMU'] }, */children:[
