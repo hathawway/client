@@ -1,21 +1,21 @@
-<form 
-[formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="container">
-        <img class="mb-4 img" src="/assets/images/1.png" alt="логотип агасу">
-        <h1 class="h3 mb-3 fw-normal">Индивидуальный план работы преподавателя</h1>
+<div class="container">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <img src="/assets/images/1.png" alt="логотип агасу">
+        <h1>Индивидуальный план работы преподавателя</h1>
+
         <div class="form-floating">
-            <input type="text" class="form-control" autocomplete="off" id="login" placeholder="login"  formControlName="login">
+            <input type="text" class="form-control mt-4" autocomplete="off" id="login" placeholder="login" formControlName="login">
             <label for="login">Логин</label>
         </div>
     
         <div class="form-floating">
-            <input type="password" class="form-control" autocomplete="off" id="password" placeholder="password" formControlName="password">
+            <input type="password" class="form-control mt-4" autocomplete="off" id="password" placeholder="password" formControlName="password">
             <label for="password">Пароль</label>
         </div>
     
-        <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="form.invalid || form.disabled">Войти</button>
-        <p class="mt-5 mb-3 text-muted">&copy; АГАСУ, 2022</p>
-    </div>
-    
+        <button type="submit" [disabled]="form.invalid || form.disabled">Войти</button>
 
-</form>
+        <p>&copy; АГАСУ, 2022</p>        
+    
+    </form>
+</div>

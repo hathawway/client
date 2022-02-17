@@ -1,12 +1,10 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-company-red">
-    <div class="container-fluid"> 
-        <a class="navbar-brand">ИС "Индивидуальный план ППС"</a>
-        <ul class="navbar-nav">
-            <p (click)="openMenu($event)">User name</p>
-            <button class="btn btn-primary my-2 my-sm-0" type="button" (click)="logout($event)">Выход</button>
-        </ul>
-    </div>
-</nav>
+<nav>    
+    <a>ИС "Индивидуальный план ППС"</a>
+    <div class="content"> 
+        <a (click)="openMenu($event)">User name</a>
+        <button type="button" type="button" (click)="logout($event)">Выход</button>
+    </div>       
+</nav>  
 
 <app-modal-role></app-modal-role>
 
