@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           // @ts-ignore
           this.form.value.password = window.btoa(rsaKey.encrypt(this.form.value.password));
           this.auth.login(this.form.value).subscribe(
-            () => this.router.navigate(['/dashboard/admin/']),
+            () => this.router.navigate(['/dashboard/umu/']),
             error => {
               MaterialService.toast(error.error.message)
               this.form.enable()

@@ -9,6 +9,8 @@ import { ModalAddStavkaTableComponent } from '../modal-add-stavka-table/modal-ad
 export class StavkaTableComponent implements OnInit {
 
   @ViewChild(ModalAddStavkaTableComponent) menu:ModalAddStavkaTableComponent 
+
+  term: string;
  
   openMenu(e) {
     this.menu.open(e)

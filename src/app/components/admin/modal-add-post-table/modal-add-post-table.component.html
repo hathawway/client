@@ -13,6 +13,13 @@
   placeholder="Должности"
   aria-label="Должности">
 
+  <select class="form-select mb-2 mt-2" name="ispps" formControlName="ispps" aria-label="ППС">
+    <option value="true" type="text">Да</option>
+    <option value="false" type="text">Нет</option>
+  </select>
+
+
+
   <button class="btn btn-primary" type="submit">Сохранить</button>
   <button class="btn btn-primary" type="button" (click)="close()">Закрыть</button>
 </form>   

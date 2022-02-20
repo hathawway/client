@@ -13,20 +13,21 @@ export class SidebarComponent implements OnInit {
 
   //user$: Observable<User> | undefined;
 
-  links = [  
+  /*links = [  
     {url: '/dashboard/admin/office', name: 'Структурные подразделения'},
     {url: '/dashboard/admin/post', name: 'Должности'},
     {url: '/dashboard/admin/user', name: 'Пользователи'}
-  ]
+  ]*/
 
-  /*
+  
   links = [  
     {url: '/dashboard/umu/kind-activity', name: 'Виды деятельности'},
-    {url: '/dashboard/umu/activity', name: 'Виды работ'},
-    {url: '/dashboard/umu/stavka', name: 'Количество часов на ставку'},
+    {url: '/dashboard/umu/activity', name: 'Виды работ (внеучебная)'},
+    {url: '/dashboard/umu/stavka', name: 'Количество часов на ставку (учебная)'},
+    {url: '/dashboard/umu/stavka-shared', name: 'Количество часов на ставку'},
     {url: '/dashboard/umu/maket', name: 'Макет ИП'}
   ]
-  */
+  
 
   
   /*links = [  

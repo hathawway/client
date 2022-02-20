@@ -11,6 +11,8 @@ export class ActivityTableComponent implements OnInit {
 
   @ViewChild(ModalAddActivityTableComponent) menu:ModalAddActivityTableComponent 
   @ViewChild(ModalSurveyActivityTableComponent) table:ModalSurveyActivityTableComponent 
+
+  term: string;
  
   openMenu(e) {
     this.menu.open(e)

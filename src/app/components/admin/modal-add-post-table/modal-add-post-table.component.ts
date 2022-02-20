@@ -31,7 +31,8 @@ export class ModalAddPostTableComponent implements OnInit {
     this.visibility = "visible"
     this.postForm = new FormGroup({
       id: new FormControl(post.id, Validators.required),
-      name: new FormControl(post.name, Validators.required)
+      name: new FormControl(post.name, Validators.required),
+      ispps: new FormControl(post.ispps, Validators.required)
     })
     e.stopPropagation()    
   }
@@ -40,7 +41,8 @@ export class ModalAddPostTableComponent implements OnInit {
     this.visibility = "visible"
     this.postForm = new FormGroup({
       id: new FormControl(null, Validators.required),
-      name: new FormControl(null, Validators.required)
+      name: new FormControl(null, Validators.required),
+      ispps: new FormControl(null, Validators.required)
     })
     this.flag = !this.flag
     e.stopPropagation()    

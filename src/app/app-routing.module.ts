@@ -28,6 +28,7 @@ import { PageNotFoundComponent } from './components/shared/page-not-found/page-n
 import { RoleGuard } from './classes/role.guard';
 import { ModalAddPostTableComponent } from './components/admin/modal-add-post-table/modal-add-post-table.component';
 import { ModalAddOfficeTableComponent } from './components/admin/modal-add-office-table/modal-add-office-table.component';
+import { StavkaSharedComponent } from './components/umu/stavka-shared/stavka-shared.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent, children: [
@@ -46,6 +47,7 @@ const routes: Routes = [
         {path: 'activity', component:ActivityTableComponent},
         {path: 'kind-activity', component:KindActivityTableComponent},
         {path: 'stavka', component:StavkaTableComponent},
+        {path: 'stavka-shared', component:StavkaSharedComponent},
         {path: 'maket', component:MaketComponent}
       
     ]},

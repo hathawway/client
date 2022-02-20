@@ -1,7 +1,6 @@
-import { Component, OnInit, HostBinding, HostListener, Input } from '@angular/core';
-import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { of, switchMap } from 'rxjs';
+import { Component, OnInit, HostBinding, Input } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MaterialService } from 'src/app/classes/material.service';
 import { BookOffice } from 'src/app/interfaces/interfaces';
 import { OfficeService } from 'src/app/services/office.service';
@@ -17,7 +16,6 @@ export class ModalAddOfficeTableComponent implements OnInit {
   @Input() @HostBinding("style.width") width = "600px"
  
   postForm!: FormGroup;
-  of !: BookOffice ;
   flag = false;
 
 
@@ -44,6 +42,7 @@ export class ModalAddOfficeTableComponent implements OnInit {
       id: new FormControl(null, Validators.required),
       name: new FormControl(null, Validators.required)
     })
+
     this.flag = !this.flag
     e.stopPropagation()    
   }

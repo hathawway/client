@@ -44,6 +44,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './classes/token.interceptor';
 import { PageNotFoundComponent } from './components/shared/page-not-found/page-not-found.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { StavkaSharedComponent } from './components/umu/stavka-shared/stavka-shared.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     ModalSurveyUserComponent,
     ModalIpEditComponent,
     ModalRoleComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    StavkaSharedComponent
   ],
   imports: [
     BrowserModule,

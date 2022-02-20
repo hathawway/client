@@ -1,5 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { NormaService } from 'src/app/services/norma.service';
 import { ModalAddKindActivityTableComponent } from '../modal-add-kind-activity-table/modal-add-kind-activity-table.component';
+import { KindActivity } from './../../../interfaces/interfaces';
 
 @Component({
   selector: 'app-kind-activity-table',
@@ -9,13 +13,35 @@ import { ModalAddKindActivityTableComponent } from '../modal-add-kind-activity-t
 export class KindActivityTableComponent implements OnInit {
 
   @ViewChild(ModalAddKindActivityTableComponent) menu:ModalAddKindActivityTableComponent 
+  term: string;
+  data$: Observable<KindActivity[]> | undefined;
  
-  openMenu(e) {
-    this.menu.open(e)
-  }
+  constructor(private normaService: NormaService,
+    private router: Router) {}
+
+    openMenuEdit(e, data:KindActivity) {
+      this.menu.openEdit(e, data)
+    }
+  
+    openMenuAdd(e) {
+      this.menu.openAdd(e)
+    }
 
   ngOnInit(): void {
-    
+    this.data$ = this.normaService.getKindActivity()
+  }
+
+  delete(data:KindActivity) {
+    /*const decision = window.confirm("Удалить?")
+    if (decision) {
+      this.officeService.deleteOffice(office).subscribe(
+        () => this.router.navigate(['/dashboard/admin/office/']),
+        error => {
+          MaterialService.toast(error.error.message)
+        }
+      ) 
+      window.location.reload() 
+    }*/
   }
 
 

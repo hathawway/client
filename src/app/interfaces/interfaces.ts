@@ -30,7 +30,8 @@ export interface BookOffice {
 
 export interface BookPost {
     id: string,
-    name: string
+    name: string,
+    ispps: string
 }
 
 export interface BookWork {
@@ -51,6 +52,38 @@ export interface BookZvanie {
 export interface BookStepen {
     id: string,
     name: string
+}
+
+
+export interface StavkaYear {
+    id: string,
+    norma: string,
+    year:string
+}
+
+export interface NormaStudy {
+    id: string,
+    norma: string,
+    book_post:BookPost
+}
+
+export interface KindActivity {
+    id: string,
+    name: string,
+    user:User
+}
+
+export interface Activity {
+    id: string,
+    name: string,
+    kind_activity:KindActivity
+}
+
+export interface NormaActivity {
+    id: string,
+    norma: string,
+    activity:Activity,
+    book_post:BookPost
 }
 
 export interface Message {

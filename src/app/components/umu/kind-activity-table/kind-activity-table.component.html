@@ -1,11 +1,10 @@
 <nav class="navbar">
     <div class="container-fluid">
-        <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск">
-            <button class="btn btn-primary" type="submit">Поиск</button>
-        </form>
+      <div class="d-flex">
+        <input class="form-control me-2" type="search" [(ngModel)]="term" placeholder="Поиск" aria-label="Поиск">
+      </div>
         <div class="btn-group">
-          <button class="btn btn-sm btn-outline-secondary ms-2" (click)="openMenu($event)">Добавить</button>
+          <button class="btn btn-sm btn-outline-secondary ms-2" (click)="openMenuAdd($event)">Добавить</button>
         </div>
         
     </div>
@@ -24,27 +23,15 @@
     <th scope="col">Удалить</th>
   </tr>
 </thead>
-<tbody>
-  <tr>
-    <th scope="row">1</th>
-    <td>Mark</td>
-    <td>Mark</td>
-    <td class="td" (click)="openMenu($event)" ><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
-    <td class="td"><img src="https://img.icons8.com/ios-filled/24/000000/delete--v1.png"/></td>
-  </tr>
-  <tr>
-    <th scope="row">2</th>
-    <td>Jacob</td>
-    <td>Jacob</td>
-    <td class="td" (click)="openMenu($event)" ><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
-    <td class="td"><img src="https://img.icons8.com/ios-filled/24/000000/delete--v1.png"/></td>
-  </tr>
-  <tr>
-    <th scope="row">3</th>
-    <td>Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the BirdLarry the Bird</td>
-    <td>Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the BirdLarry the Bird</td>
-    <td class="td" (click)="openMenu($event)" ><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
-    <td class="td"><img src="https://img.icons8.com/ios-filled/24/000000/delete--v1.png"/></td>
+
+<tbody *ngIf="data$ | async as data" >
+  <tr *ngFor="let data of data | filter:term; let i = index">
+    <th scope="row" >{{i+1}}</th>
+    <td>{{data.name}}</td>
+    <td>{{data.user.second}} {{data.user.first}} {{data.user.third}}</td>
+    <td class="td" (click)="openMenuEdit($event, data)"><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
+    <td class="td" (click)="delete(data)"><img src="https://img.icons8.com/ios-filled/24/000000/delete--v1.png"/></td>
   </tr>
 </tbody>
+
 </table>

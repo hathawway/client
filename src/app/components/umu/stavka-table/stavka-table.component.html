@@ -1,9 +1,8 @@
 <nav class="navbar">
     <div class="container-fluid">
-        <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск">
-            <button class="btn btn-primary" type="submit">Поиск</button>
-        </form>
+      <div class="d-flex">
+        <input class="form-control me-2" type="search" [(ngModel)]="term" placeholder="Поиск" aria-label="Поиск">
+      </div>
         
     </div>
 </nav>
@@ -15,8 +14,8 @@
 <thead>
   <tr>
     <th scope="col">#</th>
-    <th scope="col">Должность</th>
-    <th scope="col">Количество часов на ставку</th>
+    <th scope="col">Должность ППС</th>
+    <th scope="col">Количество часов на ставку (учебная)</th>
     <th scope="col">Редактировать</th>
   </tr>
 </thead>

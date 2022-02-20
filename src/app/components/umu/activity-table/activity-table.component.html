@@ -1,11 +1,8 @@
 <nav class="navbar">
     <div class="container-fluid">
-        <form class="d-flex">
-          <select class="form-select" aria-label="Default select example">
-            <option selected>Выбрать вид деятельности</option>
-            <option value="1">One</option>
-          </select>
-        </form>
+      <div class="d-flex">
+        <input class="form-control me-2" type="search" [(ngModel)]="term" placeholder="Поиск" aria-label="Поиск">
+      </div>
         <div class="btn-group">
           <button class="btn btn-sm btn-outline-secondary ms-2" (click)="openMenu($event)">Добавить</button>
         </div>
@@ -23,7 +20,7 @@
 <thead>
   <tr>
     <th scope="col">#</th>
-    <th scope="col">Вид работы</th>
+    <th scope="col">Вид работы (внеучебная)</th>
     <th scope="col">Просмотр</th>
     <th scope="col">Редактировать</th>
     <th scope="col">Удалить</th>
