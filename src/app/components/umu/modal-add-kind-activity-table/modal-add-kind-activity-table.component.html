@@ -4,12 +4,18 @@
 
 <p class="title">Вид деятельности</p>
 <form class="items" *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
-  <input class="form-control me-2" autocomplete="off" placeholder="Вид деятельности" aria-label="Вид деятельности">
-  <select class="form-select mb-2 mt-2" aria-label="Куратор">
-    <option selected>Куратор</option>
-    <option type="text" value="1">1</option>
-    <option type="text" value="2">2</option>
-</select>
+
+
+  <input class="form-control me-2 mb-3" id="name" type="text" name="name"
+  autocomplete="off" formControlName="name" placeholder="Вид деятельности" aria-label="Вид деятельности">
+
+  <select class="form-select mb-2" *ngIf="users$ | async as users" name="iduser" formControlName="iduser" aria-label="Куратор">
+    <ng-container *ngFor="let user of users">
+      <option *ngIf="user.book_role.id == '1'" [value]="user.id" type="text">{{user.second}} {{user.first}} {{user.third}}</option>
+    </ng-container>
+    
+  </select>
+
   <button class="btn btn-primary" type="submit">Сохранить</button>
   <button class="btn btn-primary" type="button" (click)="close()">Закрыть</button>
 </form>   

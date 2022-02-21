@@ -1,8 +1,11 @@
 import { Component, OnInit, HostBinding, HostListener, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { MaterialService } from 'src/app/classes/material.service';
+import { Auth } from 'src/app/services/auth';
 import { NormaService } from 'src/app/services/norma.service';
-import { KindActivity } from './../../../interfaces/interfaces';
+import { KindActivity, User } from './../../../interfaces/interfaces';
 
 @Component({
   selector: 'app-modal-add-kind-activity-table',
@@ -16,31 +19,34 @@ export class ModalAddKindActivityTableComponent implements OnInit {
  
   form!: FormGroup;
   flag = false;
+  users$: Observable<User[]> | undefined; 
 
 
   constructor(private normaService : NormaService,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private authService : Auth) { }
  
   ngOnInit(): void {
-
+    this.users$ = this.authService.getUser()
   }
 
   openEdit(e:MouseEvent, data:KindActivity) { 
     this.visibility = "visible"
-    /*this.postForm = new FormGroup({
-      id: new FormControl(office.id, Validators.required),
-      name: new FormControl(office.name, Validators.required)
-    })*/
+    this.form = new FormGroup({
+      id: new FormControl(data.id, Validators.required),
+      name: new FormControl(data.name, Validators.required),
+      iduser: new FormControl(data.user.id, Validators.required)
+    })
     e.stopPropagation()    
   }
 
   openAdd(e:MouseEvent) { 
-    /*this.visibility = "visible"
-    this.postForm = new FormGroup({
-      id: new FormControl(null, Validators.required),
-      name: new FormControl(null, Validators.required)
-    })*/
+    this.visibility = "visible"
+    this.form = new FormGroup({
+      name: new FormControl(null, Validators.required),
+      iduser: new FormControl(null, Validators.required)
+    })
 
     this.flag = !this.flag
     e.stopPropagation()    
@@ -51,27 +57,27 @@ export class ModalAddKindActivityTableComponent implements OnInit {
   }
 
   onSubmit() {
-    /*this.postForm.disable()
+    this.form.disable()
     if (this.flag) {
-      this.officeService.addOffice(this.postForm.value).subscribe(
-        () => this.router.navigate(['/dashboard/admin/office/']),
+      this.normaService.addKindActivity(this.form.value).subscribe(
+        () => this.router.navigate(['/dashboard/umu/kind-activity/']),
         error => {
           MaterialService.toast(error.error.message)
-          this.postForm.enable()
+          this.form.enable()
         }
       )
     }
     else {
-      this.officeService.updateOffice(this.postForm.value).subscribe(
-        () => this.router.navigate(['/dashboard/admin/office/']),
+      this.normaService.updateKindActivity(this.form.value).subscribe(
+        () => this.router.navigate(['/dashboard/umu/kind-activity/']),
         error => {
           MaterialService.toast(error.error.message)
-          this.postForm.enable()
+          this.form.enable()
         }
       )
-    }            
+    }      
     this.visibility = "hidden"
-    window.location.reload()*/
+    window.location.reload()
     
   }
 

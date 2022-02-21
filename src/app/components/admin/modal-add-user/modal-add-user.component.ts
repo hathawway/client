@@ -58,7 +58,6 @@ export class ModalAddUserComponent implements OnInit {
  
     this.visibility = "visible"
     this.form = new FormGroup({
-      id: new FormControl(null, Validators.required),
       login: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
       second: new FormControl(null, Validators.required),
@@ -88,13 +87,13 @@ export class ModalAddUserComponent implements OnInit {
       second: new FormControl(user.second, Validators.required),
       first: new FormControl(user.first, Validators.required),
       third: new FormControl(user.third, Validators.required),
-      book_role: new FormControl(user.book_role.name, Validators.required),
-      book_office: new FormControl(user.book_office.name, Validators.required),
-      book_post: new FormControl(user.book_post.name, Validators.required),
-      book_work: new FormControl(user.book_work.name, Validators.required),
-      book_status: new FormControl(user.book_status.name, Validators.required),
-      book_stepen: new FormControl(user.book_stepen.name, Validators.required),
-      book_zvanie: new FormControl(user.book_zvanie.name, Validators.required),
+      book_role: new FormControl(user.book_role.id, Validators.required),
+      book_office: new FormControl(user.book_office.id, Validators.required),
+      book_post: new FormControl(user.book_post.id, Validators.required),
+      book_work: new FormControl(user.book_work.id, Validators.required),
+      book_status: new FormControl(user.book_status.id, Validators.required),
+      book_stepen: new FormControl(user.book_stepen.id, Validators.required),
+      book_zvanie: new FormControl(user.book_zvanie.id, Validators.required),
       tel: new FormControl(user.tel, Validators.required),
       email: new FormControl(user.email, Validators.required)
     })

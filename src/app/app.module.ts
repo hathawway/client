@@ -45,6 +45,7 @@ import { TokenInterceptor } from './classes/token.interceptor';
 import { PageNotFoundComponent } from './components/shared/page-not-found/page-not-found.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { StavkaSharedComponent } from './components/umu/stavka-shared/stavka-shared.component';
+import { ModalAddStavkaSharedComponent } from './components/umu/modal-add-stavka-shared/modal-add-stavka-shared.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { StavkaSharedComponent } from './components/umu/stavka-shared/stavka-sha
     ModalIpEditComponent,
     ModalRoleComponent,
     PageNotFoundComponent,
-    StavkaSharedComponent
+    StavkaSharedComponent,
+    ModalAddStavkaSharedComponent
   ],
   imports: [
     BrowserModule,

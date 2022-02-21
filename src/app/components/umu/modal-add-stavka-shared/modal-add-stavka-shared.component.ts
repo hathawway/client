@@ -1,41 +1,37 @@
-import { Component, OnInit, HostBinding, HostListener, Input   } from '@angular/core';
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { MaterialService } from 'src/app/classes/material.service';
-import { BookPost, NormaStudy } from 'src/app/interfaces/interfaces';
+import { StavkaYear } from 'src/app/interfaces/interfaces';
 import { NormaService } from 'src/app/services/norma.service';
-import { PostService } from 'src/app/services/post.service';
 
 @Component({
-  selector: 'app-modal-add-stavka-table',
-  templateUrl: './modal-add-stavka-table.component.html',
-  styleUrls: ['./modal-add-stavka-table.component.css']
+  selector: 'app-modal-add-stavka-shared',
+  templateUrl: './modal-add-stavka-shared.component.html',
+  styleUrls: ['./modal-add-stavka-shared.component.css']
 })
-export class ModalAddStavkaTableComponent implements OnInit {
+export class ModalAddStavkaSharedComponent implements OnInit {
 
   @HostBinding("style.visibility") visibility = "hidden"
   @Input() @HostBinding("style.width") width = "600px"
  
   form!: FormGroup;
   flag = false;
-  posts$: Observable<BookPost[]> | undefined;
 
   constructor(private normaService : NormaService,
     private router: Router,
-    private postService: PostService,
     private route: ActivatedRoute) { }
  
   ngOnInit(): void {
-    this.posts$ = this.postService.getPost()
+
   }
 
-  openEdit(e:MouseEvent, data:NormaStudy) { 
+  openEdit(e:MouseEvent, data:StavkaYear) { 
     this.visibility = "visible"
     this.form = new FormGroup({
       id: new FormControl(data.id, Validators.required),
       norma: new FormControl(data.norma, Validators.required),
-      idbook_post: new FormControl(data.book_post.id, Validators.required)
+      year: new FormControl(data.year, Validators.required)
     })
     e.stopPropagation()    
   }
@@ -44,7 +40,7 @@ export class ModalAddStavkaTableComponent implements OnInit {
     this.visibility = "visible"
     this.form = new FormGroup({
       norma: new FormControl(null, Validators.required),
-      idbook_post: new FormControl(null, Validators.required)
+      year: new FormControl(null, Validators.required)
     })
 
     this.flag = !this.flag
@@ -59,8 +55,8 @@ export class ModalAddStavkaTableComponent implements OnInit {
     this.form.disable()
     console.log(this.form.value)
     if (this.flag) {
-      this.normaService.addNormaStudy(this.form.value).subscribe(
-        () => this.router.navigate(['/dashboard/umu/stavka/']),
+      this.normaService.addStavkaYear(this.form.value).subscribe(
+        () => this.router.navigate(['/dashboard/umu/stavka-shared/']),
         error => {
           MaterialService.toast(error.error.message)
           this.form.enable()
@@ -68,8 +64,8 @@ export class ModalAddStavkaTableComponent implements OnInit {
       )
     }
     else {
-      this.normaService.updateNormaStudy(this.form.value).subscribe(
-        () => this.router.navigate(['/dashboard/umu/stavka/']),
+      this.normaService.updateStavkaYear(this.form.value).subscribe(
+        () => this.router.navigate(['/dashboard/umu/stavka-shared/']),
         error => {
           MaterialService.toast(error.error.message)
           this.form.enable()

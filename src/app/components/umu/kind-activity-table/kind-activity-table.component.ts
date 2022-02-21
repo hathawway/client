@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { MaterialService } from 'src/app/classes/material.service';
 import { NormaService } from 'src/app/services/norma.service';
 import { ModalAddKindActivityTableComponent } from '../modal-add-kind-activity-table/modal-add-kind-activity-table.component';
 import { KindActivity } from './../../../interfaces/interfaces';
@@ -32,16 +33,16 @@ export class KindActivityTableComponent implements OnInit {
   }
 
   delete(data:KindActivity) {
-    /*const decision = window.confirm("Удалить?")
+    const decision = window.confirm("Удалить?")
     if (decision) {
-      this.officeService.deleteOffice(office).subscribe(
-        () => this.router.navigate(['/dashboard/admin/office/']),
+      this.normaService.deleteKindActivity(data).subscribe(
+        () => this.router.navigate(['/dashboard/umu/kind-activity/']),
         error => {
           MaterialService.toast(error.error.message)
         }
       ) 
       window.location.reload() 
-    }*/
+    }
   }
 
 

@@ -39,7 +39,6 @@ export class ModalAddOfficeTableComponent implements OnInit {
   openAdd(e:MouseEvent) { 
     this.visibility = "visible"
     this.postForm = new FormGroup({
-      id: new FormControl(null, Validators.required),
       name: new FormControl(null, Validators.required)
     })
 

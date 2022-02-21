@@ -1,4 +1,5 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Activity } from 'src/app/interfaces/interfaces';
 
 @Component({
   selector: 'app-modal-add-activity-table',
@@ -16,7 +17,14 @@ export class ModalAddActivityTableComponent implements OnInit {
 
   }
 
-  open(e:MouseEvent) {
+  openAdd(e:MouseEvent) {
+ 
+    this.visibility = "visible"
+ 
+    e.stopPropagation()
+  }
+
+  openEdit(e:MouseEvent, data: Activity) {
  
     this.visibility = "visible"
  
@@ -27,12 +35,6 @@ export class ModalAddActivityTableComponent implements OnInit {
     this.visibility = "hidden"
   }
 
-  save() {
-    this.visibility = "hidden"
-  }
 
-  add() {
-    this.visibility = "hidden"
-  }
 
 }

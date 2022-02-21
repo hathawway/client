@@ -1,4 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { MaterialService } from 'src/app/classes/material.service';
+import { Activity } from 'src/app/interfaces/interfaces';
+import { NormaService } from 'src/app/services/norma.service';
 import { ModalAddActivityTableComponent } from '../modal-add-activity-table/modal-add-activity-table.component';
 import { ModalSurveyActivityTableComponent } from '../modal-survey-activity-table/modal-survey-activity-table.component';
 
@@ -13,17 +18,38 @@ export class ActivityTableComponent implements OnInit {
   @ViewChild(ModalSurveyActivityTableComponent) table:ModalSurveyActivityTableComponent 
 
   term: string;
+  data$: Observable<Activity[]> | undefined;
+
+  constructor(private normaService: NormaService,
+    private router: Router) {}
  
-  openMenu(e) {
-    this.menu.open(e)
+  openMenuAdd(e) {
+    this.menu.openAdd(e)
   }
 
-  openTable(e) {
-    this.table.open(e)
+  openMenuEdit(e, data:Activity) {
+    this.menu.openEdit(e, data)
+  }
+
+  openTable(e, data:Activity) {
+    this.table.open(e, data)
   }
 
   ngOnInit(): void {
-    
+    this.data$ = this.normaService.getActivity()
+  }
+
+  delete(data:Activity) {
+    const decision = window.confirm("Удалить?")
+    if (decision) {
+      this.normaService.deleteActivity(data).subscribe(
+        () => this.router.navigate(['/dashboard/umu/activity/']),
+        error => {
+          MaterialService.toast(error.error.message)
+        }
+      ) 
+      window.location.reload() 
+    }
   }
 
 }

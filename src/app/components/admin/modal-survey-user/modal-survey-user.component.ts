@@ -15,11 +15,9 @@ export class ModalSurveyUserComponent implements OnInit {
   @HostBinding("style.visibility") visibility = "hidden"
   @Input() @HostBinding("style.width") width = "600px"
 
-  form!: FormGroup;
   users$ : Observable<User> | undefined;
  
-  constructor(private authService: Auth,
-    private router: Router) { }
+  constructor(private authService: Auth) { }
  
   ngOnInit(): void {
 
