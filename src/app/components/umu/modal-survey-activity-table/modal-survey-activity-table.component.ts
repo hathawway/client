@@ -24,7 +24,7 @@ export class ModalSurveyActivityTableComponent implements OnInit {
   open(e:MouseEvent, data: Activity) {
  
     this.visibility = "visible"
-    this.activities$ = this.normaService.getNormaActivity()
+    this.activities$ = this.normaService.getNormaActivityByActivity(data)
     e.stopPropagation()
   }
  

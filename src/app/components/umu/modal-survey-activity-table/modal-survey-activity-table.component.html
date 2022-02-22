@@ -3,12 +3,10 @@
 
 
 <p class="title">Норма часов вида работы</p>
-<div class="items">
-    <ng-component *ngIf="activities$ | async as activities">
-        <div class="item" *ngFor="let activities of activities; let i = index;">
-            <input class="form-control me-2 mb-2" type="text" value="{{activities.book_post.name}}" placeholder="Должность" aria-label="Должность" disabled>
-            <input class="form-control me-2 mb-2" type="number" value="{{activities.norma}}" placeholder="Значение на ставку" aria-label="Значение на ставку" disabled>
-        </div> 
-    </ng-component>     
+<div class="items" *ngIf="activities$ | async as activities">
+    <div class="item" *ngFor="let activities of activities; let i = index;">
+        <input class="form-control me-2 mb-2" type="text" value="{{activities.book_post.name}}" placeholder="Должность" aria-label="Должность" disabled>
+        <input class="form-control me-2 mb-2" type="number" value="{{activities.norma}}" placeholder="Значение на ставку" aria-label="Значение на ставку" disabled>
+    </div>      
     <button class="btn btn-primary" type="button" (click)="close()">Закрыть</button>
 </div>   

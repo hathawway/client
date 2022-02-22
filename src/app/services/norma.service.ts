@@ -61,6 +61,10 @@ export class NormaService {
         return this.http.get<NormaActivity>(`${environment.api}/api/norma/norma_activity/${data.id}`)
     }
 
+    getNormaActivityByActivity(data: Activity): Observable<NormaActivity[]> {
+        return this.http.get<NormaActivity[]>(`${environment.api}/api/norma/norma_activity/activity/${data.id}`)
+    }
+
     // norma_study
 
     addNormaStudy(data: NormaStudy): Observable<NormaStudy> {
