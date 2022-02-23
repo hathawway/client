@@ -3,45 +3,42 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MaterialService } from 'src/app/classes/material.service';
-import { Activity, NormaActivity, StavkaYear, BookPost, BookUnit } from 'src/app/interfaces/interfaces';
+import { BookPost, KindActivity, NormaKindActivity } from 'src/app/interfaces/interfaces';
 import { NormaService } from 'src/app/services/norma.service';
 import { PostService } from 'src/app/services/post.service';
 
 @Component({
-  selector: 'app-modal-add-stavka-shared',
-  templateUrl: './modal-add-stavka-shared.component.html',
-  styleUrls: ['./modal-add-stavka-shared.component.css']
+  selector: 'app-modal-add-norma-kind-activity',
+  templateUrl: './modal-add-norma-kind-activity.component.html',
+  styleUrls: ['./modal-add-norma-kind-activity.component.css']
 })
-export class ModalAddStavkaSharedComponent implements OnInit {
+export class ModalAddNormaKindActivityComponent implements OnInit {
 
   @HostBinding("style.visibility") visibility = "hidden"
   @Input() @HostBinding("style.width") width = "600px"
  
   form!: FormGroup;
   flag = false;
-  activities$: Observable<Activity[]> | undefined;
   posts$: Observable<BookPost[]> | undefined;
-  units$: Observable<BookUnit[]> | undefined;
+  kinds$: Observable<KindActivity[]> | undefined;
 
   constructor(private normaService : NormaService,
-    private postService : PostService,
     private router: Router,
+    private postService: PostService,
     private route: ActivatedRoute) { }
  
   ngOnInit(): void {
-      this.activities$ = this.normaService.getActivity()
-      this.posts$ = this.postService.getPost()
-      this.units$ = this.normaService.getBookUnit()
+    this.posts$ = this.postService.getPost()
+    this.kinds$ = this.normaService.getKindActivity()
   }
 
-  openEdit(e:MouseEvent, data:NormaActivity) { 
+  openEdit(e:MouseEvent, data:NormaKindActivity) { 
     this.visibility = "visible"
     this.form = new FormGroup({
       id: new FormControl(data.id, Validators.required),
       norma: new FormControl(data.norma, Validators.required),
       idbook_post: new FormControl(data.book_post.id, Validators.required),
-      idactivity: new FormControl(data.activity.id, Validators.required),
-      idbook_unit: new FormControl(data.book_unit.id, Validators.required)
+      idkind_activity: new FormControl(data.kind_activity.id, Validators.required)
     })
     e.stopPropagation()    
   }
@@ -51,8 +48,7 @@ export class ModalAddStavkaSharedComponent implements OnInit {
     this.form = new FormGroup({
       norma: new FormControl(null, Validators.required),
       idbook_post: new FormControl(null, Validators.required),
-      idactivity: new FormControl(null, Validators.required),
-      idbook_unit: new FormControl(null, Validators.required)
+      idkind_activity: new FormControl(null, Validators.required)
     })
 
     this.flag = !this.flag
@@ -65,10 +61,9 @@ export class ModalAddStavkaSharedComponent implements OnInit {
 
   onSubmit() {
     this.form.disable()
-    console.log(this.form.value)
     if (this.flag) {
-      this.normaService.addNormaActivity(this.form.value).subscribe(
-        () => this.router.navigate(['/dashboard/umu/stavka-shared/']),
+      this.normaService.addNormaKindActivity(this.form.value).subscribe(
+        () => this.router.navigate(['/dashboard/umu/norma-kind-activity/']),
         error => {
           MaterialService.toast(error.error.message)
           this.form.enable()
@@ -76,8 +71,8 @@ export class ModalAddStavkaSharedComponent implements OnInit {
       )
     }
     else {
-      this.normaService.updateNormaActivity(this.form.value).subscribe(
-        () => this.router.navigate(['/dashboard/umu/stavka-shared/']),
+      this.normaService.updateNormaKindActivity(this.form.value).subscribe(
+        () => this.router.navigate(['/dashboard/umu/norma-kind-activity/']),
         error => {
           MaterialService.toast(error.error.message)
           this.form.enable()

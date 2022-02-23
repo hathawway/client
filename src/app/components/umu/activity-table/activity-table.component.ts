@@ -5,7 +5,6 @@ import { MaterialService } from 'src/app/classes/material.service';
 import { Activity } from 'src/app/interfaces/interfaces';
 import { NormaService } from 'src/app/services/norma.service';
 import { ModalAddActivityTableComponent } from '../modal-add-activity-table/modal-add-activity-table.component';
-import { ModalSurveyActivityTableComponent } from '../modal-survey-activity-table/modal-survey-activity-table.component';
 
 @Component({
   selector: 'app-activity-table',
@@ -15,7 +14,6 @@ import { ModalSurveyActivityTableComponent } from '../modal-survey-activity-tabl
 export class ActivityTableComponent implements OnInit {
 
   @ViewChild(ModalAddActivityTableComponent) menu:ModalAddActivityTableComponent 
-  @ViewChild(ModalSurveyActivityTableComponent) table:ModalSurveyActivityTableComponent 
 
   term: string;
   data$: Observable<Activity[]> | undefined;
@@ -29,10 +27,6 @@ export class ActivityTableComponent implements OnInit {
 
   openMenuEdit(e, data:Activity) {
     this.menu.openEdit(e, data)
-  }
-
-  openTable(e, data:Activity) {
-    this.table.open(e, data)
   }
 
   ngOnInit(): void {

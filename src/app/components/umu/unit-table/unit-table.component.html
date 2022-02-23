@@ -1,25 +1,24 @@
 <nav class="navbar">
-  <div class="container-fluid">
-    <div class="d-flex">
-      <input class="form-control me-2" type="search" [(ngModel)]="term" placeholder="Поиск" aria-label="Поиск">
+    <div class="container-fluid">
+        <div class="d-flex">
+            <input class="form-control me-2" type="search" [(ngModel)]="term" placeholder="Поиск" aria-label="Поиск">
+        </div>
+        <div class="btn-group">
+        <button class="btn btn-sm btn-outline-secondary ms-2" type="button" (click)="openMenuAdd($event)">Добавить</button>         
+        </div>       
     </div>
-      <div class="btn-group">
-        <button class="btn btn-sm btn-outline-secondary ms-2" (click)="openMenuAdd($event)">Добавить</button>
-      </div>
-      
-  </div>
 </nav>
 
-<app-modal-add-activity-table>
-</app-modal-add-activity-table>
 
+
+<app-modal-add-unit>
+</app-modal-add-unit>
 
 <table class="table table-hover">
 <thead>
   <tr>
     <th scope="col">#</th>
-    <th scope="col">Вид деятельности</th>
-    <th scope="col">Вид работы</th>  
+    <th scope="col">Единица измерения</th>
     <th scope="col">Редактировать</th>
     <th scope="col">Удалить</th>
   </tr>
@@ -27,12 +26,9 @@
 <tbody *ngIf="data$ | async as data" >
   <tr *ngFor="let data of data | filter:term; let i = index">
     <th scope="row" >{{i+1}}</th>
-    <td>{{data.kind_activity.name}}</td>
     <td>{{data.name}}</td>
     <td class="td" (click)="openMenuEdit($event, data)"><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
     <td class="td" (click)="delete(data)"><img src="https://img.icons8.com/ios-filled/24/000000/delete--v1.png"/></td>
   </tr>
 </tbody>
 </table>
-
-

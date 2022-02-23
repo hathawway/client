@@ -1,0 +1,19 @@
+<ng-content select=".title"></ng-content>
+<ng-content select=".items"></ng-content>
+
+<p class="title">Единица измерения</p>
+<form class="items" *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <input class="form-control me-2" 
+    id="name"
+    type="text" 
+    name="name" 
+    formControlName="name"
+    autocomplete="off"
+    placeholder="Единица измерения" 
+    aria-label="Единица измерения">
+    
+    <button class="btn btn-primary" type="submit">Сохранить</button>
+    <button class="btn btn-primary" type="button" (click)="close()">Закрыть</button>
+</form>   
+      

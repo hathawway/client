@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MaterialService } from 'src/app/classes/material.service';
-import { NormaStudy } from 'src/app/interfaces/interfaces';
+import { NormaStudy, StavkaYear } from 'src/app/interfaces/interfaces';
 import { NormaService } from 'src/app/services/norma.service';
 import { ModalAddStavkaTableComponent } from '../modal-add-stavka-table/modal-add-stavka-table.component';
+import { ModalEditStavkaComponent } from '../modal-edit-stavka/modal-edit-stavka.component';
 
 @Component({
   selector: 'app-stavka-table',
@@ -14,9 +16,12 @@ import { ModalAddStavkaTableComponent } from '../modal-add-stavka-table/modal-ad
 export class StavkaTableComponent implements OnInit {
 
   @ViewChild(ModalAddStavkaTableComponent) menu:ModalAddStavkaTableComponent 
+  @ViewChild(ModalEditStavkaComponent) norma:ModalEditStavkaComponent 
 
   term: string;
+  form!: FormGroup;
   data$: Observable<NormaStudy[]> | undefined;
+  norma$: Observable<StavkaYear> | undefined;
  
   constructor(private normaService: NormaService,
     private router: Router) {}
@@ -30,8 +35,13 @@ export class StavkaTableComponent implements OnInit {
       this.menu.openAdd(e)
     }
 
+    openNormaEdit(e, norma: StavkaYear) {
+      this.norma.open(e, norma)
+    }
+
     ngOnInit(): void {
       this.data$ = this.normaService.getNormaStudy()
+      this.norma$ = this.normaService.getStavkaYearOne()
     }
 
     delete(data:NormaStudy) {

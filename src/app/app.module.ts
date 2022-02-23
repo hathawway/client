@@ -46,6 +46,11 @@ import { PageNotFoundComponent } from './components/shared/page-not-found/page-n
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { StavkaSharedComponent } from './components/umu/stavka-shared/stavka-shared.component';
 import { ModalAddStavkaSharedComponent } from './components/umu/modal-add-stavka-shared/modal-add-stavka-shared.component';
+import { NormaKindActivityComponent } from './components/umu/norma-kind-activity/norma-kind-activity.component';
+import { ModalAddNormaKindActivityComponent } from './components/umu/modal-add-norma-kind-activity/modal-add-norma-kind-activity.component';
+import { ModalAddUnitComponent } from './components/umu/modal-add-unit/modal-add-unit.component';
+import { UnitTableComponent } from './components/umu/unit-table/unit-table.component';
+import { ModalEditStavkaComponent } from './components/umu/modal-edit-stavka/modal-edit-stavka.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +88,12 @@ import { ModalAddStavkaSharedComponent } from './components/umu/modal-add-stavka
     ModalRoleComponent,
     PageNotFoundComponent,
     StavkaSharedComponent,
-    ModalAddStavkaSharedComponent
+    ModalAddStavkaSharedComponent,
+    NormaKindActivityComponent,
+    ModalAddNormaKindActivityComponent,
+    ModalAddUnitComponent,
+    UnitTableComponent,
+    ModalEditStavkaComponent
   ],
   imports: [
     BrowserModule,

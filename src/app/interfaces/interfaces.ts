@@ -57,8 +57,7 @@ export interface BookStepen {
 
 export interface StavkaYear {
     id: string,
-    norma: string,
-    year:string
+    norma: string
 }
 
 export interface NormaStudy {
@@ -73,16 +72,29 @@ export interface KindActivity {
     user:User
 }
 
+export interface NormaKindActivity {
+    id: string,
+    norma: string,
+    book_post:BookPost,
+    kind_activity: KindActivity
+}
+
 export interface Activity {
     id: string,
     name: string,
     kind_activity:KindActivity
 }
 
+export interface BookUnit {
+    id: string,
+    name: string
+}
+
 export interface NormaActivity {
     id: string,
     norma: string,
     activity:Activity,
+    book_unit: BookUnit,
     book_post:BookPost
 }
 

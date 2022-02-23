@@ -3,23 +3,16 @@
 
 
 <p class="title">Вид работы</p>
-<form class="items">
-  <select class="form-select mb-2" aria-label="Вид деятельности">
-    <option selected>Вид деятельности</option>
-    <option type="text" value="1">1</option>
-    <option type="text" value="2">2</option>
+<form class="items" *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+<select class="form-select mb-2" *ngIf="kinds$ | async as kinds" name="idkind_activity" formControlName="idkind_activity" aria-label="Вид деятельности">
+    <option *ngFor="let kind of kinds" [value]="kind.id" type="text">{{kind.name}}</option>
 </select>
-  <input class="form-control me-2" autocomplete="off" placeholder="Вид работы" aria-label="Вид работы">
-  <button class="btn btn-primary" type="submit">Добавить</button>
-  <div class="item">
-    <select class="form-select mb-2 me-2" aria-label="Должность">
-      <option selected>Должность</option>
-      <option type="text" value="1">1</option>
-      <option type="text" value="2">2</option>
-  </select>
-    <input class="form-control me-2 mb-2" autocomplete="off" type="number" placeholder="Значение на ставку" aria-label="Значение на ставку">
-    <td class="td"><img src="https://img.icons8.com/ios-filled/24/000000/delete--v1.png"/></td>
-  </div>
+
+  <input class="form-control me-2 mb-3" id="name" type="text" name="name"
+  autocomplete="off" formControlName="name" placeholder="Вид работы" aria-label="Вид работы">
+
+
   <button class="btn btn-primary" type="submit">Сохранить</button>
   <button class="btn btn-primary" type="button" (click)="close()">Закрыть</button>
 </form>   

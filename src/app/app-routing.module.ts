@@ -29,6 +29,8 @@ import { RoleGuard } from './classes/role.guard';
 import { ModalAddPostTableComponent } from './components/admin/modal-add-post-table/modal-add-post-table.component';
 import { ModalAddOfficeTableComponent } from './components/admin/modal-add-office-table/modal-add-office-table.component';
 import { StavkaSharedComponent } from './components/umu/stavka-shared/stavka-shared.component';
+import { UnitTableComponent } from './components/umu/unit-table/unit-table.component';
+import { NormaKindActivityComponent } from './components/umu/norma-kind-activity/norma-kind-activity.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent, children: [
@@ -46,8 +48,10 @@ const routes: Routes = [
     {path:'umu', component:SidebarComponent, /*canActivateChild: [RoleGuard], data: { roles : ['ROLE_UMU'] }, */children:[
         {path: 'activity', component:ActivityTableComponent},
         {path: 'kind-activity', component:KindActivityTableComponent},
+        {path: 'norma-kind-activity', component:NormaKindActivityComponent},
         {path: 'stavka', component:StavkaTableComponent},
         {path: 'stavka-shared', component:StavkaSharedComponent},
+        {path: 'unit', component:UnitTableComponent},
         {path: 'maket', component:MaketComponent}
       
     ]},

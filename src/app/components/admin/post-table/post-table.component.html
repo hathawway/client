@@ -29,9 +29,13 @@
         <tr *ngFor="let post of posts | filter:term; let i = index">
         <th scope="row">{{i+1}}</th>
         <td>{{post.name}}</td>
-        <td>{{post.ispps}}</td>
+        <td *ngIf="post.ispps; else somethingElse">Да</td>
         <td class="td" (click)="openMenuEdit($event, post)"><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
         <td class="td" (click)="delete(post)"><img src="https://img.icons8.com/ios-filled/24/000000/delete--v1.png"/></td>
       </tr>
     </tbody>
   </table>
+
+<ng-template #somethingElse>
+    <td>Нет</td>
+</ng-template>
