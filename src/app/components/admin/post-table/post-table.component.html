@@ -30,8 +30,8 @@
         <th scope="row">{{i+1}}</th>
         <td>{{post.name}}</td>
         <td *ngIf="post.ispps; else somethingElse">Да</td>
-        <td class="td" (click)="openMenuEdit($event, post)"><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
-        <td class="td" (click)="delete(post)"><img src="https://img.icons8.com/ios-filled/24/000000/delete--v1.png"/></td>
+        <td class="td" (click)="openMenuEdit($event, post)"><img src="../../../../assets/images/icon/edit.png"/></td>
+        <td class="td" (click)="delete(post)"><img src="../../../../assets/images/icon/delete--v1.png"/></td>
       </tr>
     </tbody>
   </table>

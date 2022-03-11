@@ -1,4 +1,5 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Kafedra } from 'src/app/interfaces/interfaces';
 
 @Component({
   selector: 'app-modal-survey-schedule',
@@ -16,7 +17,7 @@ export class ModalSurveyScheduleComponent implements OnInit {
 
   }
 
-  open(e:MouseEvent) {
+  open(e:MouseEvent, kafedra: Kafedra) {
  
     this.visibility = "visible"
  

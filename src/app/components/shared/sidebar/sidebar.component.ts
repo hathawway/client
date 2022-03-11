@@ -13,11 +13,11 @@ export class SidebarComponent implements OnInit {
 
   //user$: Observable<User> | undefined;
 
-  links = [  
-    {url: '/dashboard/admin/office', name: 'Структурные подразделения'},
-    {url: '/dashboard/admin/post', name: 'Должности'},
-    {url: '/dashboard/admin/user', name: 'Пользователи'}
-  ]
+  // links = [  
+  //   {url: '/dashboard/admin/office', name: 'Структурные подразделения'},
+  //   {url: '/dashboard/admin/post', name: 'Должности'},
+  //   {url: '/dashboard/admin/user', name: 'Пользователи'}
+  // ]
 
   
   /*links = [  
@@ -32,14 +32,14 @@ export class SidebarComponent implements OnInit {
   
 
   
-  /*links = [  
+  links = [  
     {role: 'zavkaf', url: '/dashboard/zavkaf/staff', name: 'Состав кафедры'},
     {role: 'zavkaf', url: '/dashboard/zavkaf/schedule', name: 'Штатное расписание'},
     {role: 'zavkaf', url: '/dashboard/zavkaf/ip', name: 'Индивидуальные планы'},
     {role: 'zavkaf', url: '/dashboard/zavkaf/report', name: 'Отчеты'},
     {role: 'pps', url: '/dashboard/pps/pp', name: 'Индивидуальные планы'},
     {role: 'pps', url: '/dashboard/pps/statistics', name: 'Статистика'}
-  ]*/
+  ]
   
 
   /*

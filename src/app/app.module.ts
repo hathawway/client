@@ -34,7 +34,7 @@ import { WorksComponent } from './components/curator/works/works.component';
 import { WorksDoneComponent } from './components/curator/works-done/works-done.component';
 import { TypeWorkComponent } from './components/curator/type-work/type-work.component';
 import { StaffAddComponent } from './components/zavkaf/staff-add/staff-add.component';
-import { ModalStaffEditComponent } from './components/zavkaf/modal-staff-edit/modal-staff-edit.component';
+
 import { ModalSurveyScheduleComponent } from './components/zavkaf/modal-survey-schedule/modal-survey-schedule.component';
 import { ModalSurveyUserComponent } from './components/admin/modal-survey-user/modal-survey-user.component';
 import { ModalIpEditComponent } from './components/zavkaf/modal-ip-edit/modal-ip-edit.component';
@@ -81,7 +81,6 @@ import { ModalEditStavkaComponent } from './components/umu/modal-edit-stavka/mod
     WorksDoneComponent,
     TypeWorkComponent,
     StaffAddComponent,
-    ModalStaffEditComponent,
     ModalSurveyScheduleComponent,
     ModalSurveyUserComponent,
     ModalIpEditComponent,

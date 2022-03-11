@@ -1,13 +1,9 @@
 <nav class="navbar">
-    <div class="container-fluid">
-        <form class="d-flex">
-          <select class="form-select" aria-label="Default select example">
-            <option selected>Выбрать год</option>
-            <option type="date" value="1">One</option>
-        </select>
-        </form>
-        
-    </div>
+  <div class="container-fluid">
+      <div class="d-flex">
+          <input class="form-control me-2" type="search" [(ngModel)]="term" placeholder="Поиск" aria-label="Поиск">
+      </div>    
+  </div>
 </nav>
 
 <app-modal-survey-schedule>
@@ -26,36 +22,16 @@
     <th scope="col">Редактировать</th>
   </tr>
 </thead>
-<tbody>
-  <tr>
-    <th scope="row">1</th>
-    <td>Mark</td>
-    <td>Mark</td>
-    <td>Mark</td>
-    <td>Mark</td>
-    <td>Mark</td>
-    <td>Mark</td>
-    <td class="td" (click)="openMenu($event)"><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
-  </tr>
-  <tr>
-    <th scope="row">2</th>
-    <td>Mark</td>
-    <td>Mark</td>
-    <td>Mark</td>
-    <td>Mark</td>
-    <td>Mark</td>
-    <td>Mark</td>
-    <td class="td" (click)="openMenu($event)"><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
-  </tr>
-  <tr>
-    <th scope="row">3</th>
-    <td>Mark</td>
-    <td>Mark</td>
-    <td>Mark</td>
-    <td>Mark</td>
-    <td>Mark</td>
-    <td>Mark</td>
-    <td class="td" (click)="openMenu($event)"><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
+<tbody *ngIf="data$ | async as data" >
+  <tr *ngFor="let data of data| filter:term; let i = index">
+    <th scope="row" >{{i+1}}</th>
+    <td>{{data.user.second}} {{data.user.first}} {{data.user.third}}</td>
+    <td>{{data.book_post.name}}</td>
+    <td>{{data.norma}}</td>
+    <td>{{data.book_work.name}}</td>
+    <td>{{data.user.book_stepen.name}}</td>
+    <td>{{data.user.book_zvanie.name}}</td>
+    <td class="td" (click)="openMenu($event, data.id)"><img src="../../../../assets/images/icon/edit.png"/></td>
   </tr>
 </tbody>
 </table>

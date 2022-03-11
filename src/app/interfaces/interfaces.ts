@@ -98,6 +98,14 @@ export interface NormaActivity {
     book_post:BookPost
 }
 
+export interface Kafedra {
+    id: string,
+    norma: string,
+    user:User,
+    book_work: BookWork,
+    book_office:BookOffice
+}
+
 export interface Message {
     error: any;
     message: string

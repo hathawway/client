@@ -1,5 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalStaffEditComponent } from '../modal-staff-edit/modal-staff-edit.component';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { MaterialService } from 'src/app/classes/material.service';
+import { Kafedra, User } from 'src/app/interfaces/interfaces';
+import { Auth } from 'src/app/services/auth';
+import { KafedraService } from 'src/app/services/kafedra.service';
 
 @Component({
   selector: 'app-staff-add',
@@ -7,15 +12,42 @@ import { ModalStaffEditComponent } from '../modal-staff-edit/modal-staff-edit.co
   styleUrls: ['./staff-add.component.css']
 })
 export class StaffAddComponent implements OnInit {
-
-  @ViewChild(ModalStaffEditComponent) menu:ModalStaffEditComponent 
  
-  openMenu(e) {
-    this.menu.open(e)
-  }
+  term: string;
+  data$: Observable<Kafedra[]> | undefined;
+  users$: Observable<User[]> | undefined;
+  isChecked: boolean = false;
+  //office: Observable<User> | undefined;
+
+
+  constructor(private kafedraService: KafedraService,
+    private authService: Auth,
+    private router: Router) {}
+
 
   ngOnInit(): void {
-    
+    // вставить id кафедры к которой прикреплен завкаф
+    // this.data$ = this.kafedraService.getKafedra(this.user.book_office.id)
+    this.users$ = this.authService.getUser()
+  }
+
+  save(user: User) {
+    if (this.isChecked) {
+      // this.kafedraService.addKafedra(this.user, this.office).subscribe(
+      //   () => this.router.navigate(['/dashboard/zavkaf/staff/']),
+      //   error => {
+      //     MaterialService.toast(error.error.message)
+      //   }
+      // )
+    } else {
+      // this.kafedraService.deleteKafedra().subscribe(
+      //   () => this.router.navigate(['/dashboard/zavkaf/staff/']),
+      //   error => {
+      //     MaterialService.toast(error.error.message)
+      //   }
+      // )
+    }
+
   }
 
 
