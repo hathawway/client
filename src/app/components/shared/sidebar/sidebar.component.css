@@ -11,6 +11,14 @@
     color:  #007bff;
 }
 
+.nav-link:focus {
+    color:  #007bff;
+}
+
+.nav-link:focus-visible {
+    color:  #007bff;
+}
+
 
 .sidebar {
     background: #f8f9fa!important;

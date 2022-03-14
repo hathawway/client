@@ -20,7 +20,7 @@ export class SidebarComponent implements OnInit {
   // ]
 
   
-  /*links = [  
+  links = [  
     {url: '/dashboard/umu/kind-activity', name: 'Виды деятельности'},
     {url: '/dashboard/umu/norma-kind-activity', name: 'Нормы времени видов деятельности'},
     {url: '/dashboard/umu/activity', name: 'Виды работ внеучебной деятельности'},
@@ -28,18 +28,18 @@ export class SidebarComponent implements OnInit {
     {url: '/dashboard/umu/unit', name: 'Единицы видов работ'},
     {url: '/dashboard/umu/stavka', name: 'Нормы времени учебной деятельности на ставку'},
     {url: '/dashboard/umu/maket', name: 'Макет ИП'}
-  ]*/
+  ]
   
 
   
-  links = [  
-    {role: 'zavkaf', url: '/dashboard/zavkaf/staff', name: 'Состав кафедры'},
-    {role: 'zavkaf', url: '/dashboard/zavkaf/schedule', name: 'Штатное расписание'},
-    {role: 'zavkaf', url: '/dashboard/zavkaf/ip', name: 'Индивидуальные планы'},
-    {role: 'zavkaf', url: '/dashboard/zavkaf/report', name: 'Отчеты'},
-    {role: 'pps', url: '/dashboard/pps/pp', name: 'Индивидуальные планы'},
-    {role: 'pps', url: '/dashboard/pps/statistics', name: 'Статистика'}
-  ]
+  // links = [  
+  //   {role: 'zavkaf', url: '/dashboard/zavkaf/staff', name: 'Состав кафедры'},
+  //   {role: 'zavkaf', url: '/dashboard/zavkaf/schedule', name: 'Штатное расписание'},
+  //   {role: 'zavkaf', url: '/dashboard/zavkaf/ip', name: 'Индивидуальные планы'},
+  //   {role: 'zavkaf', url: '/dashboard/zavkaf/report', name: 'Отчеты'},
+  //   {role: 'pps', url: '/dashboard/pps/pp', name: 'Индивидуальные планы'},
+  //   {role: 'pps', url: '/dashboard/pps/statistics', name: 'Статистика'}
+  // ]
   
 
   /*
