@@ -1,13 +1,18 @@
-<nav>    
-    <a>ИС "Индивидуальный план ППС"</a>
-    <div class="content"> 
-        <a (click)="openMenu($event)">User name</a>
-        <button type="button" type="button" (click)="logout($event)">Выход</button>
+<nav class="nav">    
+    <p class="nav__header">ИС «Индивидуальный план ППС»</p>
+    <div class="nav__content"> 
+        <p class="nav__content__name" *ngIf="users$ | async as user">{{user.login}}</p>
+        <button class="nav__content__btn" type="button" (click)="logout($event)">Выход</button>
     </div>       
 </nav>  
 
-<app-modal-role></app-modal-role>
-
 <main>
+    <div class="bar" *ngIf="roles$ | async as roles">
+        <div class="bar__content" *ngFor="let role of roles">
+            <div *ngFor="let l of link" (click)="onSelect(l.id)">
+                <a *ngIf="role.book_role.id === l.id.toString()" [routerLink]="[l.url]" class="bar__content__item">{{role.book_role.name }}</a>
+            </div>       
+        </div>
+    </div>
     <router-outlet></router-outlet>
 </main>

@@ -76,5 +76,9 @@ export class Auth {
     getUserById(user: User): Observable<User> {
         return this.http.get<User>(`${environment.api}/api/user/get-user-one/${user.id}`)
     }
+
+    getUserByHeader(): Observable<User> {
+      return this.http.get<User>(`${environment.api}/api/user/name/`)
+  }
    
 }

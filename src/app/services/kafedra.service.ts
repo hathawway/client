@@ -13,15 +13,6 @@ export class KafedraService {
 
     constructor(private http: HttpClient) {}
 
-        // checkName(name: String){
-        //     if (name == undefined) {
-        //         return false
-        //     }
-        //     else {
-        //         return true
-        //     }
-        // }
-
         addKafedra(user: User, office: BookOffice): Observable<Kafedra> {
             const kafedra = {
                 user: user.id,
@@ -38,8 +29,12 @@ export class KafedraService {
             return this.http.delete<Kafedra>(`${environment.api}/api/kafedra/${kafedra.id}`)
         }
 
-        getKafedra(user: User): Observable<Kafedra[]> {
-            return this.http.get<Kafedra[]>(`${environment.api}/api/kafedra/${user.book_office.id}`)
+        getKafedra(): Observable<Kafedra[]> {
+            return this.http.get<Kafedra[]>(`${environment.api}/api/kafedra/`)
+        }
+
+        getKafedraById(kafedra: Kafedra): Observable<Kafedra> {
+            return this.http.get<Kafedra>(`${environment.api}/api/kafedra/one/${kafedra.id}`)
         }
 
 

@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { EventEmitter, Injectable } from "@angular/core";
+import { Observable, tap } from "rxjs";
 import { environment } from "src/environments/environment.prod";
-import { BookRole, Message } from "../interfaces/interfaces";
+import { Role, Message } from "../interfaces/interfaces";
 
 @Injectable({
     providedIn:'root'
@@ -10,35 +10,36 @@ import { BookRole, Message } from "../interfaces/interfaces";
 
 export class RoleService {
 
+    private numberRole:number = 0;
+    onClick:EventEmitter<number> = new EventEmitter();
 
     constructor(private http: HttpClient) {}
 
-        checkName(name: String){
-            if (name == undefined) {
-                return false
-            }
-            else {
-                return true
-            }
-        }
+    doClick(id:number){
+        this.onClick.emit(this.numberRole=id);
+    }
 
-        addRole(role: BookRole): Observable<BookRole> {
-            return this.http.post<BookRole>(`${environment.api}/api/role/`, role)
-        }
+    addRole(role: Role): Observable<Role> {
+        return this.http.post<Role>(`${environment.api}/api/role/`, role)
+    }
 
-        updateRole(role: BookRole): Observable<BookRole> {
-            return this.http.patch<BookRole>(`${environment.api}/api/role/${role.id}`, role)
-        }
+    updateRole(role: Role): Observable<Role> {
+        return this.http.patch<Role>(`${environment.api}/api/role/${role.id}`, role)
+    }
 
-        deleteRole(role: BookRole):Observable<BookRole> {
-            return this.http.delete<BookRole>(`${environment.api}/api/role/${role.id}`)
-        }
+    deleteRole(role: Role):Observable<Role> {
+        return this.http.delete<Role>(`${environment.api}/api/role/${role.id}`)
+    }
 
-        getRole(): Observable<BookRole[]> {
-            return this.http.get<BookRole[]>(`${environment.api}/api/role/`)
-        }
+    getRole(): Observable<Role[]> {
+        return this.http.get<Role[]>(`${environment.api}/api/role/`)
+    }
 
-        getRoleById(role: BookRole): Observable<BookRole> {
-            return this.http.get<BookRole>(`${environment.api}/api/role/${role.id}`)
-        }
+    getRoleById(role: Role): Observable<Role> {
+        return this.http.get<Role>(`${environment.api}/api/role/${role.id}`)
+    }
+
+    getUserRole(): Observable<Role[]> {
+        return this.http.get<Role[]>(`${environment.api}/api/role/user/`)
+    }
 }

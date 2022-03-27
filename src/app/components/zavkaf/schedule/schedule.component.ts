@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Kafedra } from 'src/app/interfaces/interfaces';
+import { KafedraService } from 'src/app/services/kafedra.service';
 import { ModalSurveyScheduleComponent } from '../modal-survey-schedule/modal-survey-schedule.component';
 
 @Component({
@@ -14,15 +16,16 @@ export class ScheduleComponent implements OnInit {
 
   term: string;
   data$: Observable<Kafedra[]> | undefined;
-  //users$: Observable<User[]> | undefined;
+
+  constructor(private kafedraService: KafedraService,
+    private router: Router) {}
 
   openMenu(e, kafedra: Kafedra) {
     this.menu.open(e, kafedra)
   }
 
   ngOnInit(): void {
-    // вставить id кафедры к которой прикреплен завкаф
-    // this.data$ = this.kafedraService.getKafedra(this.user.book_office.id)
+    this.data$ = this.kafedraService.getKafedra()
   }
 
 

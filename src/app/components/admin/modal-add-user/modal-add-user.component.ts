@@ -48,7 +48,7 @@ export class ModalAddUserComponent implements OnInit {
     this.offices$ = this.officeService.getOffice()
     this.posts$ = this.postService.getPost()
     this.works$ = this.workService.getWork()
-    this.roles$ = this.roleService.getRole()
+    //this.roles$ = this.roleService.getRole()
     this.statuses$ = this.statusService.getStatus()
     this.stepens$ = this.stepenService.getStepen()
     this.zvanies$ = this.zvanieService.getZvanie()
@@ -63,7 +63,7 @@ export class ModalAddUserComponent implements OnInit {
       second: new FormControl(null, Validators.required),
       first: new FormControl(null, Validators.required),
       third: new FormControl(null, Validators.required),
-      book_role: new FormControl(null, Validators.required),
+      //book_role: new FormControl(null, Validators.required),
       book_office: new FormControl(null, Validators.required),
       book_post: new FormControl(null, Validators.required),
       book_work: new FormControl(null, Validators.required),
@@ -87,7 +87,7 @@ export class ModalAddUserComponent implements OnInit {
       second: new FormControl(user.second, Validators.required),
       first: new FormControl(user.first, Validators.required),
       third: new FormControl(user.third, Validators.required),
-      book_role: new FormControl(user.book_role.id, Validators.required),
+      //book_role: new FormControl(user.book_role.id, Validators.required),
       book_office: new FormControl(user.book_office.id, Validators.required),
       book_post: new FormControl(user.book_post.id, Validators.required),
       book_work: new FormControl(user.book_work.id, Validators.required),

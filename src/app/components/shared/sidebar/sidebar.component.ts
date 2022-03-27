@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
 import { Auth } from 'src/app/services/auth';
-import { User } from '../../../interfaces/interfaces'
+import { RoleService } from 'src/app/services/role.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,68 +10,40 @@ import { User } from '../../../interfaces/interfaces'
 })
 export class SidebarComponent implements OnInit {
 
-  //user$: Observable<User> | undefined;
+  num: number = 0;
+  r:any[] = [];
 
-  // links = [  
-  //   {url: '/dashboard/admin/office', name: 'Структурные подразделения'},
-  //   {url: '/dashboard/admin/post', name: 'Должности'},
-  //   {url: '/dashboard/admin/user', name: 'Пользователи'}
-  // ]
-
-  
   links = [  
-    {url: '/dashboard/umu/kind-activity', name: 'Виды деятельности'},
-    {url: '/dashboard/umu/norma-kind-activity', name: 'Нормы времени видов деятельности'},
-    {url: '/dashboard/umu/activity', name: 'Виды работ внеучебной деятельности'},
-    {url: '/dashboard/umu/stavka-shared', name: 'Нормы времени видов работ'},
-    {url: '/dashboard/umu/unit', name: 'Единицы видов работ'},
-    {url: '/dashboard/umu/stavka', name: 'Нормы времени учебной деятельности на ставку'},
-    {url: '/dashboard/umu/maket', name: 'Макет ИП'}
+    {id: 1, url: '/dashboard/admin/office', name: 'Структурные подразделения'},
+    {id: 1, url: '/dashboard/admin/post', name: 'Должности'},
+    {id: 1, url: '/dashboard/admin/user', name: 'Пользователи'},
+    {id: 2, url: '/dashboard/umu/kind-activity', name: 'Виды деятельности'},
+    {id: 2, url: '/dashboard/umu/norma-kind-activity', name: 'Нормы времени видов деятельности'},
+    {id: 2, url: '/dashboard/umu/activity', name: 'Виды работ внеучебной деятельности'},
+    {id: 2, url: '/dashboard/umu/stavka-shared', name: 'Нормы времени видов работ'},
+    {id: 2, url: '/dashboard/umu/unit', name: 'Единицы видов работ'},
+    {id: 2, url: '/dashboard/umu/stavka', name: 'Нормы времени учебной деятельности на ставку'},
+    {id: 2, url: '/dashboard/umu/maket', name: 'Макет ИП'},
+    {id: 3,  url: '/dashboard/zavkaf/staff', name: 'Состав кафедры'},
+    {id: 3,  url: '/dashboard/zavkaf/schedule', name: 'Штатное расписание'},
+    {id: 3,  url: '/dashboard/zavkaf/ip', name: 'Индивидуальные планы'},
+    {id: 3,  url: '/dashboard/zavkaf/report', name: 'Отчеты'},
+    {id: 4,  url: '/dashboard/pps/pp', name: 'Индивидуальные планы'},
+    {id: 4,  url: '/dashboard/pps/statistics', name: 'Статистика'},
+    {id: 5, url: '/dashboard/curator/type-work', name: 'Работа'},
+    {id: 5, url: '/dashboard/curator/works', name: 'Мониторинг заполненого ИП'},
+    {id: 5, url: '/dashboard/curator/works-dane', name: 'Мониторинг выполненого ИП'}
   ]
-  
 
-  
-  // links = [  
-  //   {role: 'zavkaf', url: '/dashboard/zavkaf/staff', name: 'Состав кафедры'},
-  //   {role: 'zavkaf', url: '/dashboard/zavkaf/schedule', name: 'Штатное расписание'},
-  //   {role: 'zavkaf', url: '/dashboard/zavkaf/ip', name: 'Индивидуальные планы'},
-  //   {role: 'zavkaf', url: '/dashboard/zavkaf/report', name: 'Отчеты'},
-  //   {role: 'pps', url: '/dashboard/pps/pp', name: 'Индивидуальные планы'},
-  //   {role: 'pps', url: '/dashboard/pps/statistics', name: 'Статистика'}
-  // ]
-  
-
-  /*
-  links = [  
-    {url: '/dashboard/pps/pp', name: 'Индивидуальные планы'},
-    {url: '/dashboard/pps/statistics', name: 'Статистика'}
-  ]
-  */
-
-  /*
-  links = [  
-    {url: '/dashboard/curator/type-work', name: 'Работа'},
-    {url: '/dashboard/curator/works', name: 'Мониторинг заполненого ИП'},
-    {url: '/dashboard/curator/works-dane', name: 'Мониторинг выполненого ИП'}
-  ]
-  
-*/
-  role:string | undefined;
-
-  constructor(private auth: Auth, private router: Router) { }
+  constructor(private auth: Auth,
+    private role: RoleService, private router: Router) { 
+      this.role.onClick.subscribe(cnt=>this.num = cnt);
+    }
 
   ngOnInit(): void {
-    /*this.user$ = this.auth.getUser()
-    this.user$.subscribe(
-      () => this.router.navigate([`${this.role}`])
-    )*/
-
 
   }
   
-
-
-
 }
 
 

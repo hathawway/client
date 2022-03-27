@@ -10,9 +10,9 @@
   autocomplete="off" formControlName="name" placeholder="Вид деятельности" aria-label="Вид деятельности">
 
   <select class="form-select mb-2" *ngIf="users$ | async as users" name="iduser" formControlName="iduser" aria-label="Куратор">
-    <ng-container *ngFor="let user of users">
+    <!-- <ng-container *ngFor="let user of users">
       <option *ngIf="user.book_role.id == '1'" [value]="user.id" type="text">{{user.second}} {{user.first}} {{user.third}}</option>
-    </ng-container>
+    </ng-container> -->
     
   </select>
 

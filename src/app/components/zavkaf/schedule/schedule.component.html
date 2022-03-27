@@ -14,7 +14,7 @@
   <tr>
     <th scope="col">#</th>
     <th scope="col">ФИО</th>
-    <th scope="col">Должность</th>
+    <th scope="col">Должность по кафедре</th>
     <th scope="col">Ставка</th>
     <th scope="col">Условие приема на кафедру</th>
     <th scope="col">Ученая степень</th>
@@ -31,7 +31,7 @@
     <td>{{data.book_work.name}}</td>
     <td>{{data.user.book_stepen.name}}</td>
     <td>{{data.user.book_zvanie.name}}</td>
-    <td class="td" (click)="openMenu($event, data.id)"><img src="../../../../assets/images/icon/edit.png"/></td>
+    <td class="td" (click)="openMenu($event, data)"><img src="../../../../assets/images/icon/edit.png"/></td>
   </tr>
 </tbody>
 </table>

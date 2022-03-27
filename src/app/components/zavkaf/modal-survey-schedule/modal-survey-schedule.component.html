@@ -1,9 +1,9 @@
 <ng-content select=".title"></ng-content>
 <ng-content select=".items"></ng-content>
 
-
-<p class="title">ФИО *</p>
-<form class="items">
+<div *ngIf="data$ | async as data">
+    <p class="title">{{data.user.second}} {{data.user.first}} {{data.user.first}}</p>
+    <form class="items" [formGroup]="form" (ngSubmit)="onSubmit()">
         <select class="form-select mb-2" aria-label="Должность">
             <option selected>Должность</option>
             <option type="text" value="1">Д</option>
@@ -12,7 +12,8 @@
             <option selected>Условие приема на работу</option>
             <option type="text" value="1">У</option>
         </select>
-        <input class="form-control me-2" autocomplete="off" type="number" step="0.01" min="0" max="2" placeholder="Размер ставки" aria-label="Размер ставки">
-    <button class="btn btn-primary" type="submit" (click)="save()">Сохранить</button>
+        <input class="form-control me-2" value="{{data.norma}}" autocomplete="off" type="number" step="0.01" min="0" max="2" placeholder="Размер ставки" aria-label="Размер ставки">
+    <button class="btn btn-primary" type="submit">Сохранить</button>
     <button class="btn btn-primary" type="button" (click)="close()">Закрыть</button>
-</form>   
+    </form>   
+</div>

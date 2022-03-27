@@ -6,7 +6,6 @@ export interface User {
     second: string,
     third: string,
     book_office: BookOffice,
-    book_role: BookRole,
     book_post: BookPost,
     book_work: BookWork,
     book_status: BookStatus,
@@ -15,6 +14,12 @@ export interface User {
     tel: string,
     email:string
 
+}
+
+export interface Role {
+    id: string,
+    user: User,
+    book_role: BookRole
 }
 
 export interface BookRole {
@@ -103,7 +108,8 @@ export interface Kafedra {
     norma: string,
     user:User,
     book_work: BookWork,
-    book_office:BookOffice
+    book_office:BookOffice,
+    book_post:BookPost
 }
 
 export interface Message {

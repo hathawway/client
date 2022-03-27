@@ -28,6 +28,9 @@ export class StaffAddComponent implements OnInit {
   ngOnInit(): void {
     // вставить id кафедры к которой прикреплен завкаф
     // this.data$ = this.kafedraService.getKafedra(this.user.book_office.id)
+    
+    this.data$ = this.kafedraService.getKafedra()
+
     this.users$ = this.authService.getUser()
   }
 

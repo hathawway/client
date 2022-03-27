@@ -1,11 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Auth } from '../../services/auth';
 import {MaterialService} from './../../classes/material.service';
 // @ts-ignore
 import * as forge from 'node-forge';
+import { RoleService } from 'src/app/services/role.service';
+import { Role } from 'src/app/interfaces/interfaces';
 //import * as CryptoJS from 'crypto-js';
 
 @Component({
@@ -18,10 +20,13 @@ export class LoginComponent implements OnInit, OnDestroy {
   form!: FormGroup;
   aSub!: Subscription;
 
+
+
   constructor(
     private auth: Auth,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute) { 
+    }
 
   ngOnDestroy(): void {
     if (this.aSub) {
@@ -41,9 +46,11 @@ export class LoginComponent implements OnInit, OnDestroy {
         MaterialService.toast('Необходимо авторизоваться в системе')
       }
     })
+
   }
 
   onSubmit(): void {
+    
     this.form.disable()
     console.log(this.form.value);
     this.aSub =
@@ -56,7 +63,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           // @ts-ignore
           this.form.value.password = window.btoa(rsaKey.encrypt(this.form.value.password));
           this.auth.login(this.form.value).subscribe(
-            () => this.router.navigate(['/dashboard/umu/']),
+            () => this.router.navigate([`/dashboard/`]),
             error => {
               MaterialService.toast(error.error.message)
               this.form.enable()

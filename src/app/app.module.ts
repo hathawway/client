@@ -38,7 +38,7 @@ import { StaffAddComponent } from './components/zavkaf/staff-add/staff-add.compo
 import { ModalSurveyScheduleComponent } from './components/zavkaf/modal-survey-schedule/modal-survey-schedule.component';
 import { ModalSurveyUserComponent } from './components/admin/modal-survey-user/modal-survey-user.component';
 import { ModalIpEditComponent } from './components/zavkaf/modal-ip-edit/modal-ip-edit.component';
-import { ModalRoleComponent } from './components/shared/modal-role/modal-role.component';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './classes/token.interceptor';
@@ -84,7 +84,6 @@ import { ModalEditStavkaComponent } from './components/umu/modal-edit-stavka/mod
     ModalSurveyScheduleComponent,
     ModalSurveyUserComponent,
     ModalIpEditComponent,
-    ModalRoleComponent,
     PageNotFoundComponent,
     StavkaSharedComponent,
     ModalAddStavkaSharedComponent,

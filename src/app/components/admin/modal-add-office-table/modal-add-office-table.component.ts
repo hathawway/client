@@ -18,7 +18,6 @@ export class ModalAddOfficeTableComponent implements OnInit {
   postForm!: FormGroup;
   flag = false;
 
-
   constructor(private officeService : OfficeService,
     private router: Router,
     private route: ActivatedRoute) { }
@@ -72,6 +71,7 @@ export class ModalAddOfficeTableComponent implements OnInit {
     }            
     this.visibility = "hidden"
     window.location.reload()
+    
     
   }
 
