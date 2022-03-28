@@ -14,13 +14,14 @@ import { ModalAddPostTableComponent } from '../modal-add-post-table/modal-add-po
 })
 export class PostTableComponent implements OnInit {
 
-  @ViewChild(ModalAddPostTableComponent) menu:ModalAddPostTableComponent 
+  @ViewChild(ModalAddPostTableComponent) menu!:ModalAddPostTableComponent 
  
-  posts$: Observable<BookPost[]> | undefined;
-  term: string;
+  term!: string;
+  data: Observable<BookPost[]> | undefined;
 
-  constructor(private postService: PostService,
-    private router: Router) { }
+  constructor(private postService: PostService) { 
+      this.postService.onClick.subscribe(cnt=>this.data = cnt);
+  }
   
     openMenuEdit(e, post:BookPost) {
       this.menu.openEdit(e, post)
@@ -31,19 +32,22 @@ export class PostTableComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.posts$ = this.postService.getPost()
+    this.getData();  
+  }
+
+  getData() {
+    this.postService.doClick()
   }
 
   delete(post:BookPost) {
     const decision = window.confirm("Удалить?")
     if (decision) {
       this.postService.deletePost(post).subscribe(
-        () => this.router.navigate(['/dashboard/admin/post/']),
+        () => this.getData(),
         error => {
           MaterialService.toast(error.error.message)
         }
       )
-      window.location.reload()
     }
   }
 

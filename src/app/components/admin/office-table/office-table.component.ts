@@ -13,38 +13,44 @@ import { ModalAddOfficeTableComponent } from '../modal-add-office-table/modal-ad
 })
 export class OfficeTableComponent implements OnInit {
 
-  @ViewChild(ModalAddOfficeTableComponent) menu:ModalAddOfficeTableComponent 
- 
-  offices$: Observable<BookOffice[]> | undefined;
-  term: string;
+  @ViewChild(ModalAddOfficeTableComponent) menu!: ModalAddOfficeTableComponent; 
+  
+  term!: string;
+  data: Observable<BookOffice[]> | undefined;
 
-  constructor(private officeService: OfficeService,
-    private router: Router) { }
+  constructor(private officeService: OfficeService) {   
+      this.officeService.onClick.subscribe(cnt=>this.data = cnt);
+  }
 
   openMenuEdit(e, office:BookOffice) {
     this.menu.openEdit(e, office)
   }
 
   openMenuAdd(e) {
-    this.menu.openAdd(e)
+    this.menu.openAdd(e);
   }
 
   ngOnInit(): void {
-    this.offices$ = this.officeService.getOffice()
+    this.getData();  
+  }
+
+  getData() {
+    this.officeService.doClick()
   }
 
 
   delete(office:BookOffice) {
     const decision = window.confirm("Удалить?")
-    if (decision) {
-      this.officeService.deleteOffice(office).subscribe(
-        () => this.router.navigate(['/dashboard/admin/office/']),
-        error => {
-          MaterialService.toast(error.error.message)
-        }
-      ) 
-      window.location.reload() 
+      if (decision) {
+        this.officeService.deleteOffice(office).subscribe(
+          () => this.getData(),
+          error => {
+            MaterialService.toast(error.error.message)
+          }
+        ) 
+      }
     }
-  }
 
 }
+
+

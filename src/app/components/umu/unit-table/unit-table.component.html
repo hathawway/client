@@ -23,7 +23,7 @@
     <th scope="col">Удалить</th>
   </tr>
 </thead>
-<tbody *ngIf="data$ | async as data" >
+<tbody *ngIf="data | async as data" >
   <tr *ngFor="let data of data | filter:term; let i = index">
     <th scope="row" >{{i+1}}</th>
     <td>{{data.name}}</td>

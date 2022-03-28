@@ -5,11 +5,11 @@
 <p class="title">Пользователь</p>
 <div class="items" *ngIf="users$ | async as users">
     <input class="form-control me-2 mb-2" type="text" value="{{users.login}}" placeholder="Логин" aria-label="Логин" disabled>
-    <input class="form-control me-2 mb-2" type="password" value="{{users.password}" placeholder="Пароль" aria-label="Пароль" disabled>
+    <input class="form-control me-2 mb-2" type="password" value="{{users.password}}" placeholder="Пароль" aria-label="Пароль" disabled>
     <input class="form-control me-2 mb-2" type="text" value="{{users.second}}" placeholder="Фамилия" aria-label="Фамилия" disabled>
     <input class="form-control me-2 mb-2" type="text" value="{{users.first}}" placeholder="Имя" aria-label="Имя" disabled>
     <input class="form-control me-2 mb-2" type="text" value="{{users.third}}" placeholder="Отчество" aria-label="Отчество" disabled>
-    <!--<input class="form-control me-2 mb-2" type="text" value="{{users.book_role.name}}" placeholder="Роль в системе" aria-label="Роль в системе" disabled>-->
+    
     <input class="form-control me-2 mb-2" type="text" value="{{users.book_office.name}}" placeholder="Структурное подразделение" aria-label="Структурное подразделение" disabled>
     <input class="form-control me-2 mb-2" type="text" value="{{users.book_post.name}}" placeholder="Должность" aria-label="Должность" disabled>
     <input class="form-control me-2 mb-2" type="text" value="{{users.book_work.name}}" placeholder="Условие приема на работу" aria-label="Условие приема на работу" disabled>

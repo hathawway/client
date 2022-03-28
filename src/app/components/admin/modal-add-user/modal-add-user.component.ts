@@ -1,9 +1,8 @@
 import { Component, OnInit, HostBinding, HostListener, Input  } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { MaterialService } from 'src/app/classes/material.service';
 import { User, BookOffice, BookPost, BookWork, BookRole, BookStepen, BookZvanie, BookStatus } from 'src/app/interfaces/interfaces';
-import { Auth } from 'src/app/services/auth';
+import { AuthService } from 'src/app/services/auth';
 import { Observable } from 'rxjs';
 import { OfficeService } from 'src/app/services/office.service';
 import { PostService } from 'src/app/services/post.service';
@@ -32,17 +31,19 @@ export class ModalAddUserComponent implements OnInit {
   statuses$: Observable<BookStatus[]> | undefined;
   stepens$: Observable<BookStepen[]> | undefined;
   zvanies$: Observable<BookZvanie[]> | undefined;
+
+  data: Observable<User[]> | undefined;
  
-  constructor(private authService : Auth,
+  constructor(private authService : AuthService,
     private officeService: OfficeService,
     private postService: PostService,
     private roleService: RoleService,
     private workService: WorkService,
     private statusService: StatusService,
     private stepenService: StepenService,
-    private zvanieService: ZvanieService,
-    private router: Router,
-    private route: ActivatedRoute) { }
+    private zvanieService: ZvanieService) {
+      this.authService.onClick.subscribe(cnt => this.data = cnt);
+  }
  
   ngOnInit(): void {
     this.offices$ = this.officeService.getOffice()
@@ -73,7 +74,7 @@ export class ModalAddUserComponent implements OnInit {
       tel: new FormControl(null, Validators.required),
       email: new FormControl(null, Validators.required)
     })
-    this.flag = !this.flag
+    this.flag = true;
     e.stopPropagation()
   }
 
@@ -109,24 +110,24 @@ export class ModalAddUserComponent implements OnInit {
     this.form.disable()
     if (this.flag) {
       this.authService.register(this.form.value).subscribe(
-        () => this.router.navigate(['/dashboard/admin/user/']),
+        () => this.authService.doClick(),
         error => {
           MaterialService.toast(error.error.message)
-          this.form.enable()
         }
       )
     }
     else {
       this.authService.updateUser(this.form.value).subscribe(
-        () => this.router.navigate(['/dashboard/admin/user/']),
+        () => this.authService.doClick(),
         error => {
           MaterialService.toast(error.error.message)
-          this.form.enable()
+          
         }
       )
-    }            
+    }       
+    this.form.enable()  
+    this.flag = false;   
     this.visibility = "hidden"
-    window.location.reload()
     
   }
 

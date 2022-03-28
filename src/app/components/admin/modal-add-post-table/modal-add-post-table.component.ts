@@ -1,6 +1,7 @@
-import { Component, OnInit, HostBinding, HostListener, Input  } from '@angular/core';
+import { Component, OnInit, HostBinding, Input  } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { MaterialService } from 'src/app/classes/material.service';
 import { BookPost } from 'src/app/interfaces/interfaces';
 import { PostService } from 'src/app/services/post.service';
@@ -16,12 +17,12 @@ export class ModalAddPostTableComponent implements OnInit {
   @Input() @HostBinding("style.width") width = "600px"
  
   postForm!: FormGroup;
-  of !: BookPost ;
   flag = false;
+  data: Observable<BookPost[]> | undefined;
   
-  constructor(private postService : PostService,
-    private router: Router,
-    private route: ActivatedRoute) { }
+  constructor(private postService : PostService) {
+    this.postService.onClick.subscribe(cnt => this.data = cnt);
+  }
  
   ngOnInit(): void {
 
@@ -43,7 +44,7 @@ export class ModalAddPostTableComponent implements OnInit {
       name: new FormControl(null, Validators.required),
       ispps: new FormControl(null, Validators.required)
     })
-    this.flag = !this.flag
+    this.flag = true;
     e.stopPropagation()    
   }
  
@@ -55,24 +56,24 @@ export class ModalAddPostTableComponent implements OnInit {
     this.postForm.disable()
     if (this.flag) {
       this.postService.addPost(this.postForm.value).subscribe(
-        () => this.router.navigate(['/dashboard/admin/post/']),
+        () => this.postService.doClick(),
         error => {
           MaterialService.toast(error.error.message)
-          this.postForm.enable()
         }
       )
     }
     else {
       this.postService.updatePost(this.postForm.value).subscribe(
-        () => this.router.navigate(['/dashboard/admin/post/']),
+        () => this.postService.doClick(),
         error => {
           MaterialService.toast(error.error.message)
-          this.postForm.enable()
+
         }
       )
-    }            
+    }    
+    this.postForm.enable()
+    this.flag = false;
     this.visibility = "hidden"
-    window.location.reload()
     
   }
 

@@ -1,5 +1,5 @@
-import { HttpClient, HttpParams } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { EventEmitter, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment.prod";
 import { BookPost } from "../interfaces/interfaces";
@@ -10,16 +10,24 @@ import { BookPost } from "../interfaces/interfaces";
 
 export class PostService {
 
+    private data: Observable<BookPost[]> | undefined;
+    onClick:EventEmitter<Observable<BookPost[]>> = new EventEmitter();
+
 
     constructor(private http: HttpClient) {}
 
-        checkName(name: String){
-            if (name == undefined) {
-                return false
-            }
-            else {
-                return true
-            }
+        // checkName(name: String){
+        //     if (name == undefined) {
+        //         return false
+        //     }
+        //     else {
+        //         return true
+        //     }
+        // }
+
+        doClick(){
+            this.data = this.getPost()
+            this.onClick.emit(this.data);
         }
 
         addPost(post: BookPost): Observable<BookPost> {

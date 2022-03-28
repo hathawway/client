@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Auth } from '../../../services/auth';
+import { AuthService } from '../../../services/auth';
 import { Role, User } from 'src/app/interfaces/interfaces';
 import { Observable } from 'rxjs';
 import { RoleService } from 'src/app/services/role.service';
@@ -26,7 +26,7 @@ export class LayoutComponent implements OnInit {
     {id: 5, url: '/dashboard/curator'}
   ]
 
-  constructor(private auth: Auth,
+  constructor(private auth: AuthService,
     private role: RoleService, private router: Router) { 
       this.role.onClick.subscribe(cnt => this.num = cnt);
     }

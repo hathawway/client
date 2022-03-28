@@ -1,10 +1,10 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MaterialService } from 'src/app/classes/material.service';
 import { Activity, KindActivity } from 'src/app/interfaces/interfaces';
-import { NormaService } from 'src/app/services/norma.service';
+import { ActivityService } from 'src/app/services/activity.service';
+import { KindActivityService } from 'src/app/services/kindActivity.service';
 
 @Component({
   selector: 'app-modal-add-activity-table',
@@ -19,13 +19,15 @@ export class ModalAddActivityTableComponent implements OnInit {
   form!: FormGroup;
   flag = false;
   kinds$: Observable<KindActivity[]> | undefined;
+  data: Observable<Activity[]> | undefined;
 
-  constructor(private normaService: NormaService,
-    private router: Router,
-    private route: ActivatedRoute) { }
+  constructor(private kindActivityService: KindActivityService,
+    private activityService: ActivityService) {
+      this.activityService.onClick.subscribe(cnt => this.data = cnt);
+  }
  
   ngOnInit(): void {
-    this.kinds$ = this.normaService.getKindActivity()
+    this.kinds$ = this.kindActivityService.getKindActivity()
   }
 
   openAdd(e:MouseEvent) {
@@ -35,7 +37,7 @@ export class ModalAddActivityTableComponent implements OnInit {
       name: new FormControl(null, Validators.required),
       idkind_activity: new FormControl(null, Validators.required)
     })
-    this.flag = !this.flag
+    this.flag = true;
     e.stopPropagation()  
   }
 
@@ -57,25 +59,24 @@ export class ModalAddActivityTableComponent implements OnInit {
   onSubmit() {
     this.form.disable()
     if (this.flag) {
-      this.normaService.addActivity(this.form.value).subscribe(
-        () => this.router.navigate(['/dashboard/umu/activity/']),
+      this.activityService.addActivity(this.form.value).subscribe(
+        () => this.activityService.doClick(),
         error => {
           MaterialService.toast(error.error.message)
-          this.form.enable()
         }
       )
     }
     else {
-      this.normaService.updateActivity(this.form.value).subscribe(
-        () => this.router.navigate(['/dashboard/umu/activity/']),
+      this.activityService.updateActivity(this.form.value).subscribe(
+        () => this.activityService.doClick(),
         error => {
           MaterialService.toast(error.error.message)
-          this.form.enable()
         }
       )
     }           
+    this.form.enable()
+    this.flag = false;
     this.visibility = "hidden"
-    window.location.reload()
     
   }
 

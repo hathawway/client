@@ -1,10 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MaterialService } from 'src/app/classes/material.service';
-import { NormaActivity, StavkaYear } from './../../../interfaces/interfaces';
-import { NormaService } from 'src/app/services/norma.service';
+import { NormaActivity} from './../../../interfaces/interfaces';
 import { ModalAddStavkaSharedComponent } from '../modal-add-stavka-shared/modal-add-stavka-shared.component';
+import { NormaActivityService } from 'src/app/services/normaActivity.service';
 
 @Component({
   selector: 'app-stavka-shared',
@@ -13,12 +12,13 @@ import { ModalAddStavkaSharedComponent } from '../modal-add-stavka-shared/modal-
 })
 export class StavkaSharedComponent implements OnInit {
 
-  @ViewChild(ModalAddStavkaSharedComponent) menu:ModalAddStavkaSharedComponent
-  term: string;
-  data$: Observable<NormaActivity[]> | undefined;
+  @ViewChild(ModalAddStavkaSharedComponent) menu!:ModalAddStavkaSharedComponent
+  term!: string;
+  data: Observable<NormaActivity[]> | undefined;
  
-  constructor(private normaService: NormaService,
-    private router: Router) {}
+  constructor(private normaActivityService: NormaActivityService) {
+      this.normaActivityService.onClick.subscribe(cnt=>this.data = cnt);
+    }
 
     openMenuEdit(e, data:NormaActivity) {
 
@@ -30,19 +30,22 @@ export class StavkaSharedComponent implements OnInit {
     }
 
     ngOnInit(): void {
-      this.data$ = this.normaService.getNormaActivity()
+      this.getData();  
+    }
+  
+    getData() {
+      this.normaActivityService.doClick()
     }
 
     delete(data:NormaActivity) {
       const decision = window.confirm("Удалить?")
       if (decision) {
-        this.normaService.deleteNormaActivity(data).subscribe(
-          () => this.router.navigate(['/dashboard/umu/stavka-shared/']),
+        this.normaActivityService.deleteNormaActivity(data).subscribe(
+          () =>  this.getData(),
           error => {
             MaterialService.toast(error.error.message)
           }
         ) 
-        window.location.reload() 
       }
     }
 

@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MaterialService } from 'src/app/classes/material.service';
 import { Activity } from 'src/app/interfaces/interfaces';
-import { NormaService } from 'src/app/services/norma.service';
+import { ActivityService } from 'src/app/services/activity.service';
 import { ModalAddActivityTableComponent } from '../modal-add-activity-table/modal-add-activity-table.component';
 
 @Component({
@@ -13,13 +12,14 @@ import { ModalAddActivityTableComponent } from '../modal-add-activity-table/moda
 })
 export class ActivityTableComponent implements OnInit {
 
-  @ViewChild(ModalAddActivityTableComponent) menu:ModalAddActivityTableComponent 
+  @ViewChild(ModalAddActivityTableComponent) menu!:ModalAddActivityTableComponent 
 
-  term: string;
-  data$: Observable<Activity[]> | undefined;
+  term!: string;
+  data: Observable<Activity[]> | undefined;
 
-  constructor(private normaService: NormaService,
-    private router: Router) {}
+  constructor(private activityService: ActivityService) {
+      this.activityService.onClick.subscribe(cnt=>this.data = cnt);
+    }
  
   openMenuAdd(e) {
     this.menu.openAdd(e)
@@ -30,19 +30,22 @@ export class ActivityTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.data$ = this.normaService.getActivity()
+    this.getData();  
+  }
+
+  getData() {
+    this.activityService.doClick()
   }
 
   delete(data:Activity) {
     const decision = window.confirm("Удалить?")
     if (decision) {
-      this.normaService.deleteActivity(data).subscribe(
-        () => this.router.navigate(['/dashboard/umu/activity/']),
+      this.activityService.deleteActivity(data).subscribe(
+        () => this.getData(),
         error => {
           MaterialService.toast(error.error.message)
         }
       ) 
-      window.location.reload() 
     }
   }
 

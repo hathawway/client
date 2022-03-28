@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ModalSurveyActivityTableComponent } from './modal-survey-activity-table.component';
 
 describe('ModalSurveyActivityTableComponent', () => {

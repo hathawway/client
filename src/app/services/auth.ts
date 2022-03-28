@@ -1,22 +1,29 @@
-import { Injectable } from "@angular/core";
+import { EventEmitter, Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { User } from "../interfaces/interfaces";
 import { Observable } from "rxjs";
-import { tap, map } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 import {environment} from "src/environments/environment.prod";
-import { ResolveStart } from "@angular/router";
 
 @Injectable({
     providedIn: 'root'
 })
 
-export class Auth {
+export class AuthService {
 
     private token: string = '';
+    
+    private data: Observable<User[]> | undefined;
+    onClick:EventEmitter<Observable<User[]>> = new EventEmitter();
 
 
     constructor(private http: HttpClient) {}
+
+    doClick(){
+      this.data = this.getUser()
+      this.onClick.emit(this.data);
+    }
 
     rsaKey() : Observable<{key: string}> {
       return this.http.get<{key:string}>(`${environment.api}/api/user/rsa-key`).

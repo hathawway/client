@@ -1,9 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit} from '@angular/core';
 import { Observable } from 'rxjs';
 import { MaterialService } from 'src/app/classes/material.service';
 import { Kafedra, User } from 'src/app/interfaces/interfaces';
-import { Auth } from 'src/app/services/auth';
+import { AuthService } from 'src/app/services/auth';
 import { KafedraService } from 'src/app/services/kafedra.service';
 
 @Component({
@@ -13,7 +12,7 @@ import { KafedraService } from 'src/app/services/kafedra.service';
 })
 export class StaffAddComponent implements OnInit {
  
-  term: string;
+  term!: string;
   data$: Observable<Kafedra[]> | undefined;
   users$: Observable<User[]> | undefined;
   isChecked: boolean = false;
@@ -21,8 +20,7 @@ export class StaffAddComponent implements OnInit {
 
 
   constructor(private kafedraService: KafedraService,
-    private authService: Auth,
-    private router: Router) {}
+    private authService: AuthService) {}
 
 
   ngOnInit(): void {

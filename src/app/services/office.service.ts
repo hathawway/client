@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { EventEmitter, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment.prod";
 import { BookOffice, Message } from "../interfaces/interfaces";
@@ -10,16 +10,23 @@ import { BookOffice, Message } from "../interfaces/interfaces";
 
 export class OfficeService {
 
+    private data: Observable<BookOffice[]> | undefined;
+    onClick:EventEmitter<Observable<BookOffice[]>> = new EventEmitter();
 
     constructor(private http: HttpClient) {}
 
-        checkName(name: String){
-            if (name == undefined) {
-                return false
-            }
-            else {
-                return true
-            }
+        // checkName(name: String){
+        //     if (name == undefined) {
+        //         return false
+        //     }
+        //     else {
+        //         return true
+        //     }
+        // }
+
+        doClick(){
+            this.data = this.getOffice()
+            this.onClick.emit(this.data);
         }
 
         addOffice(office: BookOffice): Observable<BookOffice> {

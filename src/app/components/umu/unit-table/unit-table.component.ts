@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MaterialService } from 'src/app/classes/material.service';
 import { BookUnit } from 'src/app/interfaces/interfaces';
-import { NormaService } from 'src/app/services/norma.service';
+import { UnitService } from 'src/app/services/unit.service';
 import { ModalAddUnitComponent } from '../modal-add-unit/modal-add-unit.component';
 
 @Component({
@@ -13,13 +12,14 @@ import { ModalAddUnitComponent } from '../modal-add-unit/modal-add-unit.componen
 })
 export class UnitTableComponent implements OnInit {
 
-  @ViewChild(ModalAddUnitComponent) menu:ModalAddUnitComponent 
+  @ViewChild(ModalAddUnitComponent) menu!:ModalAddUnitComponent 
  
-  data$: Observable<BookUnit[]> | undefined;
-  term: string;
+  data: Observable<BookUnit[]> | undefined;
+  term!: string;
 
-  constructor(private normaService: NormaService,
-    private router: Router) { }
+  constructor(private unitService: UnitService) { 
+      this.unitService.onClick.subscribe(cnt=>this.data = cnt);
+    }
 
   openMenuEdit(e, data:BookUnit) {
     this.menu.openEdit(e, data)
@@ -30,20 +30,23 @@ export class UnitTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.data$ = this.normaService.getBookUnit()
+    this.getData();  
   }
 
+  getData() {
+    this.unitService.doClick()
+  }
+  
 
   delete(data:BookUnit) {
     const decision = window.confirm("Удалить?")
     if (decision) {
-      this.normaService.deleteBookUnit(data).subscribe(
-        () => this.router.navigate(['/dashboard/umu/unit/']),
-        (        error: { error: { message: any; }; }) => {
+      this.unitService.deleteBookUnit(data).subscribe(
+        () => this.getData(),
+        error => {
           MaterialService.toast(error.error.message)
         }
       ) 
-      window.location.reload() 
     }
   }
 

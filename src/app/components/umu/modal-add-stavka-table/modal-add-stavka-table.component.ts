@@ -1,10 +1,9 @@
 import { Component, OnInit, HostBinding, HostListener, Input   } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MaterialService } from 'src/app/classes/material.service';
 import { BookPost, NormaStudy } from 'src/app/interfaces/interfaces';
-import { NormaService } from 'src/app/services/norma.service';
+import { NormaStudyService } from 'src/app/services/normaStudy.service';
 import { PostService } from 'src/app/services/post.service';
 
 @Component({
@@ -21,10 +20,13 @@ export class ModalAddStavkaTableComponent implements OnInit {
   flag = false;
   posts$: Observable<BookPost[]> | undefined;
 
-  constructor(private normaService : NormaService,
-    private router: Router,
-    private postService: PostService,
-    private route: ActivatedRoute) { }
+  data: Observable<NormaStudy[]> | undefined;
+
+
+  constructor(private normaService : NormaStudyService,
+    private postService: PostService) {
+      this.normaService.onClick.subscribe(cnt => this.data = cnt);
+     }
  
   ngOnInit(): void {
     this.posts$ = this.postService.getPost()
@@ -47,7 +49,7 @@ export class ModalAddStavkaTableComponent implements OnInit {
       idbook_post: new FormControl(null, Validators.required)
     })
 
-    this.flag = !this.flag
+    this.flag = true;
     e.stopPropagation()    
   }
  
@@ -60,24 +62,23 @@ export class ModalAddStavkaTableComponent implements OnInit {
     console.log(this.form.value)
     if (this.flag) {
       this.normaService.addNormaStudy(this.form.value).subscribe(
-        () => this.router.navigate(['/dashboard/umu/stavka/']),
+        () => this.normaService.doClick(),
         error => {
           MaterialService.toast(error.error.message)
-          this.form.enable()
         }
       )
     }
     else {
       this.normaService.updateNormaStudy(this.form.value).subscribe(
-        () => this.router.navigate(['/dashboard/umu/stavka/']),
+        () => this.normaService.doClick(),
         error => {
           MaterialService.toast(error.error.message)
-          this.form.enable()
         }
       )
     }    
+    this.form.enable()
+    this.flag = false;
     this.visibility = "hidden"
-    window.location.reload()
     
   }
 

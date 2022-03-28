@@ -27,7 +27,7 @@
     <th scope="col">Удалить</th>
   </tr>
 </thead>
-<tbody *ngIf="users$ | async as users">
+<tbody *ngIf="data | async as users">
   <tr>
     <tr *ngFor="let user of users | filter:term; let i = index">
       <th scope="row">{{i+1}}</th>

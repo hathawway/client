@@ -1,9 +1,9 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { MaterialService } from 'src/app/classes/material.service';
 import { BookUnit } from 'src/app/interfaces/interfaces';
-import { NormaService } from 'src/app/services/norma.service';
+import { UnitService } from 'src/app/services/unit.service';
 
 @Component({
   selector: 'app-modal-add-unit',
@@ -17,11 +17,12 @@ export class ModalAddUnitComponent implements OnInit {
  
   form!: FormGroup;
   flag = false;
+  data: Observable<BookUnit[]> | undefined;
 
 
-  constructor(private normaService : NormaService,
-    private router: Router,
-    private route: ActivatedRoute) { }
+  constructor(private unitService : UnitService) {
+    this.unitService.onClick.subscribe(cnt => this.data = cnt);
+   }
  
   ngOnInit() {
 
@@ -42,7 +43,7 @@ export class ModalAddUnitComponent implements OnInit {
       name: new FormControl(null, Validators.required)
     })
 
-    this.flag = !this.flag
+    this.flag = true;
     e.stopPropagation()    
   }
  
@@ -53,8 +54,8 @@ export class ModalAddUnitComponent implements OnInit {
   onSubmit() {
     this.form.disable()
     if (this.flag) {
-      this.normaService.addBookUnit(this.form.value).subscribe(
-        () => this.router.navigate(['/dashboard/umu/unit/']),
+      this.unitService.addBookUnit(this.form.value).subscribe(
+        () => this.unitService.doClick(),
         error => {
           MaterialService.toast(error.error.message)
           this.form.enable()
@@ -62,16 +63,18 @@ export class ModalAddUnitComponent implements OnInit {
       )
     }
     else {
-      this.normaService.updateBookUnit(this.form.value).subscribe(
-        () => this.router.navigate(['/dashboard/umu/unit/']),
+      this.unitService.updateBookUnit(this.form.value).subscribe(
+        () => this.unitService.doClick(),
         error => {
           MaterialService.toast(error.error.message)
           this.form.enable()
         }
       )
     }            
+    this.form.enable()
+    this.flag = false;
     this.visibility = "hidden"
-    window.location.reload()
+
     
   }
 

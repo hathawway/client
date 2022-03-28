@@ -1,10 +1,10 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MaterialService } from 'src/app/classes/material.service';
 import { BookPost, KindActivity, NormaKindActivity } from 'src/app/interfaces/interfaces';
-import { NormaService } from 'src/app/services/norma.service';
+import { KindActivityService } from 'src/app/services/kindActivity.service';
+import { NormaKindActivityService } from 'src/app/services/normaKindActivity.service';
 import { PostService } from 'src/app/services/post.service';
 
 @Component({
@@ -21,15 +21,18 @@ export class ModalAddNormaKindActivityComponent implements OnInit {
   flag = false;
   posts$: Observable<BookPost[]> | undefined;
   kinds$: Observable<KindActivity[]> | undefined;
+  data: Observable<NormaKindActivity[]> | undefined;
 
-  constructor(private normaService : NormaService,
-    private router: Router,
-    private postService: PostService,
-    private route: ActivatedRoute) { }
+
+  constructor(private kindActivityService : KindActivityService,
+    private normaKindActivityService : NormaKindActivityService,
+    private postService: PostService) {
+      this.normaKindActivityService.onClick.subscribe(cnt => this.data = cnt);
+     }
  
   ngOnInit(): void {
     this.posts$ = this.postService.getPost()
-    this.kinds$ = this.normaService.getKindActivity()
+    this.kinds$ = this.kindActivityService.getKindActivity()
   }
 
   openEdit(e:MouseEvent, data:NormaKindActivity) { 
@@ -51,7 +54,7 @@ export class ModalAddNormaKindActivityComponent implements OnInit {
       idkind_activity: new FormControl(null, Validators.required)
     })
 
-    this.flag = !this.flag
+    this.flag = true;
     e.stopPropagation()    
   }
  
@@ -62,25 +65,24 @@ export class ModalAddNormaKindActivityComponent implements OnInit {
   onSubmit() {
     this.form.disable()
     if (this.flag) {
-      this.normaService.addNormaKindActivity(this.form.value).subscribe(
-        () => this.router.navigate(['/dashboard/umu/norma-kind-activity/']),
+      this.normaKindActivityService.addNormaKindActivity(this.form.value).subscribe(
+        () => this.normaKindActivityService.doClick(),
         error => {
           MaterialService.toast(error.error.message)
-          this.form.enable()
         }
       )
     }
     else {
-      this.normaService.updateNormaKindActivity(this.form.value).subscribe(
-        () => this.router.navigate(['/dashboard/umu/norma-kind-activity/']),
+      this.normaKindActivityService.updateNormaKindActivity(this.form.value).subscribe(
+        () => this.normaKindActivityService.doClick(),
         error => {
           MaterialService.toast(error.error.message)
-          this.form.enable()
         }
       )
     }    
+    this.form.enable()
+    this.flag = false;
     this.visibility = "hidden"
-    window.location.reload()
     
   }
 

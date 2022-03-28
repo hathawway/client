@@ -1,9 +1,9 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { MaterialService } from 'src/app/classes/material.service';
 import { StavkaYear } from 'src/app/interfaces/interfaces';
-import { NormaService } from 'src/app/services/norma.service';
+import { StavkaYearService } from 'src/app/services/stavkaYear.service';
 
 @Component({
   selector: 'app-modal-edit-stavka',
@@ -16,10 +16,12 @@ export class ModalEditStavkaComponent implements OnInit {
   @Input() @HostBinding("style.width") width = "600px"
  
   form!: FormGroup;
+  data: Observable<StavkaYear> | undefined;
 
-  constructor(private normaService : NormaService,
-    private router: Router,
-    private route: ActivatedRoute) { }
+
+  constructor(private stavkaYearService : StavkaYearService) { 
+    this.stavkaYearService.onClick.subscribe(cnt => this.data = cnt);
+  }
 
   ngOnInit(): void {
   }
@@ -40,15 +42,14 @@ export class ModalEditStavkaComponent implements OnInit {
 
   onSubmit() {
     this.form.disable()
-    this.normaService.updateStavkaYear(this.form.value).subscribe(
-        () => this.router.navigate(['/dashboard/umu/stavka/']),
+    this.stavkaYearService.updateStavkaYear(this.form.value).subscribe(
+        () => this.stavkaYearService.doClick(),
         error => {
           MaterialService.toast(error.error.message)
-          this.form.enable()
         }
     )          
+    this.form.enable()
     this.visibility = "hidden"
-    window.location.reload()
   }
     
 }

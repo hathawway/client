@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Auth } from 'src/app/services/auth';
 import { RoleService } from 'src/app/services/role.service';
 
 @Component({
@@ -11,7 +9,6 @@ import { RoleService } from 'src/app/services/role.service';
 export class SidebarComponent implements OnInit {
 
   num: number = 0;
-  r:any[] = [];
 
   links = [  
     {id: 1, url: '/dashboard/admin/office', name: 'Структурные подразделения'},
@@ -35,10 +32,9 @@ export class SidebarComponent implements OnInit {
     {id: 5, url: '/dashboard/curator/works-dane', name: 'Мониторинг выполненого ИП'}
   ]
 
-  constructor(private auth: Auth,
-    private role: RoleService, private router: Router) { 
+  constructor(private role: RoleService) { 
       this.role.onClick.subscribe(cnt=>this.num = cnt);
-    }
+  }
 
   ngOnInit(): void {
 

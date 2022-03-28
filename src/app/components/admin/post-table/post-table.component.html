@@ -24,14 +24,14 @@
         <th scope="col">Удалить</th>
       </tr>
     </thead>
-    <tbody *ngIf="posts$ | async as posts" >
+    <tbody *ngIf="data | async as data" >
 
-        <tr *ngFor="let post of posts | filter:term; let i = index">
+        <tr *ngFor="let data of data | filter:term; let i = index">
         <th scope="row">{{i+1}}</th>
-        <td>{{post.name}}</td>
-        <td *ngIf="post.ispps; else somethingElse">Да</td>
-        <td class="td" (click)="openMenuEdit($event, post)"><img src="../../../../assets/images/icon/edit.png"/></td>
-        <td class="td" (click)="delete(post)"><img src="../../../../assets/images/icon/delete--v1.png"/></td>
+        <td>{{data.name}}</td>
+        <td *ngIf="data.ispps; else somethingElse">Да</td>
+        <td class="td" (click)="openMenuEdit($event, data)"><img src="../../../../assets/images/icon/edit.png"/></td>
+        <td class="td" (click)="delete(data)"><img src="../../../../assets/images/icon/delete--v1.png"/></td>
       </tr>
     </tbody>
   </table>

@@ -1,10 +1,9 @@
 import { Component, OnInit, HostBinding, HostListener, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MaterialService } from 'src/app/classes/material.service';
-import { Auth } from 'src/app/services/auth';
-import { NormaService } from 'src/app/services/norma.service';
+import { AuthService } from 'src/app/services/auth';
+import { KindActivityService } from 'src/app/services/kindActivity.service';
 import { KindActivity, User } from './../../../interfaces/interfaces';
 
 @Component({
@@ -20,12 +19,13 @@ export class ModalAddKindActivityTableComponent implements OnInit {
   form!: FormGroup;
   flag = false;
   users$: Observable<User[]> | undefined; 
+  data: Observable<KindActivity[]> | undefined; 
 
 
-  constructor(private normaService : NormaService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private authService : Auth) { }
+  constructor(private kindActivityService : KindActivityService,
+    private authService : AuthService) {
+      this.kindActivityService.onClick.subscribe(cnt => this.data = cnt);
+     }
  
   ngOnInit(): void {
     this.users$ = this.authService.getUser()
@@ -48,7 +48,7 @@ export class ModalAddKindActivityTableComponent implements OnInit {
       iduser: new FormControl(null, Validators.required)
     })
 
-    this.flag = !this.flag
+    this.flag = true;
     e.stopPropagation()    
   }
  
@@ -59,25 +59,24 @@ export class ModalAddKindActivityTableComponent implements OnInit {
   onSubmit() {
     this.form.disable()
     if (this.flag) {
-      this.normaService.addKindActivity(this.form.value).subscribe(
-        () => this.router.navigate(['/dashboard/umu/kind-activity/']),
+      this.kindActivityService.addKindActivity(this.form.value).subscribe(
+        () => this.kindActivityService.doClick(),
         error => {
           MaterialService.toast(error.error.message)
-          this.form.enable()
         }
       )
     }
     else {
-      this.normaService.updateKindActivity(this.form.value).subscribe(
-        () => this.router.navigate(['/dashboard/umu/kind-activity/']),
+      this.kindActivityService.updateKindActivity(this.form.value).subscribe(
+        () => this.kindActivityService.doClick(),
         error => {
           MaterialService.toast(error.error.message)
-          this.form.enable()
         }
       )
     }      
+    this.form.enable()
+    this.flag = false;
     this.visibility = "hidden"
-    window.location.reload()
     
   }
 

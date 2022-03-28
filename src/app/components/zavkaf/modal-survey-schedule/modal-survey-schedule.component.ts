@@ -1,6 +1,5 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MaterialService } from 'src/app/classes/material.service';
 import { Kafedra } from 'src/app/interfaces/interfaces';
@@ -19,8 +18,7 @@ export class ModalSurveyScheduleComponent implements OnInit {
   form!: FormGroup;
   data$:Observable<Kafedra> | undefined;
 
-  constructor(private kafedraService: KafedraService,
-    private router: Router) { }
+  constructor(private kafedraService: KafedraService) { }
  
   ngOnInit(): void {
 
@@ -54,8 +52,8 @@ export class ModalSurveyScheduleComponent implements OnInit {
     //   }
     // )
 
+    this.form.enable()
     this.visibility = "hidden"
-    window.location.reload()
   }
 
 }

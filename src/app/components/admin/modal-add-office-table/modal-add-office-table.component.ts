@@ -1,6 +1,7 @@
 import { Component, OnInit, HostBinding, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { MaterialService } from 'src/app/classes/material.service';
 import { BookOffice } from 'src/app/interfaces/interfaces';
 import { OfficeService } from 'src/app/services/office.service';
@@ -17,10 +18,11 @@ export class ModalAddOfficeTableComponent implements OnInit {
  
   postForm!: FormGroup;
   flag = false;
+  data: Observable<BookOffice[]> | undefined;
 
-  constructor(private officeService : OfficeService,
-    private router: Router,
-    private route: ActivatedRoute) { }
+  constructor(private officeService : OfficeService) {
+      this.officeService.onClick.subscribe(cnt => this.data = cnt);
+  }
  
   ngOnInit() {
 
@@ -41,7 +43,7 @@ export class ModalAddOfficeTableComponent implements OnInit {
       name: new FormControl(null, Validators.required)
     })
 
-    this.flag = !this.flag
+    this.flag = true;
     e.stopPropagation()    
   }
  
@@ -53,26 +55,23 @@ export class ModalAddOfficeTableComponent implements OnInit {
     this.postForm.disable()
     if (this.flag) {
       this.officeService.addOffice(this.postForm.value).subscribe(
-        () => this.router.navigate(['/dashboard/admin/office/']),
+        () => this.officeService.doClick(),
         error => {
           MaterialService.toast(error.error.message)
-          this.postForm.enable()
         }
       )
     }
     else {
       this.officeService.updateOffice(this.postForm.value).subscribe(
-        () => this.router.navigate(['/dashboard/admin/office/']),
+        () => this.officeService.doClick(),
         error => {
           MaterialService.toast(error.error.message)
-          this.postForm.enable()
         }
       )
     }            
+    this.postForm.enable()
+    this.flag = false;
     this.visibility = "hidden"
-    window.location.reload()
-    
-    
   }
 
 }

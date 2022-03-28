@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MaterialService } from 'src/app/classes/material.service';
 import { User } from 'src/app/interfaces/interfaces';
-import { Auth } from 'src/app/services/auth';
+import { AuthService } from 'src/app/services/auth';
 import { ModalAddUserComponent } from '../modal-add-user/modal-add-user.component';
 import { ModalSurveyUserComponent } from '../modal-survey-user/modal-survey-user.component';
 
@@ -16,14 +16,15 @@ import { ModalSurveyUserComponent } from '../modal-survey-user/modal-survey-user
 export class UserTableComponent implements OnInit {
 
  
-  @ViewChild(ModalAddUserComponent) menu:ModalAddUserComponent 
-  @ViewChild(ModalSurveyUserComponent) table:ModalSurveyUserComponent 
+  @ViewChild(ModalAddUserComponent) menu!:ModalAddUserComponent 
+  @ViewChild(ModalSurveyUserComponent) table!:ModalSurveyUserComponent 
 
-  users$: Observable<User[]> | undefined;
-  term: string;
+  data: Observable<User[]> | undefined;
+  term!: string;
 
-  constructor(private authService: Auth,
-    private router: Router) { }
+  constructor(private authService: AuthService) {
+      this.authService.onClick.subscribe(cnt=>this.data = cnt);
+  }
  
   openMenuAdd(e) {
     this.menu.openAdd(e)
@@ -38,19 +39,22 @@ export class UserTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.users$ = this.authService.getUser()
+    this.getData();
+  }
+
+  getData() {
+    this.authService.doClick()
   }
 
   delete(user:User) {
     const decision = window.confirm("Удалить?")
     if (decision) {
       this.authService.deleteUser(user).subscribe(
-        () => this.router.navigate(['/dashboard/admin/user/']),
+        () => this.getData(),
         error => {
           MaterialService.toast(error.error.message)
         }
-      )  
-      window.location.reload()    
+      )    
     }
   }
 

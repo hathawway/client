@@ -1,11 +1,12 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MaterialService } from 'src/app/classes/material.service';
 import { Activity, NormaActivity, StavkaYear, BookPost, BookUnit } from 'src/app/interfaces/interfaces';
-import { NormaService } from 'src/app/services/norma.service';
+import { ActivityService } from 'src/app/services/activity.service';
+import { NormaActivityService } from 'src/app/services/normaActivity.service';
 import { PostService } from 'src/app/services/post.service';
+import { UnitService } from 'src/app/services/unit.service';
 
 @Component({
   selector: 'app-modal-add-stavka-shared',
@@ -23,15 +24,20 @@ export class ModalAddStavkaSharedComponent implements OnInit {
   posts$: Observable<BookPost[]> | undefined;
   units$: Observable<BookUnit[]> | undefined;
 
-  constructor(private normaService : NormaService,
-    private postService : PostService,
-    private router: Router,
-    private route: ActivatedRoute) { }
+  data: Observable<NormaActivity[]> | undefined;
+
+
+  constructor(private normaActivityService : NormaActivityService,
+    private activityService : ActivityService,
+    private unitService : UnitService,
+    private postService : PostService) { 
+      this.normaActivityService.onClick.subscribe(cnt => this.data = cnt);
+    }
  
   ngOnInit(): void {
-      this.activities$ = this.normaService.getActivity()
+      this.activities$ = this.activityService.getActivity()
       this.posts$ = this.postService.getPost()
-      this.units$ = this.normaService.getBookUnit()
+      this.units$ = this.unitService.getBookUnit()
   }
 
   openEdit(e:MouseEvent, data:NormaActivity) { 
@@ -55,7 +61,7 @@ export class ModalAddStavkaSharedComponent implements OnInit {
       idbook_unit: new FormControl(null, Validators.required)
     })
 
-    this.flag = !this.flag
+    this.flag = true;
     e.stopPropagation()    
   }
  
@@ -67,25 +73,24 @@ export class ModalAddStavkaSharedComponent implements OnInit {
     this.form.disable()
     console.log(this.form.value)
     if (this.flag) {
-      this.normaService.addNormaActivity(this.form.value).subscribe(
-        () => this.router.navigate(['/dashboard/umu/stavka-shared/']),
+      this.normaActivityService.addNormaActivity(this.form.value).subscribe(
+        () => this.normaActivityService.doClick(),
         error => {
           MaterialService.toast(error.error.message)
-          this.form.enable()
         }
       )
     }
     else {
-      this.normaService.updateNormaActivity(this.form.value).subscribe(
-        () => this.router.navigate(['/dashboard/umu/stavka-shared/']),
+      this.normaActivityService.updateNormaActivity(this.form.value).subscribe(
+        () => this.normaActivityService.doClick(),
         error => {
           MaterialService.toast(error.error.message)
-          this.form.enable()
         }
       )
     }    
+    this.form.enable()
+    this.flag = false;
     this.visibility = "hidden"
-    window.location.reload()
     
   }
 

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Auth } from "../services/auth";
+import { AuthService } from "../services/auth";
 
 @Injectable()
 
 export class RoleGuard implements CanActivateChild {
 
-  constructor(private router: Router, private autn:Auth) {}
+  constructor(private router: Router, private autn:AuthService) {}
     canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
         throw new Error('Method not implemented.');
     }

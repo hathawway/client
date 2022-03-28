@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { MaterialService } from 'src/app/classes/material.service';
 import { NormaStudy, StavkaYear } from 'src/app/interfaces/interfaces';
-import { NormaService } from 'src/app/services/norma.service';
+import { NormaStudyService } from 'src/app/services/normaStudy.service';
+import { StavkaYearService } from 'src/app/services/stavkaYear.service';
 import { ModalAddStavkaTableComponent } from '../modal-add-stavka-table/modal-add-stavka-table.component';
 import { ModalEditStavkaComponent } from '../modal-edit-stavka/modal-edit-stavka.component';
 
@@ -15,16 +15,18 @@ import { ModalEditStavkaComponent } from '../modal-edit-stavka/modal-edit-stavka
 })
 export class StavkaTableComponent implements OnInit {
 
-  @ViewChild(ModalAddStavkaTableComponent) menu:ModalAddStavkaTableComponent 
-  @ViewChild(ModalEditStavkaComponent) norma:ModalEditStavkaComponent 
+  @ViewChild(ModalAddStavkaTableComponent) menu!:ModalAddStavkaTableComponent 
+  @ViewChild(ModalEditStavkaComponent) norma!:ModalEditStavkaComponent 
 
-  term: string;
+  term!: string;
   form!: FormGroup;
-  data$: Observable<NormaStudy[]> | undefined;
+  data: Observable<NormaStudy[]> | undefined;
   norma$: Observable<StavkaYear> | undefined;
  
-  constructor(private normaService: NormaService,
-    private router: Router) {}
+  constructor(private normaStudyService: NormaStudyService, 
+    private stavkaYearService: StavkaYearService) {
+    this.normaStudyService.onClick.subscribe(cnt=>this.data = cnt);
+  }
 
     openMenuEdit(e, data:NormaStudy) {
 
@@ -40,20 +42,23 @@ export class StavkaTableComponent implements OnInit {
     }
 
     ngOnInit(): void {
-      this.data$ = this.normaService.getNormaStudy()
-      this.norma$ = this.normaService.getStavkaYearOne()
+      this.getData();  
+      this.norma$ = this.stavkaYearService.getStavkaYearOne();
+    }
+  
+    getData() {
+      this.normaStudyService.doClick()
     }
 
     delete(data:NormaStudy) {
       const decision = window.confirm("Удалить?")
       if (decision) {
-        this.normaService.deleteNormaStudy(data).subscribe(
-          () => this.router.navigate(['/dashboard/umu/stavka/']),
+        this.normaStudyService.deleteNormaStudy(data).subscribe(
+          () => this.getData(),
           error => {
             MaterialService.toast(error.error.message)
           }
         ) 
-        window.location.reload() 
       }
     }
 
