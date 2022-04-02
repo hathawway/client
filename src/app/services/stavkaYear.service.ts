@@ -10,14 +10,14 @@ import { StavkaYear } from "../interfaces/interfaces";
 
 export class StavkaYearService {
 
-    private data: Observable<StavkaYear> | undefined; 
+    private norma: Observable<StavkaYear> | undefined; 
     onClick:EventEmitter<Observable<StavkaYear>> = new EventEmitter();
 
     constructor(private http: HttpClient) {}
 
     doClick(){
-        this.data = this.getStavkaYearOne()
-        this.onClick.emit(this.data);
+        this.norma = this.getStavkaYearOne()
+        this.onClick.emit(this.norma);
     }
 
     /*addStavkaYear(data: StavkaYear): Observable<StavkaYear> {

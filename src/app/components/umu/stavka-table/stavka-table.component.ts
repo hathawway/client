@@ -16,16 +16,17 @@ import { ModalEditStavkaComponent } from '../modal-edit-stavka/modal-edit-stavka
 export class StavkaTableComponent implements OnInit {
 
   @ViewChild(ModalAddStavkaTableComponent) menu!:ModalAddStavkaTableComponent 
-  @ViewChild(ModalEditStavkaComponent) norma!:ModalEditStavkaComponent 
+  @ViewChild(ModalEditStavkaComponent) stavka!:ModalEditStavkaComponent 
 
   term!: string;
   form!: FormGroup;
   data: Observable<NormaStudy[]> | undefined;
-  norma$: Observable<StavkaYear> | undefined;
+  norma: Observable<StavkaYear> | undefined;
  
   constructor(private normaStudyService: NormaStudyService, 
     private stavkaYearService: StavkaYearService) {
     this.normaStudyService.onClick.subscribe(cnt=>this.data = cnt);
+    this.stavkaYearService.onClick.subscribe(cnt=>this.norma = cnt);
   }
 
     openMenuEdit(e, data:NormaStudy) {
@@ -38,16 +39,20 @@ export class StavkaTableComponent implements OnInit {
     }
 
     openNormaEdit(e, norma: StavkaYear) {
-      this.norma.open(e, norma)
+      this.stavka.open(e, norma)
     }
 
     ngOnInit(): void {
       this.getData();  
-      this.norma$ = this.stavkaYearService.getStavkaYearOne();
+      this.getNorma();
     }
   
     getData() {
       this.normaStudyService.doClick()
+    }
+
+    getNorma() {
+      this.stavkaYearService.doClick()
     }
 
     delete(data:NormaStudy) {

@@ -1,45 +1,37 @@
 <nav class="navbar">
     <div class="container-fluid">
+      <div class="d-flex">
+        <input class="form-control me-2" type="search" [(ngModel)]="term" placeholder="Поиск" aria-label="Поиск">
+    </div>
         <div class="btn-group">
-          <button class="btn btn-sm btn-outline-secondary ms-2" type="button">Добавить</button>
-
+          <button class="btn btn-sm btn-outline-secondary ms-2" (click)="openMenuAdd($event)" type="button">Добавить</button>
         </div>
         
     </div>
 </nav>
 
+<app-modal-pp-edit>
+</app-modal-pp-edit>
 
 <table class="table table-hover">
-<thead>
-  <tr>
-    <th scope="col">#</th>
-    <th scope="col">Год</th>
-    <th scope="col">Просмотр</th>
-    <th scope="col">Редактировать</th>
-    <th scope="col">Удалить</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <th scope="row">1</th>
-    <td>Mark</td>
-    <td class="td"><img src="https://img.icons8.com/ios-glyphs/24/000000/fine-print--v1.png"/></td>
-    <td class="td"><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
-    <td class="td"><img src="https://img.icons8.com/ios-filled/24/000000/delete--v1.png"/></td>
-  </tr>
-  <tr>
-    <th scope="row">2</th>
-    <td>Jacob</td>
-    <td class="td"><img src="https://img.icons8.com/ios-glyphs/24/000000/fine-print--v1.png"/></td>
-    <td class="td"><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
-    <td class="td"><img src="https://img.icons8.com/ios-filled/24/000000/delete--v1.png"/></td>
-  </tr>
-  <tr>
-    <th scope="row">3</th>
-    <td>Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the Bird Larry the BirdLarry the Bird</td>
-    <td class="td"><img src="https://img.icons8.com/ios-glyphs/24/000000/fine-print--v1.png"/></td>
-    <td class="td"><img src="https://img.icons8.com/fluency-systems-filled/24/000000/edit.png"/></td>
-    <td class="td"><img src="https://img.icons8.com/ios-filled/24/000000/delete--v1.png"/></td>
-  </tr>
-</tbody>
-</table>
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Год</th>
+      <th scope="col">Кафедра</th>
+      <th scope="col">Просмотр</th>
+      <th scope="col">Редактировать</th>
+      <th scope="col">Удалить</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="data | async as data" >
+    <tr *ngFor="let data of data| filter:term; let i = index">
+      <th scope="row" >{{i+1}}</th>
+      <td>{{data.data_add}}</td>
+      <td>{{data.kafedra.book_office.name}}</td>
+      <td class="td"><img src="././assets/images/icon/fine-print--v1.png"/></td>
+      <td class="td" (click)="openMenuEdit($event, data)"><img src="././assets/images/icon/edit.png"/></td>
+      <td class="td" (click)="delete(data)"><img src="././assets/images/icon/delete--v1.png"/></td>
+    </tr>
+  </tbody>
+  </table>

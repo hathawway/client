@@ -112,6 +112,23 @@ export interface Kafedra {
     book_post:BookPost
 }
 
+export interface IpKafedra {
+    id: string,
+    ip: IpPps,
+    isagreement:string,
+    data_agreement:Date,
+    isimplementation: string,
+    data_implementation: Date
+
+}
+
+export interface IpPps {
+    id: string,
+    data_add: Date,
+    kafedra: Kafedra
+
+}
+
 export interface Message {
     error: any;
     message: string

@@ -51,6 +51,7 @@ import { ModalAddNormaKindActivityComponent } from './components/umu/modal-add-n
 import { ModalAddUnitComponent } from './components/umu/modal-add-unit/modal-add-unit.component';
 import { UnitTableComponent } from './components/umu/unit-table/unit-table.component';
 import { ModalEditStavkaComponent } from './components/umu/modal-edit-stavka/modal-edit-stavka.component';
+import { ModalPpEditComponent } from './components/pps/modal-pp-edit/modal-pp-edit.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +92,8 @@ import { ModalEditStavkaComponent } from './components/umu/modal-edit-stavka/mod
     ModalAddNormaKindActivityComponent,
     ModalAddUnitComponent,
     UnitTableComponent,
-    ModalEditStavkaComponent
+    ModalEditStavkaComponent,
+    ModalPpEditComponent
   ],
   imports: [
     BrowserModule,

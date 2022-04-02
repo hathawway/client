@@ -2,19 +2,27 @@
 <ng-content select=".items"></ng-content>
 
 
-<p class="title">ФИО *</p>
-<form class="items">     
+<p class="title">Редактировать данные</p>
+<form class="items" *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">     
 
-    <div class="item">
-        <input class="form-control me-2 mb-2" autocomplete="off" type="text" placeholder="Согласован" aria-label="Согласован" disabled>
-        <td class="td"><input class="checkbox" type="checkbox" id="scales" name="scales" checked></td>
-        <input class="form-control me-2 mb-2" autocomplete="off" type="date" placeholder="Дата согласования" aria-label="Дата согласования">
-    </div>
-    <div class="item">
-        <input class="form-control me-2 mb-2" autocomplete="off" type="text" placeholder="Выполнен" aria-label="Выполнен" disabled>
-        <td class="td"><input class="checkbox" autocomplete="off" type="checkbox" id="scales" name="scales" checked></td>
-        <input class="form-control me-2 mb-2" autocomplete="off" type="date" placeholder="Дата выполнения" aria-label="Дата выполнения">
-    </div> 
-    <button class="btn btn-primary" type="submit" (click)="save()">Сохранить</button>
+
+        <p class="items-name">Согласован</p><br>
+        <select class="form-select mb-2 mt-2" name="isagreement" formControlName="isagreement" aria-label="Согласован">
+            <option value="true" type="text">Да</option>
+            <option value="false" type="text">Нет</option>
+        </select>
+
+        <input class="form-control me-2 mb-2" name="data_agreement" formControlName="data_agreement" type="date" placeholder="Дата согласования" aria-label="Дата согласования">
+   
+        <p class="items-name">Выполнен</p><br>
+        <select class="form-select mb-2 mt-2" name="isimplementation" formControlName="isimplementation" aria-label="Выполнен">
+            <option value="true" type="text">Да</option>
+            <option value="false" type="text">Нет</option>
+        </select>
+
+        <input class="form-control me-2 mb-2" name="data_implementation" formControlName="data_implementation" type="date" placeholder="Дата выполнения" aria-label="Дата выполнения">
+
+
+    <button class="btn btn-primary" type="submit">Сохранить</button>
     <button class="btn btn-primary" type="button" (click)="close()">Закрыть</button>
 </form>   

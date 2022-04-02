@@ -22,11 +22,11 @@
           <td>{{user.second}} {{user.first}} {{user.third}}</td>
           <td>{{user.book_office.name}}</td>
           <td>{{user.book_post.name}}</td>
-          <div *ngIf="data$ | async as data">
+          <!-- <div *ngIf="data$ | async as data">
             <div *ngFor="let data of data">
               <td><input *ngIf="user.id === data.user.id;"  class="checkbox" type="checkbox"></td>
             </div>        
-          </div>
+          </div> -->
     </tr>
   </tbody>
 </table>

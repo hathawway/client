@@ -16,11 +16,11 @@ export class ModalEditStavkaComponent implements OnInit {
   @Input() @HostBinding("style.width") width = "600px"
  
   form!: FormGroup;
-  data: Observable<StavkaYear> | undefined;
+  norma: Observable<StavkaYear> | undefined;
 
 
   constructor(private stavkaYearService : StavkaYearService) { 
-    this.stavkaYearService.onClick.subscribe(cnt => this.data = cnt);
+    this.stavkaYearService.onClick.subscribe(cnt => this.norma = cnt);
   }
 
   ngOnInit(): void {

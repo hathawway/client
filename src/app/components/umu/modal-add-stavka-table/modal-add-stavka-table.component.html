@@ -6,14 +6,16 @@
 <form class="items" *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
 
 
-  <input class="form-control me-2 mb-3" id="norma" type="number" name="norma"
-  autocomplete="off" formControlName="norma" placeholder="Норма" aria-label="Норма">
+  
 
   <select class="form-select mb-2" *ngIf="posts$ | async as posts"  name="idbook_post" formControlName="idbook_post" aria-label="Должность">
     <ng-container *ngFor="let post of posts">
       <option *ngIf="post.ispps" [value]="post.id" type="text">{{post.name}}</option>
     </ng-container>
   </select>
+
+  <input class="form-control me-2 mb-3" id="norma" type="number" name="norma"
+  autocomplete="off" formControlName="norma" placeholder="Норма" aria-label="Норма">
 
   <button class="btn btn-primary" type="submit">Сохранить</button>
   <button class="btn btn-primary" type="button" (click)="close()">Закрыть</button>

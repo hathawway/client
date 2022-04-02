@@ -1,0 +1,14 @@
+<ng-content select=".title"></ng-content>
+<ng-content select=".items"></ng-content>
+
+
+<p class="title">Редактировать данные</p>
+<form class="items" *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">     
+
+
+    <input class="form-control me-2 mb-2" name="data_add" formControlName="data_implementation" type="data_add" placeholder="Дата" aria-label="Дата">
+
+
+    <button class="btn btn-primary" type="submit">Сохранить</button>
+    <button class="btn btn-primary" type="button" (click)="close()">Закрыть</button>
+</form>   

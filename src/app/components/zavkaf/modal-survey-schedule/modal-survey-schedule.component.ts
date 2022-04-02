@@ -2,8 +2,10 @@ import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { MaterialService } from 'src/app/classes/material.service';
-import { Kafedra } from 'src/app/interfaces/interfaces';
+import { BookPost, BookWork, Kafedra } from 'src/app/interfaces/interfaces';
 import { KafedraService } from 'src/app/services/kafedra.service';
+import { PostService } from 'src/app/services/post.service';
+import { WorkService } from 'src/app/services/work.service';
 
 @Component({
   selector: 'app-modal-survey-schedule',
@@ -16,22 +18,31 @@ export class ModalSurveyScheduleComponent implements OnInit {
   @Input() @HostBinding("style.width") width = "600px"
  
   form!: FormGroup;
-  data$:Observable<Kafedra> | undefined;
+  data:Observable<Kafedra[]> | undefined;
+  works$:Observable<BookWork[]> | undefined;
+  posts$:Observable<BookPost[]> | undefined;
 
-  constructor(private kafedraService: KafedraService) { }
+  constructor(private kafedraService: KafedraService, 
+    private workService: WorkService,
+    private postService: PostService) {
+      this.kafedraService.onClick.subscribe(cnt => this.data = cnt);
+     }
  
   ngOnInit(): void {
-
+    this.works$ = this.workService.getWork()
+    this.posts$ = this.postService.getPost()
   }
 
   open(e:MouseEvent, kafedra: Kafedra) {
  
     this.visibility = "visible"
-    this.data$ = this.kafedraService.getKafedraById(kafedra)
     this.form = new FormGroup({
       id: new FormControl(kafedra.id, Validators.required),
       norma: new FormControl(kafedra.norma, Validators.required),
-      // name: new FormControl(kafedra.name, Validators.required)
+      user: new FormControl(kafedra.user.id, Validators.required),
+      book_work:  new FormControl(kafedra.book_work.id, Validators.required),
+      book_office: new FormControl(kafedra.book_office.id, Validators.required),
+      book_post: new FormControl(kafedra.book_post.id, Validators.required)
     })
  
     e.stopPropagation()
@@ -43,14 +54,14 @@ export class ModalSurveyScheduleComponent implements OnInit {
 
   onSubmit() {
     this.form.disable()
-
-    // this.kafedraService.updateKafedra(this.form.value).subscribe(
-    //   () => this.router.navigate(['/dashboard/zafkaf/schedule/']),
-    //   error => {
-    //     MaterialService.toast(error.error.message)
-    //     this.form.enable()
-    //   }
-    // )
+    console.log(this.form.value)
+    this.kafedraService.updateKafedra(this.form.value).subscribe(
+      () => this.kafedraService.doClick(),
+      error => {
+        MaterialService.toast(error.error.message)
+        this.form.enable()
+      }
+    )
 
     this.form.enable()
     this.visibility = "hidden"

@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { EventEmitter, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment.prod";
 import { BookOffice, Kafedra, Message, User } from "../interfaces/interfaces";
@@ -10,8 +10,16 @@ import { BookOffice, Kafedra, Message, User } from "../interfaces/interfaces";
 
 export class KafedraService {
 
+    private data: Observable<Kafedra[]> | undefined;
+    onClick:EventEmitter<Observable<Kafedra[]>> = new EventEmitter();
+
 
     constructor(private http: HttpClient) {}
+
+    doClick(){
+        this.data = this.getKafedra()
+        this.onClick.emit(this.data);
+    }
 
         addKafedra(user: User, office: BookOffice): Observable<Kafedra> {
             const kafedra = {

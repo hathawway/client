@@ -3,7 +3,7 @@
     <div class="d-flex">
       <input class="form-control me-2" type="search" [(ngModel)]="term" placeholder="Поиск" aria-label="Поиск">
     </div>
-    <div class="d-flex" *ngIf="norma$ | async as norma">
+    <div class="d-flex" *ngIf="norma | async as norma">
       <input class="form-control me-2 mb-2" type="text" value="{{norma.norma}}" placeholder="Норма на текущий год" aria-label="Норма на текущий год" disabled>
       <button class="btn btn-sm btn-outline-secondary ms-2" (click)="openNormaEdit($event, norma)">Редактировать</button>
   </div> 
@@ -36,8 +36,8 @@
       <th scope="row" >{{i+1}}</th>
       <td>{{data.book_post.name}}</td>
       <td>{{data.norma}}</td>   
-      <td class="td" (click)="openMenuEdit($event, data)"><img src="../../../../assets/images/icon/edit.png"/></td>
-      <td class="td" (click)="delete(data)"><img src="../../../../assets/images/icon/delete--v1.png"/></td>
+      <td class="td" (click)="openMenuEdit($event, data)"><img src="././assets/images/icon/edit.png"/></td>
+      <td class="td" (click)="delete(data)"><img src="././assets/images/icon/delete--v1.png"/></td>
     </tr>
   </ng-container> 
 </tbody>

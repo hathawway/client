@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 import { MaterialService } from 'src/app/classes/material.service';
 import { AuthService } from 'src/app/services/auth';
 import { KindActivityService } from 'src/app/services/kindActivity.service';
-import { KindActivity, User } from './../../../interfaces/interfaces';
+import { RoleService } from 'src/app/services/role.service';
+import { KindActivity, Role } from './../../../interfaces/interfaces';
 
 @Component({
   selector: 'app-modal-add-kind-activity-table',
@@ -18,17 +19,17 @@ export class ModalAddKindActivityTableComponent implements OnInit {
  
   form!: FormGroup;
   flag = false;
-  users$: Observable<User[]> | undefined; 
+  role$: Observable<Role[]> | undefined; 
   data: Observable<KindActivity[]> | undefined; 
 
 
   constructor(private kindActivityService : KindActivityService,
-    private authService : AuthService) {
+    private roleService : RoleService) {
       this.kindActivityService.onClick.subscribe(cnt => this.data = cnt);
      }
  
   ngOnInit(): void {
-    this.users$ = this.authService.getUser()
+    this.role$ = this.roleService.getRole()
   }
 
   openEdit(e:MouseEvent, data:KindActivity) { 

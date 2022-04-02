@@ -12,20 +12,25 @@ import { ModalSurveyScheduleComponent } from '../modal-survey-schedule/modal-sur
 })
 export class ScheduleComponent implements OnInit {
 
-  @ViewChild(ModalSurveyScheduleComponent) menu:ModalSurveyScheduleComponent 
+  @ViewChild(ModalSurveyScheduleComponent) menu!:ModalSurveyScheduleComponent 
 
-  term: string;
-  data$: Observable<Kafedra[]> | undefined;
+  term!: string;
+  data: Observable<Kafedra[]> | undefined;
 
-  constructor(private kafedraService: KafedraService,
-    private router: Router) {}
+  constructor(private kafedraService: KafedraService) {
+      this.kafedraService.onClick.subscribe(cnt=>this.data = cnt);
+    }
 
   openMenu(e, kafedra: Kafedra) {
     this.menu.open(e, kafedra)
   }
 
   ngOnInit(): void {
-    this.data$ = this.kafedraService.getKafedra()
+    this.getData();  
+  }
+
+  getData() {
+    this.kafedraService.doClick()
   }
 
 
