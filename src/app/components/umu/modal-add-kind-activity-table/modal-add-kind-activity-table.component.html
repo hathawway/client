@@ -3,7 +3,7 @@
 
 
 <p class="title">Вид деятельности</p>
-<form class="items" *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+<form class="items" [formGroup]="form" *ngIf="form" (ngSubmit)="onSubmit()">
 
 
   <input class="form-control me-2 mb-3" id="name" type="text" name="name"

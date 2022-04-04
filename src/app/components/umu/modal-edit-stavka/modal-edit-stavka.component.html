@@ -2,7 +2,7 @@
 <ng-content select=".items"></ng-content>
 
 <p class="title">Норма на текущий год</p>
-<form class="items" *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+<form class="items" [formGroup]="form" *ngIf="form" (ngSubmit)="onSubmit()">
 
     <input class="form-control me-2" 
     id="norma"

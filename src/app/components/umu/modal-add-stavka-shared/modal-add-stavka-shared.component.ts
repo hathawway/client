@@ -44,10 +44,10 @@ export class ModalAddStavkaSharedComponent implements OnInit {
     this.visibility = "visible"
     this.form = new FormGroup({
       id: new FormControl(data.id, Validators.required),
-      norma: new FormControl(data.norma, Validators.required),
-      idbook_post: new FormControl(data.book_post.id, Validators.required),
-      idactivity: new FormControl(data.activity.id, Validators.required),
-      idbook_unit: new FormControl(data.book_unit.id, Validators.required)
+      norma: new FormControl(data.norma === null ? null : data.norma, Validators.required),
+      idbook_post: new FormControl(data.book_post === null ? null : data.book_post.id, Validators.required),
+      idactivity: new FormControl(data.activity === null ? null : data.activity.id, Validators.required),
+      idbook_unit: new FormControl(data.book_unit === null ? null : data.book_unit.id, Validators.required)
     })
     e.stopPropagation()    
   }

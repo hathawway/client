@@ -28,12 +28,16 @@
     <ng-container *ngFor="let data of data | filter:term; let i = index">
       <tr>
         <th scope="row" >{{i+1}}</th>
-        <td>{{data.kind_activity.name}}</td>
-        <td>{{data.book_post.name}}</td>
-        <td>{{data.norma}}</td>   
+        <td *ngIf="data.kind_activity; else somethingElse">{{data.kind_activity.name}}</td>
+        <td *ngIf="data.book_post; else somethingElse">{{data.book_post.name}}</td>
+        <td *ngIf="data.norma; else somethingElse">{{data.norma}}</td>   
         <td class="td" (click)="openMenuEdit($event, data)"><img src="././assets/images/icon/edit.png"/></td>
         <td class="td" (click)="delete(data)"><img src="././assets/images/icon/delete--v1.png"/></td>
       </tr>
     </ng-container> 
   </tbody>
   </table>
+
+  <ng-template #somethingElse>
+    <td></td>
+  </ng-template>

@@ -38,11 +38,11 @@ export class ModalSurveyScheduleComponent implements OnInit {
     this.visibility = "visible"
     this.form = new FormGroup({
       id: new FormControl(kafedra.id, Validators.required),
-      norma: new FormControl(kafedra.norma, Validators.required),
-      user: new FormControl(kafedra.user.id, Validators.required),
-      book_work:  new FormControl(kafedra.book_work.id, Validators.required),
-      book_office: new FormControl(kafedra.book_office.id, Validators.required),
-      book_post: new FormControl(kafedra.book_post.id, Validators.required)
+      norma: new FormControl(kafedra.norma === null ? null : kafedra.norma, Validators.required),
+      user: new FormControl(kafedra.user === null ? null : kafedra.user.id, Validators.required),
+      book_work:  new FormControl(kafedra.book_work === null ? null : kafedra.book_work.id, Validators.required),
+      book_office: new FormControl(kafedra.book_office === null ? null : kafedra.book_office.id, Validators.required),
+      book_post: new FormControl(kafedra.book_post === null ? null : kafedra.book_post.id, Validators.required)
     })
  
     e.stopPropagation()

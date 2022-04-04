@@ -31,11 +31,11 @@ export class ModalIpEditComponent implements OnInit {
     this.visibility = "visible"
     this.form = new FormGroup({
       id: new FormControl(ip.id, Validators.required),
-      ip: new FormControl(ip.ip.id, Validators.required),
-      isagreement:new FormControl(ip.isagreement, Validators.required),
-      data_agreement:new FormControl(ip.data_agreement, Validators.required),
-      isimplementation: new FormControl(ip.isimplementation, Validators.required),
-      data_implementation: new FormControl(ip.data_implementation, Validators.required)
+      ip: new FormControl(ip.ip === null ? null : ip.ip.id, Validators.required),
+      isagreement:new FormControl(ip.isagreement  === null ? null : ip.isagreement, Validators.required),
+      data_agreement:new FormControl(ip.data_agreement === null ? null : ip.data_agreement, Validators.required),
+      isimplementation: new FormControl(ip.isimplementation === null ? null : ip.isimplementation, Validators.required),
+      data_implementation: new FormControl(ip.data_implementation === null ? null : ip.data_implementation, Validators.required)
     })
     e.stopPropagation()  
   }

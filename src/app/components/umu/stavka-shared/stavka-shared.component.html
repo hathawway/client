@@ -18,7 +18,6 @@
   <tr>
     <th scope="col">#</th>
     <th scope="col">Вид деятельности</th>
-    <th scope="col">Вид работы</th>
     <th scope="col">Должность</th>
     <th scope="col">Норма времени (ак. ч.)</th>
     <th scope="col">Единица работы</th>
@@ -30,14 +29,17 @@
 <tbody *ngIf="data | async as data" >
   <tr *ngFor="let data of data | filter:term; let i = index">
     <th scope="row" >{{i+1}}</th>
-    <td>{{data.activity.name}}</td>
-    <td>{{data.activity.name}}</td>
-    <td>{{data.book_post.name}}</td>
-    <td>{{data.norma}}</td>   
-    <td>{{data.book_unit.name}}</td>   
+    <td *ngIf="data.activity; else somethingElse">{{data.activity.name}}</td>
+    <td *ngIf="data.book_post; else somethingElse">{{data.book_post.name}}</td>
+    <td *ngIf="data.norma; else somethingElse">{{data.norma}}</td>   
+    <td *ngIf="data.book_unit; else somethingElse">{{data.book_unit.name}}</td>   
     <td class="td" (click)="openMenuEdit($event, data)"><img src="././assets/images/icon/edit.png"/></td>
     <td class="td" (click)="delete(data)"><img src="././assets/images/icon/delete--v1.png"/></td>
   </tr>
 </tbody>
 
 </table>
+
+<ng-template #somethingElse>
+  <td></td>
+</ng-template>

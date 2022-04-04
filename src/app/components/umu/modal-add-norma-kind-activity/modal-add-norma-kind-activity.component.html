@@ -3,7 +3,7 @@
 
 
 <p class="title">Количество часов на ставку (учебная)</p>
-<form class="items" *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+<form class="items" [formGroup]="form" *ngIf="form" (ngSubmit)="onSubmit()">
 
 
   <select class="form-select mb-2" *ngIf="kinds$ | async as kinds"  name="idkind_activity" formControlName="idkind_activity" aria-label="Вид деятельности">

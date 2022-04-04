@@ -29,7 +29,7 @@ export class SidebarComponent implements OnInit {
     {id: 4,  url: '/dashboard/pps/statistics', name: 'Статистика'},
     {id: 5, url: '/dashboard/curator/type-work', name: 'Работа'},
     {id: 5, url: '/dashboard/curator/works', name: 'Мониторинг заполненого ИП'},
-    {id: 5, url: '/dashboard/curator/works-dane', name: 'Мониторинг выполненого ИП'}
+    {id: 5, url: '/dashboard/curator/works-done', name: 'Мониторинг выполненого ИП'}
   ]
 
   constructor(private role: RoleService) { 

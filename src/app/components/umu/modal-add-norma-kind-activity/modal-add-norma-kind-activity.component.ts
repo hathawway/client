@@ -39,9 +39,9 @@ export class ModalAddNormaKindActivityComponent implements OnInit {
     this.visibility = "visible"
     this.form = new FormGroup({
       id: new FormControl(data.id, Validators.required),
-      norma: new FormControl(data.norma, Validators.required),
-      idbook_post: new FormControl(data.book_post.id, Validators.required),
-      idkind_activity: new FormControl(data.kind_activity.id, Validators.required)
+      norma: new FormControl(data.norma === null ? null : data.norma, Validators.required),
+      idbook_post: new FormControl(data.book_post === null ? null : data.book_post.id, Validators.required),
+      idkind_activity: new FormControl(data.kind_activity === null ? null : data.kind_activity.id , Validators.required)
     })
     e.stopPropagation()    
   }

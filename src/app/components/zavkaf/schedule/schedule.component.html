@@ -25,13 +25,17 @@
 <tbody *ngIf="data | async as data" >
   <tr *ngFor="let data of data| filter:term; let i = index">
     <th scope="row" >{{i+1}}</th>
-    <td>{{data.user.second}} {{data.user.first}} {{data.user.third}}</td>
-    <td>{{data.book_post.name}}</td>
-    <td>{{data.norma}}</td>
-    <td>{{data.book_work.name}}</td>
-    <td>{{data.user.book_stepen.name}}</td>
-    <td>{{data.user.book_zvanie.name}}</td>
+    <td *ngIf="data.user; else somethingElse">{{data.user.second}} {{data.user.first}} {{data.user.third}}</td>
+    <td *ngIf="data.book_post; else somethingElse">{{data.book_post.name}}</td>
+    <td *ngIf="data.norma; else somethingElse">{{data.norma}}</td>
+    <td *ngIf="data.book_work; else somethingElse">{{data.book_work.name}}</td>
+    <td *ngIf="data.user.book_stepen; else somethingElse">{{data.user.book_stepen.name}}</td>
+    <td *ngIf="data.user.book_zvanie; else somethingElse">{{data.user.book_zvanie.name}}</td>
     <td class="td" (click)="openMenu($event, data)"><img src="././assets/images/icon/edit.png"/></td>
   </tr>
 </tbody>
 </table>
+
+<ng-template #somethingElse>
+  <td></td>
+</ng-template>

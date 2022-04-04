@@ -3,7 +3,7 @@
 
 
     <p class="title">Редактирование данных</p>
-    <form class="items" *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <form class="items" [formGroup]="form" *ngIf="form" (ngSubmit)="onSubmit()">
 
         <select class="form-select mb-2" *ngIf="posts$ | async as posts" name="book_work" formControlName="book_work" aria-label="Должность">
             <option *ngFor="let post of posts" [value]="post.id" type="text">{{post.name}}</option>

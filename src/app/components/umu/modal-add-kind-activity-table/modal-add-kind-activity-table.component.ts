@@ -36,8 +36,8 @@ export class ModalAddKindActivityTableComponent implements OnInit {
     this.visibility = "visible"
     this.form = new FormGroup({
       id: new FormControl(data.id, Validators.required),
-      name: new FormControl(data.name, Validators.required),
-      iduser: new FormControl(data.user.id, Validators.required)
+      name: new FormControl(data.name === null ? null : data.name, Validators.required),
+      iduser: new FormControl(data.user === null ? null : data.user.id, Validators.required)
     })
     e.stopPropagation()    
   }

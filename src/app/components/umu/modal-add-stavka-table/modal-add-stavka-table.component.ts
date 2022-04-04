@@ -36,8 +36,8 @@ export class ModalAddStavkaTableComponent implements OnInit {
     this.visibility = "visible"
     this.form = new FormGroup({
       id: new FormControl(data.id, Validators.required),
-      norma: new FormControl(data.norma, Validators.required),
-      idbook_post: new FormControl(data.book_post.id, Validators.required)
+      norma: new FormControl(data.norma  === null ? null : data.norma, Validators.required),
+      idbook_post: new FormControl(data.book_post === null ? null : data.book_post.id, Validators.required)
     })
     e.stopPropagation()    
   }

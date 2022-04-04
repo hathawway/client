@@ -4,7 +4,7 @@
   
 
 <p class="title">Пользователь</p>
-<form class="items" *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+<form class="items" [formGroup]="form" *ngIf="form" (ngSubmit)="onSubmit()">
     <input class="form-control me-2 mb-2" type="text" name="login" formControlName="login" autocomplete="off" placeholder="Логин" aria-label="Логин">
     <input class="form-control me-2 mb-2" type="password" name="password" formControlName="password" autocomplete="off" placeholder="Пароль" aria-label="Пароль">
     <input class="form-control me-2 mb-2" type="text" name="second" formControlName="second" autocomplete="off" placeholder="Фамилия" aria-label="Фамилия">

@@ -28,14 +28,18 @@
 
         <tr *ngFor="let data of data | filter:term; let i = index">
         <th scope="row">{{i+1}}</th>
-        <td>{{data.name}}</td>
-        <td *ngIf="data.ispps; else somethingElse">Да</td>
+        <td *ngIf="data.name; else somethingElse">{{data.name}}</td>
+        <td *ngIf="data.ispps; else something">Да</td>
         <td class="td" (click)="openMenuEdit($event, data)"><img src="././assets/images/icon/edit.png"/></td>
         <td class="td" (click)="delete(data)"><img src="././assets/images/icon/delete--v1.png"/></td>
       </tr>
     </tbody>
   </table>
 
-<ng-template #somethingElse>
+<ng-template #something>
     <td>Нет</td>
+</ng-template>
+
+<ng-template #somethingElse>
+  <td></td>
 </ng-template>

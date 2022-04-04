@@ -67,7 +67,6 @@ export class AuthService {
         localStorage.clear()
     }
 
-    // на бэке метода такого нет
     updateUser(user: User): Observable<User> {
         return this.http.patch<User>(`${environment.api}/api/user/${user.id}`, user)
     }

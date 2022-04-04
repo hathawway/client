@@ -3,7 +3,7 @@
 
 
 <p class="title">Должность</p>
-<form class="items" *ngIf="postForm" [formGroup]="postForm" (ngSubmit)="onSubmit()">
+<form class="items" [formGroup]="postForm" *ngIf="postForm" (ngSubmit)="onSubmit()">
 
     <input class="form-control me-2" 
   type="text" 

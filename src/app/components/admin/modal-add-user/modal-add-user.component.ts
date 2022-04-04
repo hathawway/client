@@ -89,12 +89,12 @@ export class ModalAddUserComponent implements OnInit {
       first: new FormControl(user.first, Validators.required),
       third: new FormControl(user.third, Validators.required),
       //book_role: new FormControl(user.book_role.id, Validators.required),
-      book_office: new FormControl(user.book_office.id, Validators.required),
-      book_post: new FormControl(user.book_post.id, Validators.required),
-      book_work: new FormControl(user.book_work.id, Validators.required),
-      book_status: new FormControl(user.book_status.id, Validators.required),
-      book_stepen: new FormControl(user.book_stepen.id, Validators.required),
-      book_zvanie: new FormControl(user.book_zvanie.id, Validators.required),
+      book_office: new FormControl(user.book_office === null ? null : user.book_office.id, Validators.required),
+      book_post: new FormControl(user.book_post === null ? null : user.book_post.id, Validators.required),
+      book_work: new FormControl(user.book_work === null ? null : user.book_work.id, Validators.required),
+      book_status: new FormControl(user.book_status === null ? null : user.book_status.id, Validators.required),
+      book_stepen: new FormControl(user.book_stepen === null ? null : user.book_stepen.id, Validators.required),
+      book_zvanie: new FormControl(user.book_zvanie === null ? null : user.book_zvanie.id, Validators.required),
       tel: new FormControl(user.tel, Validators.required),
       email: new FormControl(user.email, Validators.required)
     })
@@ -108,6 +108,7 @@ export class ModalAddUserComponent implements OnInit {
 
   onSubmit() {
     this.form.disable()
+    console.log(this.form.value)
     if (this.flag) {
       this.authService.register(this.form.value).subscribe(
         () => this.authService.doClick(),

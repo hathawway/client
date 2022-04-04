@@ -27,11 +27,15 @@
 <tbody *ngIf="data | async as data" >
   <tr *ngFor="let data of data | filter:term; let i = index">
     <th scope="row" >{{i+1}}</th>
-    <td>{{data.name}}</td>
-    <td>{{data.user.second}} {{data.user.first}} {{data.user.third}}</td>
+    <td *ngIf="data.name; else somethingElse">{{data.name}}</td>
+    <td *ngIf="data.user; else somethingElse">{{data.user.second}} {{data.user.first}} {{data.user.third}}</td>
     <td class="td" (click)="openMenuEdit($event, data)"><img src="././assets/images/icon/edit.png"/></td>
     <td class="td" (click)="delete(data)"><img src="././assets/images/icon/delete--v1.png"/></td>
   </tr>
 </tbody>
 
 </table>
+
+<ng-template #somethingElse>
+  <td></td>
+</ng-template>
