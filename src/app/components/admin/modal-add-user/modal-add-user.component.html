@@ -12,26 +12,26 @@
     <input class="form-control me-2 mb-2" type="text" name="third" formControlName="third" autocomplete="off" placeholder="Отчество" aria-label="Отчество">   
 
 
-    <select class="form-select mb-2" *ngIf="roles$ | async as roles" name="book_role" formControlName="book_role" aria-label="Роль в системе">
+    <!-- <select class="form-select mb-2" *ngIf="roles$ | async as roles" name="idbook_role" formControlName="idbook_role" aria-label="Роль в системе">
         <option *ngFor="let role of roles" [value]="role.id" type="text">{{role.name}}</option>
-    </select>
+    </select> -->
 
-    <select class="form-select mb-2" *ngIf="offices$ | async as offices" name="book_office" formControlName="book_office" aria-label="Структурное подразделение">
+    <select class="form-select mb-2" *ngIf="offices$ | async as offices" name="idbook_office" formControlName="idbook_office" aria-label="Структурное подразделение">
         <option *ngFor="let office of offices" [value]="office.id" type="text">{{office.name}}</option>
     </select>
-    <select class="form-select mb-2" *ngIf="posts$ | async as posts"  name="book_post" formControlName="book_post" aria-label="Должность">
+    <select class="form-select mb-2" *ngIf="posts$ | async as posts"  name="idbook_post" formControlName="idbook_post" aria-label="Должность">
         <option *ngFor="let post of posts" [value]="post.id" type="text">{{post.name}}</option>
     </select>
-    <select class="form-select mb-2" *ngIf="works$ | async as works"  name="book_work" formControlName="book_work" aria-label="Условие приема на работу">
+    <select class="form-select mb-2" *ngIf="works$ | async as works"  name="idbook_work" formControlName="idbook_work" aria-label="Условие приема на работу">
         <option *ngFor="let work of works" [value]="work.id" type="text">{{work.name}}</option>
     </select>
-    <select class="form-select mb-2" *ngIf="statuses$ | async as statuses"  name="book_status" formControlName="book_status" aria-label="Статус">
+    <select class="form-select mb-2" *ngIf="statuses$ | async as statuses"  name="idbook_status" formControlName="idbook_status" aria-label="Статус">
         <option *ngFor="let status of statuses" [value]="status.id" type="text">{{status.name}}</option>
     </select>
-    <select class="form-select mb-2" *ngIf="stepens$ | async as stepens"  name="book_stepen" formControlName="book_stepen" aria-label="Ученая степень">
+    <select class="form-select mb-2" *ngIf="stepens$ | async as stepens"  name="idbook_stepen" formControlName="idbook_stepen" aria-label="Ученая степень">
         <option *ngFor="let stepen of stepens" [value]="stepen.id" type="text">{{stepen.name}}</option>
     </select>
-    <select class="form-select mb-2" *ngIf="zvanies$ | async as zvanies" name="book_zvanie" formControlName="book_zvanie" aria-label="Ученое звание">
+    <select class="form-select mb-2" *ngIf="zvanies$ | async as zvanies" name="idbook_zvanie" formControlName="idbook_zvanie" aria-label="Ученое звание">
         <option *ngFor="let zvanie of zvanies" [value]="zvanie.id" type="text">{{zvanie.name}}</option>
     </select>
     <input class="form-control me-2 mb-2"  name="tel" formControlName="tel" type="tel" autocomplete="off" placeholder="Телефон" aria-label="Телефон">

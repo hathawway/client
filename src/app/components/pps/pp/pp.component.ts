@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IpKafedra, IpPps } from 'src/app/interfaces/interfaces';
-import { IpKafedraService } from 'src/app/services/ip.service';
+import { Ip } from 'src/app/interfaces/interfaces';
+import { IpPpsService } from 'src/app/services/pps.service';
 import { ModalPpEditComponent } from '../modal-pp-edit/modal-pp-edit.component';
 
 @Component({
@@ -14,13 +14,13 @@ export class PpComponent implements OnInit {
   @ViewChild(ModalPpEditComponent) menu!:ModalPpEditComponent 
 
   term!: string;
-  data: Observable<IpKafedra[]> | undefined;
+  data: Observable<Ip[]> | undefined;
 
-  constructor(private ipKafedraService: IpKafedraService) {
-      this.ipKafedraService.onClick.subscribe(cnt=>this.data = cnt);
+  constructor(private ipPpsService: IpPpsService) {
+      this.ipPpsService.onClick.subscribe(cnt=>this.data = cnt);
     }
 
-  openMenuEdit(e, ip: IpPps) {
+  openMenuEdit(e, ip: Ip) {
     this.menu.openEdit(e, ip)
   }
 
@@ -33,10 +33,10 @@ export class PpComponent implements OnInit {
   }
 
   getData() {
-    this.ipKafedraService.doClick()
+    this.ipPpsService.doClick()
   }
 
-  delete(ip:IpPps) {
+  delete(ip:Ip) {
 
   }
 

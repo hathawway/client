@@ -1,7 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { Observable } from 'rxjs';
 import { MaterialService } from 'src/app/classes/material.service';
-import { Kafedra, User } from 'src/app/interfaces/interfaces';
+import { BookOffice, Kafedra, User } from 'src/app/interfaces/interfaces';
 import { AuthService } from 'src/app/services/auth';
 import { KafedraService } from 'src/app/services/kafedra.service';
 
@@ -17,39 +17,57 @@ export class StaffAddComponent implements OnInit {
   users$: Observable<User[]> | undefined;
   isChecked: boolean = false;
   //office: Observable<User> | undefined;
-
+  kafedra:string[] = [];
+  check = false;
+  userOffice!: User; 
+ 
 
   constructor(private kafedraService: KafedraService,
     private authService: AuthService) {}
 
 
   ngOnInit(): void {
-    // вставить id кафедры к которой прикреплен завкаф
-    // this.data$ = this.kafedraService.getKafedra(this.user.book_office.id)
-    
     this.data$ = this.kafedraService.getKafedra()
 
     this.users$ = this.authService.getUser()
-  }
+    
 
-  save(user: User) {
-    if (this.isChecked) {
-      // this.kafedraService.addKafedra(this.user, this.office).subscribe(
-      //   () => this.router.navigate(['/dashboard/zavkaf/staff/']),
-      //   error => {
-      //     MaterialService.toast(error.error.message)
-      //   }
-      // )
-    } else {
-      // this.kafedraService.deleteKafedra().subscribe(
-      //   () => this.router.navigate(['/dashboard/zavkaf/staff/']),
-      //   error => {
-      //     MaterialService.toast(error.error.message)
-      //   }
-      // )
-    }
+    this.authService.getUserByHeader().subscribe( data => this.userOffice = data)
 
   }
 
+  checkEdit() {
+    this.isChecked = true;
+  }
+
+  change() {
+    this.check = !this.check;
+  }
+
+  checkClose() {
+    this.isChecked = false;
+  }
+
+  addKafedra(user: User) {
+    // if (ch) {
+    //   this.kafedra.push(user.id);
+    // } else {
+    //   this.kafedra = this.kafedra.filter((value, index) => value !== user.id);
+    // }
+    //console.log(ch)
+    this.kafedra.push(user.id);
+  }
+
+  save() {
+    console.log(this.kafedra)
+    console.log(this.userOffice.book_office.id)
+    this.kafedraService.addKafedra(this.kafedra, this.userOffice.book_office).subscribe(
+      () => this.isChecked = false,
+        error => {
+            MaterialService.toast(error.error.message)
+      }
+    )
+    this.kafedra= [];
+  }
 
 }

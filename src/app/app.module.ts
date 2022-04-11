@@ -20,8 +20,6 @@ import { KindActivityTableComponent } from './components/umu/kind-activity-table
 import { ActivityTableComponent } from './components/umu/activity-table/activity-table.component';
 import { ModalAddKindActivityTableComponent } from './components/umu/modal-add-kind-activity-table/modal-add-kind-activity-table.component';
 import { ModalAddActivityTableComponent } from './components/umu/modal-add-activity-table/modal-add-activity-table.component';
-import { ModalSurveyActivityTableComponent } from './components/umu/modal-survey-activity-table/modal-survey-activity-table.component';
-
 import { ModalAddStavkaTableComponent } from './components/umu/modal-add-stavka-table/modal-add-stavka-table.component';
 import { ModalAddOfficeTableComponent } from './components/admin/modal-add-office-table/modal-add-office-table.component';
 import { ModalAddPostTableComponent } from './components/admin/modal-add-post-table/modal-add-post-table.component';
@@ -44,8 +42,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './classes/token.interceptor';
 import { PageNotFoundComponent } from './components/shared/page-not-found/page-not-found.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { StavkaSharedComponent } from './components/umu/stavka-shared/stavka-shared.component';
-import { ModalAddStavkaSharedComponent } from './components/umu/modal-add-stavka-shared/modal-add-stavka-shared.component';
 import { NormaKindActivityComponent } from './components/umu/norma-kind-activity/norma-kind-activity.component';
 import { ModalAddNormaKindActivityComponent } from './components/umu/modal-add-norma-kind-activity/modal-add-norma-kind-activity.component';
 import { ModalAddUnitComponent } from './components/umu/modal-add-unit/modal-add-unit.component';
@@ -69,7 +65,6 @@ import { ModalPpEditComponent } from './components/pps/modal-pp-edit/modal-pp-ed
     ActivityTableComponent,
     ModalAddKindActivityTableComponent,
     ModalAddActivityTableComponent,
-    ModalSurveyActivityTableComponent,
     ModalAddStavkaTableComponent,
     ModalAddOfficeTableComponent,
     ModalAddPostTableComponent,
@@ -86,8 +81,6 @@ import { ModalPpEditComponent } from './components/pps/modal-pp-edit/modal-pp-ed
     ModalSurveyUserComponent,
     ModalIpEditComponent,
     PageNotFoundComponent,
-    StavkaSharedComponent,
-    ModalAddStavkaSharedComponent,
     NormaKindActivityComponent,
     ModalAddNormaKindActivityComponent,
     ModalAddUnitComponent,

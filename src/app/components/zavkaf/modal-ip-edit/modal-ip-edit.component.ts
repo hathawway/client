@@ -2,8 +2,8 @@ import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { MaterialService } from 'src/app/classes/material.service';
-import { IpKafedra } from 'src/app/interfaces/interfaces';
-import { IpKafedraService } from 'src/app/services/ip.service';
+import { Ip } from 'src/app/interfaces/interfaces';
+import { IpService } from 'src/app/services/ip.service';
 
 @Component({
   selector: 'app-modal-ip-edit', 
@@ -16,22 +16,21 @@ export class ModalIpEditComponent implements OnInit {
   @Input() @HostBinding("style.width") width = "600px"
 
   form!: FormGroup;
-  data: Observable<IpKafedra[]> | undefined;
+  data: Observable<Ip[]> | undefined;
  
-  constructor(private ipKafedraService : IpKafedraService) {
-    this.ipKafedraService.onClick.subscribe(cnt => this.data = cnt);
+  constructor(private ipService : IpService) {
+    this.ipService.onClick.subscribe(cnt => this.data = cnt);
 }
  
   ngOnInit(): void {
 
   }
 
-  open(e:MouseEvent, ip:IpKafedra) {
+  open(e:MouseEvent, ip:Ip) {
  
     this.visibility = "visible"
     this.form = new FormGroup({
       id: new FormControl(ip.id, Validators.required),
-      ip: new FormControl(ip.ip === null ? null : ip.ip.id, Validators.required),
       isagreement:new FormControl(ip.isagreement  === null ? null : ip.isagreement, Validators.required),
       data_agreement:new FormControl(ip.data_agreement === null ? null : ip.data_agreement, Validators.required),
       isimplementation: new FormControl(ip.isimplementation === null ? null : ip.isimplementation, Validators.required),
@@ -47,8 +46,8 @@ export class ModalIpEditComponent implements OnInit {
   onSubmit() {
     this.form.disable()
     console.log(this.form.value)
-      this.ipKafedraService.updateIpKafedra(this.form.value).subscribe(
-        () => this.ipKafedraService.doClick(),
+      this.ipService.updateIpKafedra(this.form.value).subscribe(
+        () => this.ipService.doClick(),
         error => {
           MaterialService.toast(error.error.message)
         }

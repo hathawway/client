@@ -6,8 +6,11 @@
 <form class="items" [formGroup]="form" *ngIf="form" (ngSubmit)="onSubmit()">     
 
 
-    <input class="form-control me-2 mb-2" name="data_add" formControlName="data_implementation" type="data_add" placeholder="Дата" aria-label="Дата">
-
+    <input class="form-control me-2 mb-2" name="data_add" formControlName="data_add" type="date" placeholder="Дата" aria-label="Дата">
+    
+    <select class="form-select mb-2" *ngIf="kafedra$ | async as kafedra" name="kafedra" formControlName="kafedra" aria-label="Структурное подразделение">
+            <option *ngFor="let kafedra of kafedra" [value]="kafedra.book_office.id">{{kafedra.book_office.name}}</option>
+    </select>
 
     <button class="btn btn-primary" type="submit">Сохранить</button>
     <button class="btn btn-primary" type="button" (click)="close()">Закрыть</button>

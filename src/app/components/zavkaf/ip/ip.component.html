@@ -26,12 +26,12 @@
 <tbody *ngIf="data | async as data" >
   <tr *ngFor="let data of data| filter:term; let i = index">
     <th scope="row" >{{i+1}}</th>
-    <td>{{data.kafedra.user.second}} {{data.kafedra.user.first}} {{data.kafedra.user.third}}</td>
-    <td>{{data.kafedra.book_post.name}}</td>
+    <td *ngIf="data.kafedra.user; else something">{{data.kafedra.user.second}} {{data.kafedra.user.first}} {{data.kafedra.user.third}}</td>
+    <td *ngIf="data.kafedra.book_post; else something">{{data.kafedra.book_post.name}}</td>
     <td *ngIf="data.isagreement; else somethingElse">Да</td>
-    <td>{{data.data_agreement}}</td>
+    <td *ngIf="data.data_agreement; else something">{{data.data_agreement}}</td>
     <td *ngIf="data.isimplementation; else somethingElse">Да</td>
-    <td>{{data.data_implementation}}</td>
+    <td *ngIf="data.data_implementation; else something">{{data.data_implementation}}</td>
     <td class="td"><img src="././assets/images/icon/fine-print--v1.png"/></td>
     <td class="td" (click)="openMenu($event, data)"><img src="././assets/images/icon/edit.png"/></td>
   </tr>
@@ -40,4 +40,8 @@
 
 <ng-template #somethingElse>
   <td>Нет</td>
+</ng-template>
+
+<ng-template #something>
+  <td></td>
 </ng-template>

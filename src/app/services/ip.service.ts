@@ -2,16 +2,16 @@ import { HttpClient } from "@angular/common/http";
 import { EventEmitter, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment.prod";
-import { BookOffice, Kafedra, IpKafedra, User } from "../interfaces/interfaces";
+import { Ip } from "../interfaces/interfaces";
 
 @Injectable({
     providedIn:'root'
 })
 
-export class IpKafedraService {
+export class IpService {
 
-    private data: Observable<IpKafedra[]> | undefined;
-    onClick:EventEmitter<Observable<IpKafedra[]>> = new EventEmitter();
+    private data: Observable<Ip[]> | undefined;
+    onClick:EventEmitter<Observable<Ip[]>> = new EventEmitter();
 
 
     constructor(private http: HttpClient) {}
@@ -21,18 +21,18 @@ export class IpKafedraService {
         this.onClick.emit(this.data);
     }
 
-
-    updateIpKafedra(ip: IpKafedra): Observable<IpKafedra> {
-        return this.http.patch<IpKafedra>(`${environment.api}/api/kafedra/ip/${ip.id}`, ip)
+    getIpKafedra(): Observable<Ip[]> {
+        return this.http.get<Ip[]>(`${environment.api}/api/kafedra/ip/kafedra/`)
     }
 
-    getIpKafedra(): Observable<IpKafedra[]> {
-        return this.http.get<IpKafedra[]>(`${environment.api}/api/kafedra/ip/`)
+    // getIpKafedraById(ip: Ip): Observable<Ip> {
+    //     return this.http.get<Ip>(`${environment.api}/api/kafedra/ip/one/${ip.id}`)
+    // }
+
+    updateIpKafedra(ip: Ip): Observable<Ip> {
+        return this.http.patch<Ip>(`${environment.api}/api/kafedra/ip/${ip.id}`, ip)
     }
 
-    getIpKafedraById(ip: IpKafedra): Observable<IpKafedra> {
-        return this.http.get<IpKafedra>(`${environment.api}/api/kafedra/ip/one/${ip.id}`)
-    }
 
 
 }

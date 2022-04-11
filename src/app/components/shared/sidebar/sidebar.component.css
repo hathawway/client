@@ -44,9 +44,16 @@
     width: 80%;
 }
 
-.row {
-    flex-wrap: nowrap;
-    width: auto;
+.row-container{
+    display: flex;
+}
+
+.col-container {
+    flex-grow: 3;
+}
+
+nav {
+    flex-grow: 1;
 }
 
 

@@ -87,7 +87,9 @@ export interface NormaKindActivity {
 export interface Activity {
     id: string,
     name: string,
-    kind_activity:KindActivity
+    kind_activity:KindActivity,
+    norma: string,
+    book_unit: BookUnit
 }
 
 export interface BookUnit {
@@ -95,13 +97,7 @@ export interface BookUnit {
     name: string
 }
 
-export interface NormaActivity {
-    id: string,
-    norma: string,
-    activity:Activity,
-    book_unit: BookUnit,
-    book_post:BookPost
-}
+
 
 export interface Kafedra {
     id: string,
@@ -112,20 +108,15 @@ export interface Kafedra {
     book_post:BookPost
 }
 
-export interface IpKafedra {
+export interface Ip {
     id: string,
-    ip: IpPps,
+    data_add: Date,
+    kafedra: Kafedra,
+    user:User,
     isagreement:string,
     data_agreement:Date,
     isimplementation: string,
     data_implementation: Date
-
-}
-
-export interface IpPps {
-    id: string,
-    data_add: Date,
-    kafedra: Kafedra
 
 }
 

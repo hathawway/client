@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IpKafedra } from 'src/app/interfaces/interfaces';
-import { IpKafedraService } from 'src/app/services/ip.service';
+import { Ip } from 'src/app/interfaces/interfaces';
+import { IpService } from 'src/app/services/ip.service';
 import { ModalIpEditComponent } from '../modal-ip-edit/modal-ip-edit.component';
 
 @Component({
@@ -14,13 +14,13 @@ export class IpComponent implements OnInit {
   @ViewChild(ModalIpEditComponent) menu!:ModalIpEditComponent 
 
   term!: string;
-  data: Observable<IpKafedra[]> | undefined;
+  data: Observable<Ip[]> | undefined;
 
-  constructor(private ipKafedraService: IpKafedraService) {
-      this.ipKafedraService.onClick.subscribe(cnt=>this.data = cnt);
+  constructor(private ipService: IpService) {
+      this.ipService.onClick.subscribe(cnt=>this.data = cnt);
     }
 
-  openMenu(e, ip: IpKafedra) {
+  openMenu(e, ip: Ip) {
     this.menu.open(e, ip)
   }
 
@@ -29,7 +29,7 @@ export class IpComponent implements OnInit {
   }
 
   getData() {
-    this.ipKafedraService.doClick()
+    this.ipService.doClick()
   }
 
 

@@ -2,7 +2,10 @@
   <div class="container-fluid">
       <div class="d-flex">
           <input class="form-control me-2" type="search" [(ngModel)]="term" placeholder="Поиск" aria-label="Поиск">
-      </div>    
+      </div>   
+      <button *ngIf="isChecked" (click)="save()">Сохранить</button>
+      <button (click)="checkClose()" *ngIf="isChecked">Закрыть</button>
+      <button (click)="checkEdit()" *ngIf="!isChecked">Редактировать</button> 
   </div>
 </nav>
 
@@ -13,7 +16,7 @@
       <th scope="col">ФИО</th>
       <th scope="col">Стуктурное подразделение</th>
       <th scope="col">Должность</th>
-      <th scope="col">Выбрать</th>
+      <th scope="col" *ngIf="isChecked">Выбрать</th>
     </tr>
   </thead>
   <tbody *ngIf="users$ | async as user">
@@ -22,11 +25,7 @@
           <td *ngIf="user; else somethingElse">{{user.second}} {{user.first}} {{user.third}}</td>
           <td *ngIf="user.book_office; else somethingElse">{{user.book_office.name}}</td>
           <td *ngIf="user.book_post; else somethingElse">{{user.book_post.name}}</td>
-          <!-- <div *ngIf="data$ | async as data">
-            <div *ngFor="let data of data">
-              <td><input *ngIf="user.id === data.user.id;"  class="checkbox" type="checkbox"></td>
-            </div>        
-          </div> -->
+          <td><input *ngIf="isChecked" (click)="addKafedra(user)" class="checkbox" type="checkbox"></td>
     </tr>
   </tbody>
 </table>
