@@ -4,33 +4,31 @@
         <input class="form-control me-2" type="search" [(ngModel)]="term" placeholder="Поиск" aria-label="Поиск">
     </div>
         <div class="btn-group">
-          <button class="btn btn-sm btn-outline-secondary ms-2" (click)="openMenuAdd($event)" type="button">Добавить</button>
-        </div>
-        
+          <a class="btn btn-sm btn-outline-secondary ms-2" href="/dashboard/pps/edit-pp">Добавить</a>
+        </div>      
     </div>
 </nav>
-
-<app-modal-pp-edit>
-</app-modal-pp-edit>
 
 <table class="table table-hover">
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Год</th>
+      <th scope="col">Год начала</th>
+      <th scope="col">Год конец</th>
       <th scope="col">Кафедра</th>
-      <th scope="col">Просмотр</th>
+      <th scope="col">Просмотрт(Скачать)</th>
       <th scope="col">Редактировать</th>
       <th scope="col">Удалить</th>
     </tr>
   </thead>
   <tbody *ngIf="data | async as data" >
-    <tr *ngFor="let data of data| filter:term; let i = index">
-      <th scope="row" >{{i+1}}</th>
-      <td *ngIf="data.data_add; else somethingElse">{{data.data_add}}</td>
-      <td *ngIf="data.kafedra.book_office; else somethingElse">{{data.kafedra.book_office.name}}</td>
+    <tr *ngFor="let data of data | filter:term; let i = index">
+      <th scope="row">{{i+1}}</th>
+      <td *ngIf="data.data_start; else somethingElse">{{data.data_start}}</td>
+      <td *ngIf="data.data_end; else somethingElse">{{data.data_end}}</td>
+      <td *ngIf="data.kafedra; else somethingElse">{{data.kafedra.book_office.name}}</td>
       <td class="td"><img src="././assets/images/icon/fine-print--v1.png"/></td>
-      <td class="td" (click)="openMenuEdit($event, data)"><img src="././assets/images/icon/edit.png"/></td>
+      <td class="td" [routerLink]="['/dashboard/pps/edit-pp', data.id]" (click)="edit(data.id)"><img src="././assets/images/icon/edit.png"/></td>
       <td class="td" (click)="delete(data)"><img src="././assets/images/icon/delete--v1.png"/></td>
     </tr>
   </tbody>

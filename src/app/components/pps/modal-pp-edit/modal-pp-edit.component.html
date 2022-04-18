@@ -5,12 +5,34 @@
 <p class="title">Редактировать данные</p>
 <form class="items" [formGroup]="form" *ngIf="form" (ngSubmit)="onSubmit()">     
 
-
-    <input class="form-control me-2 mb-2" name="data_add" formControlName="data_add" type="date" placeholder="Дата" aria-label="Дата">
-    
-    <select class="form-select mb-2" *ngIf="kafedra$ | async as kafedra" name="kafedra" formControlName="kafedra" aria-label="Структурное подразделение">
-            <option *ngFor="let kafedra of kafedra" [value]="kafedra.book_office.id">{{kafedra.book_office.name}}</option>
+    <select class="form-select mb-2" name="semester" formControlName="semester" aria-label="Семестр">
+        <option>1</option>
+        <option>2</option>
     </select>
+
+    <select class="form-select mb-2" *ngIf="kindActivity$ | async as kindActivity" name="kindActivity" formControlName="kindActivity" aria-label="Вид деятельности">
+        <option *ngFor="let kindActivity of kindActivity" [value]="kindActivity.id">{{kindActivity.name}}</option>
+    </select>
+
+    <select class="form-select mb-2" *ngIf="activity$ | async as activity" name="activity" formControlName="activity" aria-label="Вид работы">
+            <option *ngFor="let activity of activity" [value]="activity.id">
+                {{activity.name}}
+            </option>
+    </select>
+
+    <input class="form-control me-2 mb-2" type="text" placeholder="Норма" aria-label="Норма">
+    <input class="form-control me-2 mb-2" type="text" placeholder="Единица измерения" aria-label="Единица измерения">
+
+    
+    <input class="form-control me-2 mb-2" name="unitPlan" formControlName="unitPlan" type="text" placeholder="План, ед.раб" aria-label="План, ед.раб">
+    <input class="form-control me-2 mb-2" name="hourPlan" formControlName="hourPlan" type="text" placeholder="План, ак.ч" aria-label="План, ак.ч">
+    <input class="form-control me-2 mb-2" name="datePlan" formControlName="datePlan" type="date" placeholder="Дата план" aria-label="Дата план">
+
+    <input class="form-control me-2 mb-2" name="unitFaсt" formControlName="unitFaсt" type="text" placeholder="Факт, ед.раб" aria-label="Факт, ед.раб">
+    <input class="form-control me-2 mb-2" name="hourFaсt" formControlName="hourFaсt" type="text" placeholder="Факт, ак.ч" aria-label="Факт, ак.ч">
+
+    <input class="form-control me-2 mb-2" name="dateFaсt" formControlName="dateFaсt" type="date" placeholder="Дата факт" aria-label="Дата факт">
+    <textarea class="form-control me-2 mb-2" name="remark" formControlName="remark" placeholder="Примечание" aria-label="Примечание"></textarea>
 
     <button class="btn btn-primary" type="submit">Сохранить</button>
     <button class="btn btn-primary" type="button" (click)="close()">Закрыть</button>

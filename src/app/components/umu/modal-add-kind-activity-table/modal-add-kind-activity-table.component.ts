@@ -2,7 +2,7 @@ import { Component, OnInit, HostBinding, HostListener, Input } from '@angular/co
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { MaterialService } from 'src/app/classes/material.service';
-import { AuthService } from 'src/app/services/auth';
+import { AuthService } from 'src/app/services/auth.service';
 import { KindActivityService } from 'src/app/services/kindActivity.service';
 import { RoleService } from 'src/app/services/role.service';
 import { KindActivity, Role } from './../../../interfaces/interfaces';

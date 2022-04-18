@@ -2,7 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { Observable } from 'rxjs';
 import { MaterialService } from 'src/app/classes/material.service';
 import { BookOffice, Kafedra, User } from 'src/app/interfaces/interfaces';
-import { AuthService } from 'src/app/services/auth';
+import { AuthService } from 'src/app/services/auth.service';
 import { KafedraService } from 'src/app/services/kafedra.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class StaffAddComponent implements OnInit {
   data$: Observable<Kafedra[]> | undefined;
   users$: Observable<User[]> | undefined;
   isChecked: boolean = false;
-  //office: Observable<User> | undefined;
+
   kafedra:string[] = [];
   check = false;
   userOffice!: User; 
@@ -27,13 +27,8 @@ export class StaffAddComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.data$ = this.kafedraService.getKafedra()
-
     this.users$ = this.authService.getUser()
-    
-
     this.authService.getUserByHeader().subscribe( data => this.userOffice = data)
-
   }
 
   checkEdit() {

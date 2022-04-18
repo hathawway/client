@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { MaterialService } from 'src/app/classes/material.service';
 import { Ip } from 'src/app/interfaces/interfaces';
-import { IpPpsService } from 'src/app/services/pps.service';
-import { ModalPpEditComponent } from '../modal-pp-edit/modal-pp-edit.component';
+import { IpService } from 'src/app/services/ip.service';
 
 @Component({
   selector: 'app-pp',
@@ -11,21 +11,11 @@ import { ModalPpEditComponent } from '../modal-pp-edit/modal-pp-edit.component';
 })
 export class PpComponent implements OnInit {
 
-  @ViewChild(ModalPpEditComponent) menu!:ModalPpEditComponent 
-
   term!: string;
   data: Observable<Ip[]> | undefined;
 
-  constructor(private ipPpsService: IpPpsService) {
-      this.ipPpsService.onClick.subscribe(cnt=>this.data = cnt);
-    }
-
-  openMenuEdit(e, ip: Ip) {
-    this.menu.openEdit(e, ip)
-  }
-
-  openMenuAdd(e) {
-    this.menu.openAdd(e)
+  constructor(private ipService: IpService) {
+      this.ipService.onClick.subscribe(cnt=>this.data = cnt);
   }
 
   ngOnInit(): void {
@@ -33,11 +23,24 @@ export class PpComponent implements OnInit {
   }
 
   getData() {
-    this.ipPpsService.doClick()
+    this.ipService.setReqSearch("user")
+    this.ipService.doClick()
   }
 
-  delete(ip:Ip) {
+  delete(data:Ip) {
+    const decision = window.confirm("Удалить?")
+    if (decision) {
+      this.ipService.deleteIp(data, "all").subscribe(
+        () => this.getData(),
+        error => {
+          MaterialService.toast(error.error.message)
+        }
+      ) 
+    }
+  }
 
+  edit(id:string) {
+    this.ipService.setId(id);
   }
 
 }

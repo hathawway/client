@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { BookOffice, User, BookPost } from 'src/app/interfaces/interfaces';
-import { AuthService } from 'src/app/services/auth';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-modal-survey-user',

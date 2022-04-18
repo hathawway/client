@@ -2,7 +2,7 @@ import { Component, OnInit, HostBinding, HostListener, Input  } from '@angular/c
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MaterialService } from 'src/app/classes/material.service';
 import { User, BookOffice, BookPost, BookWork, BookRole, BookStepen, BookZvanie, BookStatus } from 'src/app/interfaces/interfaces';
-import { AuthService } from 'src/app/services/auth';
+import { AuthService } from 'src/app/services/auth.service';
 import { Observable } from 'rxjs';
 import { OfficeService } from 'src/app/services/office.service';
 import { PostService } from 'src/app/services/post.service';

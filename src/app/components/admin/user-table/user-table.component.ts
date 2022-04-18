@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MaterialService } from 'src/app/classes/material.service';
 import { User } from 'src/app/interfaces/interfaces';
-import { AuthService } from 'src/app/services/auth';
+import { AuthService } from 'src/app/services/auth.service';
 import { ModalAddUserComponent } from '../modal-add-user/modal-add-user.component';
 import { ModalSurveyUserComponent } from '../modal-survey-user/modal-survey-user.component';
 

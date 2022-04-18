@@ -19,13 +19,14 @@ export class ScheduleComponent implements OnInit {
 
   constructor(private kafedraService: KafedraService) {
       this.kafedraService.onClick.subscribe(cnt=>this.data = cnt);
-    }
+  }
 
   openMenu(e, kafedra: Kafedra) {
     this.menu.open(e, kafedra)
   }
 
   ngOnInit(): void {
+    console.log(this.kafedraService.getReqSearch())
     this.getData();  
   }
 

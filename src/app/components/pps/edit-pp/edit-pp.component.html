@@ -1,0 +1,64 @@
+<nav class="navbar">
+    <div class="container-fluid">
+      <form class="d-flex" [formGroup]="form" *ngIf="form">
+        <input class="form-control me-2" name="dateStart" formControlName="dateStart" type="date" placeholder="Дата начала" aria-label="Дата начала">
+        <input class="form-control me-2" name="dateEnd" formControlName="dateEnd" type="date" placeholder="Дата окончания" aria-label="Дата окончания">
+        <select class="form-select mb-2" *ngIf="kafedra$ | async as kafedra" name="kafedra" aria-label="Кафедра">
+            <option *ngFor="let kafedra of kafedra" [value]="kafedra.id">{{kafedra.book_office.name}}</option>
+        </select>
+      </form>
+        <div class="btn-group">
+          <button class="btn btn-sm btn-outline-secondary ms-2" type="button" (click)="openMenuAdd($event)">Добавить</button>
+          <button class="btn btn-sm btn-outline-secondary ms-2" type="button">Сохранить</button>
+        </div>
+        
+    </div>
+</nav>
+
+<app-modal-pp-edit>
+</app-modal-pp-edit>
+
+<table class="table table-hover" >
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Семестр</th>
+      <th scope="col">Вид деятельности</th>
+      <th scope="col">Вид работы</th>
+      <th scope="col">Норма</th>
+      <th scope="col">Ед. измерения</th>
+      <th scope="col">План, ед.раб</th>
+      <th scope="col">План, ак.ч</th>
+      <th scope="col">Дата план</th>
+      <th scope="col">Факт, ед.раб</th>
+      <th scope="col">Факт, акт.ч</th>
+      <th scope="col">Дата факт</th>
+      <th scope="col">Примечание</th>
+      <th scope="col">Редактировать</th>
+      <th scope="col">Удалить</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="data | async as data" >
+    <tr *ngFor="let data of data; let i = index">
+      <th>{{i+1}}</th>
+      <td *ngIf="data.semester; else somethingElse">{{data.semester}}</td>
+      <td *ngIf="data.kindActivity; else somethingElse">{{data.kindActivity.name}}</td>
+      <td *ngIf="data.activity; else somethingElse">{{data.activity.name}}</td>
+      <td *ngIf="data.activity; else somethingElse">{{data.activity.norma}}</td>
+      <td *ngIf="data.activity; else somethingElse">{{data.activity.book_unit}}</td>
+      <td *ngIf="data.unitPlan; else somethingElse">{{data.unitPlan}}</td>
+      <td *ngIf="data.hourPlan; else somethingElse">{{data.hourPlan}}</td>
+      <td *ngIf="data.datePlan; else somethingElse">{{data.datePlan}}</td>
+      <td *ngIf="data.unitFact; else somethingElse">{{data.unitFact}}</td>
+      <td *ngIf="data.hourFact; else somethingElse">{{data.hourFact}}</td>
+      <td *ngIf="data.dateFact; else somethingElse">{{data.dateFact}}</td>
+      <td *ngIf="data.remark; else somethingElse">{{data.remark}}</td>
+      <td class="td" (click)="openMenuEdit($event, data)"><img src="././assets/images/icon/edit.png"/></td>
+      <td class="td" (click)="delete(data)"><img src="././assets/images/icon/delete--v1.png"/></td>
+    </tr>
+  </tbody>
+  </table>
+
+  <ng-template #somethingElse>
+    <td></td>
+  </ng-template>

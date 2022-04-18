@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { AuthService } from '../../services/auth';
+import { AuthService } from '../../services/auth.service';
 import {MaterialService} from './../../classes/material.service';
 // @ts-ignore
 import * as forge from 'node-forge';

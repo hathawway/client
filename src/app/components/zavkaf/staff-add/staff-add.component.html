@@ -20,12 +20,12 @@
     </tr>
   </thead>
   <tbody *ngIf="users$ | async as user">
-    <tr *ngFor="let user of user| filter:term; let i = index">
-      <th scope="row" >{{i+1}}</th>
-          <td *ngIf="user; else somethingElse">{{user.second}} {{user.first}} {{user.third}}</td>
-          <td *ngIf="user.book_office; else somethingElse">{{user.book_office.name}}</td>
-          <td *ngIf="user.book_post; else somethingElse">{{user.book_post.name}}</td>
-          <td><input *ngIf="isChecked" (click)="addKafedra(user)" class="checkbox" type="checkbox"></td>
+    <tr *ngFor="let user of user | filter:term; let i = index">
+      <th scope="row">{{i+1}}</th>
+      <td *ngIf="user; else somethingElse">{{user.second}} {{user.first}} {{user.third}}</td>
+      <td *ngIf="user.book_office; else somethingElse">{{user.book_office.name}}</td>
+      <td *ngIf="user.book_post; else somethingElse">{{user.book_post.name}}</td>
+      <td><input *ngIf="isChecked" (click)="addKafedra(user)" class="checkbox" type="checkbox"></td>
     </tr>
   </tbody>
 </table>

@@ -20,17 +20,17 @@ export class ModalIpEditComponent implements OnInit {
  
   constructor(private ipService : IpService) {
     this.ipService.onClick.subscribe(cnt => this.data = cnt);
-}
+  }
  
   ngOnInit(): void {
 
   }
 
   open(e:MouseEvent, ip:Ip) {
- 
+    this.ipService.setId(ip.idip)
     this.visibility = "visible"
     this.form = new FormGroup({
-      id: new FormControl(ip.id, Validators.required),
+      idip: new FormControl(ip.idip, Validators.required),
       isagreement:new FormControl(ip.isagreement  === null ? null : ip.isagreement, Validators.required),
       data_agreement:new FormControl(ip.data_agreement === null ? null : ip.data_agreement, Validators.required),
       isimplementation: new FormControl(ip.isimplementation === null ? null : ip.isimplementation, Validators.required),
@@ -46,7 +46,7 @@ export class ModalIpEditComponent implements OnInit {
   onSubmit() {
     this.form.disable()
     console.log(this.form.value)
-      this.ipService.updateIpKafedra(this.form.value).subscribe(
+      this.ipService.updateIp(this.ipService.getId(), this.form.value, "all").subscribe(
         () => this.ipService.doClick(),
         error => {
           MaterialService.toast(error.error.message)

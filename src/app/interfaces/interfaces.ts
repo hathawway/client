@@ -97,8 +97,6 @@ export interface BookUnit {
     name: string
 }
 
-
-
 export interface Kafedra {
     id: string,
     norma: string,
@@ -110,14 +108,28 @@ export interface Kafedra {
 
 export interface Ip {
     id: string,
-    data_add: Date,
+    data_start: Date,
+    data_end: Date,
     kafedra: Kafedra,
-    user:User,
     isagreement:string,
     data_agreement:Date,
     isimplementation: string,
-    data_implementation: Date
+    data_implementation: Date,
+    semester: string,
+    kindActivity: KindActivity,
+    activity: Activity,
+    unitPlan: string,
+    hourPlan: string,
+    datePlan: Date,
+    unitFact: string,
+    hourFact: string,
+    dateFact: Date,
+    remark: string,
+    idip: string,
+}
 
+export interface Request {
+    request:string
 }
 
 export interface Message {

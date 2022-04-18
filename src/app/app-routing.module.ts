@@ -30,6 +30,7 @@ import { ModalAddPostTableComponent } from './components/admin/modal-add-post-ta
 import { ModalAddOfficeTableComponent } from './components/admin/modal-add-office-table/modal-add-office-table.component';
 import { UnitTableComponent } from './components/umu/unit-table/unit-table.component';
 import { NormaKindActivityComponent } from './components/umu/norma-kind-activity/norma-kind-activity.component';
+import { EditPpComponent } from './components/pps/edit-pp/edit-pp.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent, children: [
@@ -62,6 +63,8 @@ const routes: Routes = [
     ]},
     {path:'pps', component:SidebarComponent, /*canActivateChild: [RoleGuard], data: { roles : ['ROLE_PPS'] }, */children:[
       {path: 'pp', component:PpComponent},
+      {path: 'edit-pp/:id', component:EditPpComponent},
+      {path: 'edit-pp', component:EditPpComponent},
       {path: 'statistics', component:StatisticsComponent}
     
     ]},

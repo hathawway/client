@@ -48,6 +48,7 @@ import { ModalAddUnitComponent } from './components/umu/modal-add-unit/modal-add
 import { UnitTableComponent } from './components/umu/unit-table/unit-table.component';
 import { ModalEditStavkaComponent } from './components/umu/modal-edit-stavka/modal-edit-stavka.component';
 import { ModalPpEditComponent } from './components/pps/modal-pp-edit/modal-pp-edit.component';
+import { EditPpComponent } from './components/pps/edit-pp/edit-pp.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +87,8 @@ import { ModalPpEditComponent } from './components/pps/modal-pp-edit/modal-pp-ed
     ModalAddUnitComponent,
     UnitTableComponent,
     ModalEditStavkaComponent,
-    ModalPpEditComponent
+    ModalPpEditComponent,
+    EditPpComponent
   ],
   imports: [
     BrowserModule,

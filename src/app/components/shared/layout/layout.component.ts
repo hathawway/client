@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../services/auth';
+import { AuthService } from '../../../services/auth.service';
 import { Role, User } from 'src/app/interfaces/interfaces';
 import { Observable } from 'rxjs';
 import { RoleService } from 'src/app/services/role.service';
