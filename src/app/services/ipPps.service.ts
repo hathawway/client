@@ -2,79 +2,72 @@ import { HttpClient } from "@angular/common/http";
 import { EventEmitter, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment.prod";
-import { Ip, Request } from "../interfaces/interfaces";
+import { Ip, IpPps, Request } from "../interfaces/interfaces";
 
 @Injectable({
     providedIn:'root'
 })
 
-export class IpService {
+export class IpPpsService {
 
-    private data: Observable<Ip[]> | undefined;
-    onClick:EventEmitter<Observable<Ip[]>> = new EventEmitter();
-    private reqSearch!: Request["request"];
+    private data: Observable<IpPps[]> | undefined;
+    onClick:EventEmitter<Observable<IpPps[]>> = new EventEmitter();
+    //private reqSearch!: Request["request"];
 
     id!: string;
 
     constructor(private http: HttpClient) {
-        this.setReqSearch("user")
+        //this.setReqSearch("office")
     }
 
-    setReqSearch(req: string) {
-        this.reqSearch = req;
-    }
-
-    getReqSearch() : string {
-        return this.reqSearch;
-    }
-
-    // setId(id: string) {
-    //     this.id = id;
+    // setReqSearch(req: string) {
+    //     this.reqSearch = req;
     // }
 
-    // getId(): string {
-    //     return this.id;
-    // }
+    setId(id: string) {
+        this.id = id;
+    }
+
+    getId(): string {
+        return this.id;
+    }
 
     doClick(){
-        this.data = this.getIp(this.reqSearch)
-        //this.data = this.getIp()
+        //this.data = this.getIp(this.reqSearch)
+        this.data = this.getIpPps(this.id)
         this.onClick.emit(this.data);
     }
 
-    getIp(request: Request["request"]): Observable<Ip[]> {
+    getIpPps(id: string): Observable<IpPps[]> | undefined {
         const search = {
-            //id: this.getId(),
-            request: request
+            // id: this.getId(),
+            // request: request
         }
-        return this.http.post<Ip[]>(`${environment.api}/api/ip/all/`, search)
+        if (id === "") { return }
+        return this.http.get<IpPps[]>(`${environment.api}/api/ip/ip-pps/all/${id}`)    
     }
 
-    updateIp(ip: Ip): Observable<Ip> {
+    updateIpPps(ip: IpPps): Observable<IpPps> {
         // const dataReq = {
         //     request: request,
         //     ip: ip
         // }
-        return this.http.patch<Ip>(`${environment.api}/api/ip/${ip.id}`, ip)
+        return this.http.patch<IpPps>(`${environment.api}/api/ip/ip-pps/${ip.id}`, ip)
     }
 
-    deleteIp(ip: Ip):Observable<Ip> {
+    deleteIpPps(ip: IpPps):Observable<IpPps> {
         // const search = {
         //     request: request
         // }
-        return this.http.delete<Ip>(`${environment.api}/api/ip/${ip.id}`)
+        return this.http.delete<IpPps>(`${environment.api}/api/ip/ip-pps/${ip.id}`)
     }
 
-    addIp(ip: Ip): Observable<Ip> {
+    addIpPps(ip: Ip): Observable<Ip> {
         // const dataReq = {
         //     request: request,
         //     ip: ip
         // }
-        return this.http.post<Ip>(`${environment.api}/api/ip/`, ip)
-    }
-
-    getIpById(id: string): Observable<Ip> {
-        return this.http.get<Ip>(`${environment.api}/api/ip/${id}`)
+        return this.http.post<Ip>(`${environment.api}/api/ip/ip-pps/`, ip)
     }
 
     // getIp(request: Request["request"]): Observable<Ip[]> {
@@ -85,6 +78,9 @@ export class IpService {
     //     return this.http.post<Ip[]>(`${environment.api}/api/kafedra/ip/all-ip/`, search)
     // }
 
+    // getIpById(ip: Ip): Observable<Ip> {
+    //     return this.http.get<Ip>(`${environment.api}/api/kafedra/ip/${ip.id}`)
+    // }
 
     // updateIp(id: string, ip: Ip[], request: Request["request"]): Observable<Ip> {
     //     const dataReq = {

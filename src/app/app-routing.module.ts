@@ -63,7 +63,7 @@ const routes: Routes = [
     ]},
     {path:'pps', component:SidebarComponent, /*canActivateChild: [RoleGuard], data: { roles : ['ROLE_PPS'] }, */children:[
       {path: 'pp', component:PpComponent},
-      {path: 'edit-pp/:id', component:EditPpComponent},
+      // {path: 'edit-pp/:id', component:EditPpComponent},
       {path: 'edit-pp', component:EditPpComponent},
       {path: 'statistics', component:StatisticsComponent}
     

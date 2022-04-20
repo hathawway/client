@@ -114,9 +114,13 @@ export interface Ip {
     isagreement:string,
     data_agreement:Date,
     isimplementation: string,
-    data_implementation: Date,
+    data_implementation: Date,  
+}
+
+export interface IpPps {
+    id: string,
     semester: string,
-    kindActivity: KindActivity,
+    kind_activity: KindActivity,
     activity: Activity,
     unitPlan: string,
     hourPlan: string,

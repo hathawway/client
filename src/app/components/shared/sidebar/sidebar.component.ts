@@ -26,7 +26,6 @@ export class SidebarComponent implements OnInit {
     {id: 3,  url: '/dashboard/zavkaf/report', name: 'Отчеты'},
     {id: 4,  url: '/dashboard/pps/pp', name: 'Индивидуальные планы'},
     {id: 4,  url: '/dashboard/pps/statistics', name: 'Статистика'},
-    {id: 4,  url: '/dashboard/pps/edit-pp', name: 'Добавить ИП'},
     {id: 5, url: '/dashboard/curator/type-work', name: 'Работа'},
     {id: 5, url: '/dashboard/curator/works', name: 'Мониторинг заполненого ИП'},
     {id: 5, url: '/dashboard/curator/works-done', name: 'Мониторинг выполненого ИП'}

@@ -24,11 +24,12 @@ export class IpComponent implements OnInit {
     this.menu.open(e, ip)
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {   
     this.getData();  
   }
 
   getData() {
+    this.ipService.setReqSearch("office")
     this.ipService.doClick()
   }
 

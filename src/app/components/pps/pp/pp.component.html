@@ -4,7 +4,7 @@
         <input class="form-control me-2" type="search" [(ngModel)]="term" placeholder="Поиск" aria-label="Поиск">
     </div>
         <div class="btn-group">
-          <a class="btn btn-sm btn-outline-secondary ms-2" href="/dashboard/pps/edit-pp">Добавить</a>
+          <button class="btn btn-sm btn-outline-secondary ms-2" (click)="add()">Добавить</button>
         </div>      
     </div>
 </nav>
@@ -16,7 +16,7 @@
       <th scope="col">Год начала</th>
       <th scope="col">Год конец</th>
       <th scope="col">Кафедра</th>
-      <th scope="col">Просмотрт(Скачать)</th>
+      <th scope="col">Просмотр(Скачать)</th>
       <th scope="col">Редактировать</th>
       <th scope="col">Удалить</th>
     </tr>
@@ -28,7 +28,7 @@
       <td *ngIf="data.data_end; else somethingElse">{{data.data_end}}</td>
       <td *ngIf="data.kafedra; else somethingElse">{{data.kafedra.book_office.name}}</td>
       <td class="td"><img src="././assets/images/icon/fine-print--v1.png"/></td>
-      <td class="td" [routerLink]="['/dashboard/pps/edit-pp', data.id]" (click)="edit(data.id)"><img src="././assets/images/icon/edit.png"/></td>
+      <td class="td" (click)="edit(data.id)"><img src="././assets/images/icon/edit.png"/></td>
       <td class="td" (click)="delete(data)"><img src="././assets/images/icon/delete--v1.png"/></td>
     </tr>
   </tbody>

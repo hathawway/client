@@ -27,10 +27,9 @@ export class ModalIpEditComponent implements OnInit {
   }
 
   open(e:MouseEvent, ip:Ip) {
-    this.ipService.setId(ip.idip)
     this.visibility = "visible"
     this.form = new FormGroup({
-      idip: new FormControl(ip.idip, Validators.required),
+      id: new FormControl(ip.id, Validators.required),
       isagreement:new FormControl(ip.isagreement  === null ? null : ip.isagreement, Validators.required),
       data_agreement:new FormControl(ip.data_agreement === null ? null : ip.data_agreement, Validators.required),
       isimplementation: new FormControl(ip.isimplementation === null ? null : ip.isimplementation, Validators.required),
@@ -46,7 +45,7 @@ export class ModalIpEditComponent implements OnInit {
   onSubmit() {
     this.form.disable()
     console.log(this.form.value)
-      this.ipService.updateIp(this.ipService.getId(), this.form.value, "all").subscribe(
+      this.ipService.updateIp(this.form.value).subscribe(
         () => this.ipService.doClick(),
         error => {
           MaterialService.toast(error.error.message)

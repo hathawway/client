@@ -26,11 +26,11 @@ export class ScheduleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.kafedraService.getReqSearch())
     this.getData();  
   }
 
   getData() {
+    this.kafedraService.setReqSearch("office")
     this.kafedraService.doClick()
   }
 
