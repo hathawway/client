@@ -19,15 +19,10 @@ import { IpComponent } from './components/zavkaf/ip/ip.component';
 import { ReportComponent } from './components/zavkaf/report/report.component';
 import { PpComponent } from './components/pps/pp/pp.component';
 import { StatisticsComponent } from './components/pps/statistics/statistics.component';
-import { WorksDoneComponent } from './components/curator/works-done/works-done.component';
-import { WorksComponent } from './components/curator/works/works.component';
-import { TypeWorkComponent } from './components/curator/type-work/type-work.component';
 import { StaffAddComponent } from './components/zavkaf/staff-add/staff-add.component';
 import { AuthGuard } from './classes/auth.guard';
 import { PageNotFoundComponent } from './components/shared/page-not-found/page-not-found.component';
 import { RoleGuard } from './classes/role.guard';
-import { ModalAddPostTableComponent } from './components/admin/modal-add-post-table/modal-add-post-table.component';
-import { ModalAddOfficeTableComponent } from './components/admin/modal-add-office-table/modal-add-office-table.component';
 import { UnitTableComponent } from './components/umu/unit-table/unit-table.component';
 import { NormaKindActivityComponent } from './components/umu/norma-kind-activity/norma-kind-activity.component';
 import { EditPpComponent } from './components/pps/edit-pp/edit-pp.component';
@@ -63,17 +58,10 @@ const routes: Routes = [
     ]},
     {path:'pps', component:SidebarComponent, /*canActivateChild: [RoleGuard], data: { roles : ['ROLE_PPS'] }, */children:[
       {path: 'pp', component:PpComponent},
-      // {path: 'edit-pp/:id', component:EditPpComponent},
       {path: 'edit-pp', component:EditPpComponent},
       {path: 'statistics', component:StatisticsComponent}
     
     ]},
-    {path:'curator', component:SidebarComponent, /*canActivateChild: [RoleGuard], data: { roles : ['ROLE_CURATOR'] }, */children:[
-      {path: 'type-work', component:TypeWorkComponent},
-      {path: 'works', component:WorksComponent},
-      {path: 'works-done', component:WorksDoneComponent}
-
-    ]}
   ]}
 ];
 

@@ -28,9 +28,6 @@ import { IpComponent } from './components/zavkaf/ip/ip.component';
 import { ReportComponent } from './components/zavkaf/report/report.component';
 import { PpComponent } from './components/pps/pp/pp.component';
 import { StatisticsComponent } from './components/pps/statistics/statistics.component';
-import { WorksComponent } from './components/curator/works/works.component';
-import { WorksDoneComponent } from './components/curator/works-done/works-done.component';
-import { TypeWorkComponent } from './components/curator/type-work/type-work.component';
 import { StaffAddComponent } from './components/zavkaf/staff-add/staff-add.component';
 
 import { ModalSurveyScheduleComponent } from './components/zavkaf/modal-survey-schedule/modal-survey-schedule.component';
@@ -74,9 +71,6 @@ import { EditPpComponent } from './components/pps/edit-pp/edit-pp.component';
     ReportComponent,
     PpComponent,
     StatisticsComponent,
-    WorksComponent,
-    WorksDoneComponent,
-    TypeWorkComponent,
     StaffAddComponent,
     ModalSurveyScheduleComponent,
     ModalSurveyUserComponent,

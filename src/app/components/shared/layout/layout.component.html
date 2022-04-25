@@ -11,7 +11,7 @@
     <div class="bar" *ngIf="roles$ | async as roles">
         <div class="bar__content" *ngFor="let role of roles">
             <div *ngFor="let l of link" (click)="onSelect(l.id)">
-                <a *ngIf="role.book_role.id === l.id.toString()" [routerLink]="[l.url]" class="bar__content__item">{{role.book_role.name }}</a>
+                <a *ngIf="role.book_role.id === l.id.toString() && role.book_role.id!=='5'" [routerLink]="[l.url]" class="bar__content__item">{{role.book_role.name }}</a>
             </div>       
         </div>
     </div>

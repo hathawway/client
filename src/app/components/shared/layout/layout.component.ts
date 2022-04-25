@@ -23,7 +23,6 @@ export class LayoutComponent implements OnInit {
     {id: 2, url: '/dashboard/umu/'},
     {id: 3, url: '/dashboard/zavkaf'},
     {id: 4, url: '/dashboard/pps'},
-    {id: 5, url: '/dashboard/curator'}
   ]
 
   constructor(private auth: AuthService,
