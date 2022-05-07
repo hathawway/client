@@ -1,7 +1,15 @@
 import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from "@angular/router";
-import { Observable, of } from "rxjs";
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  CanActivateChild,
+  Router,
+  RouterStateSnapshot,
+  UrlTree,
+} from "@angular/router";
+import { Observable, of, map } from "rxjs";
 import { AuthService } from "../services/auth.service";
+import {Role} from "./roles";
 
 @Injectable({
     providedIn: 'root'
@@ -9,16 +17,16 @@ import { AuthService } from "../services/auth.service";
 
 export class AuthGuard implements CanActivate, CanActivateChild{
 
-    constructor(private autn:AuthService,
+    constructor(private auth: AuthService,
         private router: Router) {}
 
-    canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree{
         return this.canActivate(childRoute, state)
     }
-    
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):Observable<boolean> {
-        if (this.autn.isAuthenticated()) {
-            return of(true)
+
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+        if (this.auth.isAuthenticated()) {
+            return this.checkUserLogin(route, state.url)
         } else {
             this.router.navigate(['/login'], {
                 queryParams: {
@@ -29,4 +37,21 @@ export class AuthGuard implements CanActivate, CanActivateChild{
         }
     }
 
+    checkUserLogin(route: ActivatedRouteSnapshot, url: any): Observable<boolean> {
+      return this.auth.getCurrentUserRoles().pipe(map((roles: Array<number>) => {
+        if (route.data['role']) {
+          for (const rolesKey in roles) {
+            if (route.data['role'] == roles[rolesKey]) {
+              return true
+            }
+          }
+
+          this.router.navigate(['/dashboard']); // TODO мб доработать
+          return false
+        } else {
+          return true
+        }
+      }))
+
+    }
 }

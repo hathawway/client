@@ -15,7 +15,7 @@ import { NotiService } from 'src/app/utils/noti.service';
           {
             provide: TUI_VALIDATION_ERRORS,
             useValue: {
-                required: 'Поле обязательно для заполнения!',              
+                required: 'Поле обязательно для заполнения!',
             },
         },
 	    ],
@@ -32,12 +32,13 @@ export class PostTableComponent implements OnInit {
   messageError = "";
 
   constructor(private postService: PostService,
-    private noti: NotiService) { 
+    private noti: NotiService) {
       this.postService.onClick.subscribe(cnt=>this.data = cnt);
+
   }
 
   ngOnInit(): void {
-    this.getData();  
+    this.getData();
   }
 
   add() {
@@ -85,9 +86,9 @@ export class PostTableComponent implements OnInit {
           this.messageError = error.error.message
         }
       )
-    }            
+    }
     this.form.enable()
- 
+
   }
 
   close() {

@@ -39,7 +39,7 @@ export class RoleService {
         return this.http.get<Role>(`${environment.api}/api/role/${role.id}`)
     }
 
-    getUserRole(): Observable<Role[]> {
+    getCurrentUserRoles(): Observable<Role[]> {
         return this.http.get<Role[]>(`${environment.api}/api/role/user/`)
     }
 }

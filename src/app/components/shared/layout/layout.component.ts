@@ -18,7 +18,7 @@ export class LayoutComponent implements OnInit {
 
   num: number = 0;
 
-  link = [  
+  link = [
     {id: 1, url: '/dashboard/admin'},
     {id: 2, url: '/dashboard/umu/'},
     {id: 3, url: '/dashboard/zavkaf'},
@@ -26,13 +26,13 @@ export class LayoutComponent implements OnInit {
   ]
 
   constructor(private auth: AuthService,
-    private role: RoleService, private router: Router) { 
+    private role: RoleService, private router: Router) {
       this.role.onClick.subscribe(cnt => this.num = cnt);
     }
 
   ngOnInit(): void {
     this.users$ = this.auth.getUserByHeader()
-    this.roles$ = this.role.getUserRole()
+    this.roles$ = this.role.getCurrentUserRoles()
   }
 
   logout(event: Event): void {
@@ -48,5 +48,5 @@ export class LayoutComponent implements OnInit {
   url(id: string) {
     return this.link.find( (l) => l.id.toString() === id)?.url
   }
- 
+
 }

@@ -21,8 +21,11 @@ import { PpComponent } from './components/pps/pp/pp.component';
 import { StatisticsComponent } from './components/pps/statistics/statistics.component';
 import { StaffAddComponent } from './components/zavkaf/staff-add/staff-add.component';
 import { AuthGuard } from './guards/auth.guard';
+
 import { PageNotFoundComponent } from './components/shared/page-not-found/page-not-found.component';
-import { RoleGuard } from './guards/role.guard';
+
+import { Role } from './guards/roles';
+
 import { UnitTableComponent } from './components/umu/unit-table/unit-table.component';
 import { NormaKindActivityComponent } from './components/umu/norma-kind-activity/norma-kind-activity.component';
 import { EditPpComponent } from './components/pps/edit-pp/edit-pp.component';
@@ -32,12 +35,21 @@ const routes: Routes = [
     {path: '', redirectTo:'/login', pathMatch:'full'},
     {path: 'login', component: LoginComponent}
   ]},
-  {path:'dashboard', component:LayoutComponent, canActivate: [AuthGuard], children:[
-    {path:'admin', component:SidebarComponent, children:[
-        {path: 'post', component:PostTableComponent},
-        {path: 'office', component:OfficeTableComponent},
-        {path: 'user', component:UserTableComponent}
-    ]},
+  {path:'dashboard', component:LayoutComponent,
+    canActivateChild: [AuthGuard],
+    children:[
+      {
+        path:'admin',
+        component:SidebarComponent,
+        data: {
+          role: Role.ADMIN
+        },
+        children:[
+          {path: 'post', component:PostTableComponent},
+          {path: 'office', component:OfficeTableComponent},
+          {path: 'user', component:UserTableComponent}
+        ]
+      },
     {path:'umu', component:SidebarComponent, /*canActivateChild: [RoleGuard], data: { roles : ['ROLE_UMU'] }, */children:[
         {path: 'activity', component:ActivityTableComponent},
         {path: 'kind-activity', component:KindActivityTableComponent},
@@ -45,20 +57,20 @@ const routes: Routes = [
         {path: 'stavka', component:StavkaTableComponent},
         {path: 'unit', component:UnitTableComponent},
         {path: 'maket', component:MaketComponent}
-      
+
     ]},
     {path:'zavkaf', component:SidebarComponent, /*canActivateChild: [RoleGuard], data: { roles : ['ROLE_ZAVKAF'] }, */children:[
       {path: 'staff', component:StaffAddComponent},
       {path: 'schedule', component:ScheduleComponent},
       {path: 'ip', component:IpComponent},
       {path: 'report', component:ReportComponent}
-    
+
     ]},
     {path:'pps', component:SidebarComponent, /*canActivateChild: [RoleGuard], data: { roles : ['ROLE_PPS'] }, */children:[
       {path: 'pp', component:PpComponent},
       {path: 'edit-pp', component:EditPpComponent},
       {path: 'statistics', component:StatisticsComponent}
-    
+
     ]},
   ]},
   {path: '**', component: PageNotFoundComponent},

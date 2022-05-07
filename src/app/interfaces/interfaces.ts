@@ -16,7 +16,7 @@ export interface User {
 }
 
 export interface Role {
-    id: string,
+    id: number,
     user: User,
     book_role: BookRole
 }
@@ -113,7 +113,7 @@ export interface Ip {
     isagreement:string,
     data_agreement:Date,
     isimplementation: string,
-    data_implementation: Date,  
+    data_implementation: Date,
 }
 
 export interface IpPps {

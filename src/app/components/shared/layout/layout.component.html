@@ -1,26 +1,26 @@
-<nav class="nav">    
+<nav class="nav">
     <p class="nav__header">ИС «Индивидуальный план ППС»</p>
-    <div class="nav__content"> 
+    <div class="nav__content">
         <p class="nav__content__name" *ngIf="users$ | async as user">{{user.second}} {{user.first}} {{user.third}} {{user.login}}</p>
         <button class="nav__content__btn" type="button" (click)="logout($event)">Выход</button>
-    </div>       
-</nav>  
+    </div>
+</nav>
 
 
 <main>
     <tui-tabs class="tui-space_left-5 tui-space_right-5"  *ngIf="roles$ | async as roles">
         <ng-container *ngFor="let role of roles">
-            
+
             <a tuiTab (click)="onSelect(role.book_role.id)"
             *ngIf="role.book_role.id!=='5'"
-            class="tui-space_left-2 tui-space_right-2"                
+            class="tui-space_left-2 tui-space_right-2"
             [routerLink]="[url(role.book_role.id)]"
             routerLinkActive
             >
-            {{role.book_role.name}}                
+            {{role.book_role.name}}
             </a>
         </ng-container>
-        
+
     </tui-tabs>
 
     <router-outlet></router-outlet>

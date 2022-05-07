@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { TuiButtonModule, TuiDataListModule, TuiDialogModule, TuiErrorModule, TuiLoaderModule, TuiRootModule, TuiScrollbarModule, TuiSvgModule, TuiTextfieldControllerModule } from '@taiga-ui/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SidebarComponent } from './components/shared/sidebar/sidebar.component';
 import { LayoutComponent } from './components/shared/layout/layout.component';
@@ -104,7 +104,7 @@ import { TuiTableBarsHostModule } from '@taiga-ui/addon-tablebars';
     provide: HTTP_INTERCEPTORS,
     multi: true,
     useClass: TokenInterceptor
-  }  
+  }
   ],
   bootstrap: [AppComponent]
 })
