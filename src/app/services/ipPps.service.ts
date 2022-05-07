@@ -47,27 +47,27 @@ export class IpPpsService {
         return this.http.get<IpPps[]>(`${environment.api}/api/ip/ip-pps/all/${id}`)    
     }
 
-    updateIpPps(ip: IpPps): Observable<IpPps> {
+    updateIpPps(ip: IpPps): Observable<void> {
         // const dataReq = {
         //     request: request,
         //     ip: ip
         // }
-        return this.http.patch<IpPps>(`${environment.api}/api/ip/ip-pps/${ip.id}`, ip)
+        return this.http.patch<void>(`${environment.api}/api/ip/ip-pps/${ip.id}`, ip)
     }
 
-    deleteIpPps(ip: IpPps):Observable<IpPps> {
+    deleteIpPps(ip: IpPps):Observable<void> {
         // const search = {
         //     request: request
         // }
-        return this.http.delete<IpPps>(`${environment.api}/api/ip/ip-pps/${ip.id}`)
+        return this.http.delete<void>(`${environment.api}/api/ip/ip-pps/${ip.id}`)
     }
 
-    addIpPps(ip: Ip): Observable<Ip> {
+    addIpPps(ip: Ip): Observable<void> {
         // const dataReq = {
         //     request: request,
         //     ip: ip
         // }
-        return this.http.post<Ip>(`${environment.api}/api/ip/ip-pps/`, ip)
+        return this.http.post<void>(`${environment.api}/api/ip/ip-pps/`, ip)
     }
 
     // getIp(request: Request["request"]): Observable<Ip[]> {

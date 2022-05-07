@@ -20,16 +20,16 @@ export class StavkaYearService {
         this.onClick.emit(this.norma);
     }
 
-    /*addStavkaYear(data: StavkaYear): Observable<StavkaYear> {
-        return this.http.post<StavkaYear>(`${environment.api}/api/norma/stavka_year/`, data)
+    /*addStavkaYear(data: StavkaYear): Observable<void> {
+        return this.http.post<void>(`${environment.api}/api/norma/stavka_year/`, data)
     }*/
 
-    updateStavkaYear(data: StavkaYear): Observable<StavkaYear> {
-        return this.http.patch<StavkaYear>(`${environment.api}/api/norma/stavka_year/${data.id}`, data)
+    updateStavkaYear(data: StavkaYear): Observable<void> {
+        return this.http.patch<void>(`${environment.api}/api/norma/stavka_year/${data.id}`, data)
     }
 
-    /*deleteStavkaYear(data: StavkaYear):Observable<StavkaYear> {
-        return this.http.delete<StavkaYear>(`${environment.api}/api/norma/stavka_year/${data.id}`)
+    /*deleteStavkaYear(data: StavkaYear):Observable<void> {
+        return this.http.delete<void>(`${environment.api}/api/norma/stavka_year/${data.id}`)
     }
 
     getStavkaYear(): Observable<StavkaYear[]> {

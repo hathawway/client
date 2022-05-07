@@ -1,41 +1,137 @@
-<nav class="navbar">
-    <div class="container-fluid">
-      <div class="d-flex">
-        <input class="form-control me-2" type="search" [(ngModel)]="term" placeholder="Поиск" aria-label="Поиск">
-      </div>
-        <div class="btn-group">
-          <button class="btn btn-sm btn-outline-secondary ms-2" (click)="openMenuAdd($event)">Добавить</button>
-        </div>
-        
-    </div>
-</nav>
+<div class="container-search">
+  <div class="search">
+      <tui-input
+      type="search" [(ngModel)]="term"
+      tuiTextfieldSize="m"
+      [tuiTextfieldCleaner]="true"
+  >
+  Поиск
+  </tui-input>
+  </div>
+  
+  <button tuiButton
+  class="tui-space_left-2 container-search__btn"
+  size="s"
+  type="button" (click)="add()"
+  >
+  Добавить
+</button>
+</div>
 
-<app-modal-add-kind-activity-table>
-</app-modal-add-kind-activity-table>
+<ng-template
+	    let-observer
+	    [tuiDialogOptions]="$any({ label: 'Виды деятельности', size: 'l' })"
+	    [(tuiDialog)]="open"
+	>
+	    <form [formGroup]="form" *ngIf="form" (ngSubmit)="onSubmit()">
+	        <p>Добавить вид деятельности</p>
+          <div class="tui-form__row">
+            <tui-input
+	            tuiAutoFocus
+              tuiTextfieldSize="l"
+              formControlName="name"
+              [tuiTextfieldCleaner]="true"
+	        >
+          Стуктурное подразделение*
+	        </tui-input>
+          <tui-error class="tui-space_bottom-3"
+           formControlName="name" [error]="[] | tuiFieldError | async"></tui-error>
+          </div>
+          <div class="tui-form__row">
+            <tui-select
+            *ngIf="role$ | async as items"
+            class="b-form"
+            formControlName="iduser"
+            [valueContent]="items ? this.str.stringifyy(items) : loading"
+            [(ngModel)]="value"
+            >Куратор
+            <ng-template tuiDataList>
+                <tui-data-list *ngIf="items else loading">
+                    <ng-container
+                        *ngFor="let item of items"                        
+                    >
+                      <button 
+                      tuiOption
+                        [value]="item.user.id | toNumber"
+                        *ngIf="item.book_role.id === '5' && item.user.login !== 'admin@gmail.com'">
+                        {{item.user.second}} {{item.user.first}} {{item.user.third}} ({{item.user.book_office.name}}, {{item.user.book_post.name}})
+                    </button>   
+                     
+                    </ng-container>
+                </tui-data-list>
+            </ng-template>
+            <ng-template #loading>
+                <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
+            </ng-template>
+          </tui-select>
+          </div>
+	        {{ messageError }}
+	        <p>
+	            <button
+	                tuiButton
+	                type="submit"
+                  size="s"
+                  [disabled]="form.invalid"
+	            >
+	                Сохранить
+	            </button>
 
-<table class="table table-hover">
+              <button
+	                tuiButton
+                  class="tui-space_left-3"
+	                type="button"
+                  size="s"
+	                (click)="close()"
+	            >
+	                Закрыть
+	            </button>
+	        </p>
+	    </form>
+	</ng-template>
+
+<table class="tui-table">
 <thead>
-  <tr>
-    <th scope="col">#</th>
-    <th scope="col">Вид деятельности</th>
-    <th scope="col">Куратор</th>
-    <th scope="col">Редактировать</th>
-    <th scope="col">Удалить</th>
+  <tr class="tui-table__tr">
+    <th class="tui-table__th">#</th>
+    <th class="tui-table__th">Вид деятельности</th>
+    <th class="tui-table__th">Куратор</th>
+    <th class="tui-table__th">Редактировать</th>
+    <th class="tui-table__th">Удалить</th>
   </tr>
 </thead>
 
 <tbody *ngIf="data | async as data" >
-  <tr *ngFor="let data of data | filter:term; let i = index">
-    <th scope="row" >{{i+1}}</th>
-    <td *ngIf="data.name; else somethingElse">{{data.name}}</td>
-    <td *ngIf="data.user; else somethingElse">{{data.user.second}} {{data.user.first}} {{data.user.third}}</td>
-    <td class="td" (click)="openMenuEdit($event, data)"><img src="././assets/images/icon/edit.png"/></td>
-    <td class="td" (click)="delete(data)"><img src="././assets/images/icon/delete--v1.png"/></td>
+  <tr class="tui-table__tr" *ngFor="let data of data | filter:term; let i = index">
+    <th class="tui-table__td">{{i+1}}</th>
+    <td class="tui-table__td" *ngIf="data.name; else somethingElse">{{data.name}}</td>
+    <td class="tui-table__td" *ngIf="data.user; else somethingElse">{{data.user.second}} {{data.user.first}} {{data.user.third}}</td>
+    <td class="tui-table__td">
+      <button
+          tuiIconButton
+          size="xs"
+          type="button"
+          class="tui-space_right-3 tui-space_bottom-3"
+          icon="tuiIconDraft"
+          (click)="edit(data)"
+          >
+          </button>
+    </td>
+    <td class="tui-table__td">
+      <button
+            tuiIconButton
+            size="xs"
+            type="button"
+            class="tui-space_right-3 tui-space_bottom-3"
+            icon="tuiIconTrash"
+            (click)="delete(data)"
+            >
+            </button>
+    </td>
   </tr>
 </tbody>
 
 </table>
 
 <ng-template #somethingElse>
-  <td></td>
+  <td class="tui-table__td"></td>
 </ng-template>

@@ -1,36 +1,122 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { TUI_VALIDATION_ERRORS } from '@taiga-ui/kit';
 import { Observable } from 'rxjs';
-import { MaterialService } from 'src/app/classes/material.service';
-import { Activity } from 'src/app/interfaces/interfaces';
+import { Activity, BookUnit, KindActivity } from 'src/app/interfaces/interfaces';
 import { ActivityService } from 'src/app/services/activity.service';
-import { ModalAddActivityTableComponent } from '../modal-add-activity-table/modal-add-activity-table.component';
+import { KindActivityService } from 'src/app/services/kindActivity.service';
+import { UnitService } from 'src/app/services/unit.service';
+import { NotiService } from 'src/app/utils/noti.service';
+import { StrService } from 'src/app/utils/stringify.service';
 
 @Component({
   selector: 'app-activity-table',
   templateUrl: './activity-table.component.html',
-  styleUrls: ['./activity-table.component.css']
+  styleUrls: ['./activity-table.component.less'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [
+    {
+      provide: TUI_VALIDATION_ERRORS,
+      useValue: {
+        required: 'Поле обязательно для заполнения!', 
+        pattern: 'Только числа',             
+      },
+    },
+	],
 })
 export class ActivityTableComponent implements OnInit {
-
-  @ViewChild(ModalAddActivityTableComponent) menu!:ModalAddActivityTableComponent 
 
   term!: string;
   data: Observable<Activity[]> | undefined;
 
-  constructor(private activityService: ActivityService) {
+  flag = false;
+  form!: FormGroup;
+  open = false;
+
+  messageError = "";
+
+  unit$: Observable<BookUnit[]> | undefined; 
+  kind$: Observable<KindActivity[]> | undefined;
+
+  valueUnit!: Number | null;
+  valueKind!: Number | null;
+
+  constructor(private activityService: ActivityService,
+    private noti: NotiService,
+    private unitService: UnitService,
+    public str: StrService,
+    private kindActivityService: KindActivityService) {
       this.activityService.onClick.subscribe(cnt=>this.data = cnt);
     }
  
-  openMenuAdd(e) {
-    this.menu.openAdd(e)
-  }
-
-  openMenuEdit(e, data:Activity) {
-    this.menu.openEdit(e, data)
-  }
+    add() {
+      this.open = true;
+      this.form = new FormGroup({
+        name: new FormControl(null, Validators.required),
+        kind_activity: new FormControl(null, Validators.required),
+        norma: new FormControl(null, Validators.pattern(/\d/)),
+        book_unit: new FormControl(null)
+      })
+      this.flag = true;
+      this.valueUnit = null;
+      this.valueKind = null;
+    }
+  
+    edit(data: Activity) {
+      this.open = true;
+      this.form = new FormGroup({
+        id: new FormControl(data.id, Validators.required),
+        name: new FormControl(data.name, Validators.required),
+        kind_activity: new FormControl(data.kind_activity === null ? null : data.kind_activity.id, Validators.required),
+        norma: new FormControl(data.norma === null ? null : data.norma, Validators.pattern(/\d/)),
+        book_unit: new FormControl(data.book_unit === null ? null : data.book_unit.id)
+      })
+      this.valueUnit = data.book_unit === null ? null : Number(data.book_unit.id);
+      this.valueKind = data.kind_activity === null ? null : Number(data.kind_activity.id);
+    }
+  
+    onSubmit() {
+      
+      console.log(this.form.value)
+      this.form.disable()
+  
+      if (this.flag) {
+        this.activityService.addActivity(this.form.value).subscribe(
+          () => {
+            this.activityService.doClick(),
+            this.form.reset();
+          },
+          error => {
+            this.messageError = error.error.message
+          }
+        )
+      }
+      else {
+        this.activityService.updateActivity(this.form.value).subscribe(
+          () => {
+            this.activityService.doClick(),
+            this.close()
+          },
+          error => {
+            this.messageError = error.error.message
+          }
+        )
+      }            
+      this.form.enable()
+  
+    }
+  
+    close() {
+      this.open = false;
+      this.flag = false;
+      this.form.reset();
+      this.messageError = "";
+    }
 
   ngOnInit(): void {
     this.getData();  
+    this.unit$ = this.unitService.getBookUnit()
+    this.kind$ = this.kindActivityService.getKindActivity()
   }
 
   getData() {
@@ -43,7 +129,7 @@ export class ActivityTableComponent implements OnInit {
       this.activityService.deleteActivity(data).subscribe(
         () => this.getData(),
         error => {
-          MaterialService.toast(error.error.message)
+          this.noti.toast(error.error.message)
         }
       ) 
     }

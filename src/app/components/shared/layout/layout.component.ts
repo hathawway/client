@@ -8,7 +8,7 @@ import { RoleService } from 'src/app/services/role.service';
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.css']
+  styleUrls: ['./layout.component.less']
 })
 export class LayoutComponent implements OnInit {
 
@@ -41,8 +41,12 @@ export class LayoutComponent implements OnInit {
     this.router.navigate(['/login'])
   }
 
-  onSelect(id: number) {
-    this.role.doClick(id);
+  onSelect(id: string) {
+    this.role.doClick(Number(id));
+  }
+
+  url(id: string) {
+    return this.link.find( (l) => l.id.toString() === id)?.url
   }
  
 }

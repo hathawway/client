@@ -19,16 +19,16 @@ export class RoleService {
         this.onClick.emit(this.numberRole=id);
     }
 
-    addRole(role: Role): Observable<Role> {
-        return this.http.post<Role>(`${environment.api}/api/role/`, role)
+    addRole(role: Role): Observable<void> {
+        return this.http.post<void>(`${environment.api}/api/role/`, role)
     }
 
-    updateRole(role: Role): Observable<Role> {
-        return this.http.patch<Role>(`${environment.api}/api/role/${role.id}`, role)
+    updateRole(role: Role): Observable<void> {
+        return this.http.patch<void>(`${environment.api}/api/role/${role.id}`, role)
     }
 
-    deleteRole(role: Role):Observable<Role> {
-        return this.http.delete<Role>(`${environment.api}/api/role/${role.id}`)
+    deleteRole(role: Role):Observable<void> {
+        return this.http.delete<void>(`${environment.api}/api/role/${role.id}`)
     }
 
     getRole(): Observable<Role[]> {

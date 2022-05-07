@@ -13,26 +13,17 @@ export class WorkService {
 
     constructor(private http: HttpClient) {}
 
-        checkName(name: String){
-            if (name == undefined) {
-                return false
-            }
-            else {
-                return true
-            }
-        }
+        // addWork(work: BookWork): Observable<void> {
+        //     return this.http.post<void>(`${environment.api}/api/work/`, work)
+        // }
 
-        addWork(work: BookWork): Observable<BookWork> {
-            return this.http.post<BookWork>(`${environment.api}/api/work/`, work)
-        }
+        // updateWork(work: BookWork): Observable<void> {
+        //     return this.http.patch<void>(`${environment.api}/api/work/${work.id}`, work)
+        // }
 
-        updateWork(work: BookWork): Observable<BookWork> {
-            return this.http.patch<BookWork>(`${environment.api}/api/work/${work.id}`, work)
-        }
-
-        deleteWork(work: BookWork):Observable<BookWork> {
-            return this.http.delete<BookWork>(`${environment.api}/api/work/${work.id}`)
-        }
+        // deleteWork(work: BookWork):Observable<void> {
+        //     return this.http.delete<void>(`${environment.api}/api/work/${work.id}`)
+        // }
 
         getWork(): Observable<BookWork[]> {
             return this.http.get<BookWork[]>(`${environment.api}/api/work/`)

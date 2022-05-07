@@ -13,32 +13,33 @@ export class OfficeService {
     private data: Observable<BookOffice[]> | undefined;
     onClick:EventEmitter<Observable<BookOffice[]>> = new EventEmitter();
 
-    constructor(private http: HttpClient) {}
+    //private _offices: BookOffice[] = [];
 
-        // checkName(name: String){
-        //     if (name == undefined) {
-        //         return false
-        //     }
-        //     else {
-        //         return true
-        //     }
-        // }
+    constructor(private http: HttpClient) {}
 
         doClick(){
             this.data = this.getOffice()
             this.onClick.emit(this.data);
         }
+        
+        // get offices() {
+        //     return this._offices;
+        // }
 
-        addOffice(office: BookOffice): Observable<BookOffice> {
-            return this.http.post<BookOffice>(`${environment.api}/api/office/`, office)
+        init() {
+            return this.getOffice()
         }
 
-        updateOffice(office: BookOffice): Observable<BookOffice> {
-            return this.http.patch<BookOffice>(`${environment.api}/api/office/${office.id}`, office)
+        addOffice(office: BookOffice): Observable<void> {
+            return this.http.post<void>(`${environment.api}/api/office/`, office)
         }
 
-        deleteOffice(office: BookOffice):Observable<BookOffice> {
-            return this.http.delete<BookOffice>(`${environment.api}/api/office/${office.id}`)
+        updateOffice(office: BookOffice): Observable<void> {
+            return this.http.patch<void>(`${environment.api}/api/office/${office.id}`, office)
+        }
+
+        deleteOffice(office: BookOffice):Observable<void> {
+            return this.http.delete<void>(`${environment.api}/api/office/${office.id}`)
         }
 
         getOffice(): Observable<BookOffice[]> {

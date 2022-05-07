@@ -13,26 +13,17 @@ export class StatusService {
 
     constructor(private http: HttpClient) {}
 
-        checkName(name: String){
-            if (name == undefined) {
-                return false
-            }
-            else {
-                return true
-            }
-        }
+        // addStatus(status: BookStatus): Observable<void> {
+        //     return this.http.post<void>(`${environment.api}/api/status/`, status)
+        // }
 
-        addStatus(status: BookStatus): Observable<BookStatus> {
-            return this.http.post<BookStatus>(`${environment.api}/api/status/`, status)
-        }
+        // updateStatus(status: BookStatus): Observable<void> {
+        //     return this.http.patch<void>(`${environment.api}/api/status/${status.id}`, status)
+        // }
 
-        updateStatus(status: BookStatus): Observable<BookStatus> {
-            return this.http.patch<BookStatus>(`${environment.api}/api/status/${status.id}`, status)
-        }
-
-        deleteStatus(status: BookStatus):Observable<BookStatus> {
-            return this.http.delete<BookStatus>(`${environment.api}/api/status/${status.id}`)
-        }
+        // deleteStatus(status: BookStatus):Observable<void> {
+        //     return this.http.delete<void>(`${environment.api}/api/status/${status.id}`)
+        // }
 
         getStatus(): Observable<BookStatus[]> {
             return this.http.get<BookStatus[]>(`${environment.api}/api/status/`)

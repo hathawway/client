@@ -31,20 +31,20 @@ export class KafedraService {
         this.onClick.emit(this.data);
     }
 
-    addKafedra(user: string[], office: BookOffice): Observable<Kafedra> {
+    addKafedra(user: string[], office: BookOffice): Observable<void> {
         const kafedra = {
             user: user,
             book_office: office.id
         }
-        return this.http.post<Kafedra>(`${environment.api}/api/kafedra/`, kafedra)
+        return this.http.post<void>(`${environment.api}/api/kafedra/`, kafedra)
     }
 
-    updateKafedra(kafedra: Kafedra): Observable<Kafedra> {
-        return this.http.patch<Kafedra>(`${environment.api}/api/kafedra/${kafedra.id}`, kafedra)
+    updateKafedra(kafedra: Kafedra): Observable<void> {
+        return this.http.patch<void>(`${environment.api}/api/kafedra/${kafedra.id}`, kafedra)
     }
 
-    deleteKafedra(kafedra: Kafedra):Observable<Kafedra> {
-        return this.http.delete<Kafedra>(`${environment.api}/api/kafedra/${kafedra.id}`)
+    deleteKafedra(kafedra: Kafedra):Observable<void> {
+        return this.http.delete<void>(`${environment.api}/api/kafedra/${kafedra.id}`)
     }
 
     getKafedra(request: Request["request"]): Observable<Kafedra[]> {

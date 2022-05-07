@@ -1,18 +1,18 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { MaterialService } from 'src/app/classes/material.service';
 import { Activity, Ip, IpPps, KindActivity, User } from 'src/app/interfaces/interfaces';
 import { ActivityService } from 'src/app/services/activity.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { IpService } from 'src/app/services/ip.service';
 import { IpPpsService } from 'src/app/services/ipPps.service';
 import { KindActivityService } from 'src/app/services/kindActivity.service';
+import { NotiService } from 'src/app/utils/noti.service';
 
 @Component({
   selector: 'app-modal-pp-edit',
   templateUrl: './modal-pp-edit.component.html',
-  styleUrls: ['./modal-pp-edit.component.css']
+  styleUrls: ['./modal-pp-edit.component.less']
 })
 export class ModalPpEditComponent implements OnInit {
 
@@ -33,7 +33,8 @@ export class ModalPpEditComponent implements OnInit {
   constructor(private ipPpsService: IpPpsService,
     private kindActivityService: KindActivityService,
     private activityService: ActivityService,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private noti: NotiService) {
       this.ipPpsService.onClick.subscribe(cnt => this.data = cnt);
       
   }
@@ -96,7 +97,7 @@ export class ModalPpEditComponent implements OnInit {
       this.ipPpsService.addIpPps(this.form.value).subscribe(
         () => this.ipPpsService.doClick(),
         error => {
-          MaterialService.toast(error.error.message)
+          this.noti.toast(error.error.message)
         }
       )
     }
@@ -104,7 +105,7 @@ export class ModalPpEditComponent implements OnInit {
       this.ipPpsService.updateIpPps(this.form.value).subscribe(
         () => this.ipPpsService.doClick(),
         error => {
-          MaterialService.toast(error.error.message)
+          this.noti.toast(error.error.message)
 
         }
       )

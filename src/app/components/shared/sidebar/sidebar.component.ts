@@ -4,7 +4,7 @@ import { RoleService } from 'src/app/services/role.service';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css']
+  styleUrls: ['./sidebar.component.less']
 })
 export class SidebarComponent implements OnInit {
 
@@ -19,7 +19,7 @@ export class SidebarComponent implements OnInit {
     {id: 2, url: '/dashboard/umu/norma-kind-activity', name: 'Нормы времени видов деятельности'},
     {id: 2, url: '/dashboard/umu/activity', name: 'Виды работ внеучебной деятельности'},
     {id: 2, url: '/dashboard/umu/unit', name: 'Единицы видов работ'},
-    {id: 2, url: '/dashboard/umu/maket', name: 'Макет ИП'},
+    // {id: 2, url: '/dashboard/umu/maket', name: 'Макет ИП'},
     {id: 3,  url: '/dashboard/zavkaf/staff', name: 'Сотрудники вуза'},
     {id: 3,  url: '/dashboard/zavkaf/schedule', name: 'Штатное расписание'},
     {id: 3,  url: '/dashboard/zavkaf/ip', name: 'Индивидуальные планы'},

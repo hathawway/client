@@ -1,33 +1,97 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { TUI_VALIDATION_ERRORS } from '@taiga-ui/kit';
 import { Observable } from 'rxjs';
-import { MaterialService } from 'src/app/classes/material.service';
 import { BookUnit } from 'src/app/interfaces/interfaces';
 import { UnitService } from 'src/app/services/unit.service';
-import { ModalAddUnitComponent } from '../modal-add-unit/modal-add-unit.component';
+import { NotiService } from 'src/app/utils/noti.service';
 
 @Component({
   selector: 'app-unit-table',
   templateUrl: './unit-table.component.html',
-  styleUrls: ['./unit-table.component.css']
+  styleUrls: ['./unit-table.component.less'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+	    providers: [
+          {
+            provide: TUI_VALIDATION_ERRORS,
+            useValue: {
+                required: 'Поле обязательно для заполнения!',              
+            },
+        },
+	    ],
 })
 export class UnitTableComponent implements OnInit {
-
-  @ViewChild(ModalAddUnitComponent) menu!:ModalAddUnitComponent 
  
   data: Observable<BookUnit[]> | undefined;
   term!: string;
 
-  constructor(private unitService: UnitService) { 
+  flag = false;
+  form!: FormGroup;
+  open = false;
+
+  messageError = "";
+
+  constructor(private unitService: UnitService,
+    private noti: NotiService) { 
       this.unitService.onClick.subscribe(cnt=>this.data = cnt);
     }
 
-  openMenuEdit(e, data:BookUnit) {
-    this.menu.openEdit(e, data)
-  }
+    add() {
+      this.open = true;
+      this.form = new FormGroup({
+        name: new FormControl(null, Validators.required)
+      })
+      this.flag = true;
+    }
+  
+    edit(data: BookUnit) {
+      this.open = true;
+      this.form = new FormGroup({
+        id: new FormControl(data.id, Validators.required),
+        name: new FormControl(data.name, Validators.required)
+      })
+    }
+  
+    onSubmit() {
+      
+      console.log(this.form.value)
+      this.form.disable()
+  
+      if (this.flag) {
+        this.unitService.addBookUnit(this.form.value).subscribe(
+          () => {
+            this.unitService.doClick(),
+            this.form.reset();
+          },
+          error => {
+            this.messageError = error.error.message
+          }
+        )
+      }
+      else {
+        this.unitService.updateBookUnit(this.form.value).subscribe(
+          () => {
+            this.unitService.doClick(),
+            this.close()
+          },
+          error => {
+            this.messageError = error.error.message
+          }
+        )
+      }            
+      this.form.enable()
+      
+  
+    }
+  
+    close() {
+      this.open = false;
+      this.flag = false;
+      this.form.reset();
+      this.messageError = "";
+    }
 
-  openMenuAdd(e) {
-    this.menu.openAdd(e)
-  }
+  
 
   ngOnInit(): void {
     this.getData();  
@@ -44,7 +108,7 @@ export class UnitTableComponent implements OnInit {
       this.unitService.deleteBookUnit(data).subscribe(
         () => this.getData(),
         error => {
-          MaterialService.toast(error.error.message)
+          this.noti.toast(error.error.message)
         }
       ) 
     }

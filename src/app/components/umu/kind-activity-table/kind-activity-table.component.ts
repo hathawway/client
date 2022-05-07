@@ -1,35 +1,111 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { TUI_VALIDATION_ERRORS } from '@taiga-ui/kit';
 import { Observable } from 'rxjs';
-import { MaterialService } from 'src/app/classes/material.service';
 import { KindActivityService } from 'src/app/services/kindActivity.service';
-import { ModalAddKindActivityTableComponent } from '../modal-add-kind-activity-table/modal-add-kind-activity-table.component';
-import { KindActivity } from './../../../interfaces/interfaces';
+import { RoleService } from 'src/app/services/role.service';
+import { NotiService } from 'src/app/utils/noti.service';
+import { StrService } from 'src/app/utils/stringify.service';
+import { KindActivity, Role } from './../../../interfaces/interfaces';
 
 @Component({
   selector: 'app-kind-activity-table',
   templateUrl: './kind-activity-table.component.html',
-  styleUrls: ['./kind-activity-table.component.css']
+  styleUrls: ['./kind-activity-table.component.less'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [
+    {
+      provide: TUI_VALIDATION_ERRORS,
+      useValue: {
+        required: 'Поле обязательно для заполнения!',              
+      },
+    },
+	],
 })
 export class KindActivityTableComponent implements OnInit {
 
-  @ViewChild(ModalAddKindActivityTableComponent) menu!:ModalAddKindActivityTableComponent 
   term!: string;
   data: Observable<KindActivity[]> | undefined;
+
+  flag = false;
+  form!: FormGroup;
+  open = false;
+
+  messageError = "";
+
+  role$: Observable<Role[]> | undefined; 
+
+  value!: Number | null;
  
-  constructor(private kindActivityService: KindActivityService) {
+  constructor(private kindActivityService: KindActivityService,
+    private roleService : RoleService,
+    public str: StrService,
+    private noti: NotiService) {
     this.kindActivityService.onClick.subscribe(cnt=>this.data = cnt);
   }
 
-    openMenuEdit(e, data:KindActivity) {
-      this.menu.openEdit(e, data)
-    }
-  
-    openMenuAdd(e) {
-      this.menu.openAdd(e)
-    }
+  add() {
+	  this.open = true;
+    this.form = new FormGroup({
+      name: new FormControl(null, Validators.required),
+      iduser: new FormControl(null)
+    })
+    this.flag = true;
+    this.value = null;
+	}
 
+  edit(data: KindActivity) {
+	  this.open = true;
+    this.form = new FormGroup({
+      id: new FormControl(data.id, Validators.required),
+      name: new FormControl(data.name, Validators.required),
+      iduser: new FormControl(data.user === null ? null : data.user.id)
+    })
+    this.value = data.user === null ? null : Number(data.user.id);
+
+	}
+
+  onSubmit() {
+    
+    console.log(this.form.value)
+    this.form.disable()
+
+    if (this.flag) {
+      this.kindActivityService.addKindActivity(this.form.value).subscribe(
+        () => {
+          this.kindActivityService.doClick(),
+          this.form.reset();
+        },
+        error => {
+          this.messageError = error.error.message
+        }
+      )
+    }
+    else {
+      this.kindActivityService.updateKindActivity(this.form.value).subscribe(
+        () => {
+          this.kindActivityService.doClick(),
+          this.close()
+        },
+        error => {
+          this.messageError = error.error.message
+        }
+      )
+    }            
+    this.form.enable()
+
+  }
+
+  close() {
+    this.open = false;
+    this.flag = false;
+    this.form.reset();
+    this.messageError = "";
+  }
+  
     ngOnInit(): void {
       this.getData();  
+      this.role$ = this.roleService.getRole()
     }
   
     getData() {
@@ -42,7 +118,7 @@ export class KindActivityTableComponent implements OnInit {
       this.kindActivityService.deleteKindActivity(data).subscribe(
         () => this.getData(),
         error => {
-          MaterialService.toast(error.error.message)
+          this.noti.toast(error.error.message)
         }
       ) 
     }

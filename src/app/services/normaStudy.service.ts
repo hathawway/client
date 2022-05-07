@@ -20,16 +20,16 @@ export class NormaStudyService {
         this.onClick.emit(this.data);
     }
 
-    addNormaStudy(data: NormaStudy): Observable<NormaStudy> {
-        return this.http.post<NormaStudy>(`${environment.api}/api/norma/norma_study/`, data)
+    addNormaStudy(data: NormaStudy): Observable<void> {
+        return this.http.post<void>(`${environment.api}/api/norma/norma_study/`, data)
     }
 
-    updateNormaStudy(data: NormaStudy): Observable<NormaStudy> {
-        return this.http.patch<NormaStudy>(`${environment.api}/api/norma/norma_study/${data.id}`, data)
+    updateNormaStudy(data: NormaStudy): Observable<void> {
+        return this.http.patch<void>(`${environment.api}/api/norma/norma_study/${data.id}`, data)
     }
 
-    deleteNormaStudy(data: NormaStudy):Observable<NormaStudy> {
-        return this.http.delete<NormaStudy>(`${environment.api}/api/norma/norma_study/${data.id}`)
+    deleteNormaStudy(data: NormaStudy):Observable<void> {
+        return this.http.delete<void>(`${environment.api}/api/norma/norma_study/${data.id}`)
     }
 
     getNormaStudy(): Observable<NormaStudy[]> {

@@ -20,16 +20,16 @@ export class NormaKindActivityService {
         this.onClick.emit(this.data);
     }
 
-    addNormaKindActivity(data: NormaKindActivity): Observable<NormaKindActivity> {
-        return this.http.post<NormaKindActivity>(`${environment.api}/api/norma/norma_kind_activity/`, data)
+    addNormaKindActivity(data: NormaKindActivity): Observable<void> {
+        return this.http.post<void>(`${environment.api}/api/norma/norma_kind_activity/`, data)
     }
 
-    updateNormaKindActivity(data: NormaKindActivity): Observable<NormaKindActivity> {
-        return this.http.patch<NormaKindActivity>(`${environment.api}/api/norma/norma_kind_activity/${data.id}`, data)
+    updateNormaKindActivity(data: NormaKindActivity): Observable<void> {
+        return this.http.patch<void>(`${environment.api}/api/norma/norma_kind_activity/${data.id}`, data)
     }
 
-    deleteNormaKindActivity(data: NormaKindActivity):Observable<NormaKindActivity> {
-        return this.http.delete<NormaKindActivity>(`${environment.api}/api/norma/norma_kind_activity/${data.id}`)
+    deleteNormaKindActivity(data: NormaKindActivity):Observable<void> {
+        return this.http.delete<void>(`${environment.api}/api/norma/norma_kind_activity/${data.id}`)
     }
 
     getNormaKindActivity(): Observable<NormaKindActivity[]> {

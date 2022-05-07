@@ -20,16 +20,16 @@ export class ActivityService {
         this.onClick.emit(this.data);
     }
 
-    addActivity(data: Activity): Observable<Activity> {
-        return this.http.post<Activity>(`${environment.api}/api/norma/activity/`, data)
+    addActivity(data: Activity): Observable<void> {
+        return this.http.post<void>(`${environment.api}/api/norma/activity/`, data)
     }
 
-    updateActivity(data: Activity): Observable<Activity> {
-        return this.http.patch<Activity>(`${environment.api}/api/norma/activity/${data.id}`, data)
+    updateActivity(data: Activity): Observable<void> {
+        return this.http.patch<void>(`${environment.api}/api/norma/activity/${data.id}`, data)
     }
 
-    deleteActivity(data: Activity):Observable<Activity> {
-        return this.http.delete<Activity>(`${environment.api}/api/norma/activity/${data.id}`)
+    deleteActivity(data: Activity):Observable<void> {
+        return this.http.delete<void>(`${environment.api}/api/norma/activity/${data.id}`)
     }
 
     getActivity(): Observable<Activity[]> {

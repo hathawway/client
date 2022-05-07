@@ -1,18 +1,28 @@
-<div class="row-container">
-        <nav class="col-md-2 d-none d-md-block sidebar">
-            <div class="sidebar-sticky">
-                <ul class="nav flex-column">                                      
-                    <li class="nav-item" *ngFor="let link of links" routerLinkActive="active">
-                        <a class="nav-link" *ngIf="link.id === num" [routerLink]="[link.url]">{{link.name}}</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+<div class="class">
+    <div class="class-sidebar">
+        <ul 
+        class="tui-space_top-2 tui-space_left-2"
+        >
+        <ng-container *ngFor="let link of links">
+        <li class="class-sidebar__link" *ngIf="link.id === num">           
+                <a class="tui-space_horizontal-1 tui-space_vertical-1"
+                 [routerLink]="[link.url]" 
+                >
+                {{link.name}}
+                </a>
+            
+        </li>
+        </ng-container>
 
-        <div class="col-container">
-            <router-outlet></router-outlet>
-        </div>
-</div>
+            
+        </ul>
+    </div>
+    <div class="class-main">
+
+        <router-outlet></router-outlet>
+        
+    </div>    
+</div>    
 
 
 

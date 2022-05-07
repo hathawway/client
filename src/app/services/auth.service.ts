@@ -46,8 +46,8 @@ export class AuthService {
         );
     }
 
-    register(user: User): Observable<User> {
-      return this.http.post<User>(`${environment.api}/api/user/register`, user)
+    register(user: User): Observable<void> {
+      return this.http.post<void>(`${environment.api}/api/user/register`, user)
     }   
 
     setToken(token: string): void {
@@ -67,12 +67,12 @@ export class AuthService {
         localStorage.clear()
     }
 
-    updateUser(user: User): Observable<User> {
-        return this.http.patch<User>(`${environment.api}/api/user/${user.id}`, user)
+    updateUser(user: User): Observable<void> {
+        return this.http.patch<void>(`${environment.api}/api/user/${user.id}`, user)
     }
 
-    deleteUser(user: User):Observable<User> {
-        return this.http.delete<User>(`${environment.api}/api/user/${user.id}`)
+    deleteUser(user: User):Observable<void> {
+        return this.http.delete<void>(`${environment.api}/api/user/${user.id}`)
     }
 
     getUser(): Observable<User[]> {

@@ -20,16 +20,16 @@ export class KindActivityService {
         this.onClick.emit(this.data);
     }
 
-    addKindActivity(data: KindActivity): Observable<KindActivity> {
-        return this.http.post<KindActivity>(`${environment.api}/api/norma/kind_activity/`, data)
+    addKindActivity(data: KindActivity): Observable<void> {
+        return this.http.post<void>(`${environment.api}/api/norma/kind_activity/`, data)
     }
 
-    updateKindActivity(data: KindActivity): Observable<KindActivity> {
-        return this.http.patch<KindActivity>(`${environment.api}/api/norma/kind_activity/${data.id}`, data)
+    updateKindActivity(data: KindActivity): Observable<void> {
+        return this.http.patch<void>(`${environment.api}/api/norma/kind_activity/${data.id}`, data)
     }
 
-    deleteKindActivity(data: KindActivity):Observable<KindActivity> {
-        return this.http.delete<KindActivity>(`${environment.api}/api/norma/kind_activity/${data.id}`)
+    deleteKindActivity(data: KindActivity):Observable<void> {
+        return this.http.delete<void>(`${environment.api}/api/norma/kind_activity/${data.id}`)
     }
 
     getKindActivity(): Observable<KindActivity[]> {

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './components/shared/login/login.component';
 
 import { LayoutComponent } from './components/shared/layout/layout.component';
 import { SidebarComponent } from './components/shared/sidebar/sidebar.component';
@@ -20,9 +20,9 @@ import { ReportComponent } from './components/zavkaf/report/report.component';
 import { PpComponent } from './components/pps/pp/pp.component';
 import { StatisticsComponent } from './components/pps/statistics/statistics.component';
 import { StaffAddComponent } from './components/zavkaf/staff-add/staff-add.component';
-import { AuthGuard } from './classes/auth.guard';
+import { AuthGuard } from './guards/auth.guard';
 import { PageNotFoundComponent } from './components/shared/page-not-found/page-not-found.component';
-import { RoleGuard } from './classes/role.guard';
+import { RoleGuard } from './guards/role.guard';
 import { UnitTableComponent } from './components/umu/unit-table/unit-table.component';
 import { NormaKindActivityComponent } from './components/umu/norma-kind-activity/norma-kind-activity.component';
 import { EditPpComponent } from './components/pps/edit-pp/edit-pp.component';
@@ -31,9 +31,7 @@ const routes: Routes = [
   {path: '', component: LoginComponent, children: [
     {path: '', redirectTo:'/login', pathMatch:'full'},
     {path: 'login', component: LoginComponent}
-]},
-  //{path: '**', component: PageNotFoundComponent},
-
+  ]},
   {path:'dashboard', component:LayoutComponent, canActivate: [AuthGuard], children:[
     {path:'admin', component:SidebarComponent, children:[
         {path: 'post', component:PostTableComponent},
@@ -62,7 +60,8 @@ const routes: Routes = [
       {path: 'statistics', component:StatisticsComponent}
     
     ]},
-  ]}
+  ]},
+  {path: '**', component: PageNotFoundComponent},
 ];
 
 @NgModule({

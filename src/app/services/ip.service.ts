@@ -28,9 +28,9 @@ export class IpService {
         return this.reqSearch;
     }
 
-    // setId(id: string) {
-    //     this.id = id;
-    // }
+    setId(id: string) {
+        this.id = id;
+    }
 
     // getId(): string {
     //     return this.id;
@@ -50,27 +50,27 @@ export class IpService {
         return this.http.post<Ip[]>(`${environment.api}/api/ip/all/`, search)
     }
 
-    updateIp(ip: Ip): Observable<Ip> {
+    updateIp(ip: Ip): Observable<void> {
         // const dataReq = {
         //     request: request,
         //     ip: ip
         // }
-        return this.http.patch<Ip>(`${environment.api}/api/ip/${ip.id}`, ip)
+        return this.http.patch<void>(`${environment.api}/api/ip/${ip.id}`, ip)
     }
 
-    deleteIp(ip: Ip):Observable<Ip> {
+    deleteIp(ip: Ip):Observable<void> {
         // const search = {
         //     request: request
         // }
-        return this.http.delete<Ip>(`${environment.api}/api/ip/${ip.id}`)
+        return this.http.delete<void>(`${environment.api}/api/ip/${ip.id}`)
     }
 
-    addIp(ip: Ip): Observable<Ip> {
+    addIp(ip: Ip): Observable<void> {
         // const dataReq = {
         //     request: request,
         //     ip: ip
         // }
-        return this.http.post<Ip>(`${environment.api}/api/ip/`, ip)
+        return this.http.post<void>(`${environment.api}/api/ip/`, ip)
     }
 
     getIpById(id: string): Observable<Ip> {

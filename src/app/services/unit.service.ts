@@ -20,16 +20,16 @@ export class UnitService {
         this.onClick.emit(this.data);
     }
 
-    addBookUnit(data: BookUnit): Observable<BookUnit> {
-        return this.http.post<BookUnit>(`${environment.api}/api/norma/book_unit/`, data)
+    addBookUnit(data: BookUnit): Observable<void> {
+        return this.http.post<void>(`${environment.api}/api/norma/book_unit/`, data)
     }
 
-    updateBookUnit(data: BookUnit): Observable<BookUnit> {
-        return this.http.patch<BookUnit>(`${environment.api}/api/norma/book_unit/${data.id}`, data)
+    updateBookUnit(data: BookUnit): Observable<void> {
+        return this.http.patch<void>(`${environment.api}/api/norma/book_unit/${data.id}`, data)
     }
 
-    deleteBookUnit(data: BookUnit):Observable<BookUnit> {
-        return this.http.delete<BookUnit>(`${environment.api}/api/norma/book_unit/${data.id}`)
+    deleteBookUnit(data: BookUnit):Observable<void> {
+        return this.http.delete<void>(`${environment.api}/api/norma/book_unit/${data.id}`)
     }
 
     getBookUnit(): Observable<BookUnit[]> {

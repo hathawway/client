@@ -12,8 +12,7 @@ export interface User {
     book_stepen: BookStepen,
     book_zvanie: BookZvanie,
     tel: string,
-    email:string
-
+    snils: string,
 }
 
 export interface Role {
@@ -36,7 +35,7 @@ export interface BookOffice {
 export interface BookPost {
     id: string,
     name: string,
-    ispps: string
+    ispps: boolean
 }
 
 export interface BookWork {

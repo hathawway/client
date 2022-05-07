@@ -1,48 +1,191 @@
-<nav class="navbar">
-  <div class="container-fluid">
-    <div class="d-flex">
-      <input class="form-control me-2" type="search" [(ngModel)]="term" placeholder="Поиск" aria-label="Поиск">
-    </div>
-    <div class="d-flex" *ngIf="norma | async as norma">
-      <input class="form-control me-2 mb-2" type="text" value="{{norma.norma}}" placeholder="Норма на текущий год" aria-label="Норма на текущий год" disabled>
-      <button class="btn btn-sm btn-outline-secondary ms-2" (click)="openNormaEdit($event, norma)">Редактировать</button>
-  </div> 
-      <div class="btn-group">
-        <button class="btn btn-sm btn-outline-secondary ms-2" (click)="openMenuAdd($event)">Добавить</button>
-      </div>
-              
+<div class="container-search">
+  <div class="search">
+      <tui-input
+      type="search" [(ngModel)]="term"
+      tuiTextfieldSize="m"
+      [tuiTextfieldCleaner]="true"
+  >
+  Поиск
+  </tui-input>
   </div>
-</nav>
+  
+  <button tuiButton
+  class="tui-space_left-2 container-search__btn"
+  size="s"
+  type="button" (click)="add()"
+  >
+  Добавить
+</button>
+<ng-container *ngIf="stavka$ | async as data">
+  <button tuiButton
+  class="tui-space_left-2"
+  size="s"
+  type="button" (click)="openStavka(data)"
+  > {{data.norma}}
+</button>
+</ng-container>
 
-<app-modal-edit-stavka>
-</app-modal-edit-stavka>
+</div>
 
-<app-modal-add-stavka-table>
-</app-modal-add-stavka-table>
+<ng-template
+	    let-observer
+	    [tuiDialogOptions]="$any({ label: 'хз', size: 's' })"
+	    [(tuiDialog)]="openSt"
+	>
+	    <form [formGroup]="formStavka" *ngIf="formStavka" (ngSubmit)="updateStavka()">
+	        <p>Добавить хз</p>
+          <div class="tui-form__row">
+            <tui-input
+	            tuiAutoFocus
+              tuiTextfieldSize="l"
+              formControlName="norma"
+              [tuiTextfieldCleaner]="true"
+	        >
+          Норма*
+	        </tui-input>
+          <tui-error class="tui-space_bottom-3"
+           formControlName="norma" [error]="[] | tuiFieldError | async"></tui-error>
+          </div>
+          {{ messageError }}
+	        <p>
+	            <button
+	                tuiButton
+	                type="submit"
+                  size="s"
+                  [disabled]="formStavka.invalid"
+	            >
+	                Сохранить
+	            </button>
 
-<table class="table table-hover">
+              <button
+	                tuiButton
+                  class="tui-space_left-3"
+	                type="button"
+                  size="s"
+	                (click)="closeStavka()"
+	            >
+	                Закрыть
+	            </button>
+	        </p>
+	    </form>
+	</ng-template>
+
+<ng-template
+	    let-observer
+	    [tuiDialogOptions]="$any({ label: 'хз', size: 'l' })"
+	    [(tuiDialog)]="open"
+	>
+	    <form [formGroup]="form" *ngIf="form" (ngSubmit)="onSubmit()">
+	        <p>Добавить хз</p>
+          <div class="tui-form__row">
+            <tui-select
+            *ngIf="posts$ | async as items"
+            class="b-form"
+            tuiTextfieldSize="l"
+            formControlName="idbook_post"
+            [valueContent]="items ? this.str.stringifyName(items) : loading"
+            [(ngModel)]="valuePost"
+            >Должность*
+            <ng-template tuiDataList>
+                <tui-data-list *ngIf="items else loading">
+                    <ng-container
+                        *ngFor="let item of items"                        
+                    >
+                      <button 
+                      tuiOption
+                        [value]="item.id | toNumber">
+                        {{item.name}}
+                    </button>   
+                     
+                    </ng-container>
+                </tui-data-list>
+            </ng-template>
+            <ng-template #loading>
+                <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
+            </ng-template>
+          </tui-select>
+          <tui-error class="tui-space_bottom-3"
+           formControlName="idbook_post" [error]="[] | tuiFieldError | async"></tui-error>
+          </div>
+          <div class="tui-form__row">
+            <tui-input
+	            tuiAutoFocus
+              tuiTextfieldSize="l"
+              formControlName="norma"
+              [tuiTextfieldCleaner]="true"
+	        >
+          Норма времени (ак.ч.)*
+	        </tui-input>
+          <tui-error class="tui-space_bottom-3"
+           formControlName="norma" [error]="[] | tuiFieldError | async"></tui-error>
+          </div>
+          {{ messageError }}
+	        <p>
+	            <button
+	                tuiButton
+	                type="submit"
+                  size="s"
+                  [disabled]="form.invalid"
+	            >
+	                Сохранить
+	            </button>
+
+              <button
+	                tuiButton
+                  class="tui-space_left-3"
+	                type="button"
+                  size="s"
+	                (click)="close()"
+	            >
+	                Закрыть
+	            </button>
+	        </p>
+	    </form>
+	</ng-template>
+
+<table class="tui-table">
 <thead>
-  <tr>
-    <th scope="col">#</th>
-    <th scope="col">Должность ППС</th>
-    <th scope="col">Норма времени (ак.ч.)</th>
-    <th scope="col">Редактировать</th>
-    <th scope="col">Удалить</th>
+  <tr class="tui-table__tr">
+    <th class="tui-table__th">#</th>
+    <th class="tui-table__th">Должность ППС</th>
+    <th class="tui-table__th">Норма времени (ак.ч.)</th>
+    <th class="tui-table__th">Редактировать</th>
+    <th class="tui-table__th">Удалить</th>
   </tr>
 </thead>
 <tbody *ngIf="data | async as data" >
   <ng-container *ngFor="let data of data | filter:term; let i = index">
-    <tr>
-      <th scope="row" >{{i+1}}</th>
-      <td *ngIf="data.book_post; else somethingElse">{{data.book_post.name}}</td>
-      <td *ngIf="data.norma; else somethingElse">{{data.norma}}</td>   
-      <td class="td" (click)="openMenuEdit($event, data)"><img src="././assets/images/icon/edit.png"/></td>
-      <td class="td" (click)="delete(data)"><img src="././assets/images/icon/delete--v1.png"/></td>
+    <tr class="tui-table__tr">
+      <th class="tui-table__td" >{{i+1}}</th>
+      <td class="tui-table__td" *ngIf="data.book_post; else somethingElse">{{data.book_post.name}}</td>
+      <td class="tui-table__td" *ngIf="data.norma; else somethingElse">{{data.norma}}</td>   
+      <td class="tui-table__td">
+        <button
+          tuiIconButton
+          size="xs"
+          type="button"
+          class="tui-space_right-3 tui-space_bottom-3"
+          icon="tuiIconDraft"
+          (click)="edit(data)"
+          >
+          </button>
+      </td>
+      <td class="tui-table__td">
+        <button
+            tuiIconButton
+            size="xs"
+            type="button"
+            class="tui-space_right-3 tui-space_bottom-3"
+            icon="tuiIconTrash"
+            (click)="delete(data)"
+            >
+            </button>
+      </td>
     </tr>
   </ng-container> 
 </tbody>
 </table>
 
 <ng-template #somethingElse>
-  <td></td>
+  <td class="tui-table__td"></td>
 </ng-template>

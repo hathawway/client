@@ -1,58 +1,151 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { TUI_VALIDATION_ERRORS } from '@taiga-ui/kit';
 import { Observable } from 'rxjs';
-import { MaterialService } from 'src/app/classes/material.service';
-import { NormaStudy, StavkaYear } from 'src/app/interfaces/interfaces';
+import { BookPost, NormaStudy, StavkaYear } from 'src/app/interfaces/interfaces';
 import { NormaStudyService } from 'src/app/services/normaStudy.service';
+import { PostService } from 'src/app/services/post.service';
 import { StavkaYearService } from 'src/app/services/stavkaYear.service';
-import { ModalAddStavkaTableComponent } from '../modal-add-stavka-table/modal-add-stavka-table.component';
-import { ModalEditStavkaComponent } from '../modal-edit-stavka/modal-edit-stavka.component';
+import { NotiService } from 'src/app/utils/noti.service';
+import { StrService } from 'src/app/utils/stringify.service';
 
 @Component({
   selector: 'app-stavka-table',
   templateUrl: './stavka-table.component.html',
-  styleUrls: ['./stavka-table.component.css']
+  styleUrls: ['./stavka-table.component.less'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [
+    {
+      provide: TUI_VALIDATION_ERRORS,
+      useValue: {
+        required: 'Поле обязательно для заполнения!',              
+      },
+    },
+	],
 })
 export class StavkaTableComponent implements OnInit {
 
-  @ViewChild(ModalAddStavkaTableComponent) menu!:ModalAddStavkaTableComponent 
-  @ViewChild(ModalEditStavkaComponent) stavka!:ModalEditStavkaComponent 
-
   term!: string;
-  form!: FormGroup;
   data: Observable<NormaStudy[]> | undefined;
-  norma: Observable<StavkaYear> | undefined;
+  stavka$: Observable<StavkaYear> | undefined;
+  flag = false;
+  form!: FormGroup;
+  formStavka!: FormGroup;
+  open = false;
+  openSt = false;
+
+  messageError = "";
+
+  valuePost!: Number | null;
+  posts$!: Observable<BookPost[]>;
  
   constructor(private normaStudyService: NormaStudyService, 
+    private noti: NotiService,
+    private postService: PostService,
+    public str: StrService,
     private stavkaYearService: StavkaYearService) {
     this.normaStudyService.onClick.subscribe(cnt=>this.data = cnt);
-    this.stavkaYearService.onClick.subscribe(cnt=>this.norma = cnt);
   }
-
-    openMenuEdit(e, data:NormaStudy) {
-
-      this.menu.openEdit(e, data)
-    }
-  
-    openMenuAdd(e) {
-      this.menu.openAdd(e)
-    }
-
-    openNormaEdit(e, norma: StavkaYear) {
-      this.stavka.open(e, norma)
-    }
 
     ngOnInit(): void {
       this.getData();  
-      this.getNorma();
+      this.posts$ = this.postService.getPost()
+      this.stavka$ = this.stavkaYearService.getStavkaYearOne() 
+      this.getStavka()    
+    }
+
+    getStavka() {
+      this.stavka$ = this.stavkaYearService.getStavkaYearOne()
+    }
+
+    add() {
+      this.open = true;
+      this.form = new FormGroup({
+        idbook_post: new FormControl(null, Validators.required),
+        norma: new FormControl(null, Validators.required),
+      })
+      this.flag = true;
+      this.valuePost = null;
+    }
+  
+    edit(data: NormaStudy) {
+      this.open = true;
+      this.form = new FormGroup({
+        id: new FormControl(data.id, Validators.required),
+        norma: new FormControl(data.norma  === null ? null : data.norma, Validators.required),
+        idbook_post: new FormControl(data.book_post === null ? null : data.book_post.id, Validators.required)     
+      })
+      this.valuePost = data.book_post === null ? null : Number(data.book_post.id);
+
+    }
+
+    openStavka(stavka: StavkaYear) {
+      this.openSt = true;
+      this.formStavka = new FormGroup({
+        id: new FormControl(stavka.id, Validators.required),
+        norma: new FormControl(stavka.norma, Validators.required)
+      })
+    }
+
+    updateStavka() {
+      this.formStavka.disable()
+      this.stavkaYearService.updateStavkaYear(this.formStavka.value).subscribe(
+          () => {
+            this.closeStavka();
+            this.getStavka();
+          },
+          error => {
+            this.messageError = error.error.message
+          }
+      )          
+      this.formStavka.enable()
+      
+    }
+
+    closeStavka() {
+      this.openSt = false;
+      this.messageError = "";
+    }
+  
+    onSubmit() {
+      console.log(this.form.value)
+      this.form.disable()
+  
+      if (this.flag) {
+        this.normaStudyService.addNormaStudy(this.form.value).subscribe(
+          () => {
+            this.normaStudyService.doClick(),
+            this.form.reset();
+          },
+          error => {
+            this.messageError = error.error.message
+          }
+        )
+      }
+      else {
+        this.normaStudyService.updateNormaStudy(this.form.value).subscribe(
+          () => {
+            this.normaStudyService.doClick(),
+            this.close()
+          },
+          error => {
+            this.messageError = error.error.message
+          }
+        )
+      }            
+      this.form.enable()
+   
+    }
+  
+    close() {
+      this.open = false;
+      this.flag = false;
+      this.form.reset();
+      this.messageError = "";
     }
   
     getData() {
       this.normaStudyService.doClick()
-    }
-
-    getNorma() {
-      this.stavkaYearService.doClick()
     }
 
     delete(data:NormaStudy) {
@@ -61,7 +154,7 @@ export class StavkaTableComponent implements OnInit {
         this.normaStudyService.deleteNormaStudy(data).subscribe(
           () => this.getData(),
           error => {
-            MaterialService.toast(error.error.message)
+            this.noti.toast(error.error.message)
           }
         ) 
       }

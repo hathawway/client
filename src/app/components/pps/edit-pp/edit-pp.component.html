@@ -1,64 +1,275 @@
-<nav class="navbar">
-    <div class="container-fluid">
-      <form class="d-flex" [formGroup]="form" *ngIf="form">
-        <input class="form-control me-2" name="data_start" formControlName="data_start" type="date" placeholder="Дата начала" aria-label="Дата начала">
-        <input class="form-control me-2" name="data_end" formControlName="data_end" type="date" placeholder="Дата окончания" aria-label="Дата окончания">
-        <select class="form-select mb-2" *ngIf="kafedra$ | async as kafedra" name="kafedra" formControlName="kafedra" aria-label="Кафедра">
-            <option *ngFor="let kafedra of kafedra" [value]="kafedra.id">{{kafedra.book_office.name}}</option>
-        </select>
-      </form>
-        <div class="btn-group">
-          <button class="btn btn-sm btn-outline-secondary ms-2" type="button" (click)="openMenuAdd($event)">Добавить</button>
-          <button class="btn btn-sm btn-outline-secondary ms-2" type="button" (click)="addOrSave()">Сохранить</button>
-        </div>
+<div class="container-search">
+    <form class="form-ip" [formGroup]="form" *ngIf="form" (ngSubmit)="save()">
+      <div class="tui-form__row">
+        <tui-input-date
+            formControlName="data_start"
+            [tuiTextfieldCleaner]="true"
+	          [min]="min"
+	          [max]="max"
+	          [(ngModel)]="from"
+            tuiTextfieldSize="m"
+            class="b-form tui-space_right-3"
+	          >
+	          Дата начала
+	          </tui-input-date>
+            <tui-error class="tui-space_bottom-3"
+       formControlName="data_start" [error]="[] | tuiFieldError | async"></tui-error>
+      </div>
+      <div class="tui-form__row">
+        <tui-input-date
+            formControlName="data_end"
+            [tuiTextfieldCleaner]="true"
+	          [min]="from || min"
+	          [items]="items"
+            tuiTextfieldSize="m"
+	          [(ngModel)]="from"
+            class="b-form tui-space_right-3"
+	          >
+	          Дата конца
+	          </tui-input-date>
+            <tui-error class="tui-space_bottom-3"
+            formControlName="data_end" [error]="[] | tuiFieldError | async"></tui-error>
+      </div>
+      <div class="search">
+        <tui-select
+        *ngIf="kafedra$ | async as items"
+        class="b-form tui-space_right-3"
+        formControlName="kafedra"
+        tuiTextfieldSize="m"
         
-    </div>
-</nav>
+        [valueContent]="items ? this.str.stringifyKafedra(items) : loading"
+        [(ngModel)]="valueKafedra"
+        >Вид деятельности*
+        <ng-template tuiDataList>
+            <tui-data-list *ngIf="items else loading">
+                <ng-container
+                    *ngFor="let item of items"                        
+                >
+                  <button 
+                  tuiOption
+                    [value]="item.id | toNumber">
+                    {{item.book_office.name}}
+                </button>   
+                 
+                </ng-container>
+            </tui-data-list>
+        </ng-template>
+        <ng-template #loading>
+            <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
+        </ng-template>
+      </tui-select>
+      <tui-error class="tui-space_bottom-3"
+       formControlName="kafedra" [error]="[] | tuiFieldError | async"></tui-error>
+      </div>
+      <button tuiButton
+  size="s"
+  type="button" 
+  class="b-form tui-space_left-2"
+  (click)="add()"
+  >
+  Добавить
+</button>
 
-<app-modal-pp-edit>
-</app-modal-pp-edit>
+<button tuiButton
+  size="s"
+  type="submit"
+  class="b-form tui-space_left-2"
+  [disabled]="form.invalid"
+  >
+  Сохранить
+</button>
+    </form>
+  
+  
+</div>
 
-<table class="table table-hover" *ngIf="!checkAdd">
+<ng-template
+	    let-observer
+	    [tuiDialogOptions]="$any({ label: 'хз', size: 'l' })"
+	    [(tuiDialog)]="open"
+	>
+	    <form [formGroup]="formIp" *ngIf="formIp" (ngSubmit)="onSubmit()">
+	        <p>Добавить хз</p>
+          <div class="tui-form__row">
+            <tui-select 
+            formControlName="semester" 
+            [(ngModel)]="valueSemester"
+            class="b-form"
+            tuiTextfieldSize="m"
+            >Семестр*
+            <tui-data-list-wrapper
+            *tuiDataList
+            [items]="semesterItems"
+            >
+            </tui-data-list-wrapper>
+            </tui-select>
+            <tui-error class="tui-space_bottom-3"
+           formControlName="semester" [error]="[] | tuiFieldError | async"></tui-error>
+          </div>
+          
+          <div class="tui-form__row">
+            <tui-select
+            *ngIf="kind_activity$ | async as items"
+            class="b-form"
+            formControlName="kind_activity"
+            [valueContent]="items ? this.str.stringifyName(items) : loading"
+            [(ngModel)]="valueKind"
+            tuiTextfieldSize="m"
+            >Вид деятельности*
+            <ng-template tuiDataList>
+                <tui-data-list *ngIf="items else loading">
+                    <ng-container
+                        *ngFor="let item of items"                        
+                    >
+                      <button 
+                      tuiOption
+                        [value]="item.id | toNumber">
+                        {{item.name}}
+                    </button>   
+                     
+                    </ng-container>
+                </tui-data-list>
+            </ng-template>
+            <ng-template #loading>
+                <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
+            </ng-template>
+          </tui-select>
+          <tui-error class="tui-space_bottom-3"
+           formControlName="kind_activity" [error]="[] | tuiFieldError | async"></tui-error>
+          </div>
+          <div class="tui-form__row">
+            <tui-select
+            *ngIf="activity$ | async as items"
+            class="b-form"
+            formControlName="activity"
+            [valueContent]="items ? this.str.stringifyName(items) : loading"
+            [(ngModel)]="valueActivity"
+            tuiTextfieldSize="m"
+            >Вид работы*
+            <ng-template tuiDataList>
+                <tui-data-list *ngIf="items else loading">
+                    <ng-container
+                        *ngFor="let item of items"                        
+                    >
+                      <button 
+                      tuiOption
+                        [value]="item.id | toNumber">
+                        {{item.name}}
+                    </button>   
+                     
+                    </ng-container>
+                </tui-data-list>
+            </ng-template>
+            <ng-template #loading>
+                <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
+            </ng-template>
+          </tui-select>
+          <tui-error class="tui-space_bottom-3"
+           formControlName="activity" [error]="[] | tuiFieldError | async"></tui-error>
+          </div>
+          <div class="tui-form__row">
+            <tui-input
+	            tuiAutoFocus
+              tuiTextfieldSize="m"
+              formControlName="unitPlan"
+              [tuiTextfieldCleaner]="true"
+	        >
+          Норма времени, ак.ч	
+	        </tui-input>
+          <tui-error class="tui-space_bottom-3"
+           formControlName="unitPlan" [error]="[] | tuiFieldError | async"></tui-error>
+          </div>
+          <div class="tui-form__row tui-space_bottom-3">
+            <tui-input-date formControlName="datePlan">Дата планирования</tui-input-date>
+          </div>
+          
+          
+          
+	        {{ messageError }}
+	        <p>
+	            <button
+	                tuiButton
+	                type="submit"
+                  size="s"
+                  [disabled]="formIp.invalid"
+	            >
+	                Сохранить
+	            </button>
+
+              <button
+	                tuiButton
+                  class="tui-space_left-3"
+	                type="button"
+                  size="s"
+	                (click)="close()"
+	            >
+	                Закрыть
+	            </button>
+	        </p>
+	    </form>
+	</ng-template>
+
+<table class="tui-table" *ngIf="!checkAdd">
   <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Семестр</th>
-      <th scope="col">Вид деятельности</th>
-      <th scope="col">Вид работы</th>
-      <th scope="col">Норма времени, ак.ч</th>
-      <th scope="col">Ед. измерения</th>
-      <th scope="col">План, ед.раб</th>
-      <th scope="col">План, ак.ч</th>
-      <th scope="col">Дата план</th>
-      <th scope="col">Факт, ед.раб</th>
-      <th scope="col">Факт, ак.ч</th>
-      <th scope="col">Дата факт</th>
-      <th scope="col">Примечание</th>
-      <th scope="col">Редактировать</th>
-      <th scope="col">Удалить</th>
+    <tr class="tui-table__tr">
+      <th class="tui-table__th">#</th>
+      <th class="tui-table__th">Семестр</th>
+      <th class="tui-table__th">Вид деятельности</th>
+      <th class="tui-table__th">Вид работы</th>
+      <th class="tui-table__th">Норма времени, ак.ч</th>
+      <th class="tui-table__th">Ед. измерения</th>
+      <th class="tui-table__th">План, ед.раб</th>
+      <th class="tui-table__th">План, ак.ч</th>
+      <th class="tui-table__th">Дата план</th>
+      <th class="tui-table__th">Факт, ед.раб</th>
+      <th class="tui-table__th">Факт, ак.ч</th>
+      <th class="tui-table__th">Дата факт</th>
+      <th class="tui-table__th">Примечание</th>
+      <th class="tui-table__th">Редактировать</th>
+      <th class="tui-table__th">Удалить</th>
     </tr>
   </thead>
   <tbody *ngIf="data | async as data" >
-    <tr *ngFor="let data of data; let i = index">
-      <th>{{i+1}}</th>
-      <td *ngIf="data.semester; else somethingElse">{{data.semester}}</td>
-      <td *ngIf="data.kind_activity; else somethingElse">{{data.kind_activity.name}}</td>
-      <td *ngIf="data.activity; else somethingElse">{{data.activity.name}}</td>
-      <td *ngIf="data.activity; else somethingElse">{{data.activity.norma}}</td>
-      <td *ngIf="data.activity; else somethingElse">{{data.activity.book_unit.name}}</td>
-      <td *ngIf="data.unitPlan; else somethingElse">{{data.unitPlan}}</td>
-      <td *ngIf="data.hourPlan; else somethingElse">{{data.hourPlan}}</td>
-      <td *ngIf="data.datePlan; else somethingElse">{{data.datePlan}}</td>
-      <td *ngIf="data.unitFact; else somethingElse">{{data.unitFact}}</td>
-      <td *ngIf="data.hourFact; else somethingElse">{{data.hourFact}}</td>
-      <td *ngIf="data.dateFact; else somethingElse">{{data.dateFact}}</td>
-      <td *ngIf="data.remark; else somethingElse">{{data.remark}}</td>
-      <td class="td" (click)="openMenuEdit($event, data)"><img src="././assets/images/icon/edit.png"/></td>
-      <td class="td" (click)="delete(data)"><img src="././assets/images/icon/delete--v1.png"/></td>
+    <tr class="tui-table__th" *ngFor="let data of data; let i = index">
+      <th class="tui-table__td">{{i+1}}</th>
+      <td class="tui-table__td" *ngIf="data.semester; else somethingElse">{{data.semester}}</td>
+      <td class="tui-table__td" *ngIf="data.kind_activity; else somethingElse">{{data.kind_activity.name}}</td>
+      <td class="tui-table__td" *ngIf="data.activity; else somethingElse">{{data.activity.name}}</td>
+      <td class="tui-table__td" *ngIf="data.activity; else somethingElse">{{data.activity.norma}}</td>
+      <td class="tui-table__td" *ngIf="data.activity; else somethingElse">{{data.activity.book_unit.name}}</td>
+      <td class="tui-table__td" *ngIf="data.unitPlan; else somethingElse">{{data.unitPlan}}</td>
+      <td class="tui-table__td" *ngIf="data.hourPlan; else somethingElse">{{data.hourPlan}}</td>
+      <td class="tui-table__td" *ngIf="data.datePlan; else somethingElse">{{data.datePlan}}</td>
+      <td class="tui-table__td" *ngIf="data.unitFact; else somethingElse">{{data.unitFact}}</td>
+      <td class="tui-table__td" *ngIf="data.hourFact; else somethingElse">{{data.hourFact}}</td>
+      <td class="tui-table__td" *ngIf="data.dateFact; else somethingElse">{{data.dateFact}}</td>
+      <td class="tui-table__td" *ngIf="data.remark; else somethingElse">{{data.remark}}</td>
+      <td class="tui-table__td">
+        <button
+          tuiIconButton
+          size="xs"
+          type="button"
+          class="tui-space_right-3 tui-space_bottom-3"
+          icon="tuiIconDraft"
+          (click)="edit(data)"
+          >
+          </button>
+      </td>
+      <td class="tui-table__td">
+        <button
+            tuiIconButton
+            size="xs"
+            type="button"
+            class="tui-space_right-3 tui-space_bottom-3"
+            icon="tuiIconTrash"
+            (click)="delete(data)"
+            >
+            </button>
+      </td>
     </tr>
   </tbody>
   </table>
 
   <ng-template #somethingElse>
-    <td></td>
+    <td class="tui-table__td"></td>
   </ng-template>
