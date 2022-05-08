@@ -43,7 +43,7 @@ const routes: Routes = [
         path:'admin',
         component:SidebarComponent,
         data: {
-          role: Role.ADMIN
+          roles: [Role.ADMIN]
         },
         children:[
           {path: 'post', component:PostTableComponent},

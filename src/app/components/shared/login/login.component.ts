@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { of, Subscription } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
@@ -7,6 +7,7 @@ import { NotiService } from '../../../utils/noti.service'
 import * as forge from 'node-forge';
 import { tuiInputPasswordOptionsProvider, TUI_PASSWORD_TEXTS, TUI_VALIDATION_ERRORS } from '@taiga-ui/kit';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {TuiAlertService} from '@taiga-ui/core';
 
 @Component({
   selector: 'app-login',
@@ -42,7 +43,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private auth: AuthService,
     private router: Router,
     private route: ActivatedRoute,
-    private noti: NotiService) {}
+    @Inject(TuiAlertService)
+    private readonly alertService: TuiAlertService,) {}
 
   ngOnDestroy(): void {
     if (this.aSub) {
@@ -59,7 +61,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     this.route.queryParams.subscribe( () => (params: Params) => {
       if (params['accessDenied']) {
-        this.noti.toast('Необходимо авторизоваться в системе')
+        this.alertService.open('Необходимо авторизоваться в системе',
+          {label: 'With a heading!'}).subscribe();
       }
     })
 
@@ -77,12 +80,15 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.auth.login(this.form.value).subscribe(
             () => this.router.navigate([`/dashboard/`]),
             (error) => {
-              this.noti.toast(error.error.message)
+              console.log(1)
+              this.alertService.open(error.error.message,
+                {label: 'With a heading!'}).subscribe();
             }
           )
         },
         error => {
-          this.noti.toast(error.error.message)
+          this.alertService.open(error.error.message,
+            {label: 'With a heading!'}).subscribe();
         }
       )
       this.form.enable()

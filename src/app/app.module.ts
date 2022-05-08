@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import {
   TuiButtonModule,
-  TuiNotificationModule,
+  TuiAlertModule,
   TuiDataListModule,
   TuiDialogModule,
   TuiErrorModule,
@@ -9,7 +9,7 @@ import {
   TuiRootModule,
   TuiScrollbarModule,
   TuiSvgModule,
-  TuiTextfieldControllerModule,
+  TuiTextfieldControllerModule, TuiNotificationsModule,
 } from '@taiga-ui/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -85,7 +85,7 @@ import { TuiTableBarsHostModule } from '@taiga-ui/addon-tablebars';
     HttpClientModule,
     Ng2SearchPipeModule,
     RouterModule,
-    TuiNotificationModule,
+    TuiAlertModule,
     TuiRootModule,
     TuiBadgeModule,
     TuiInputModule,

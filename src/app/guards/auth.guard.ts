@@ -39,9 +39,10 @@ export class AuthGuard implements CanActivate, CanActivateChild{
 
     checkUserLogin(route: ActivatedRouteSnapshot, url: any): Observable<boolean> {
       return this.auth.getCurrentUserRoles().pipe(map((roles: Array<number>) => {
-        if (route.data['role']) {
+        if (route.data['roles']) {
           for (const rolesKey in roles) {
-            if (route.data['role'] == roles[rolesKey]) {
+            for (const roleFromCom in route.data['roles'])
+            if (route.data['roles'][roleFromCom] == roles[rolesKey]) {
               return true
             }
           }
