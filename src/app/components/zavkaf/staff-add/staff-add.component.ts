@@ -13,7 +13,7 @@ import {PolymorpheusContent} from '@tinkoff/ng-polymorpheus';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StaffAddComponent implements OnInit {
- 
+
   term!: string;
   data$: Observable<Kafedra[]> | undefined;
   users$: Observable<User[]> | undefined;
@@ -21,12 +21,12 @@ export class StaffAddComponent implements OnInit {
 
   kafedra:string[] = [];
   check = false;
-  userOffice!: User; 
+  userOffice!: User;
 
   @ViewChild('tableBarTemplate') tableBarTemplate: PolymorpheusContent = '';
-	 
+
 	subscription = new Subscription();
- 
+
 
   constructor(private kafedraService: KafedraService,
     private noti: NotiService,
@@ -34,7 +34,7 @@ export class StaffAddComponent implements OnInit {
     @Inject(TuiTableBarsService)
 	        private readonly tableBarsService: TuiTableBarsService,) {}
 
-  showTableBar() {           
+  showTableBar() {
     this.subscription.unsubscribe();
     this.isChecked = true;
     this.subscription = this.tableBarsService
@@ -66,13 +66,10 @@ export class StaffAddComponent implements OnInit {
     // } else {
     //   this.kafedra = this.kafedra.filter((value, index) => value !== user.id);
     // }
-    //console.log(ch)
     this.kafedra.push(user.id);
   }
 
   save() {
-    console.log(this.kafedra)
-    console.log(this.userOffice.book_office.id)
     this.kafedraService.addKafedra(this.kafedra, this.userOffice.book_office).subscribe(
       () => this.isChecked = false,
         error => {

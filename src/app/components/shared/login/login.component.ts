@@ -7,7 +7,6 @@ import { NotiService } from '../../../utils/noti.service'
 import * as forge from 'node-forge';
 import { tuiInputPasswordOptionsProvider, TUI_PASSWORD_TEXTS, TUI_VALIDATION_ERRORS } from '@taiga-ui/kit';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-//import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +27,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
           {
             provide: TUI_VALIDATION_ERRORS,
             useValue: {
-                required: 'Поле обязательно для заполнения!',              
+                required: 'Поле обязательно для заполнения!',
                 email:'Невалидный email!',
             },
         },
@@ -67,22 +66,18 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    
     this.form.disable()
-    console.log(this.form.value);
+
     this.aSub =
       this.auth.rsaKey().subscribe(
         (key) => {
-          console.log(key)
           const rsaKey = forge.pki.publicKeyFromPem(key);
-          // @ts-ignore
-          console.log(this.form.value.password);
           // @ts-ignore
           this.form.value.password = window.btoa(rsaKey.encrypt(this.form.value.password));
           this.auth.login(this.form.value).subscribe(
             () => this.router.navigate([`/dashboard/`]),
-            error => {
-              this.noti.toast(error.error.message)  
+            (error) => {
+              this.noti.toast(error.error.message)
             }
           )
         },

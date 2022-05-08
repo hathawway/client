@@ -22,8 +22,8 @@ import { StrService } from 'src/app/utils/stringify.service';
     {
       provide: TUI_VALIDATION_ERRORS,
       useValue: {
-          required: 'Поле обязательно для заполнения!',        
-          pattern:'Только числа!'      
+          required: 'Поле обязательно для заполнения!',
+          pattern:'Только числа!'
       },
   },
 ],
@@ -50,7 +50,7 @@ export class EditPpComponent implements OnInit {
   valueKind!: Number | null;
   valueActivity!: Number | null;
 
-  
+
 
   kind_activity$: Observable<KindActivity[]> | undefined;
   activity$: Observable<Activity[]> | undefined;
@@ -75,7 +75,7 @@ export class EditPpComponent implements OnInit {
   ]
 
   valueSemester!: string | null;
-    
+
 
   constructor(private kafedraService: KafedraService,
     private kindActivityService: KindActivityService,
@@ -84,7 +84,7 @@ export class EditPpComponent implements OnInit {
     private ipPpsService: IpPpsService,
     private ipService: IpService,
     public str: StrService,
-    private noti: NotiService) { 
+    private noti: NotiService) {
       this.ipPpsService.onClick.subscribe(cnt=>this.data = cnt);
       this.ipService.onClick.subscribe(cnt=>this.dataIp = cnt);
     }
@@ -92,7 +92,7 @@ export class EditPpComponent implements OnInit {
     ngOnInit(): void {
       this.authService.getUserByHeader().subscribe(d => this.ipService.setId(d.id))
       this.kafedraService.setReqSearch("user")
-      this.kafedra$ = this.kafedraService.getKafedra(this.kafedraService.getReqSearch())  
+      this.kafedra$ = this.kafedraService.getKafedra(this.kafedraService.getReqSearch())
       this.getData();
       if (this.ipPpsService.getId() === "") {
         this.checkAdd = true
@@ -117,7 +117,7 @@ export class EditPpComponent implements OnInit {
         })
       }
 
-      
+
     }
 
     getData() {
@@ -172,7 +172,6 @@ export class EditPpComponent implements OnInit {
 
     onSubmit() {
     this.formIp.disable()
-    console.log(this.formIp.value)
     if (this.flag) {
       this.ipPpsService.addIpPps(this.formIp.value).subscribe(
         () => {
@@ -195,9 +194,9 @@ export class EditPpComponent implements OnInit {
 
         }
       )
-    }           
+    }
     this.form.enable()
-    
+
   }
 
     close() {
@@ -206,8 +205,7 @@ export class EditPpComponent implements OnInit {
       this.flag = false;
     }
 
-    save() {    
-      console.log(this.form.value)
+    save() {
       this.form.disable()
       this.ipService.updateIp(this.form.value).subscribe(
         () => {
@@ -228,14 +226,14 @@ export class EditPpComponent implements OnInit {
           error => {
             this.noti.toast(error.error.message)
           }
-        ) 
+        )
       }
     }
 
   // ngOnInit(): void {
   //   //this.authService.getUserByHeader().subscribe(d => this.ipService.setId(d.id))
   //   this.kafedraService.setReqSearch("user")
-  //   this.kafedra$ = this.kafedraService.getKafedra(this.kafedraService.getReqSearch())  
+  //   this.kafedra$ = this.kafedraService.getKafedra(this.kafedraService.getReqSearch())
   //   this.getData();
   //   if (this.ipPpsService.getId() === "") {
   //     this.checkAdd = true
@@ -253,8 +251,8 @@ export class EditPpComponent implements OnInit {
   //         kafedra: new FormControl(value.kafedra === null ? null : value.kafedra.id, Validators.required),
   //       })
   //     })
-      
-      
+
+
   //   }
   // }
 
@@ -280,12 +278,11 @@ export class EditPpComponent implements OnInit {
   //   const dataImpl = ip.data_agreement.toString().split('-')
   //   this.from = ip.data_agreement === null ? null : new TuiDay(Number(dataAgr[0]), Number(dataAgr[1]), Number(dataAgr[2]));
 	//   this.to = ip.data_implementation === null ? null : new TuiDay(Number(dataImpl[0]), Number(dataImpl[1]), Number(dataImpl[2]));
-    
+
   // }
 
   // // onSubmit() {
-    
-  // //   console.log(this.form.value)
+
   // //   this.form.disable()
   // //   this.ipService.updateIp(this.form.value).subscribe(
   // //     () => {
@@ -315,7 +312,7 @@ export class EditPpComponent implements OnInit {
   //       error => {
   //         this.noti.toast(error.error.message)
   //       }
-  //     ) 
+  //     )
   //   }
   // }
 
@@ -326,38 +323,34 @@ export class EditPpComponent implements OnInit {
   // addOrSave() {
   //   if (this.checkAdd) {
   //     this.checkAdd = false;
-  //     console.log(this.form.value)
   //     this.ipService.addIp(this.form.value).subscribe(
   //       () => this.getData(),
   //       error => {
   //         this.noti.toast(error.error.message)
   //       }
-  //     ) 
+  //     )
   //   } else {
   //     this.ipService.updateIp(this.form.value).subscribe(
   //       () => this.getData(),
   //       error => {
   //         this.noti.toast(error.error.message)
   //       }
-  //     ) 
-  //   }    
+  //     )
+  //   }
   // }
 
   // openMenuAdd(e) {
   //   this.menu.openAdd(e)
-  //   this.addOrSave()   
+  //   this.addOrSave()
   // }
 
   // onSubmit() {
-  //   console.log(this.form.value)
   //   // this.ipService.addIp(this.form.value).subscribe(
   //   //   (d) => {
-  //   //     this.id = d.toString(), 
-  //   //     console.log(this.id),
-  //   //     this.data?.subscribe( (d) => 
+  //   //     this.id = d.toString(),
+  //   //     this.data?.subscribe( (d) =>
   //   //       d.forEach(value => {
   //   //         this.ip.push(value),
-  //   //         console.log(value)
   //   //       })
   //   //     ),
   //   //     this.ipService.updateIp(this.id, this.ip),
@@ -367,7 +360,7 @@ export class EditPpComponent implements OnInit {
   //   //   error => {
   //   //     MaterialService.toast(error.error.message)
   //   //   }
-  //   // )    
+  //   // )
   // }
 
 }

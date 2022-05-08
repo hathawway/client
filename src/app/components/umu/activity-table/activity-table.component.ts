@@ -18,8 +18,8 @@ import { StrService } from 'src/app/utils/stringify.service';
     {
       provide: TUI_VALIDATION_ERRORS,
       useValue: {
-        required: 'Поле обязательно для заполнения!', 
-        pattern: 'Только числа',             
+        required: 'Поле обязательно для заполнения!',
+        pattern: 'Только числа',
       },
     },
 	],
@@ -35,7 +35,7 @@ export class ActivityTableComponent implements OnInit {
 
   messageError = "";
 
-  unit$: Observable<BookUnit[]> | undefined; 
+  unit$: Observable<BookUnit[]> | undefined;
   kind$: Observable<KindActivity[]> | undefined;
 
   valueUnit!: Number | null;
@@ -48,7 +48,7 @@ export class ActivityTableComponent implements OnInit {
     private kindActivityService: KindActivityService) {
       this.activityService.onClick.subscribe(cnt=>this.data = cnt);
     }
- 
+
     add() {
       this.open = true;
       this.form = new FormGroup({
@@ -61,7 +61,7 @@ export class ActivityTableComponent implements OnInit {
       this.valueUnit = null;
       this.valueKind = null;
     }
-  
+
     edit(data: Activity) {
       this.open = true;
       this.form = new FormGroup({
@@ -74,12 +74,11 @@ export class ActivityTableComponent implements OnInit {
       this.valueUnit = data.book_unit === null ? null : Number(data.book_unit.id);
       this.valueKind = data.kind_activity === null ? null : Number(data.kind_activity.id);
     }
-  
+
     onSubmit() {
-      
-      console.log(this.form.value)
+
       this.form.disable()
-  
+
       if (this.flag) {
         this.activityService.addActivity(this.form.value).subscribe(
           () => {
@@ -101,11 +100,11 @@ export class ActivityTableComponent implements OnInit {
             this.messageError = error.error.message
           }
         )
-      }            
+      }
       this.form.enable()
-  
+
     }
-  
+
     close() {
       this.open = false;
       this.flag = false;
@@ -114,7 +113,7 @@ export class ActivityTableComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.getData();  
+    this.getData();
     this.unit$ = this.unitService.getBookUnit()
     this.kind$ = this.kindActivityService.getKindActivity()
   }
@@ -131,7 +130,7 @@ export class ActivityTableComponent implements OnInit {
         error => {
           this.noti.toast(error.error.message)
         }
-      ) 
+      )
     }
   }
 

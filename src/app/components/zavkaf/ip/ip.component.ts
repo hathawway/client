@@ -40,8 +40,8 @@ export class IpComponent implements OnInit {
     }
 
 
-  ngOnInit(): void {   
-    this.getData();  
+  ngOnInit(): void {
+    this.getData();
   }
 
   getData() {
@@ -62,12 +62,11 @@ export class IpComponent implements OnInit {
     const dataImpl = ip.data_agreement.toString().split('-')
     this.from = ip.data_agreement === null ? null : new TuiDay(Number(dataAgr[0]), Number(dataAgr[1]), Number(dataAgr[2]));
 	  this.to = ip.data_implementation === null ? null : new TuiDay(Number(dataImpl[0]), Number(dataImpl[1]), Number(dataImpl[2]));
-    
+
   }
 
   onSubmit() {
-    
-    console.log(this.form.value)
+
     this.form.disable()
     this.ipService.updateIp(this.form.value).subscribe(
       () => {

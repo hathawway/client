@@ -15,13 +15,13 @@ import { NotiService } from 'src/app/utils/noti.service';
           {
             provide: TUI_VALIDATION_ERRORS,
             useValue: {
-                required: 'Поле обязательно для заполнения!',              
+                required: 'Поле обязательно для заполнения!',
             },
         },
 	    ],
 })
 export class UnitTableComponent implements OnInit {
- 
+
   data: Observable<BookUnit[]> | undefined;
   term!: string;
 
@@ -32,7 +32,7 @@ export class UnitTableComponent implements OnInit {
   messageError = "";
 
   constructor(private unitService: UnitService,
-    private noti: NotiService) { 
+    private noti: NotiService) {
       this.unitService.onClick.subscribe(cnt=>this.data = cnt);
     }
 
@@ -43,7 +43,7 @@ export class UnitTableComponent implements OnInit {
       })
       this.flag = true;
     }
-  
+
     edit(data: BookUnit) {
       this.open = true;
       this.form = new FormGroup({
@@ -51,12 +51,11 @@ export class UnitTableComponent implements OnInit {
         name: new FormControl(data.name, Validators.required)
       })
     }
-  
+
     onSubmit() {
-      
-      console.log(this.form.value)
+
       this.form.disable()
-  
+
       if (this.flag) {
         this.unitService.addBookUnit(this.form.value).subscribe(
           () => {
@@ -78,12 +77,12 @@ export class UnitTableComponent implements OnInit {
             this.messageError = error.error.message
           }
         )
-      }            
+      }
       this.form.enable()
-      
-  
+
+
     }
-  
+
     close() {
       this.open = false;
       this.flag = false;
@@ -91,16 +90,16 @@ export class UnitTableComponent implements OnInit {
       this.messageError = "";
     }
 
-  
+
 
   ngOnInit(): void {
-    this.getData();  
+    this.getData();
   }
 
   getData() {
     this.unitService.doClick()
   }
-  
+
 
   delete(data:BookUnit) {
     const decision = window.confirm("Удалить?")
@@ -110,7 +109,7 @@ export class UnitTableComponent implements OnInit {
         error => {
           this.noti.toast(error.error.message)
         }
-      ) 
+      )
     }
   }
 

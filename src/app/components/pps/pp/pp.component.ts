@@ -24,7 +24,7 @@ export class PpComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getData();  
+    this.getData();
   }
 
   getData() {
@@ -40,12 +40,11 @@ export class PpComponent implements OnInit {
         error => {
           this.noti.toast(error.error.message)
         }
-      ) 
+      )
     }
   }
 
   edit(id:string) {
-    console.log(id)
     this.ipPpsService.setId(id);
     this.router.navigate([`/dashboard/pps/edit-pp`])
   }

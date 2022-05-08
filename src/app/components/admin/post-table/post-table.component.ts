@@ -62,7 +62,6 @@ export class PostTableComponent implements OnInit {
 	}
 
   onSubmit() {
-    console.log(this.form.value)
     this.form.disable()
 
     if (this.flag) {

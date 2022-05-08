@@ -17,8 +17,8 @@ import { StrService } from 'src/app/utils/stringify.service';
     {
       provide: TUI_VALIDATION_ERRORS,
       useValue: {
-        required: 'Поле обязательно для заполнения!', 
-        pattern: 'Только числа',             
+        required: 'Поле обязательно для заполнения!',
+        pattern: 'Только числа',
       },
     },
 	],
@@ -48,7 +48,7 @@ export class ScheduleComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.getData();  
+    this.getData();
     this.works$ = this.workService.getWork()
     this.posts$ = this.postService.getPost()
   }
@@ -72,8 +72,7 @@ export class ScheduleComponent implements OnInit {
   }
 
   onSubmit() {
-    
-    console.log(this.form.value)
+
     this.form.disable()
 
     this.kafedraService.updateKafedra(this.form.value).subscribe(

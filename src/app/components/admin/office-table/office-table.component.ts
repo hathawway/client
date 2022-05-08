@@ -15,13 +15,13 @@ import { NotiService } from 'src/app/utils/noti.service';
           {
             provide: TUI_VALIDATION_ERRORS,
             useValue: {
-                required: 'Поле обязательно для заполнения!',              
+                required: 'Поле обязательно для заполнения!',
             },
         },
 	    ],
 })
 export class OfficeTableComponent implements OnInit {
-  
+
   term!: string;
   data!: Observable<BookOffice[]>;
 
@@ -32,10 +32,10 @@ export class OfficeTableComponent implements OnInit {
   messageError = "";
 
   constructor(private officeService: OfficeService,
-    private noti: NotiService) {   
+    private noti: NotiService) {
       this.officeService.onClick.subscribe(cnt=>this.data = cnt);
   }
-	 
+
 	add() {
 	  this.open = true;
     this.form = new FormGroup({
@@ -53,8 +53,7 @@ export class OfficeTableComponent implements OnInit {
 	}
 
   onSubmit() {
-    
-    console.log(this.form.value)
+
     this.form.disable()
 
     if (this.flag) {
@@ -78,7 +77,7 @@ export class OfficeTableComponent implements OnInit {
           this.messageError = error.error.message
         }
       )
-    }            
+    }
     this.form.enable()
 
   }
@@ -91,7 +90,7 @@ export class OfficeTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getData();  
+    this.getData();
   }
 
   getData() {
@@ -107,7 +106,7 @@ export class OfficeTableComponent implements OnInit {
           error => {
             this.noti.toast(error.error.message)
           }
-        ) 
+        )
       }
     }
 

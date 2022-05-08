@@ -17,7 +17,7 @@ import { KindActivity, Role } from './../../../interfaces/interfaces';
     {
       provide: TUI_VALIDATION_ERRORS,
       useValue: {
-        required: 'Поле обязательно для заполнения!',              
+        required: 'Поле обязательно для заполнения!',
       },
     },
 	],
@@ -33,10 +33,10 @@ export class KindActivityTableComponent implements OnInit {
 
   messageError = "";
 
-  role$: Observable<Role[]> | undefined; 
+  role$: Observable<Role[]> | undefined;
 
   value!: Number | null;
- 
+
   constructor(private kindActivityService: KindActivityService,
     private roleService : RoleService,
     public str: StrService,
@@ -66,8 +66,7 @@ export class KindActivityTableComponent implements OnInit {
 	}
 
   onSubmit() {
-    
-    console.log(this.form.value)
+
     this.form.disable()
 
     if (this.flag) {
@@ -91,7 +90,7 @@ export class KindActivityTableComponent implements OnInit {
           this.messageError = error.error.message
         }
       )
-    }            
+    }
     this.form.enable()
 
   }
@@ -102,12 +101,12 @@ export class KindActivityTableComponent implements OnInit {
     this.form.reset();
     this.messageError = "";
   }
-  
+
     ngOnInit(): void {
-      this.getData();  
+      this.getData();
       this.role$ = this.roleService.getRole()
     }
-  
+
     getData() {
       this.kindActivityService.doClick()
     }
@@ -120,7 +119,7 @@ export class KindActivityTableComponent implements OnInit {
         error => {
           this.noti.toast(error.error.message)
         }
-      ) 
+      )
     }
   }
 

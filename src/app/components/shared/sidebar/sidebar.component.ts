@@ -10,7 +10,7 @@ export class SidebarComponent implements OnInit {
 
   num: number = 0;
 
-  links = [  
+  links = [
     {id: 1, url: '/dashboard/admin/office', name: 'Структурные подразделения'},
     {id: 1, url: '/dashboard/admin/post', name: 'Должности'},
     {id: 1, url: '/dashboard/admin/user', name: 'Пользователи'},
@@ -28,14 +28,14 @@ export class SidebarComponent implements OnInit {
     {id: 4,  url: '/dashboard/pps/statistics', name: 'Статистика'},
   ]
 
-  constructor(private role: RoleService) { 
+  constructor(private role: RoleService) {
       this.role.onClick.subscribe(cnt=>this.num = cnt);
   }
 
   ngOnInit(): void {
 
   }
-  
+
 }
 
 

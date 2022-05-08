@@ -18,15 +18,15 @@ export class ModalPpEditComponent implements OnInit {
 
   @HostBinding("style.visibility") visibility = "hidden"
   @Input() @HostBinding("style.width") width = "600px"
- 
+
   form!: FormGroup;
   flag = false;
-  
+
   kind_activity$: Observable<KindActivity[]> | undefined;
   activity$: Observable<Activity[]> | undefined;
-  
+
   data!: Observable<IpPps[]>;
-  user!: User; 
+  user!: User;
 
   //ipArr!: IpPps[];
 
@@ -36,19 +36,18 @@ export class ModalPpEditComponent implements OnInit {
     private authService: AuthService,
     private noti: NotiService) {
       this.ipPpsService.onClick.subscribe(cnt => this.data = cnt);
-      
+
   }
- 
+
   ngOnInit(): void {
     // this.authService.getUserByHeader().subscribe( data => this.user = data)
 
     this.kind_activity$ = this.kindActivityService.getKindActivity()
     this.activity$ = this.activityService.getActivity()
 
-    // console.log(this.data)
   }
 
-  openAdd(e:MouseEvent) { 
+  openAdd(e:MouseEvent) {
     this.visibility = "visible"
     this.form = new FormGroup({
       semester: new FormControl(null, Validators.required),
@@ -64,7 +63,7 @@ export class ModalPpEditComponent implements OnInit {
       idip: new FormControl(this.ipPpsService.getId(), Validators.required),
     })
     this.flag = true;
-    e.stopPropagation()  
+    e.stopPropagation()
   }
 
   openEdit(e:MouseEvent, data: IpPps) {
@@ -82,9 +81,9 @@ export class ModalPpEditComponent implements OnInit {
       dateFact: new FormControl(data.dateFact, Validators.required),
       remark: new FormControl(data.remark, Validators.required),
     })
-    e.stopPropagation()  
+    e.stopPropagation()
   }
- 
+
   close() {
     this.visibility = "hidden"
   }
@@ -92,7 +91,6 @@ export class ModalPpEditComponent implements OnInit {
 
   onSubmit() {
     this.form.disable()
-    console.log(this.form.value)
     if (this.flag) {
       this.ipPpsService.addIpPps(this.form.value).subscribe(
         () => this.ipPpsService.doClick(),
@@ -109,11 +107,11 @@ export class ModalPpEditComponent implements OnInit {
 
         }
       )
-    }           
+    }
     this.form.enable()
     this.flag = false;
     this.visibility = "hidden"
-    
+
   }
 
 

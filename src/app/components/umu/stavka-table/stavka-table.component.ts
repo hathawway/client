@@ -18,7 +18,7 @@ import { StrService } from 'src/app/utils/stringify.service';
     {
       provide: TUI_VALIDATION_ERRORS,
       useValue: {
-        required: 'Поле обязательно для заполнения!',              
+        required: 'Поле обязательно для заполнения!',
       },
     },
 	],
@@ -38,8 +38,8 @@ export class StavkaTableComponent implements OnInit {
 
   valuePost!: Number | null;
   posts$!: Observable<BookPost[]>;
- 
-  constructor(private normaStudyService: NormaStudyService, 
+
+  constructor(private normaStudyService: NormaStudyService,
     private noti: NotiService,
     private postService: PostService,
     public str: StrService,
@@ -48,10 +48,10 @@ export class StavkaTableComponent implements OnInit {
   }
 
     ngOnInit(): void {
-      this.getData();  
+      this.getData();
       this.posts$ = this.postService.getPost()
-      this.stavka$ = this.stavkaYearService.getStavkaYearOne() 
-      this.getStavka()    
+      this.stavka$ = this.stavkaYearService.getStavkaYearOne()
+      this.getStavka()
     }
 
     getStavka() {
@@ -67,13 +67,13 @@ export class StavkaTableComponent implements OnInit {
       this.flag = true;
       this.valuePost = null;
     }
-  
+
     edit(data: NormaStudy) {
       this.open = true;
       this.form = new FormGroup({
         id: new FormControl(data.id, Validators.required),
         norma: new FormControl(data.norma  === null ? null : data.norma, Validators.required),
-        idbook_post: new FormControl(data.book_post === null ? null : data.book_post.id, Validators.required)     
+        idbook_post: new FormControl(data.book_post === null ? null : data.book_post.id, Validators.required)
       })
       this.valuePost = data.book_post === null ? null : Number(data.book_post.id);
 
@@ -97,20 +97,19 @@ export class StavkaTableComponent implements OnInit {
           error => {
             this.messageError = error.error.message
           }
-      )          
+      )
       this.formStavka.enable()
-      
+
     }
 
     closeStavka() {
       this.openSt = false;
       this.messageError = "";
     }
-  
+
     onSubmit() {
-      console.log(this.form.value)
       this.form.disable()
-  
+
       if (this.flag) {
         this.normaStudyService.addNormaStudy(this.form.value).subscribe(
           () => {
@@ -132,18 +131,18 @@ export class StavkaTableComponent implements OnInit {
             this.messageError = error.error.message
           }
         )
-      }            
+      }
       this.form.enable()
-   
+
     }
-  
+
     close() {
       this.open = false;
       this.flag = false;
       this.form.reset();
       this.messageError = "";
     }
-  
+
     getData() {
       this.normaStudyService.doClick()
     }
@@ -156,7 +155,7 @@ export class StavkaTableComponent implements OnInit {
           error => {
             this.noti.toast(error.error.message)
           }
-        ) 
+        )
       }
     }
 

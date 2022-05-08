@@ -33,7 +33,7 @@ import { StrService } from 'src/app/utils/stringify.service';
           {
             provide: TUI_VALIDATION_ERRORS,
             useValue: {
-                required: 'Поле обязательно для заполнения!',              
+                required: 'Поле обязательно для заполнения!',
                 email:'Невалидный email!',
                 pattern: 'Невалидный снилс символов',
                 minLength: 'Невалидный кол-во символов',
@@ -101,7 +101,7 @@ export class UserTableComponent implements OnInit {
     private noti: NotiService) {
       this.authService.onClick.subscribe(cnt=>this.data = cnt);
   }
- 
+
   ngOnInit(): void {
     this.getData();
 
@@ -176,7 +176,6 @@ export class UserTableComponent implements OnInit {
 	}
 
   onSubmit() {
-    console.log(this.form.value)
     this.form.disable()
 
     if (this.flag) {
@@ -200,9 +199,9 @@ export class UserTableComponent implements OnInit {
           this.messageError = error.error.message
         }
       )
-    }            
+    }
     this.form.enable()
- 
+
   }
 
   close() {
@@ -220,7 +219,7 @@ export class UserTableComponent implements OnInit {
         error => {
           this.noti.toast(error.error.message)
         }
-      )    
+      )
     }
   }
 

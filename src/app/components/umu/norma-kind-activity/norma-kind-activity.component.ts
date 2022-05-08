@@ -18,8 +18,8 @@ import { StrService } from 'src/app/utils/stringify.service';
     {
       provide: TUI_VALIDATION_ERRORS,
       useValue: {
-        required: 'Поле обязательно для заполнения!', 
-        pattern: 'Только числа',             
+        required: 'Поле обязательно для заполнения!',
+        pattern: 'Только числа',
       },
     },
 	],
@@ -36,12 +36,12 @@ export class NormaKindActivityComponent implements OnInit {
 
   messageError = "";
 
-  post$: Observable<BookPost[]> | undefined; 
+  post$: Observable<BookPost[]> | undefined;
   kind$: Observable<KindActivity[]> | undefined;
 
   valuePost!: Number | null;
   valueKind!: Number | null;
- 
+
   constructor(private normaKindActivityService: NormaKindActivityService,
     private kindActivityService:KindActivityService,
     private noti: NotiService,
@@ -51,11 +51,10 @@ export class NormaKindActivityComponent implements OnInit {
   }
 
     ngOnInit(): void {
-      this.getData();  
+      this.getData();
       this.post$ = this.postService.getPost()
       this.kind$ = this.kindActivityService.getKindActivity()
       this.kindActivityService.getKindActivity().subscribe( (value) => {
-        console.log(value)
       })
     }
 
@@ -70,7 +69,7 @@ export class NormaKindActivityComponent implements OnInit {
       this.valuePost = null;
       this.valueKind = null;
     }
-  
+
     edit(data: NormaKindActivity) {
       this.open = true;
       this.form = new FormGroup({
@@ -82,12 +81,11 @@ export class NormaKindActivityComponent implements OnInit {
       this.valuePost = data.book_post === null ? null : Number(data.book_post.id);
       this.valueKind = data.kind_activity === null ? null : Number(data.kind_activity.id);
     }
-  
+
     onSubmit() {
-      
-      console.log(this.form.value)
+
       this.form.disable()
-  
+
       if (this.flag) {
         this.normaKindActivityService.addNormaKindActivity(this.form.value).subscribe(
           () => {
@@ -109,18 +107,18 @@ export class NormaKindActivityComponent implements OnInit {
             this.messageError = error.error.message
           }
         )
-      }            
+      }
       this.form.enable()
-  
+
     }
-  
+
     close() {
       this.open = false;
       this.flag = false;
       this.form.reset();
       this.messageError = "";
     }
-  
+
     getData() {
       this.normaKindActivityService.doClick()
     }
@@ -133,7 +131,7 @@ export class NormaKindActivityComponent implements OnInit {
           error => {
             this.noti.toast(error.error.message)
           }
-        ) 
+        )
       }
     }
 
