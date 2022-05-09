@@ -32,6 +32,9 @@ export class LayoutComponent implements OnInit {
   ngOnInit(): void {
     this.users$ = this.auth.getUserByHeader()
     this.roles$ = this.role.getCurrentUserRoles()
+    this.roles$.subscribe(value => {
+      this.router.navigate([this.url(value[0].book_role.id)])
+    })
   }
 
   logout(event: Event): void {

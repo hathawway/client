@@ -7,7 +7,7 @@
 </nav>
 
 <main>
-    <tui-tabs class="tui-space_left-5 tui-space_right-5"  *ngIf="roles$ | async as roles">
+    <tui-tabs class="tui-space_left-5 tui-space_right-5"  *ngIf="roles$ | async as roles ">
         <ng-container *ngFor="let role of roles">
 
             <a tuiTab (click)="onSelect(role.book_role.id)"
