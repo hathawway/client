@@ -6,7 +6,7 @@
             <ng-container *ngFor="let link of links[num].resources">
               <li class="class-sidebar__link">
                 <a class="tui-space_horizontal-1 tui-space_vertical-1"
-                 [routerLink]="[link.resourceName]">
+                 [routerLink]="[links[num].url +'/'+ link.resourceName]">
                 {{link.displayedName}}
                 </a>
               </li>

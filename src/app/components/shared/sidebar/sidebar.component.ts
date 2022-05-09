@@ -55,6 +55,7 @@ export class SidebarComponent implements OnInit {
     for (let i in this.links) {
       if (this.links[i].url == this.router.url) {
         this.num = Number(i);
+        break;
       }
     }
   }
