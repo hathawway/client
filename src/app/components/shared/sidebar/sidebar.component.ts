@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RoleService } from 'src/app/services/role.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,29 +12,56 @@ export class SidebarComponent implements OnInit {
   num: number = 0;
 
   links = [
-    {id: 1, url: '/dashboard/admin/office', name: 'Структурные подразделения'},
-    {id: 1, url: '/dashboard/admin/post', name: 'Должности'},
-    {id: 1, url: '/dashboard/admin/user', name: 'Пользователи'},
-    {id: 2, url: '/dashboard/umu/stavka', name: 'Нормы времени учебной деятельности на ставку'},
-    {id: 2, url: '/dashboard/umu/kind-activity', name: 'Виды деятельности'},
-    {id: 2, url: '/dashboard/umu/norma-kind-activity', name: 'Нормы времени видов деятельности'},
-    {id: 2, url: '/dashboard/umu/activity', name: 'Виды работ внеучебной деятельности'},
-    {id: 2, url: '/dashboard/umu/unit', name: 'Единицы видов работ'},
-    // {id: 2, url: '/dashboard/umu/maket', name: 'Макет ИП'},
-    {id: 3,  url: '/dashboard/zavkaf/staff', name: 'Сотрудники вуза'},
-    {id: 3,  url: '/dashboard/zavkaf/schedule', name: 'Штатное расписание'},
-    {id: 3,  url: '/dashboard/zavkaf/ip', name: 'Индивидуальные планы'},
-    {id: 3,  url: '/dashboard/zavkaf/report', name: 'Отчеты'},
-    {id: 4,  url: '/dashboard/pps/pp', name: 'Индивидуальные планы'},
-    {id: 4,  url: '/dashboard/pps/statistics', name: 'Статистика'},
-  ]
+    {
+      url: '/dashboard/admin',
+      resources: [
+        {resourceName: 'office', displayedName: 'Структурные подразделения'},
+        {resourceName: 'post',   displayedName: 'Должности'},
+        {resourceName: 'user',   displayedName: 'Пользователи'},
+      ],
+    },
+    {
+      url: '/dashboard/umu',
+      resources: [
+        {resourceName: 'stavka',              displayedName: 'Нормы времени учебной деятельности на ставку'},
+        {resourceName: 'kind-activity',       displayedName: 'Виды деятельности'},
+        {resourceName: 'norma-kind-activity', displayedName: 'Нормы времени видов деятельности'},
+        {resourceName: 'activity',            displayedName: 'Виды работ внеучебной деятельности'},
+        {resourceName: 'unit',                displayedName: 'Единицы видов работ'},
+        //{url: '/dashboard/umu/maket', name: 'Макет ИП'},
+      ],
+    },
+    {
+      url: '/dashboard/zavkaf',
+      resources: [
+        {resourceName: 'staff',    displayedName: 'Сотрудники вуза'},
+        {resourceName: 'schedule', displayedName: 'Штатное расписание'},
+        {resourceName: 'ip',       displayedName: 'Индивидуальные планы'},
+        {resourceName: 'report',   displayedName: 'Отчеты'},
+      ],
+    },
+    {
+      url: '/dashboard/pps',
+      resources: [
+        {resourceName: 'pp',          displayedName: 'Индивидуальные планы'},
+        {resourceName: 'statistics',  displayedName: 'Статистика'},
+      ]
+    }
+  ];
 
-  constructor(private role: RoleService) {
-      this.role.onClick.subscribe(cnt=>this.num = cnt);
+
+  constructor(private router: Router) {
   }
 
   ngOnInit(): void {
-
+    for (let i in this.links) {
+      if (this.links[i].url == this.router.url) {
+        this.num = Number(i);
+      }
+    }
+    console.log('New sidebar')
+    console.log(this.num)
+    console.log(this.router.url)
   }
 
 }

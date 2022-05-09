@@ -3,24 +3,18 @@
         <ul
         class="tui-space_top-2 tui-space_left-2"
         >
-        <ng-container *ngFor="let link of links">
-        <li class="class-sidebar__link" *ngIf="link.id === num">
+            <ng-container *ngFor="let link of links[num].resources">
+              <li class="class-sidebar__link">
                 <a class="tui-space_horizontal-1 tui-space_vertical-1"
-                 [routerLink]="[link.url]"
-                >
-                {{link.name}}
+                 [routerLink]="[link.resourceName]">
+                {{link.displayedName}}
                 </a>
-
-        </li>
-        </ng-container>
-
-
+              </li>
+            </ng-container>
         </ul>
     </div>
     <div class="class-main">
-
         <router-outlet></router-outlet>
-
     </div>
 </div>
 

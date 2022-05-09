@@ -80,7 +80,6 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.auth.login(this.form.value).subscribe(
             () => this.router.navigate([`/dashboard/`]),
             (error) => {
-              console.log(1)
               this.alertService.open(error.error.message,
                 {label: 'With a heading!'}).subscribe();
             }
