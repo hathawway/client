@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { RoleService } from 'src/app/services/role.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -50,8 +49,7 @@ export class SidebarComponent implements OnInit {
   ];
 
 
-  constructor(private router: Router) {
-  }
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     for (let i in this.links) {
@@ -59,11 +57,7 @@ export class SidebarComponent implements OnInit {
         this.num = Number(i);
       }
     }
-    console.log('New sidebar')
-    console.log(this.num)
-    console.log(this.router.url)
   }
-
 }
 
 

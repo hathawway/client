@@ -27,7 +27,6 @@ export class LayoutComponent implements OnInit {
 
   constructor(private auth: AuthService,
     private role: RoleService, private router: Router) {
-      this.role.onClick.subscribe(cnt => this.num = cnt);
     }
 
   ngOnInit(): void {
