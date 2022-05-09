@@ -13,6 +13,7 @@ import { WorkService } from 'src/app/services/work.service';
 import { ZvanieService } from 'src/app/services/zvanie.service';
 import { NotiService } from 'src/app/utils/noti.service';
 import { StrService } from 'src/app/utils/stringify.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-user-table',
@@ -60,6 +61,8 @@ export class UserTableComponent implements OnInit {
   valueStepen!: Number | null;
   valueZvanie!: Number | null;
 
+  showPassword!: boolean;
+
   offices$!: Observable<BookOffice[]>;
   posts$!: Observable<BookPost[]>;
   works$!: Observable<BookWork[]>;
@@ -98,7 +101,8 @@ export class UserTableComponent implements OnInit {
     private statusService: StatusService,
     private stepenService: StepenService,
     private zvanieService: ZvanieService,
-    private noti: NotiService) {
+    private noti: NotiService,
+    private router: Router) {
       this.authService.onClick.subscribe(cnt=>this.data = cnt);
   }
 
@@ -148,10 +152,9 @@ export class UserTableComponent implements OnInit {
 
   edit(user: User) {
 	  this.open = true;
-    this.form = new FormGroup({
+    let formContent =  {
       id: new FormControl(user.id, Validators.required),
       login: new FormControl(user.login, [Validators.required, Validators.email]),
-      password: new FormControl(user.password, Validators.required),
       second: new FormControl(user.second, Validators.required),
       first: new FormControl(user.first, Validators.required),
       third: new FormControl(user.third),
@@ -164,8 +167,12 @@ export class UserTableComponent implements OnInit {
       idbook_zvanie: new FormControl(user.book_zvanie === null ? null : user.book_zvanie.id),
       snils: new FormControl(user.snils, [Validators.required, Validators.pattern(/^\d{11}$/)]),
       tel: new FormControl(user.tel, Validators.minLength(12)),
-    })
+      password: new FormControl('')
+    }
 
+    this.showPassword = user.login != 'admin@gmail.com'
+
+    this.form = new FormGroup(formContent)
     this.valueOffice = user.book_office === null ? null : Number(user.book_office.id);
     this.valuePost = user.book_post === null ? null : Number(user.book_post.id);
     this.valueStatus = user.book_status === null ? null : Number(user.book_status.id);
@@ -192,8 +199,8 @@ export class UserTableComponent implements OnInit {
     else {
       this.authService.updateUser(this.form.value).subscribe(
         () => {
-          this.authService.doClick(),
-          this.close()
+          this.authService.doClick();
+          this.close();
         },
         error => {
           this.messageError = error.error.message

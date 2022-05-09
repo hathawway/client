@@ -8,7 +8,7 @@
   Поиск
   </tui-input>
   </div>
-  
+
   <button tuiButton
   class="tui-space_left-2 container-search__btn"
   size="s"
@@ -38,10 +38,10 @@
            formControlName="login" [error]="[] | tuiFieldError | async"></tui-error>
           </div>
 
-          <div class="tui-form__row">
-            <tui-input-password 
+          <div class="tui-form__row" *ngIf="showPassword">
+            <tui-input-password
 	            tuiAutoFocus
-              type="password" 
+              type="password"
               tuiTextfieldSize="m"
               tuiHintContent
               tuiHintDirection="right"
@@ -134,14 +134,14 @@
             <ng-template tuiDataList>
                 <tui-data-list *ngIf="items else loading">
                     <ng-container
-                        *ngFor="let item of items"                        
+                        *ngFor="let item of items"
                     >
-                      <button 
+                      <button
                       tuiOption
                         [value]="item.id | toNumber">
                         {{item.name}}
-                    </button>   
-                     
+                    </button>
+
                     </ng-container>
                 </tui-data-list>
             </ng-template>
@@ -165,14 +165,14 @@
             <ng-template tuiDataList>
                 <tui-data-list *ngIf="items else loading">
                     <ng-container
-                        *ngFor="let item of items"                        
+                        *ngFor="let item of items"
                     >
-                      <button 
+                      <button
                       tuiOption
                         [value]="item.id | toNumber">
                         {{item.name}}
-                    </button>   
-                     
+                    </button>
+
                     </ng-container>
                 </tui-data-list>
             </ng-template>
@@ -196,14 +196,14 @@
             <ng-template tuiDataList>
                 <tui-data-list *ngIf="items else loading">
                     <ng-container
-                        *ngFor="let item of items"                        
+                        *ngFor="let item of items"
                     >
-                      <button 
+                      <button
                       tuiOption
                         [value]="item.id | toNumber">
                         {{item.name}}
-                    </button>   
-                     
+                    </button>
+
                     </ng-container>
                 </tui-data-list>
             </ng-template>
@@ -227,14 +227,14 @@
             <ng-template tuiDataList>
                 <tui-data-list *ngIf="items else loading">
                     <ng-container
-                        *ngFor="let item of items"                        
+                        *ngFor="let item of items"
                     >
-                      <button 
+                      <button
                       tuiOption
                         [value]="item.id | toNumber">
                         {{item.name}}
-                    </button>   
-                     
+                    </button>
+
                     </ng-container>
                 </tui-data-list>
             </ng-template>
@@ -258,14 +258,14 @@
             <ng-template tuiDataList>
                 <tui-data-list *ngIf="items else loading">
                     <ng-container
-                        *ngFor="let item of items"                        
+                        *ngFor="let item of items"
                     >
-                      <button 
+                      <button
                       tuiOption
                         [value]="item.id | toNumber">
                         {{item.name}}
-                    </button>   
-                     
+                    </button>
+
                     </ng-container>
                 </tui-data-list>
             </ng-template>
@@ -273,7 +273,7 @@
                 <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
             </ng-template>
           </tui-select>
-          
+
           </div>
 
           <div class="tui-form__row">
@@ -288,14 +288,14 @@
             <ng-template tuiDataList>
                 <tui-data-list *ngIf="items else loading">
                     <ng-container
-                        *ngFor="let item of items"                        
+                        *ngFor="let item of items"
                     >
-                      <button 
+                      <button
                       tuiOption
                         [value]="item.id | toNumber">
                         {{item.name}}
-                    </button>   
-                     
+                    </button>
+
                     </ng-container>
                 </tui-data-list>
             </ng-template>
@@ -303,7 +303,7 @@
                 <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
             </ng-template>
           </tui-select>
-          
+
           </div>
 
           {{ messageError }}
@@ -340,7 +340,7 @@
           <th class="tui-table__th">Удалить</th>
       </tr>
   </thead>
-  
+
 <tbody *ngIf="data | async as users">
   <tr class="tui-table__tr" *ngFor="let user of users | filter:term; let i = index">
       <th class="tui-table__td">{{i+1}}</th>
@@ -370,7 +370,7 @@
     </td>
   </tr>
 </tbody>
-  
+
 </table>
 <ng-template #somethingElse>
   <td class="tui-table__td"></td>

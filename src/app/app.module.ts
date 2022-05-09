@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import {
-  TuiButtonModule,
-  TuiAlertModule,
-  TuiDataListModule,
-  TuiDialogModule,
-  TuiErrorModule,
-  TuiLoaderModule,
-  TuiRootModule,
-  TuiScrollbarModule,
-  TuiSvgModule,
-  TuiTextfieldControllerModule, TuiNotificationsModule,
+    TuiButtonModule,
+    TuiAlertModule,
+    TuiDataListModule,
+    TuiDialogModule,
+    TuiErrorModule,
+    TuiLoaderModule,
+    TuiRootModule,
+    TuiScrollbarModule,
+    TuiSvgModule,
+    TuiTextfieldControllerModule, TuiNotificationsModule, TuiHintControllerModule,
 } from '@taiga-ui/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -49,6 +49,7 @@ import { ToNumberPipe } from './pipes/to-number.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { TuiTableBarsHostModule } from '@taiga-ui/addon-tablebars';
+import {TuiAutoFocusModule} from "@taiga-ui/cdk";
 
 @NgModule({
   declarations: [
@@ -100,8 +101,8 @@ import { TuiTableBarsHostModule } from '@taiga-ui/addon-tablebars';
     TuiStepperModule,
     TuiSvgModule,
     TuiComboBoxModule,
-	  TuiDataListModule,
-	  TuiDataListWrapperModule,
+    TuiDataListModule,
+    TuiDataListWrapperModule,
     TuiDialogModule,
     TuiCheckboxBlockModule,
     TuiSelectModule,
@@ -111,6 +112,8 @@ import { TuiTableBarsHostModule } from '@taiga-ui/addon-tablebars';
     TuiCheckboxModule,
     TuiTableBarsHostModule,
     TuiInputDateModule,
+    TuiHintControllerModule,
+    TuiAutoFocusModule,
   ],
   providers: [ {
     provide: HTTP_INTERCEPTORS,
