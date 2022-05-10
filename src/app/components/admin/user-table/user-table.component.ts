@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { tuiInputPasswordOptionsProvider, TUI_PASSWORD_TEXTS, TUI_VALIDATION_ERRORS } from '@taiga-ui/kit';
-import { Observable,Subject, of } from 'rxjs';
-import {map, mapTo, shareReplay, startWith, switchMap} from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 import { BookOffice, BookPost, BookRole, BookStatus, BookStepen, BookWork, BookZvanie, User } from 'src/app/interfaces/interfaces';
 import { AuthService } from 'src/app/services/auth.service';
 import { OfficeService } from 'src/app/services/office.service';
@@ -15,7 +14,7 @@ import { ZvanieService } from 'src/app/services/zvanie.service';
 import { NotiService } from 'src/app/utils/noti.service';
 import { StrService } from 'src/app/utils/stringify.service';
 import {TUI_DEFAULT_MATCHER, tuiPure} from '@taiga-ui/cdk';
-
+import { Role } from '../../../guards/roles'
 @Component({
   selector: 'app-user-table',
   templateUrl: './user-table.component.html',
@@ -63,8 +62,9 @@ export class UserTableComponent implements OnInit {
   valueStatus!: Number | null;
   valueStepen!: Number | null;
   valueZvanie!: Number | null;
-
   valueRoles!: BookRole[];
+
+  roleFormControl!: FormControl | null;
 
   showPassword!: boolean;
 
@@ -113,7 +113,7 @@ export class UserTableComponent implements OnInit {
       this.rolesList = new Map<string, BookRole>();
       this.roleService.getRoles().subscribe(
         value => {
-            value.forEach(value1 => this.rolesList.set(value1.name, value1))
+            value.forEach(value1 => this.rolesList.set(value1.name, value1));
         }
       );
   }
@@ -136,6 +136,7 @@ export class UserTableComponent implements OnInit {
   add() {
     this.formTypeMessage = 'Добавить пользователя';
     this.open = true;
+
 	  this.form = new FormGroup({
       login: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, Validators.required),
@@ -151,6 +152,7 @@ export class UserTableComponent implements OnInit {
       idbook_zvanie: new FormControl(null),
       snils: new FormControl(null, [Validators.required, Validators.pattern(/^\d{11}$/)]),
       tel: new FormControl(null, Validators.minLength(12)),
+      role: new FormControl([]),
     })
     this.flag = true;
     this.valueOffice = null;
@@ -168,7 +170,9 @@ export class UserTableComponent implements OnInit {
         this.formTypeMessage = 'Редактирование пользователя';
 
         this.open = true;
+
         const roles = user.roles.map(value => {return value.name})
+
         let formContent =  {
           id: new FormControl(user.id, Validators.required),
           login: new FormControl(user.login, [Validators.required, Validators.email]),
@@ -269,7 +273,8 @@ export class UserTableComponent implements OnInit {
 
   @tuiPure
   filter(search: string | null): readonly string[] {
-    console.log('search', this.search)
-    return [...this.rolesList.keys()].filter(item => TUI_DEFAULT_MATCHER(item, search || ''));
+    return [...this.rolesList.keys()].filter(item =>
+       TUI_DEFAULT_MATCHER(item, search || '')
+    );
   }
 }
