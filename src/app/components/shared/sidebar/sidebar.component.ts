@@ -52,6 +52,7 @@ export class SidebarComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
+    console.log(this.router.url)
     for (let i in this.links) {
       if (this.links[i].url == this.router.url) {
         this.num = Number(i);

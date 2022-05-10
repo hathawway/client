@@ -13,6 +13,7 @@ export interface User {
     book_zvanie: BookZvanie,
     tel: string,
     snils: string,
+    roles: BookRole[],
 }
 
 export interface Role {

@@ -4,7 +4,7 @@ import {User} from "../interfaces/interfaces";
 import {Observable} from "rxjs";
 import {tap, map} from 'rxjs/operators';
 
-import { Role } from '../guards/roles';
+import jwt_decode from "jwt-decode";
 import {Role as roleData}  from "../interfaces/interfaces";
 
 
@@ -66,6 +66,12 @@ export class AuthService {
         return !!this.token
     }
 
+    getLoggedUserId() : string {
+      const decoded = jwt_decode(this.token)
+      // @ts-ignore
+      return <string>decoded['id']
+    }
+
     logout() {
         this.setToken('')
         localStorage.clear()
@@ -83,8 +89,12 @@ export class AuthService {
         return this.http.get<User[]>(`${environment.api}/api/user/get-user-all`)
     }
 
-    getUserById(user: User): Observable<User> {
-        return this.http.get<User>(`${environment.api}/api/user/get-user-one/${user.id}`)
+    getUsersShort(): Observable<User[]> {
+      return this.http.get<User[]>(`${environment.api}/api/user/get-user-all-short`)
+    }
+
+    getUserById(userId: string): Observable<User> {
+        return this.http.get<User>(`${environment.api}/api/user/get-user-one/${userId}`)
     }
 
     getUserByHeader(): Observable<User> {

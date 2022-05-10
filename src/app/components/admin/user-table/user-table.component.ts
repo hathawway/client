@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { tuiInputPasswordOptionsProvider, TUI_PASSWORD_TEXTS, TUI_VALIDATION_ERRORS } from '@taiga-ui/kit';
-import { interval, map, Observable, of, scan, startWith } from 'rxjs';
+import { Observable,Subject, of } from 'rxjs';
+import {map, mapTo, shareReplay, startWith, switchMap} from 'rxjs/operators';
 import { BookOffice, BookPost, BookRole, BookStatus, BookStepen, BookWork, BookZvanie, User } from 'src/app/interfaces/interfaces';
 import { AuthService } from 'src/app/services/auth.service';
 import { OfficeService } from 'src/app/services/office.service';
@@ -13,7 +14,7 @@ import { WorkService } from 'src/app/services/work.service';
 import { ZvanieService } from 'src/app/services/zvanie.service';
 import { NotiService } from 'src/app/utils/noti.service';
 import { StrService } from 'src/app/utils/stringify.service';
-import {Router} from "@angular/router";
+import {TUI_DEFAULT_MATCHER, tuiPure} from '@taiga-ui/cdk';
 
 @Component({
   selector: 'app-user-table',
@@ -44,12 +45,14 @@ import {Router} from "@angular/router";
 })
 export class UserTableComponent implements OnInit {
 
-  data: Observable<User[]> | undefined;
+  data$: Observable<User[]> | undefined;
   term!: string;
 
   flag = false;
   form!: FormGroup;
   open = false;
+
+  formTypeMessage: string | undefined;
 
   messageError = "";
 
@@ -61,12 +64,16 @@ export class UserTableComponent implements OnInit {
   valueStepen!: Number | null;
   valueZvanie!: Number | null;
 
+  valueRoles!: BookRole[];
+
   showPassword!: boolean;
 
   offices$!: Observable<BookOffice[]>;
   posts$!: Observable<BookPost[]>;
   works$!: Observable<BookWork[]>;
-  roles$!: Observable<BookRole[]>;
+
+  rolesList: Map<string, BookRole>;
+
   statuses$!: Observable<BookStatus[]>;
   stepens$!: Observable<BookStepen[]>;
   zvanies$!: Observable<BookZvanie[]>;
@@ -91,7 +98,6 @@ export class UserTableComponent implements OnInit {
     ],
 };
 
-
   constructor(private authService: AuthService,
     private officeService: OfficeService,
     private postService: PostService,
@@ -101,9 +107,15 @@ export class UserTableComponent implements OnInit {
     private statusService: StatusService,
     private stepenService: StepenService,
     private zvanieService: ZvanieService,
-    private noti: NotiService,
-    private router: Router) {
-      this.authService.onClick.subscribe(cnt=>this.data = cnt);
+    private noti: NotiService) {
+      this.data$ = this.authService.getUsersShort();
+
+      this.rolesList = new Map<string, BookRole>();
+      this.roleService.getRoles().subscribe(
+        value => {
+            value.forEach(value1 => this.rolesList.set(value1.name, value1))
+        }
+      );
   }
 
   ngOnInit(): void {
@@ -112,7 +124,6 @@ export class UserTableComponent implements OnInit {
     this.offices$ = this.officeService.getOffice()
     this.posts$ = this.postService.getPost()
     this.works$ = this.workService.getWork()
-    //this.roles$ = this.roleService.getRole()
     this.statuses$ = this.statusService.getStatus()
     this.stepens$ = this.stepenService.getStepen()
     this.zvanies$ = this.zvanieService.getZvanie()
@@ -123,6 +134,7 @@ export class UserTableComponent implements OnInit {
   }
 
   add() {
+    this.formTypeMessage = 'Добавить пользователя';
     this.open = true;
 	  this.form = new FormGroup({
       login: new FormControl(null, [Validators.required, Validators.email]),
@@ -150,40 +162,60 @@ export class UserTableComponent implements OnInit {
     this.valueWork = null;
 	}
 
-  edit(user: User) {
-	  this.open = true;
-    let formContent =  {
-      id: new FormControl(user.id, Validators.required),
-      login: new FormControl(user.login, [Validators.required, Validators.email]),
-      second: new FormControl(user.second, Validators.required),
-      first: new FormControl(user.first, Validators.required),
-      third: new FormControl(user.third),
-      //book_role: new FormControl(user.book_role.id, Validators.required),
-      idbook_office: new FormControl(user.book_office === null ? null : user.book_office.id, Validators.required),
-      idbook_post: new FormControl(user.book_post === null ? null : user.book_post.id, Validators.required),
-      idbook_work: new FormControl(user.book_work === null ? null : user.book_work.id, Validators.required),
-      idbook_status: new FormControl(user.book_status === null ? null : user.book_status.id, Validators.required),
-      idbook_stepen: new FormControl(user.book_stepen === null ? null : user.book_stepen.id),
-      idbook_zvanie: new FormControl(user.book_zvanie === null ? null : user.book_zvanie.id),
-      snils: new FormControl(user.snils, [Validators.required, Validators.pattern(/^\d{11}$/)]),
-      tel: new FormControl(user.tel, Validators.minLength(12)),
-      password: new FormControl('')
-    }
+  edit(userId: string) {
+    this.authService.getUserById(userId).subscribe(
+      user => {
+        this.formTypeMessage = 'Редактирование пользователя';
 
-    this.showPassword = user.login != 'admin@gmail.com'
+        this.open = true;
+        const roles = user.roles.map(value => {return value.name})
+        let formContent =  {
+          id: new FormControl(user.id, Validators.required),
+          login: new FormControl(user.login, [Validators.required, Validators.email]),
+          second: new FormControl(user.second, Validators.required),
+          first: new FormControl(user.first, Validators.required),
+          third: new FormControl(user.third),
+          //book_role: new FormControl(user.book_role.id, Validators.required),
+          idbook_office: new FormControl(user.book_office === null ? null : user.book_office.id, Validators.required),
+          idbook_post: new FormControl(user.book_post === null ? null : user.book_post.id, Validators.required),
+          idbook_work: new FormControl(user.book_work === null ? null : user.book_work.id, Validators.required),
+          idbook_status: new FormControl(user.book_status === null ? null : user.book_status.id, Validators.required),
+          idbook_stepen: new FormControl(user.book_stepen === null ? null : user.book_stepen.id),
+          idbook_zvanie: new FormControl(user.book_zvanie === null ? null : user.book_zvanie.id),
+          snils: new FormControl(user.snils, [Validators.required, Validators.pattern(/^\d{11}$/)]),
+          tel: new FormControl(user.tel, Validators.minLength(12)),
+          password: new FormControl(''),
+          role: new FormControl(roles),
+        }
 
-    this.form = new FormGroup(formContent)
-    this.valueOffice = user.book_office === null ? null : Number(user.book_office.id);
-    this.valuePost = user.book_post === null ? null : Number(user.book_post.id);
-    this.valueStatus = user.book_status === null ? null : Number(user.book_status.id);
-    this.valueStepen = user.book_stepen === null ? null : Number(user.book_stepen.id);
-    this.valueZvanie = user.book_zvanie === null ? null : Number(user.book_zvanie.id);
-    this.valueWork = user.book_work === null ? null : Number(user.book_work.id);
-    //this.valueRole = user.book_office === null ? null : Number(user.book_office.id);
+        this.showPassword = user.login != 'admin@gmail.com'
+
+        this.form = new FormGroup(formContent)
+        this.valueOffice = user.book_office === null ? null : Number(user.book_office.id);
+        this.valuePost = user.book_post === null ? null : Number(user.book_post.id);
+        this.valueStatus = user.book_status === null ? null : Number(user.book_status.id);
+        this.valueStepen = user.book_stepen === null ? null : Number(user.book_stepen.id);
+        this.valueZvanie = user.book_zvanie === null ? null : Number(user.book_zvanie.id);
+        this.valueWork = user.book_work === null ? null : Number(user.book_work.id);
+      }
+    )
 	}
 
   onSubmit() {
     this.form.disable()
+
+    let role = this.form.value['role'];
+    if (role) {
+      let ids = new Array<string>();
+      for (let r of role) {
+        let dicRole = this.rolesList.get(r);
+        if (dicRole) {
+          ids.push(dicRole.id)
+        }
+
+      }
+      this.form.value['role'] = ids
+    }
 
     if (this.flag) {
       this.authService.register(this.form.value).subscribe(
@@ -209,6 +241,9 @@ export class UserTableComponent implements OnInit {
     }
     this.form.enable()
 
+    if (this.form.value['id'] == this.authService.getLoggedUserId()) {
+      window.location.reload()
+    }
   }
 
   close() {
@@ -230,4 +265,11 @@ export class UserTableComponent implements OnInit {
     }
   }
 
+  search: string | null = '';
+
+  @tuiPure
+  filter(search: string | null): readonly string[] {
+    console.log('search', this.search)
+    return [...this.rolesList.keys()].filter(item => TUI_DEFAULT_MATCHER(item, search || ''));
+  }
 }

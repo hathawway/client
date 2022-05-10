@@ -42,14 +42,30 @@ import { NormaKindActivityComponent } from './components/umu/norma-kind-activity
 import { UnitTableComponent } from './components/umu/unit-table/unit-table.component';
 import { ModalPpEditComponent } from './components/pps/modal-pp-edit/modal-pp-edit.component';
 import { EditPpComponent } from './components/pps/edit-pp/edit-pp.component';
-import { TuiBadgeModule, TuiCheckboxBlockModule, TuiCheckboxModule, TuiComboBoxModule, TuiDataListWrapperModule, TuiFieldErrorModule, TuiFieldErrorPipeModule, TuiInputDateModule, TuiInputModule, TuiInputPasswordModule, TuiInputPhoneModule, TuiSelectModule, TuiStepperModule, TuiTabsModule } from '@taiga-ui/kit';
+import {
+    TuiBadgeModule,
+    TuiCheckboxBlockModule,
+    TuiCheckboxModule,
+    TuiComboBoxModule,
+    TuiDataListWrapperModule,
+    TuiFieldErrorModule,
+    TuiFieldErrorPipeModule,
+    TuiInputDateModule,
+    TuiInputModule,
+    TuiInputPasswordModule,
+    TuiInputPhoneModule,
+    TuiMultiSelectModule,
+    TuiSelectModule,
+    TuiStepperModule,
+    TuiTabsModule
+} from '@taiga-ui/kit';
 import { StaffAddComponent } from './components/zavkaf/staff-add/staff-add.component';
 import { RouterModule } from '@angular/router';
 import { ToNumberPipe } from './pipes/to-number.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { TuiTableBarsHostModule } from '@taiga-ui/addon-tablebars';
-import {TuiAutoFocusModule} from "@taiga-ui/cdk";
+import {TuiAutoFocusModule, TuiLetModule} from "@taiga-ui/cdk";
 
 @NgModule({
   declarations: [
@@ -114,6 +130,8 @@ import {TuiAutoFocusModule} from "@taiga-ui/cdk";
     TuiInputDateModule,
     TuiHintControllerModule,
     TuiAutoFocusModule,
+    TuiMultiSelectModule,
+    TuiLetModule,
   ],
   providers: [ {
     provide: HTTP_INTERCEPTORS,

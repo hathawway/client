@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { EventEmitter, Injectable } from "@angular/core";
 import { Observable, tap } from "rxjs";
 import { environment } from "src/environments/environment.prod";
-import { Role, Message } from "../interfaces/interfaces";
+import {Role, Message, BookRole} from "../interfaces/interfaces";
 
 @Injectable({
     providedIn:'root'
@@ -30,9 +30,14 @@ export class RoleService {
     deleteRole(role: Role):Observable<void> {
         return this.http.delete<void>(`${environment.api}/api/role/${role.id}`)
     }
-
+/*Возвращает роли пренадлежащие пользователю*/
     getRole(): Observable<Role[]> {
         return this.http.get<Role[]>(`${environment.api}/api/role/`)
+    }
+/*Возвращает все возможные роли*/
+    getRoles(): Observable<BookRole[]> {
+      return this.http.get<BookRole[]>(`${environment.api}/api/role/all`)
+
     }
 
     getRoleById(role: Role): Observable<Role> {
