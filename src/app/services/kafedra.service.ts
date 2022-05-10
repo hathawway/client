@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { EventEmitter, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment.prod";
-import { BookOffice, Kafedra, Request } from "../interfaces/interfaces";
+import {BookOffice, Kafedra, Request, User} from "../interfaces/interfaces";
 
 @Injectable({
     providedIn:'root'
@@ -33,7 +33,7 @@ export class KafedraService {
 
     addKafedra(user: string[], office: BookOffice): Observable<void> {
         const kafedra = {
-            user: user,
+            userIds: user,
             book_office: office.id
         }
         return this.http.post<void>(`${environment.api}/api/kafedra/`, kafedra)

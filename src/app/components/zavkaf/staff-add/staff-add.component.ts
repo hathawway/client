@@ -16,10 +16,12 @@ export class StaffAddComponent implements OnInit {
 
   term!: string;
   data$: Observable<Kafedra[]> | undefined;
-  users$: Observable<User[]> | undefined;
+  users$: Observable<User[]>;
   isChecked: boolean = false;
 
-  kafedra:string[] = [];
+  book_office_id: string | undefined;
+
+  kafedra: Map<string, boolean>;
   check = false;
   userOffice!: User;
 
@@ -32,7 +34,20 @@ export class StaffAddComponent implements OnInit {
     private noti: NotiService,
     private authService: AuthService,
     @Inject(TuiTableBarsService)
-	        private readonly tableBarsService: TuiTableBarsService,) {}
+	        private readonly tableBarsService: TuiTableBarsService,) {
+    this.kafedra = new Map<string, boolean>();
+    this.users$ = this.authService.getUserList();
+    this.authService.getUserByHeader().subscribe(value => {
+      this.book_office_id = value.book_office.id;
+      this.users$.subscribe(users => {
+        for (let u of users) {
+          if (u.book_office.id === this.book_office_id) {
+            this.kafedra.set(u.id, true);
+          }
+        }
+      })
+    })
+  }
 
   showTableBar() {
     this.subscription.unsubscribe();
@@ -51,7 +66,6 @@ export class StaffAddComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.users$ = this.authService.getUser()
     this.authService.getUserByHeader().subscribe( data => this.userOffice = data)
   }
 
@@ -60,23 +74,21 @@ export class StaffAddComponent implements OnInit {
   }
 
 
-  addKafedra(user: User) {
-    // if (ch) {
-    //   this.kafedra.push(user.id);
-    // } else {
-    //   this.kafedra = this.kafedra.filter((value, index) => value !== user.id);
-    // }
-    this.kafedra.push(user.id);
+  toggleUserToKafedra(user: User) {
+    if (this.kafedra.get(user.id)) {
+      this.kafedra.delete(user.id)
+    } else {
+      this.kafedra.set(user.id, true);
+    }
   }
 
   save() {
-    this.kafedraService.addKafedra(this.kafedra, this.userOffice.book_office).subscribe(
+    this.kafedraService.addKafedra([...this.kafedra.keys()], this.userOffice.book_office).subscribe(
       () => this.isChecked = false,
         error => {
           this.noti.toast(error.error.message)
       }
     )
-    this.kafedra= [];
   }
 
 }

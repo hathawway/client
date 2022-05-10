@@ -61,13 +61,29 @@
       <th class="tui-table__th" *ngIf="isChecked">Выбрать</th>
     </tr>
   </thead>
+
   <tbody *ngIf="users$ | async as users">
     <tr class="tui-table__tr" *ngFor="let user of users | filter:term; let i = index">
       <th class="tui-table__td">{{i+1}}</th>
       <td class="tui-table__td" *ngIf="user; else somethingElse">{{user.second}} {{user.first}} {{user.third}}</td>
       <td class="tui-table__td" *ngIf="user.book_office; else somethingElse">{{user.book_office.name}}</td>
       <td class="tui-table__td" *ngIf="user.book_post; else somethingElse">{{user.book_post.name}}</td>
-      <td class="tui-table__td"><tui-checkbox *ngIf="isChecked" (click)="addKafedra(user)"></tui-checkbox></td>
+      <td class="tui-table__td">
+        <div
+          *ngIf="isChecked"
+          >
+          <input
+            *ngIf="kafedra.get(user.id); else elseCheckboxBlockShow"
+            type="checkbox"
+            checked
+            (click)="toggleUserToKafedra(user)">
+          <ng-template #elseCheckboxBlockShow>
+            <input type="checkbox"
+                   (click)="toggleUserToKafedra(user)">
+
+          </ng-template>
+        </div>
+      </td>
     </tr>
   </tbody>
 </table>

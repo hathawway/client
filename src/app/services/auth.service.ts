@@ -25,7 +25,7 @@ export class AuthService {
     constructor(private http: HttpClient, private role: RoleService) {}
 
     doClick(){
-      this.data = this.getUser()
+      this.data = this.getUserList()
       this.onClick.emit(this.data);
     }
 
@@ -85,7 +85,7 @@ export class AuthService {
         return this.http.delete<void>(`${environment.api}/api/user/${user.id}`)
     }
 
-    getUser(): Observable<User[]> {
+    getUserList(): Observable<User[]> {
         return this.http.get<User[]>(`${environment.api}/api/user/get-user-all`)
     }
 
