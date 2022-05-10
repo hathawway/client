@@ -94,7 +94,8 @@ export class EditPpComponent implements OnInit {
       this.kafedraService.setReqSearch("user")
       this.kafedra$ = this.kafedraService.getKafedra(this.kafedraService.getReqSearch())
       this.getData();
-      if (this.ipPpsService.getId() === "") {
+      const ipId = this.ipPpsService.getId()
+      if (!ipId) {
         this.checkAdd = true
         this.form = new FormGroup({
           data_start: new FormControl(null, Validators.required),
@@ -102,7 +103,7 @@ export class EditPpComponent implements OnInit {
           kafedra: new FormControl(null, Validators.required),
         })
       } else {
-        this.ipService.getIpById(this.ipPpsService.getId()).subscribe( (value) => {
+        this.ipService.getIpById(ipId).subscribe( (value) => {
           this.form = new FormGroup({
             id: new FormControl(value.id, Validators.required),
             data_start: new FormControl(value.data_start === null ? null : value.data_start, Validators.required),
@@ -182,8 +183,7 @@ export class EditPpComponent implements OnInit {
           this.messageError = error.error.message;
         }
       )
-    }
-    else {
+    } else {
       this.ipPpsService.updateIpPps(this.formIp.value).subscribe(
         () => {
           this.ipPpsService.doClick(),
@@ -207,14 +207,26 @@ export class EditPpComponent implements OnInit {
 
     save() {
       this.form.disable()
-      this.ipService.updateIp(this.form.value).subscribe(
-        () => {
-          this.ipService.doClick();
-        },
-        error => {
-          this.messageError = error.error.message
-        }
-      )
+      if (this.form.value.id) {
+        this.ipService.updateIp(this.form.value).subscribe(
+          () => {
+            this.ipService.doClick();
+          },
+          error => {
+            this.messageError = error.error.message
+          }
+        )
+      } else {
+        this.ipService.addIp(this.form.value).subscribe(
+          () => {
+            this.ipService.doClick();
+          },
+          error => {
+            this.messageError = error.error.message
+          }
+        )
+      }
+
       this.form.enable()
     }
 
@@ -229,138 +241,4 @@ export class EditPpComponent implements OnInit {
         )
       }
     }
-
-  // ngOnInit(): void {
-  //   //this.authService.getUserByHeader().subscribe(d => this.ipService.setId(d.id))
-  //   this.kafedraService.setReqSearch("user")
-  //   this.kafedra$ = this.kafedraService.getKafedra(this.kafedraService.getReqSearch())
-  //   this.getData();
-  //   if (this.ipPpsService.getId() === "") {
-  //     this.checkAdd = true
-  //     this.form = new FormGroup({
-  //       data_start: new FormControl(null, Validators.required),
-  //       data_end: new FormControl(null, Validators.required),
-  //       kafedra: new FormControl(null, Validators.required),
-  //     })
-  //   } else {
-  //     this.ipService.getIpById(this.ipPpsService.getId()).subscribe( (value) => {
-  //       this.form = new FormGroup({
-  //         id: new FormControl(value.id, Validators.required),
-  //         data_start: new FormControl(value.data_start === null ? null : value.data_start, Validators.required),
-  //         data_end: new FormControl(value.data_end === null ? null : value.data_end, Validators.required),
-  //         kafedra: new FormControl(value.kafedra === null ? null : value.kafedra.id, Validators.required),
-  //       })
-  //     })
-
-
-  //   }
-  // }
-
-  // getData() {
-  //   //this.ipService.setReqSearch("office")
-  //   this.ipPpsService.doClick()
-  // }
-
-  // add() {
-
-  // }
-
-  // edit(ip: IpPps) {
-  //   this.open = true;
-  //   this.form = new FormGroup({
-  //     id: new FormControl(ip.id),
-  //     isagreement:new FormControl(ip.isagreement  === null ? null : ip.isagreement),
-  //     data_agreement:new FormControl(ip.data_agreement === null ? null : ip.data_agreement),
-  //     isimplementation: new FormControl(ip.isimplementation === null ? null : ip.isimplementation),
-  //     data_implementation: new FormControl(ip.data_implementation === null ? null : ip.data_implementation)
-  //   })
-  //   const dataAgr = ip.data_agreement.toString().split('-')
-  //   const dataImpl = ip.data_agreement.toString().split('-')
-  //   this.from = ip.data_agreement === null ? null : new TuiDay(Number(dataAgr[0]), Number(dataAgr[1]), Number(dataAgr[2]));
-	//   this.to = ip.data_implementation === null ? null : new TuiDay(Number(dataImpl[0]), Number(dataImpl[1]), Number(dataImpl[2]));
-
-  // }
-
-  // // onSubmit() {
-
-  // //   this.form.disable()
-  // //   this.ipService.updateIp(this.form.value).subscribe(
-  // //     () => {
-  // //       this.ipService.doClick(),
-  // //       this.close()
-  // //     },
-  // //     error => {
-  // //       this.messageError = error.error.message
-  // //     }
-  // //   )
-  // //   this.form.enable()
-  // // }
-
-  // close() {
-  //   this.open = false;
-  //   this.form.reset();
-  //   this.messageError = "";
-  // }
-
-
-
-  // delete(data: IpPps) {
-  //   const decision = window.confirm("Удалить?")
-  //   if (decision) {
-  //     this.ipPpsService.deleteIpPps(data).subscribe(
-  //       () => this.getData(),
-  //       error => {
-  //         this.noti.toast(error.error.message)
-  //       }
-  //     )
-  //   }
-  // }
-
-  // // openMenuEdit(e, ip: IpPps) {
-  // //   this.menu.openEdit(e, ip)
-  // // }
-
-  // addOrSave() {
-  //   if (this.checkAdd) {
-  //     this.checkAdd = false;
-  //     this.ipService.addIp(this.form.value).subscribe(
-  //       () => this.getData(),
-  //       error => {
-  //         this.noti.toast(error.error.message)
-  //       }
-  //     )
-  //   } else {
-  //     this.ipService.updateIp(this.form.value).subscribe(
-  //       () => this.getData(),
-  //       error => {
-  //         this.noti.toast(error.error.message)
-  //       }
-  //     )
-  //   }
-  // }
-
-  // openMenuAdd(e) {
-  //   this.menu.openAdd(e)
-  //   this.addOrSave()
-  // }
-
-  // onSubmit() {
-  //   // this.ipService.addIp(this.form.value).subscribe(
-  //   //   (d) => {
-  //   //     this.id = d.toString(),
-  //   //     this.data?.subscribe( (d) =>
-  //   //       d.forEach(value => {
-  //   //         this.ip.push(value),
-  //   //       })
-  //   //     ),
-  //   //     this.ipService.updateIp(this.id, this.ip),
-  //   //     this.getData()
-  //   //     this.ipService.doClick()
-  //   //   },
-  //   //   error => {
-  //   //     MaterialService.toast(error.error.message)
-  //   //   }
-  //   // )
-  // }
-
 }

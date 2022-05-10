@@ -36,21 +36,21 @@
         class="b-form tui-space_right-3"
         formControlName="kafedra"
         tuiTextfieldSize="m"
-        
+
         [valueContent]="items ? this.str.stringifyKafedra(items) : loading"
         [(ngModel)]="valueKafedra"
         >Вид деятельности*
         <ng-template tuiDataList>
             <tui-data-list *ngIf="items else loading">
                 <ng-container
-                    *ngFor="let item of items"                        
+                    *ngFor="let item of items"
                 >
-                  <button 
+                  <button
                   tuiOption
                     [value]="item.id | toNumber">
                     {{item.book_office.name}}
-                </button>   
-                 
+                </button>
+
                 </ng-container>
             </tui-data-list>
         </ng-template>
@@ -63,7 +63,7 @@
       </div>
       <button tuiButton
   size="s"
-  type="button" 
+  type="button"
   class="b-form tui-space_left-2"
   (click)="add()"
   >
@@ -79,8 +79,6 @@
   Сохранить
 </button>
     </form>
-  
-  
 </div>
 
 <ng-template
@@ -89,10 +87,10 @@
 	    [(tuiDialog)]="open"
 	>
 	    <form [formGroup]="formIp" *ngIf="formIp" (ngSubmit)="onSubmit()">
-	        <p>Добавить хз</p>
+	        <p>Добавить</p>
           <div class="tui-form__row">
-            <tui-select 
-            formControlName="semester" 
+            <tui-select
+            formControlName="semester"
             [(ngModel)]="valueSemester"
             class="b-form"
             tuiTextfieldSize="m"
@@ -106,7 +104,7 @@
             <tui-error class="tui-space_bottom-3"
            formControlName="semester" [error]="[] | tuiFieldError | async"></tui-error>
           </div>
-          
+
           <div class="tui-form__row">
             <tui-select
             *ngIf="kind_activity$ | async as items"
@@ -119,14 +117,14 @@
             <ng-template tuiDataList>
                 <tui-data-list *ngIf="items else loading">
                     <ng-container
-                        *ngFor="let item of items"                        
+                        *ngFor="let item of items"
                     >
-                      <button 
+                      <button
                       tuiOption
                         [value]="item.id | toNumber">
                         {{item.name}}
-                    </button>   
-                     
+                    </button>
+
                     </ng-container>
                 </tui-data-list>
             </ng-template>
@@ -149,14 +147,14 @@
             <ng-template tuiDataList>
                 <tui-data-list *ngIf="items else loading">
                     <ng-container
-                        *ngFor="let item of items"                        
+                        *ngFor="let item of items"
                     >
-                      <button 
+                      <button
                       tuiOption
                         [value]="item.id | toNumber">
                         {{item.name}}
-                    </button>   
-                     
+                    </button>
+
                     </ng-container>
                 </tui-data-list>
             </ng-template>
@@ -174,7 +172,7 @@
               formControlName="unitPlan"
               [tuiTextfieldCleaner]="true"
 	        >
-          Норма времени, ак.ч	
+          Норма времени, ак.ч
 	        </tui-input>
           <tui-error class="tui-space_bottom-3"
            formControlName="unitPlan" [error]="[] | tuiFieldError | async"></tui-error>
@@ -182,9 +180,9 @@
           <div class="tui-form__row tui-space_bottom-3">
             <tui-input-date formControlName="datePlan">Дата планирования</tui-input-date>
           </div>
-          
-          
-          
+
+
+
 	        {{ messageError }}
 	        <p>
 	            <button

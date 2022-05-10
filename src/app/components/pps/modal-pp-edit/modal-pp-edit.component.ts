@@ -98,8 +98,8 @@ export class ModalPpEditComponent implements OnInit {
           this.noti.toast(error.error.message)
         }
       )
-    }
-    else {
+    } else {
+      console.log('sub here')
       this.ipPpsService.updateIpPps(this.form.value).subscribe(
         () => this.ipPpsService.doClick(),
         error => {

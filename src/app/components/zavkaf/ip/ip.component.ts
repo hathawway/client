@@ -66,7 +66,6 @@ export class IpComponent implements OnInit {
   }
 
   onSubmit() {
-
     this.form.disable()
     this.ipService.updateIp(this.form.value).subscribe(
       () => {

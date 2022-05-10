@@ -51,10 +51,6 @@ export class IpService {
     }
 
     updateIp(ip: Ip): Observable<void> {
-        // const dataReq = {
-        //     request: request,
-        //     ip: ip
-        // }
         return this.http.patch<void>(`${environment.api}/api/ip/${ip.id}`, ip)
     }
 
@@ -66,10 +62,6 @@ export class IpService {
     }
 
     addIp(ip: Ip): Observable<void> {
-        // const dataReq = {
-        //     request: request,
-        //     ip: ip
-        // }
         return this.http.post<void>(`${environment.api}/api/ip/`, ip)
     }
 
@@ -109,7 +101,7 @@ export class IpService {
     //     return this.http.post<Ip>(`${environment.api}/api/kafedra/ip/${ip.id}`, search)
     // }
 
-    
+
 
 
 
