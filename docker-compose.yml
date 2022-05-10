@@ -1,0 +1,14 @@
+version: '2.1'
+
+services:
+  frontend:
+    build:
+      context: .
+    ports:
+      - "443:443"
+      - "80:80"
+networks:
+  ips:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "false"
