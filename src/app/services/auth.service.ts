@@ -89,6 +89,11 @@ export class AuthService {
         return this.http.get<User[]>(`${environment.api}/api/user/get-user-all`)
     }
 
+    getUsersWithCafedraList(): Observable<User[]> {
+       return this.http.get<User[]>(`${environment.api}/api/user/get-user-all-with-cafedras`)
+    }
+
+
     getUsersShort(): Observable<User[]> {
       return this.http.get<User[]>(`${environment.api}/api/user/get-user-all-short`)
     }

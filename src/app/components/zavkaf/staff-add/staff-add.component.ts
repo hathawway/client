@@ -16,12 +16,12 @@ export class StaffAddComponent implements OnInit {
 
   term!: string;
   data$: Observable<Kafedra[]> | undefined;
-  users$: Observable<User[]>;
+  users$!: Observable<User[]>;
   isChecked: boolean = false;
 
   book_office_id: string | undefined;
 
-  kafedra: Map<string, boolean>;
+  kafedra!: Map<string, boolean>;
   check = false;
   userOffice!: User;
 
@@ -35,18 +35,7 @@ export class StaffAddComponent implements OnInit {
     private authService: AuthService,
     @Inject(TuiTableBarsService)
 	        private readonly tableBarsService: TuiTableBarsService,) {
-    this.kafedra = new Map<string, boolean>();
-    this.users$ = this.authService.getUserList();
-    this.authService.getUserByHeader().subscribe(value => {
-      this.book_office_id = value.book_office.id;
-      this.users$.subscribe(users => {
-        for (let u of users) {
-          if (u.book_office.id === this.book_office_id) {
-            this.kafedra.set(u.id, true);
-          }
-        }
-      })
-    })
+
   }
 
   showTableBar() {
@@ -67,6 +56,7 @@ export class StaffAddComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.getUserByHeader().subscribe( data => this.userOffice = data)
+    this.updateUsersInfo()
   }
 
   change() {
@@ -82,13 +72,42 @@ export class StaffAddComponent implements OnInit {
     }
   }
 
+  updateUsersInfo() {
+    this.kafedra = new Map<string, boolean>();
+    this.users$ = this.authService.getUsersWithCafedraList();
+    this.authService.getUserByHeader().subscribe(value => {
+      this.book_office_id = value.book_office.id;
+      this.users$.subscribe(users => {
+        for (let u of users) {
+          if (u.book_office.id === this.book_office_id) {
+            this.kafedra.set(u.id, true);
+            continue
+          }
+
+          if (u.other_kafedrs) {
+            for (let uk of u.other_kafedrs) {
+              if (uk === this.book_office_id) {
+                this.kafedra.set(u.id, true);
+                break
+              }
+            }
+          }
+        }
+      })
+    })
+  }
+
   save() {
     this.kafedraService.addKafedra([...this.kafedra.keys()], this.userOffice.book_office).subscribe(
-      () => this.isChecked = false,
+      () => {
+        this.isChecked = false;
+        this.updateUsersInfo();
+      },
         error => {
           this.noti.toast(error.error.message)
       }
     )
+    this.closeTableBar()
   }
 
 }

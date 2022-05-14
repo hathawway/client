@@ -11,6 +11,7 @@ export interface User {
     book_status: BookStatus,
     book_stepen: BookStepen,
     book_zvanie: BookZvanie,
+    other_kafedrs: string[],
     tel: string,
     snils: string,
     roles: BookRole[],
