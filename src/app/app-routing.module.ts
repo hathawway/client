@@ -30,6 +30,7 @@ import { Role } from './guards/roles';
 import { UnitTableComponent } from './components/umu/unit-table/unit-table.component';
 import { NormaKindActivityComponent } from './components/umu/norma-kind-activity/norma-kind-activity.component';
 import { EditPpComponent } from './components/pps/edit-pp/edit-pp.component';
+import { IpSurveyComponent } from './components/zavkaf/ip-survey/ip-survey.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent, children: [
@@ -64,6 +65,7 @@ const routes: Routes = [
       {path: 'staff', component:StaffAddComponent},
       {path: 'schedule', component:ScheduleComponent},
       {path: 'ip', component:IpComponent},
+      {path: 'ip-survey', component:IpSurveyComponent},
       {path: 'report', component:ReportComponent}
 
     ]},

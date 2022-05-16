@@ -27,7 +27,7 @@
 	    [(tuiDialog)]="open"
 	>
 	    <form [formGroup]="form" *ngIf="form" (ngSubmit)="onSubmit()">
-	        <p>Добавить вид работы</p>
+	        <p></p>
           <div class="tui-form__row">
             <tui-select
             *ngIf="kind$ | async as items"
@@ -57,7 +57,7 @@
           </div>
           <div class="tui-form__row">
             <tui-input
-	            tuiAutoFocus
+	            
               tuiTextfieldSize="l"
               formControlName="name"
               [tuiTextfieldCleaner]="true"
@@ -69,12 +69,12 @@
           </div>
           <div class="tui-form__row">
             <tui-input
-	            tuiAutoFocus
+	            
               tuiTextfieldSize="l"
               formControlName="norma"
               [tuiTextfieldCleaner]="true"
 	        >
-          Норма
+          Норма*
 	        </tui-input>
           <tui-error class="tui-space_bottom-3"
            formControlName="norma" [error]="[] | tuiFieldError | async"></tui-error>
@@ -86,7 +86,7 @@
             formControlName="book_unit"
             [valueContent]="items ? this.str.stringifyName(items) : loading"
             [(ngModel)]="valueUnit"
-            >Единица измерения
+            >Единица измерения*
             <ng-template tuiDataList>
                 <tui-data-list *ngIf="items else loading">
                     <ng-container
@@ -103,6 +103,8 @@
             </ng-template>
             
           </tui-select>
+          <tui-error class="tui-space_bottom-3"
+           formControlName="book_unit" [error]="[] | tuiFieldError | async"></tui-error>
           </div>
 	        <p class="message">{{ messageError }}</p>
 	        <p>

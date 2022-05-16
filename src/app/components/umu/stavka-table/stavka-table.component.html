@@ -28,7 +28,7 @@
   > {{data.norma}}
 </button>
 <tui-tooltip
-content="Ставка на год"
+content="Годовая ставка"
 direction="right"
 ></tui-tooltip>
 </ng-container>
@@ -37,11 +37,11 @@ direction="right"
 
 <ng-template
 	    let-observer
-	    [tuiDialogOptions]="$any({ label: 'Ежегодная ставка', size: 's' })"
+	    [tuiDialogOptions]="$any({ label: 'Годовая ставка', size: 's' })"
 	    [(tuiDialog)]="openSt"
 	>
 	    <form [formGroup]="formStavka" *ngIf="formStavka" (ngSubmit)="updateStavka()">
-	        <p>Добавить ставку на год</p>
+	        <p> </p>
           <div class="tui-form__row">
             <tui-input
 	            tuiAutoFocus
@@ -49,7 +49,7 @@ direction="right"
               formControlName="norma"
               [tuiTextfieldCleaner]="true"
 	        >
-          Норма*
+          Норма, ак.ч*
 	        </tui-input>
           <tui-error class="tui-space_bottom-3"
            formControlName="norma" [error]="[] | tuiFieldError | async"></tui-error>

@@ -5,7 +5,6 @@
             formControlName="data_start"
             [tuiTextfieldCleaner]="true"
 	          [min]="min"
-	          [max]="max"
 	          [(ngModel)]="from"
             tuiTextfieldSize="m"
             class="b-form tui-space_right-3"
@@ -39,7 +38,7 @@
 
         [valueContent]="items ? this.str.stringifyKafedra(items) : loading"
         [(ngModel)]="valueKafedra"
-        >Вид деятельности*
+        >Кафедра*
         <ng-template tuiDataList>
             <tui-data-list *ngIf="items else loading">
                 <ng-container
@@ -148,7 +147,7 @@
                       <button
                       tuiOption
                         [value]="item.id | toNumber">
-                        {{item.name}} ( {{item.norma}}, {{item.book_unit.name}})
+                        {{item.name}} ( {{item.norma}} ак.ч/{{item.book_unit.name}})
                     </button>
 
                     </ng-container>
@@ -167,7 +166,7 @@
               formControlName="unitPlan"
               [tuiTextfieldCleaner]="true"
             >
-          Норма пл
+          Норма, план
             </tui-input>
           <tui-error class="tui-space_bottom-3"
            formControlName="unitPlan" [error]="[] | tuiFieldError | async"></tui-error>
@@ -180,7 +179,7 @@
               formControlName="hourPlan"
               [tuiTextfieldCleaner]="true"
             >
-          Час пл
+          Час, план
             </tui-input>
           <tui-error class="tui-space_bottom-3"
            formControlName="hourPlan" [error]="[] | tuiFieldError | async"></tui-error>
@@ -190,11 +189,10 @@
             <tui-input-date 
             [tuiTextfieldCleaner]="true"
             tuiTextfieldSize="m"
-            [min]="min"
-	          [max]="max"
+
 	          [(ngModel)]="fromEdit"
             formControlName="datePlan">
-            Дата планирования
+            Дата, план
           </tui-input-date>
           <tui-error class="tui-space_bottom-3"
            formControlName="datePlan" [error]="[] | tuiFieldError | async"></tui-error>
@@ -207,7 +205,7 @@
               formControlName="unitFact"
               [tuiTextfieldCleaner]="true"
             >
-          Норма факт
+          Норма, факт
             </tui-input>
           <tui-error class="tui-space_bottom-3"
            formControlName="unitFact" [error]="[] | tuiFieldError | async"></tui-error>
@@ -220,7 +218,7 @@
               formControlName="hourFact"
               [tuiTextfieldCleaner]="true"
             >
-          Час факт
+          Час, факт
             </tui-input>
           <tui-error class="tui-space_bottom-3"
            formControlName="hourFact" [error]="[] | tuiFieldError | async"></tui-error>
@@ -234,7 +232,7 @@
             [items]="items"
             [(ngModel)]="toEdit"
             formControlName="dateFact"
-            >Дата факт</tui-input-date>
+            >Дата, факт</tui-input-date>
             <tui-error class="tui-space_bottom-3"
            formControlName="dateFact" [error]="[] | tuiFieldError | async"></tui-error>
           </div>
@@ -243,7 +241,7 @@
             <tui-text-area
                       formControlName="remark"
                         [tuiTextfieldCleaner]="true"
-                        tuiHintContent="Замечания"
+
                         tuiTextfieldSize="m"
                   >
                       Примечание

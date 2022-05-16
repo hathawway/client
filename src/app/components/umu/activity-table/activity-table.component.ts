@@ -54,8 +54,8 @@ export class ActivityTableComponent implements OnInit {
       this.form = new FormGroup({
         name: new FormControl(null, Validators.required),
         kind_activity: new FormControl(null, Validators.required),
-        norma: new FormControl(null, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
-        book_unit: new FormControl(null)
+        norma: new FormControl(null, [Validators.pattern(/^\d+(?:[,.]\d+)?$/), Validators.required]),
+        book_unit: new FormControl(null, Validators.required)
       })
       this.flag = true;
       this.valueUnit = null;
@@ -68,8 +68,8 @@ export class ActivityTableComponent implements OnInit {
         id: new FormControl(data.id, Validators.required),
         name: new FormControl(data.name, Validators.required),
         kind_activity: new FormControl(data.kind_activity === null ? null : data.kind_activity.id, Validators.required),
-        norma: new FormControl(data.norma === null ? null : data.norma, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
-        book_unit: new FormControl(data.book_unit === null ? null : data.book_unit.id)
+        norma: new FormControl(data.norma === null ? null : data.norma, [Validators.pattern(/^\d+(?:[,.]\d+)?$/), Validators.required]),
+        book_unit: new FormControl(data.book_unit === null ? null : data.book_unit.id, Validators.required)
       })
       this.valueUnit = data.book_unit === null ? null : Number(data.book_unit.id);
       this.valueKind = data.kind_activity === null ? null : Number(data.kind_activity.id);

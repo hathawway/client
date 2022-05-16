@@ -28,7 +28,7 @@
 	    [(tuiDialog)]="open"
 	>
 	    <form [formGroup]="form" *ngIf="form" (ngSubmit)="onSubmit()">
-	        <p>Добавить норму времени вида деятельности</p>
+	        <p> </p>
           <div class="tui-form__row">
             <tui-select
             *ngIf="kind$ | async as items"
@@ -85,7 +85,7 @@
           </div>
           <div class="tui-form__row">
             <tui-input
-	            tuiAutoFocus
+	            
               tuiTextfieldSize="l"
               formControlName="norma"
               [tuiTextfieldCleaner]="true"

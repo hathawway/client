@@ -50,7 +50,7 @@ export class StrService{
         const map = new Map(
             items.map(({id, name, norma, book_unit}) => [
                 Number(id), 
-                name + "(" + norma + ", " + book_unit.name + ")"
+                name + "(" + norma + "ак.ч/" + book_unit.name + ")"
             ] as [number, string])
         );
         return ({ $implicit }: TuiContextWithImplicit<number>) => map.get($implicit) || '';
