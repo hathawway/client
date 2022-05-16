@@ -40,7 +40,6 @@ import { PageNotFoundComponent } from './components/shared/page-not-found/page-n
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NormaKindActivityComponent } from './components/umu/norma-kind-activity/norma-kind-activity.component';
 import { UnitTableComponent } from './components/umu/unit-table/unit-table.component';
-import { ModalPpEditComponent } from './components/pps/modal-pp-edit/modal-pp-edit.component';
 import { EditPpComponent } from './components/pps/edit-pp/edit-pp.component';
 import {
     TuiBadgeModule,
@@ -57,7 +56,8 @@ import {
     TuiMultiSelectModule,
     TuiSelectModule,
     TuiStepperModule,
-    TuiTabsModule
+    TuiTabsModule,
+    TuiTextAreaModule
 } from '@taiga-ui/kit';
 import { StaffAddComponent } from './components/zavkaf/staff-add/staff-add.component';
 import { RouterModule } from '@angular/router';
@@ -89,7 +89,6 @@ import {TuiAutoFocusModule, TuiLetModule} from "@taiga-ui/cdk";
     PageNotFoundComponent,
     NormaKindActivityComponent,
     UnitTableComponent,
-    ModalPpEditComponent,
     EditPpComponent,
     ToNumberPipe,
   ],
@@ -135,6 +134,7 @@ import {TuiAutoFocusModule, TuiLetModule} from "@taiga-ui/cdk";
         TuiPrimitiveCheckboxModule,
         TuiTooltipModule,
 	      TuiHintModule,
+        TuiTextAreaModule,
     ],
   providers: [ {
     provide: HTTP_INTERCEPTORS,

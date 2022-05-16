@@ -61,8 +61,8 @@ export class IpService {
         return this.http.delete<void>(`${environment.api}/api/ip/${ip.id}`)
     }
 
-    addIp(ip: Ip): Observable<void> {
-        return this.http.post<void>(`${environment.api}/api/ip/`, ip)
+    addIp(ip: Ip): Observable<Ip> {
+        return this.http.post<Ip>(`${environment.api}/api/ip/`, ip)
     }
 
     getIpById(id: string): Observable<Ip> {
