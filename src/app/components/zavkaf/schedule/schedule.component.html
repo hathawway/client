@@ -1,7 +1,9 @@
 <div class="container-search">
-  <div class="search">
+  <div class="tui-form__row">
       <tui-input
-      type="search" [(ngModel)]="term"
+      class="b-from search"
+      type="search" 
+      [(ngModel)]="term"
       tuiTextfieldSize="m"
       [tuiTextfieldCleaner]="true"
   >
@@ -13,11 +15,11 @@
 
 <ng-template
 	    let-observer
-	    [tuiDialogOptions]="$any({ label: 'хз', size: 'l' })"
+	    [tuiDialogOptions]="$any({ label: 'Штатное расписание', size: 'l' })"
 	    [(tuiDialog)]="open"
 	>
 	    <form [formGroup]="form" *ngIf="form" (ngSubmit)="onSubmit()">
-	        <p>Добавить хз</p>
+	        <p>Редактировать данные сотрудника штатного расписания</p>
           <div class="tui-form__row">
             <tui-select
             *ngIf="posts$ | async as items"

@@ -1,7 +1,9 @@
 <div class="container-search">
-  <div class="search">
+  <div class="tui-form__row">
       <tui-input
-      type="search" [(ngModel)]="term"
+      class="b-from search"
+      type="search" 
+      [(ngModel)]="term"
       tuiTextfieldSize="m"
       [tuiTextfieldCleaner]="true"
   >
@@ -10,12 +12,14 @@
   </div>
   
   <button tuiButton
-  class="tui-space_left-2 container-search__btn"
+  class="tui-space_left-2"
   size="s"
-  type="button" (click)="add()"
+  type="button" 
+  (click)="add()"
   >
   Добавить
 </button>
+
 <ng-container *ngIf="stavka$ | async as data">
   <button tuiButton
   class="tui-space_left-2"
@@ -33,11 +37,11 @@ direction="right"
 
 <ng-template
 	    let-observer
-	    [tuiDialogOptions]="$any({ label: 'хз', size: 's' })"
+	    [tuiDialogOptions]="$any({ label: 'Ежегодная ставка', size: 's' })"
 	    [(tuiDialog)]="openSt"
 	>
 	    <form [formGroup]="formStavka" *ngIf="formStavka" (ngSubmit)="updateStavka()">
-	        <p>Добавить хз</p>
+	        <p>Добавить ставку на год</p>
           <div class="tui-form__row">
             <tui-input
 	            tuiAutoFocus
@@ -76,11 +80,11 @@ direction="right"
 
 <ng-template
 	    let-observer
-	    [tuiDialogOptions]="$any({ label: 'хз', size: 'l' })"
+	    [tuiDialogOptions]="$any({ label: 'Нормы времени учебной деятельности на ставку', size: 'l' })"
 	    [(tuiDialog)]="open"
 	>
 	    <form [formGroup]="form" *ngIf="form" (ngSubmit)="onSubmit()">
-	        <p>Добавить хз</p>
+	        <p>Добавить норму времени учебной деятельности</p>
           <div class="tui-form__row">
             <tui-select
             *ngIf="posts$ | async as items"

@@ -1,8 +1,10 @@
 
 <div class="container-search">
-  <div class="search">
+  <div class="tui-form__row">
       <tui-input
-      type="search" [(ngModel)]="term"
+      class="b-from search"
+      type="search" 
+      [(ngModel)]="term"
       tuiTextfieldSize="m"
       [tuiTextfieldCleaner]="true"
   >
@@ -13,7 +15,7 @@
   <button
 	    tuiButton
 	    type="button"
-      class="tui-space_left-2 container-search__btn"
+      class="tui-space_left-2"
 	    size="s"
 	    (click)="showTableBar()"
       *ngIf="!isChecked"

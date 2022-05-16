@@ -83,11 +83,11 @@
 
 <ng-template
 	    let-observer
-	    [tuiDialogOptions]="$any({ label: 'хз', size: 'l' })"
+	    [tuiDialogOptions]="$any({ label: 'Индивидуальный план', size: 'l' })"
 	    [(tuiDialog)]="open"
 	>
 	    <form [formGroup]="formIp" *ngIf="formIp" (ngSubmit)="onSubmit()">
-	        <p>Добавить</p>
+	        <p>Добавить деятельность в индивидуальный план</p>
           <div class="tui-form__row">
             <tui-select
             formControlName="semester"
