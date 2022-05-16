@@ -128,9 +128,7 @@
                     </ng-container>
                 </tui-data-list>
             </ng-template>
-            <ng-template #loading>
-                <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
-            </ng-template>
+            
           </tui-select>
           <tui-error class="tui-space_bottom-3"
            formControlName="kind_activity" [error]="[] | tuiFieldError | async"></tui-error>
@@ -158,9 +156,7 @@
                     </ng-container>
                 </tui-data-list>
             </ng-template>
-            <ng-template #loading>
-                <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
-            </ng-template>
+            
           </tui-select>
           <tui-error class="tui-space_bottom-3"
            formControlName="activity" [error]="[] | tuiFieldError | async"></tui-error>
@@ -183,7 +179,7 @@
 
 
 
-	        {{ messageError }}
+	        <p class="message">{{ messageError }}</p>
 	        <p>
 	            <button
 	                tuiButton
@@ -207,7 +203,7 @@
 	    </form>
 	</ng-template>
 
-<table class="tui-table" *ngIf="!checkAdd">
+<table class="tui-table">
   <thead>
     <tr class="tui-table__tr">
       <th class="tui-table__th">#</th>
@@ -271,3 +267,6 @@
   <ng-template #somethingElse>
     <td class="tui-table__td"></td>
   </ng-template>
+  <ng-template #loading>
+    <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
+</ng-template>

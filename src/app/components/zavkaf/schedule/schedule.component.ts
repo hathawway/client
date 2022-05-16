@@ -62,7 +62,7 @@ export class ScheduleComponent implements OnInit {
     this.open = true;
     this.form = new FormGroup({
       id: new FormControl(kafedra.id, Validators.required),
-      norma: new FormControl(kafedra.norma === null ? null : kafedra.norma, Validators.pattern(/\d/)),
+      norma: new FormControl(kafedra.norma === null ? null : kafedra.norma, Validators.pattern(/^\d+(?:[,.]\d+)?$/),),
       book_work:  new FormControl(kafedra.book_work === null ? null : kafedra.book_work.id, Validators.required),
       book_post: new FormControl(kafedra.book_post === null ? null : kafedra.book_post.id, Validators.required)
     })

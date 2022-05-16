@@ -47,9 +47,7 @@
                     </ng-container>
                 </tui-data-list>
             </ng-template>
-            <ng-template #loading>
-                <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
-            </ng-template>
+            
           </tui-select>
           <tui-error class="tui-space_bottom-3"
            formControlName="kind_activity" [error]="[] | tuiFieldError | async"></tui-error>
@@ -75,6 +73,8 @@
 	        >
           Норма
 	        </tui-input>
+          <tui-error class="tui-space_bottom-3"
+           formControlName="norma" [error]="[] | tuiFieldError | async"></tui-error>
           </div>
           <div class="tui-form__row">
             <tui-select
@@ -98,12 +98,10 @@
                     </ng-container>
                 </tui-data-list>
             </ng-template>
-            <ng-template #loading>
-                <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
-            </ng-template>
+            
           </tui-select>
           </div>
-	        {{ messageError }}
+	        <p class="message">{{ messageError }}</p>
 	        <p>
 	            <button
 	                tuiButton
@@ -175,4 +173,7 @@
 
 <ng-template #somethingElse>
   <td class="tui-table__td"></td>
+</ng-template>
+<ng-template #loading>
+  <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
 </ng-template>

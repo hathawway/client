@@ -60,12 +60,10 @@
                     </ng-container>
                 </tui-data-list>
             </ng-template>
-            <ng-template #loading>
-                <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
-            </ng-template>
+            
           </tui-select>
           </div>
-	        {{ messageError }}
+	        <p class="message">{{ messageError }}</p>
 	        <p>
 	            <button
 	                tuiButton
@@ -134,4 +132,7 @@
 
 <ng-template #somethingElse>
   <td class="tui-table__td"></td>
+</ng-template>
+<ng-template #loading>
+  <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
 </ng-template>

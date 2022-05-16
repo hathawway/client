@@ -28,6 +28,7 @@
           <div class="tui-form__row">
             <tui-input
 	            tuiAutoFocus
+              tuiHintContent="Логином должен быть email"
               tuiTextfieldSize="m"
               formControlName="login"
               [tuiTextfieldCleaner]="true"
@@ -39,7 +40,7 @@
           </div>
 
           <div class="tui-form__row" *ngIf="showPassword">
-            <tui-input-password
+            <tui-input-password (change)="onPasswordChange()"
 	            tuiAutoFocus
               type="password"
               tuiTextfieldSize="m"
@@ -53,6 +54,23 @@
 	        </tui-input-password>
           <tui-error class="tui-space_bottom-3"
            formControlName="password" [error]="[] | tuiFieldError | async"></tui-error>
+          </div>
+
+          <div class="tui-form__row" *ngIf="showPassword">
+            <tui-input-password (change)="onPasswordChange()"
+	            tuiAutoFocus
+              type="password"
+              tuiTextfieldSize="m"
+              tuiHintContent
+              tuiHintDirection="right"
+              tuiHintMode="onDark"
+              formControlName="passwordTwo"
+              [tuiTextfieldCleaner]="true"
+	        >
+          Подтверждение пароля*
+	        </tui-input-password>
+          <tui-error class="tui-space_bottom-3"
+           formControlName="passwordTwo" [error]="[] | tuiFieldError | async"></tui-error>
           </div>
 
           <div class="tui-form__row">
@@ -97,13 +115,10 @@
 	            tuiAutoFocus
               tuiTextfieldSize="m"
               formControlName="snils"
+              tuiHintContent="Снилс состоит из 11 цифр"
               [tuiTextfieldCleaner]="true"
 	        >
           Снилс*
-          <input
-	                tuiTextfield
-	                inputmode="numeric"
-	            />
 	        </tui-input>
           <tui-error class="tui-space_bottom-3"
            formControlName="snils" [error]="[] | tuiFieldError | async"></tui-error>
@@ -145,9 +160,7 @@
                     </ng-container>
                 </tui-data-list>
             </ng-template>
-            <ng-template #loading>
-                <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
-            </ng-template>
+            
           </tui-select>
           <tui-error class="tui-space_bottom-3"
            formControlName="idbook_office" [error]="[] | tuiFieldError | async"></tui-error>
@@ -176,9 +189,7 @@
                     </ng-container>
                 </tui-data-list>
             </ng-template>
-            <ng-template #loading>
-                <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
-            </ng-template>
+            
           </tui-select>
           <tui-error class="tui-space_bottom-3"
            formControlName="idbook_post" [error]="[] | tuiFieldError | async"></tui-error>
@@ -207,9 +218,7 @@
                     </ng-container>
                 </tui-data-list>
             </ng-template>
-            <ng-template #loading>
-                <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
-            </ng-template>
+            
           </tui-select>
           <tui-error class="tui-space_bottom-3"
            formControlName="idbook_work" [error]="[] | tuiFieldError | async"></tui-error>
@@ -238,9 +247,7 @@
                     </ng-container>
                 </tui-data-list>
             </ng-template>
-            <ng-template #loading>
-                <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
-            </ng-template>
+            
           </tui-select>
           <tui-error class="tui-space_bottom-3"
            formControlName="idbook_status" [error]="[] | tuiFieldError | async"></tui-error>
@@ -269,9 +276,7 @@
                     </ng-container>
                 </tui-data-list>
             </ng-template>
-            <ng-template #loading>
-                <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
-            </ng-template>
+            
           </tui-select>
 
           </div>
@@ -299,9 +304,7 @@
                     </ng-container>
                 </tui-data-list>
             </ng-template>
-            <ng-template #loading>
-                <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
-            </ng-template>
+            
           </tui-select>
 
           </div>
@@ -310,10 +313,10 @@
           <tui-multi-select
             class="b-form"
             formControlName="role"
-            [tuiTextfieldLabelOutside]="true"
+            tuiTextfieldSize="m"
             [editable]="false"
             [(search)]="search"
-          >Роли
+          >Роли*
             <tui-data-list-wrapper
               *tuiDataList
               tuiMultiSelectGroup
@@ -326,7 +329,7 @@
           </tui-multi-select>
         </div>
 
-          {{ messageError }}
+        <p class="message">{{ messageError }}</p>
 
 	        <p>
 	            <button
@@ -395,4 +398,7 @@
 </table>
 <ng-template #somethingElse>
   <td class="tui-table__td"></td>
+</ng-template>
+<ng-template #loading>
+  <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
 </ng-template>

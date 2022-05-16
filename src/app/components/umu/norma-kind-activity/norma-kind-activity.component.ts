@@ -61,7 +61,7 @@ export class NormaKindActivityComponent implements OnInit {
     add() {
       this.open = true;
       this.form = new FormGroup({
-        norma: new FormControl(null, Validators.pattern(/\d/)),
+        norma: new FormControl(null, Validators.pattern(/^\d+(?:[,.]\d+)?$/),),
         idbook_post: new FormControl(null, Validators.required),
         idkind_activity: new FormControl(null, Validators.required)
       })
@@ -74,7 +74,7 @@ export class NormaKindActivityComponent implements OnInit {
       this.open = true;
       this.form = new FormGroup({
         id: new FormControl(data.id, Validators.required),
-        norma: new FormControl(data.norma === null ? null : data.norma, Validators.pattern(/\d/)),
+        norma: new FormControl(data.norma === null ? null : data.norma, Validators.pattern(/^\d+(?:[,.]\d+)?$/),),
         idbook_post: new FormControl(data.book_post === null ? null : data.book_post.id, Validators.required),
         idkind_activity: new FormControl(data.kind_activity === null ? null : data.kind_activity.id , Validators.required)
       })

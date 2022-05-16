@@ -36,8 +36,9 @@ import { Role } from '../../../guards/roles'
             useValue: {
                 required: 'Поле обязательно для заполнения!',
                 email:'Невалидный email!',
-                pattern: 'Невалидный снилс символов',
-                minLength: 'Невалидный кол-во символов',
+                pattern: 'Невалидный снилс символов (пр. 111-111-111 11)',
+                minlength: 'Невалидный кол-во символов',
+                mismatch: 'Пароли не совпадают!'
             },
         },
 	    ],
@@ -78,25 +79,7 @@ export class UserTableComponent implements OnInit {
   stepens$!: Observable<BookStepen[]>;
   zvanies$!: Observable<BookZvanie[]>;
 
-  maskSnils = {
-    guide: false,
-    mask: [
-        /\d/,
-        /\d/,
-        /\d/,
-        '-',
-        /\d/,
-        /\d/,
-        /\d/,
-        '-',
-        /\d/,
-        /\d/,
-        /\d/,
-        ' ',
-        /\d/,
-        /\d/,
-    ],
-};
+  readonly passwordTwo = new FormControl(null);
 
   constructor(private authService: AuthService,
     private officeService: OfficeService,
@@ -140,17 +123,17 @@ export class UserTableComponent implements OnInit {
 	  this.form = new FormGroup({
       login: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, Validators.required),
+      passwordTwo: this.passwordTwo,
       second: new FormControl(null, Validators.required),
       first: new FormControl(null, Validators.required),
       third: new FormControl(null),
-      //book_role: new FormControl(null, Validators.required),
       idbook_office: new FormControl(null, Validators.required),
       idbook_post: new FormControl(null, Validators.required),
       idbook_work: new FormControl(null, Validators.required),
       idbook_status: new FormControl(null, Validators.required),
       idbook_stepen: new FormControl(null),
       idbook_zvanie: new FormControl(null),
-      snils: new FormControl(null, [Validators.required, Validators.pattern(/^\d{11}$/)]),
+      snils: new FormControl(null, [Validators.required, Validators.pattern(/^\d{3}-\d{3}-\d{3} \d{2}$/)]),
       tel: new FormControl(null, Validators.minLength(12)),
       role: new FormControl([]),
     })
@@ -162,6 +145,7 @@ export class UserTableComponent implements OnInit {
     this.valueZvanie = null;
     this.valueRole = null;
     this.valueWork = null;
+    this.form.get('passwordTwo')?.addValidators(Validators.required);
 	}
 
   edit(userId: string) {
@@ -179,22 +163,23 @@ export class UserTableComponent implements OnInit {
           second: new FormControl(user.second, Validators.required),
           first: new FormControl(user.first, Validators.required),
           third: new FormControl(user.third),
-          //book_role: new FormControl(user.book_role.id, Validators.required),
+          
           idbook_office: new FormControl(user.book_office === null ? null : user.book_office.id, Validators.required),
           idbook_post: new FormControl(user.book_post === null ? null : user.book_post.id, Validators.required),
           idbook_work: new FormControl(user.book_work === null ? null : user.book_work.id, Validators.required),
           idbook_status: new FormControl(user.book_status === null ? null : user.book_status.id, Validators.required),
           idbook_stepen: new FormControl(user.book_stepen === null ? null : user.book_stepen.id),
           idbook_zvanie: new FormControl(user.book_zvanie === null ? null : user.book_zvanie.id),
-          snils: new FormControl(user.snils, [Validators.required, Validators.pattern(/^\d{11}$/)]),
+          snils: new FormControl(user.snils, [Validators.required, Validators.pattern(/^\d{3}-\d{3}-\d{3} \d{2}$/)]),
           tel: new FormControl(user.tel, Validators.minLength(12)),
           password: new FormControl(''),
+          passwordTwo: this.passwordTwo,
           role: new FormControl(roles),
         }
 
         this.showPassword = user.login != 'admin@gmail.com'
-
         this.form = new FormGroup(formContent)
+        this.form.get('passwordTwo')?.setValue('');
         this.valueOffice = user.book_office === null ? null : Number(user.book_office.id);
         this.valuePost = user.book_post === null ? null : Number(user.book_post.id);
         this.valueStatus = user.book_status === null ? null : Number(user.book_status.id);
@@ -204,6 +189,14 @@ export class UserTableComponent implements OnInit {
       }
     )
 	}
+
+  onPasswordChange() {
+    if (this.form.controls['passwordTwo'].value == this.form.controls['password'].value) {
+      this.passwordTwo.setErrors(null);
+    } else {
+      this.passwordTwo.setErrors({ mismatch: true });
+    }
+  }
 
   onSubmit() {
     this.form.disable()

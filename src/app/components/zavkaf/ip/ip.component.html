@@ -62,7 +62,7 @@
 
 
           
-	        {{ messageError }}
+	        <p class="message">{{ messageError }}</p>
 	        <p>
 	            <button
 	                tuiButton
@@ -96,7 +96,6 @@
     <th class="tui-table__th">Дата согласования</th>
     <th class="tui-table__th">Выполнен</th>
     <th class="tui-table__th">Дата выполнения</th>
-    <th class="tui-table__th">Просмотр</th>
     <th class="tui-table__th">Редактировать</th>
   </tr>
 </thead>
@@ -109,9 +108,6 @@
     <td class="tui-table__td" *ngIf="data.data_agreement; else something">{{data.data_agreement}}</td>
     <td class="tui-table__td" *ngIf="data.isimplementation; else somethingElse">Да</td>
     <td class="tui-table__td" *ngIf="data.data_implementation; else something">{{data.data_implementation}}</td>
-    <td class="tui-table__td">
-      <img src="././assets/images/icon/fine-print--v1.png"/>
-    </td>
     <td class="tui-table__td">
       <button
           tuiIconButton

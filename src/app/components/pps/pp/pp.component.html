@@ -25,7 +25,6 @@
       <th class="tui-table__th">Год начала</th>
       <th class="tui-table__th">Год конец</th>
       <th class="tui-table__th">Кафедра</th>
-      <th class="tui-table__th">Просмотр(Скачать)</th>
       <th class="tui-table__th">Редактировать</th>
       <th class="tui-table__th">Удалить</th>
     </tr>
@@ -36,9 +35,7 @@
       <td class="tui-table__td" *ngIf="data.data_start; else somethingElse">{{data.data_start}}</td>
       <td class="tui-table__td" *ngIf="data.data_end; else somethingElse">{{data.data_end}}</td>
       <td class="tui-table__td" *ngIf="data.kafedra; else somethingElse">{{data.kafedra.book_office.name}}</td>
-      <td class="tui-table__td">
-        <img src="././assets/images/icon/fine-print--v1.png"/>
-      </td>
+
       <td class="tui-table__td">
         <button
           tuiIconButton
