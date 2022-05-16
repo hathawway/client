@@ -9,7 +9,7 @@ import {
     TuiRootModule,
     TuiScrollbarModule,
     TuiSvgModule,
-    TuiTextfieldControllerModule, TuiNotificationsModule, TuiHintControllerModule, TuiPrimitiveCheckboxModule,
+    TuiTextfieldControllerModule, TuiNotificationsModule, TuiHintControllerModule, TuiPrimitiveCheckboxModule, TuiHintModule, TuiTooltipModule,
 } from '@taiga-ui/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -133,6 +133,8 @@ import {TuiAutoFocusModule, TuiLetModule} from "@taiga-ui/cdk";
         TuiMultiSelectModule,
         TuiLetModule,
         TuiPrimitiveCheckboxModule,
+        TuiTooltipModule,
+	      TuiHintModule,
     ],
   providers: [ {
     provide: HTTP_INTERCEPTORS,

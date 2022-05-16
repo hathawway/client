@@ -23,6 +23,10 @@
   type="button" (click)="openStavka(data)"
   > {{data.norma}}
 </button>
+<tui-tooltip
+content="Ставка на год"
+direction="right"
+></tui-tooltip>
 </ng-container>
 
 </div>
@@ -46,7 +50,7 @@
           <tui-error class="tui-space_bottom-3"
            formControlName="norma" [error]="[] | tuiFieldError | async"></tui-error>
           </div>
-          {{ messageError }}
+          <p class="message">{{ messageError }}</p>
 	        <p>
 	            <button
 	                tuiButton
@@ -100,9 +104,7 @@
                     </ng-container>
                 </tui-data-list>
             </ng-template>
-            <ng-template #loading>
-                <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
-            </ng-template>
+            
           </tui-select>
           <tui-error class="tui-space_bottom-3"
            formControlName="idbook_post" [error]="[] | tuiFieldError | async"></tui-error>
@@ -119,7 +121,7 @@
           <tui-error class="tui-space_bottom-3"
            formControlName="norma" [error]="[] | tuiFieldError | async"></tui-error>
           </div>
-          {{ messageError }}
+          <p class="message">{{ messageError }}</p>
 	        <p>
 	            <button
 	                tuiButton
@@ -188,4 +190,7 @@
 
 <ng-template #somethingElse>
   <td class="tui-table__td"></td>
+</ng-template>
+<ng-template #loading>
+  <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
 </ng-template>

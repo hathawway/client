@@ -11,6 +11,6 @@ export class NotiService {
     private readonly notificationsService: TuiNotificationsService) {}
 
     toast(error: string) {
-        this.notificationsService.show(error, {label: 'ошибка'}).subscribe(value => {console.log('внутри')})
+        this.notificationsService.show(error, {label: 'Ошибка'}).subscribe(value => {console.log('внутри')})
     }
 }

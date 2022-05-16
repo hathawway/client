@@ -36,14 +36,14 @@ export class SidebarComponent implements OnInit {
         {resourceName: 'staff',    displayedName: 'Сотрудники вуза'},
         {resourceName: 'schedule', displayedName: 'Штатное расписание'},
         {resourceName: 'ip',       displayedName: 'Индивидуальные планы'},
-        {resourceName: 'report',   displayedName: 'Отчеты'},
+        // {resourceName: 'report',   displayedName: 'Отчеты'},
       ],
     },
     {
       url: '/dashboard/pps',
       resources: [
         {resourceName: 'pp',          displayedName: 'Индивидуальные планы'},
-        {resourceName: 'statistics',  displayedName: 'Статистика'},
+        // {resourceName: 'statistics',  displayedName: 'Статистика'},
       ]
     }
   ];

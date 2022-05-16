@@ -48,9 +48,7 @@
                     </ng-container>
                 </tui-data-list>
             </ng-template>
-            <ng-template #loading>
-                <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
-            </ng-template>
+            
           </tui-select>
           <tui-error class="tui-space_bottom-3"
            formControlName="idkind_activity" [error]="[] | tuiFieldError | async"></tui-error>
@@ -77,9 +75,7 @@
                     </ng-container>
                 </tui-data-list>
             </ng-template>
-            <ng-template #loading>
-                <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
-            </ng-template>
+            
           </tui-select>
           <tui-error class="tui-space_bottom-3"
            formControlName="idbook_post" [error]="[] | tuiFieldError | async"></tui-error>
@@ -96,7 +92,7 @@
           <tui-error class="tui-space_bottom-3"
            formControlName="norma" [error]="[] | tuiFieldError | async"></tui-error>
           </div>
-	        {{ messageError }}
+	        <p class="message">{{ messageError }}</p>
 	        <p>
 	            <button
 	                tuiButton
@@ -124,8 +120,9 @@
   <thead>
     <tr class="tui-table__tr">
       <th class="tui-table__th">#</th>
-      <th class="tui-table__th">Вид деятельности</th>
+      
       <th class="tui-table__th">Должность ППС</th>
+      <th class="tui-table__th">Вид деятельности</th>
       <th class="tui-table__th">Норма времени (ак.ч.)</th>
       <th class="tui-table__th">Редактировать</th>
       <th class="tui-table__th">Удалить</th>
@@ -135,8 +132,9 @@
     <ng-container *ngFor="let data of data | filter:term; let i = index">
       <tr class="tui-table__tr">
         <th class="tui-table__td">{{i+1}}</th>
-        <td class="tui-table__td" *ngIf="data.kind_activity; else somethingElse">{{data.kind_activity.name}}</td>
+        
         <td class="tui-table__td" *ngIf="data.book_post; else somethingElse">{{data.book_post.name}}</td>
+        <td class="tui-table__td" *ngIf="data.kind_activity; else somethingElse">{{data.kind_activity.name}}</td>
         <td class="tui-table__td" *ngIf="data.norma; else somethingElse">{{data.norma}}</td>   
         <td class="tui-table__td">
           <button
@@ -168,3 +166,6 @@
   <ng-template #somethingElse>
     <td class="tui-table__td"></td>
   </ng-template>
+  <ng-template #loading>
+    <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
+</ng-template>
