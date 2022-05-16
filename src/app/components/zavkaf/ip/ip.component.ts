@@ -58,8 +58,8 @@ export class IpComponent implements OnInit {
       isimplementation: new FormControl(ip.isimplementation === null ? null : ip.isimplementation),
       data_implementation: new FormControl(ip.data_implementation === null ? null : ip.data_implementation)
     })
-    const dataAgr = ip.data_agreement.toString().split('-')
-    const dataImpl = ip.data_agreement.toString().split('-')
+    const dataAgr = ip.data_agreement === null ? '' : ip.data_agreement.toString().split('-')
+    const dataImpl = ip.data_implementation === null ? '' : ip.data_implementation.toString().split('-')
     this.from = ip.data_agreement === null ? null : new TuiDay(Number(dataAgr[0]), Number(dataAgr[1]), Number(dataAgr[2]));
 	  this.to = ip.data_implementation === null ? null : new TuiDay(Number(dataImpl[0]), Number(dataImpl[1]), Number(dataImpl[2]));
 

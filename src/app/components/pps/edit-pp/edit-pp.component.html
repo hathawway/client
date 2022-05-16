@@ -12,7 +12,7 @@
 	          >
 	          Дата начала
 	          </tui-input-date>
-            <tui-error class="tui-space_bottom-3"
+            <tui-error class="tui-space_bottom-3 tui-space_right-2"
        formControlName="data_start" [error]="[] | tuiFieldError | async"></tui-error>
       </div>
       <div class="tui-form__row">
@@ -22,12 +22,12 @@
 	          [min]="from || min"
 	          [items]="items"
             tuiTextfieldSize="m"
-	          [(ngModel)]="from"
+	          [(ngModel)]="to"
             class="b-form tui-space_right-3"
 	          >
 	          Дата конца
 	          </tui-input-date>
-            <tui-error class="tui-space_bottom-3"
+            <tui-error class="tui-space_bottom-3 tui-space_right-2"
             formControlName="data_end" [error]="[] | tuiFieldError | async"></tui-error>
       </div>
       <div class="search">
@@ -54,11 +54,8 @@
                 </ng-container>
             </tui-data-list>
         </ng-template>
-        <ng-template #loading>
-            <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
-        </ng-template>
       </tui-select>
-      <tui-error class="tui-space_bottom-3"
+      <tui-error class="tui-space_bottom-3 tui-space_right-2"
        formControlName="kafedra" [error]="[] | tuiFieldError | async"></tui-error>
       </div>
       <button tuiButton
@@ -66,6 +63,7 @@
   type="button"
   class="b-form tui-space_left-2"
   (click)="add()"
+  *ngIf="flagFirstOpen"
   >
   Добавить
 </button>
@@ -74,7 +72,7 @@
   size="s"
   type="submit"
   class="b-form tui-space_left-2"
-  [disabled]="form.invalid"
+  [disabled]="form.invalid" 
   >
   Сохранить
 </button>
@@ -138,7 +136,7 @@
             *ngIf="activity$ | async as items"
             class="b-form"
             formControlName="activity"
-            [valueContent]="items ? this.str.stringifyName(items) : loading"
+            [valueContent]="items ? this.str.stringifyActivity(items) : loading"
             [(ngModel)]="valueActivity"
             tuiTextfieldSize="m"
             >Вид работы*
@@ -150,7 +148,7 @@
                       <button
                       tuiOption
                         [value]="item.id | toNumber">
-                        {{item.name}}
+                        {{item.name}} ( {{item.norma}}, {{item.book_unit.name}})
                     </button>
 
                     </ng-container>
@@ -161,21 +159,97 @@
           <tui-error class="tui-space_bottom-3"
            formControlName="activity" [error]="[] | tuiFieldError | async"></tui-error>
           </div>
+
           <div class="tui-form__row">
             <tui-input
-	            tuiAutoFocus
+               
               tuiTextfieldSize="m"
               formControlName="unitPlan"
               [tuiTextfieldCleaner]="true"
-	        >
-          Норма времени, ак.ч
-	        </tui-input>
+            >
+          Норма пл
+            </tui-input>
           <tui-error class="tui-space_bottom-3"
            formControlName="unitPlan" [error]="[] | tuiFieldError | async"></tui-error>
           </div>
-          <div class="tui-form__row tui-space_bottom-3">
-            <tui-input-date formControlName="datePlan">Дата планирования</tui-input-date>
+    
+          <div class="tui-form__row">
+            <tui-input
+               
+              tuiTextfieldSize="m"
+              formControlName="hourPlan"
+              [tuiTextfieldCleaner]="true"
+            >
+          Час пл
+            </tui-input>
+          <tui-error class="tui-space_bottom-3"
+           formControlName="hourPlan" [error]="[] | tuiFieldError | async"></tui-error>
           </div>
+    
+          <div class="tui-form__row">
+            <tui-input-date 
+            [tuiTextfieldCleaner]="true"
+            tuiTextfieldSize="m"
+            [min]="min"
+	          [max]="max"
+	          [(ngModel)]="fromEdit"
+            formControlName="datePlan">
+            Дата планирования
+          </tui-input-date>
+          <tui-error class="tui-space_bottom-3"
+           formControlName="datePlan" [error]="[] | tuiFieldError | async"></tui-error>
+          </div>
+    
+          <div class="tui-form__row">
+            <tui-input
+              
+              tuiTextfieldSize="m"
+              formControlName="unitFact"
+              [tuiTextfieldCleaner]="true"
+            >
+          Норма факт
+            </tui-input>
+          <tui-error class="tui-space_bottom-3"
+           formControlName="unitFact" [error]="[] | tuiFieldError | async"></tui-error>
+          </div>
+    
+          <div class="tui-form__row">
+            <tui-input
+                
+              tuiTextfieldSize="m"
+              formControlName="hourFact"
+              [tuiTextfieldCleaner]="true"
+            >
+          Час факт
+            </tui-input>
+          <tui-error class="tui-space_bottom-3"
+           formControlName="hourFact" [error]="[] | tuiFieldError | async"></tui-error>
+          </div>
+    
+          <div class="tui-form__row">
+            <tui-input-date 
+            [tuiTextfieldCleaner]="true"
+            tuiTextfieldSize="m"
+            [min]="fromEdit || min"
+            [items]="items"
+            [(ngModel)]="toEdit"
+            formControlName="dateFact"
+            >Дата факт</tui-input-date>
+            <tui-error class="tui-space_bottom-3"
+           formControlName="dateFact" [error]="[] | tuiFieldError | async"></tui-error>
+          </div>
+    
+          <div class="tui-form__row">
+            <tui-text-area
+                      formControlName="remark"
+                        [tuiTextfieldCleaner]="true"
+                        tuiHintContent="Замечания"
+                        tuiTextfieldSize="m"
+                  >
+                      Примечание
+                  </tui-text-area>
+          </div>
+
 
 
 
@@ -270,3 +344,4 @@
   <ng-template #loading>
     <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
 </ng-template>
+

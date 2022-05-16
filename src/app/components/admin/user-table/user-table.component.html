@@ -30,7 +30,7 @@
 	        <p>{{formTypeMessage}}</p>
           <div class="tui-form__row">
             <tui-input
-	            tuiAutoFocus
+	            
               tuiHintContent="Логином должен быть email"
               tuiTextfieldSize="m"
               formControlName="login"
@@ -44,7 +44,7 @@
 
           <div class="tui-form__row" *ngIf="showPassword">
             <tui-input-password (change)="onPasswordChange()"
-	            tuiAutoFocus
+	            
               type="password"
               tuiTextfieldSize="m"
               tuiHintContent
@@ -61,7 +61,7 @@
 
           <div class="tui-form__row" *ngIf="showPassword">
             <tui-input-password (change)="onPasswordChange()"
-	            tuiAutoFocus
+	            
               type="password"
               tuiTextfieldSize="m"
               tuiHintContent
@@ -78,7 +78,7 @@
 
           <div class="tui-form__row">
             <tui-input
-	            tuiAutoFocus
+	            
               tuiTextfieldSize="m"
               formControlName="second"
               [tuiTextfieldCleaner]="true"
@@ -91,7 +91,7 @@
 
           <div class="tui-form__row">
             <tui-input
-	            tuiAutoFocus
+	            
               tuiTextfieldSize="m"
               formControlName="first"
               [tuiTextfieldCleaner]="true"
@@ -104,7 +104,7 @@
 
           <div class="tui-form__row">
             <tui-input
-	            tuiAutoFocus
+	            
               tuiTextfieldSize="m"
               formControlName="third"
               [tuiTextfieldCleaner]="true"
@@ -115,7 +115,7 @@
 
           <div class="tui-form__row">
             <tui-input
-	            tuiAutoFocus
+	            
               tuiTextfieldSize="m"
               formControlName="snils"
               tuiHintContent="Снилс состоит из 11 цифр"
@@ -129,7 +129,7 @@
 
           <div class="tui-form__row">
             <tui-input-phone
-	            tuiAutoFocus
+	            
               tuiTextfieldSize="m"
               formControlName="tel"
               [tuiTextfieldCleaner]="true"

@@ -50,6 +50,7 @@ export class EditPpComponent implements OnInit {
   valueKind!: Number | null;
   valueActivity!: Number | null;
 
+  formId!: string | undefined;
 
 
   kind_activity$: Observable<KindActivity[]> | undefined;
@@ -59,6 +60,10 @@ export class EditPpComponent implements OnInit {
 
   from: TuiDay | null = null;
 	to: TuiDay | null = null;
+
+  fromEdit: TuiDay | null = null;
+	toEdit: TuiDay | null = null;
+
 	min = new TuiDay(2017, 9, 4);
 	max = TuiDay.currentLocal();
 	items = [
@@ -76,6 +81,8 @@ export class EditPpComponent implements OnInit {
 
   valueSemester!: string | null;
 
+  flagFirstOpen = false;
+
 
   constructor(private kafedraService: KafedraService,
     private kindActivityService: KindActivityService,
@@ -87,9 +94,11 @@ export class EditPpComponent implements OnInit {
     private noti: NotiService) {
       this.ipPpsService.onClick.subscribe(cnt=>this.data = cnt);
       this.ipService.onClick.subscribe(cnt=>this.dataIp = cnt);
+      
     }
 
     ngOnInit(): void {
+      
       this.authService.getUserByHeader().subscribe(d => this.ipService.setId(d.id))
       this.kafedraService.setReqSearch("user")
       this.kafedra$ = this.kafedraService.getKafedra(this.kafedraService.getReqSearch())
@@ -97,6 +106,8 @@ export class EditPpComponent implements OnInit {
       const ipId = this.ipPpsService.getId()
       if (!ipId) {
         this.checkAdd = true
+        this.formId = '';
+        this.flagFirstOpen = false;
         this.form = new FormGroup({
           data_start: new FormControl(null, Validators.required),
           data_end: new FormControl(null, Validators.required),
@@ -110,6 +121,8 @@ export class EditPpComponent implements OnInit {
             data_end: new FormControl(value.data_end === null ? null : value.data_end, Validators.required),
             kafedra: new FormControl(value.kafedra === null ? null : value.kafedra.id, Validators.required),
           })
+          this.flagFirstOpen = true;
+          this.formId = value.id;
           this.valueKafedra = value.kafedra === null ? null : Number(value.kafedra.id);
           const dataStart = value.data_start.toString().split('-')
           const dataEnd = value.data_end.toString().split('-')
@@ -138,46 +151,68 @@ export class EditPpComponent implements OnInit {
         semester: new FormControl(null, Validators.required),
         kind_activity: new FormControl(null, Validators.required),
         activity: new FormControl(null, Validators.required),
-        unitPlan: new FormControl(null),
-        hourPlan: new FormControl(null),
+        unitPlan: new FormControl(null, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
+        hourPlan: new FormControl(null, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
         datePlan: new FormControl(null),
-        unitFact: new FormControl(null),
-        hourFact: new FormControl(null),
+        unitFact: new FormControl(null, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
+        hourFact: new FormControl(null, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
         dateFact: new FormControl(null),
         remark: new FormControl(null),
-        idip: new FormControl(this.ipPpsService.getId(), Validators.required),
+        idip: new FormControl(null),
       })
       this.flag = true;
+
+      
+      this.valueKind = null;
+      this.valueActivity = null;
+
+      this.fromEdit = null;
+      this.toEdit = null;
+      
     }
 
     edit(data: IpPps) {
       this.getDataModel()
       this.open = true;
 
-      this.form = new FormGroup({
-        id: new FormControl(data.id, Validators.required),
+      this.formIp = new FormGroup({
+        id: new FormControl(data.id),
         semester: new FormControl(data.semester, Validators.required),
         kind_activity: new FormControl(data.kind_activity === null ? null : data.kind_activity.id, Validators.required),
         activity: new FormControl(data.activity === null ? null : data.activity.id, Validators.required),
-        unitPlan: new FormControl(data.unitPlan, Validators.pattern(/[0-9]/)),
-        hourPlan: new FormControl(data.hourPlan),
+        unitPlan: new FormControl(data.unitPlan, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
+        hourPlan: new FormControl(data.hourPlan, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
         datePlan: new FormControl(data.datePlan),
-        unitFact: new FormControl(data.unitFact, Validators.pattern(/[0-9]/)),
-        hourFact: new FormControl(data.hourFact),
+        unitFact: new FormControl(data.unitFact, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
+        hourFact: new FormControl(data.hourFact, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
         dateFact: new FormControl(data.dateFact),
         remark: new FormControl(data.remark),
+        idip: new FormControl(null),
       })
 
       this.valueSemester = data.semester;
+      this.valueKind = data.kind_activity === null ? null : Number(data.kind_activity.id);
+      this.valueActivity = data.activity === null ? null : Number(data.activity.id);
+      this.flag = false;
+
+      const dataStart = data.datePlan === null ? '' : data.datePlan.toString().split('-')
+      const dataEnd = data.dateFact === null ? '' : data.dateFact.toString().split('-')
+
+      this.fromEdit = data.datePlan === null ? null : new TuiDay(Number(dataStart[0]), Number(dataStart[1]), Number(dataStart[2]));
+      this.toEdit = data.dateFact === null ? null : new TuiDay(Number(dataEnd[0]), Number(dataEnd[1]), Number(dataEnd[2]));
+
     }
 
     onSubmit() {
     this.formIp.disable()
+    console.log(this.formIp.value)
+    this.formIp.get('idip')?.setValue(this.formId);
     if (this.flag) {
       this.ipPpsService.addIpPps(this.formIp.value).subscribe(
         () => {
-          this.ipPpsService.doClick()
-          this.formIp.reset();
+          this.ipPpsService.doClick();
+          this.ipService.doClick();
+          this.close();
         },
         error => {
           this.messageError = error.error.message;
@@ -186,7 +221,8 @@ export class EditPpComponent implements OnInit {
     } else {
       this.ipPpsService.updateIpPps(this.formIp.value).subscribe(
         () => {
-          this.ipPpsService.doClick(),
+          this.ipPpsService.doClick();
+          this.ipService.doClick();
           this.close();
         },
         error => {
@@ -207,10 +243,13 @@ export class EditPpComponent implements OnInit {
 
     save() {
       this.form.disable()
-      if (this.form.value.id) {
+      if (this.formId !== '') {
+        this.formIp?.get('idip')?.setValue(this.formId);
         this.ipService.updateIp(this.form.value).subscribe(
           () => {
             this.ipService.doClick();
+            this.flagFirstOpen = true;
+            console.log('up');
           },
           error => {
             this.messageError = error.error.message
@@ -218,15 +257,17 @@ export class EditPpComponent implements OnInit {
         )
       } else {
         this.ipService.addIp(this.form.value).subscribe(
-          () => {
+          (value) => {
             this.ipService.doClick();
+            this.flagFirstOpen = true;
+            this.formId = value.id;
           },
           error => {
             this.messageError = error.error.message
           }
         )
       }
-
+      
       this.form.enable()
     }
 
