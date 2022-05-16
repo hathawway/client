@@ -27,10 +27,9 @@
 	    [(tuiDialog)]="open"
 	>
 	    <form [formGroup]="form" *ngIf="form" (ngSubmit)="onSubmit()">
-	        <p>Добавить вид деятельности</p>
+	        <p></p>
           <div class="tui-form__row">
             <tui-input
-	            tuiAutoFocus
               tuiTextfieldSize="l"
               formControlName="name"
               [tuiTextfieldCleaner]="true"
@@ -63,7 +62,9 @@
                     </ng-container>
                 </tui-data-list>
             </ng-template>
-            
+            <ng-template #loading>
+              <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
+            </ng-template>
           </tui-select>
           </div>
 	        <p class="message">{{ messageError }}</p>
@@ -136,6 +137,4 @@
 <ng-template #somethingElse>
   <td class="tui-table__td"></td>
 </ng-template>
-<ng-template #loading>
-  <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
-</ng-template>
+

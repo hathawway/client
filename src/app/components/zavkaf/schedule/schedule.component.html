@@ -15,11 +15,11 @@
 
 <ng-template
 	    let-observer
-	    [tuiDialogOptions]="$any({ label: 'Штатное расписание', size: 'l' })"
+	    [tuiDialogOptions]="$any({ label: 'ППС кафедры', size: 'l' })"
 	    [(tuiDialog)]="open"
 	>
 	    <form [formGroup]="form" *ngIf="form" (ngSubmit)="onSubmit()">
-	        <p>Редактировать данные сотрудника штатного расписания</p>
+	        <p> </p>
           <div class="tui-form__row">
             <tui-select
             *ngIf="posts$ | async as items"
@@ -54,7 +54,7 @@
             formControlName="book_work"
             [valueContent]="items ? this.str.stringifyName(items) : loading"
             [(ngModel)]="valueWork"
-            >Условие принятие на кафедру*
+            >Условие принятия на кафедру*
             <ng-template tuiDataList>
                 <tui-data-list *ngIf="items else loading">
                     <ng-container
@@ -76,12 +76,12 @@
           </div>
           <div class="tui-form__row">
             <tui-input
-	            tuiAutoFocus
+	            
               tuiTextfieldSize="l"
               formControlName="norma"
               [tuiTextfieldCleaner]="true"
 	        >
-          Норма
+          Ставка*
 	        </tui-input>
           <tui-error class="tui-space_bottom-3"
            formControlName="norma" [error]="[] | tuiFieldError | async"></tui-error>

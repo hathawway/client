@@ -64,7 +64,7 @@ export class EditPpComponent implements OnInit {
   fromEdit: TuiDay | null = null;
 	toEdit: TuiDay | null = null;
 
-	min = new TuiDay(2017, 9, 4);
+	min = new TuiDay(2017, 9, 1);
 	max = TuiDay.currentLocal();
 	items = [
 	  new TuiNamedDay(
@@ -82,6 +82,8 @@ export class EditPpComponent implements OnInit {
   valueSemester!: string | null;
 
   flagFirstOpen = false;
+
+  flagEditPossibility = true;
 
 
   constructor(private kafedraService: KafedraService,
@@ -113,6 +115,7 @@ export class EditPpComponent implements OnInit {
           data_end: new FormControl(null, Validators.required),
           kafedra: new FormControl(null, Validators.required),
         })
+        this.flagEditPossibility = false;
       } else {
         this.ipService.getIpById(ipId).subscribe( (value) => {
           this.form = new FormGroup({
@@ -121,6 +124,8 @@ export class EditPpComponent implements OnInit {
             data_end: new FormControl(value.data_end === null ? null : value.data_end, Validators.required),
             kafedra: new FormControl(value.kafedra === null ? null : value.kafedra.id, Validators.required),
           })
+
+          this.flagEditPossibility = !!value.isimplementation;
           this.flagFirstOpen = true;
           this.formId = value.id;
           this.valueKafedra = value.kafedra === null ? null : Number(value.kafedra.id);
@@ -145,67 +150,75 @@ export class EditPpComponent implements OnInit {
     }
 
     add() {
-      this.open = true;
-      this.getDataModel()
-      this.formIp = new FormGroup({
-        semester: new FormControl(null, Validators.required),
-        kind_activity: new FormControl(null, Validators.required),
-        activity: new FormControl(null, Validators.required),
-        unitPlan: new FormControl(null, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
-        hourPlan: new FormControl(null, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
-        datePlan: new FormControl(null),
-        unitFact: new FormControl(null, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
-        hourFact: new FormControl(null, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
-        dateFact: new FormControl(null),
-        remark: new FormControl(null),
-        idip: new FormControl(null),
-      })
-      this.flag = true;
+      if (this.flagEditPossibility) {
+        this.noti.toast('Внесение изменений в утвержденный план невозможно!');
+      } else {
+        this.open = true;
+        this.getDataModel()
+        this.formIp = new FormGroup({
+          semester: new FormControl(null, Validators.required),
+          kind_activity: new FormControl(null, Validators.required),
+          activity: new FormControl(null, Validators.required),
+          unitPlan: new FormControl(null, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
+          hourPlan: new FormControl(null, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
+          datePlan: new FormControl(null),
+          unitFact: new FormControl(null, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
+          hourFact: new FormControl(null, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
+          dateFact: new FormControl(null),
+          remark: new FormControl(null),
+          idip: new FormControl(null),
+        })
+        this.flag = true;
 
+        
+        this.valueKind = null;
+        this.valueActivity = null;
+
+        this.fromEdit = null;
+        this.toEdit = null;
+        }
       
-      this.valueKind = null;
-      this.valueActivity = null;
-
-      this.fromEdit = null;
-      this.toEdit = null;
       
     }
 
     edit(data: IpPps) {
-      this.getDataModel()
-      this.open = true;
+      if (this.flagEditPossibility) {
+        this.noti.toast('Внесение изменений в утвержденный план невозможно!');
+      } else {
+        this.getDataModel()
+        this.open = true;
 
-      this.formIp = new FormGroup({
-        id: new FormControl(data.id),
-        semester: new FormControl(data.semester, Validators.required),
-        kind_activity: new FormControl(data.kind_activity === null ? null : data.kind_activity.id, Validators.required),
-        activity: new FormControl(data.activity === null ? null : data.activity.id, Validators.required),
-        unitPlan: new FormControl(data.unitPlan, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
-        hourPlan: new FormControl(data.hourPlan, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
-        datePlan: new FormControl(data.datePlan),
-        unitFact: new FormControl(data.unitFact, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
-        hourFact: new FormControl(data.hourFact, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
-        dateFact: new FormControl(data.dateFact),
-        remark: new FormControl(data.remark),
-        idip: new FormControl(null),
-      })
+        this.formIp = new FormGroup({
+          id: new FormControl(data.id),
+          semester: new FormControl(data.semester, Validators.required),
+          kind_activity: new FormControl(data.kind_activity === null ? null : data.kind_activity.id, Validators.required),
+          activity: new FormControl(data.activity === null ? null : data.activity.id, Validators.required),
+          unitPlan: new FormControl(data.unitPlan, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
+          hourPlan: new FormControl(data.hourPlan, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
+          datePlan: new FormControl(data.datePlan),
+          unitFact: new FormControl(data.unitFact, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
+          hourFact: new FormControl(data.hourFact, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
+          dateFact: new FormControl(data.dateFact),
+          remark: new FormControl(data.remark),
+          idip: new FormControl(null),
+        })
 
-      this.valueSemester = data.semester;
-      this.valueKind = data.kind_activity === null ? null : Number(data.kind_activity.id);
-      this.valueActivity = data.activity === null ? null : Number(data.activity.id);
-      this.flag = false;
+        this.valueSemester = data.semester;
+        this.valueKind = data.kind_activity === null ? null : Number(data.kind_activity.id);
+        this.valueActivity = data.activity === null ? null : Number(data.activity.id);
+        this.flag = false;
 
-      const dataStart = data.datePlan === null ? '' : data.datePlan.toString().split('-')
-      const dataEnd = data.dateFact === null ? '' : data.dateFact.toString().split('-')
+        const dataStart = data.datePlan === null ? '' : data.datePlan.toString().split('-')
+        const dataEnd = data.dateFact === null ? '' : data.dateFact.toString().split('-')
 
-      this.fromEdit = data.datePlan === null ? null : new TuiDay(Number(dataStart[0]), Number(dataStart[1]), Number(dataStart[2]));
-      this.toEdit = data.dateFact === null ? null : new TuiDay(Number(dataEnd[0]), Number(dataEnd[1]), Number(dataEnd[2]));
-
+        this.fromEdit = data.datePlan === null ? null : new TuiDay(Number(dataStart[0]), Number(dataStart[1]), Number(dataStart[2]));
+        this.toEdit = data.dateFact === null ? null : new TuiDay(Number(dataEnd[0]), Number(dataEnd[1]), Number(dataEnd[2]));
+      }
     }
 
     onSubmit() {
     this.formIp.disable()
-    console.log(this.formIp.value)
+    
     this.formIp.get('idip')?.setValue(this.formId);
     if (this.flag) {
       this.ipPpsService.addIpPps(this.formIp.value).subscribe(
@@ -239,47 +252,55 @@ export class EditPpComponent implements OnInit {
       this.open = false;
       this.formIp.reset()
       this.flag = false;
+      this.messageError = '';
     }
 
     save() {
-      this.form.disable()
-      if (this.formId !== '') {
-        this.formIp?.get('idip')?.setValue(this.formId);
-        this.ipService.updateIp(this.form.value).subscribe(
-          () => {
-            this.ipService.doClick();
-            this.flagFirstOpen = true;
-            console.log('up');
-          },
-          error => {
-            this.messageError = error.error.message
-          }
-        )
+      if (this.flagEditPossibility) {
+        this.noti.toast('Внесение изменений в утвержденный план невозможно!');
       } else {
-        this.ipService.addIp(this.form.value).subscribe(
-          (value) => {
-            this.ipService.doClick();
-            this.flagFirstOpen = true;
-            this.formId = value.id;
-          },
-          error => {
-            this.messageError = error.error.message
-          }
-        )
+        this.form.disable()
+        if (this.formId !== '') {
+          this.formIp?.get('idip')?.setValue(this.formId);
+          this.ipService.updateIp(this.form.value).subscribe(
+            () => {
+              this.ipService.doClick();
+              this.flagFirstOpen = true;
+            },
+            error => {
+              this.messageError = error.error.message
+            }
+          )
+        } else {
+          this.ipService.addIp(this.form.value).subscribe(
+            (value) => {
+              this.ipService.doClick();
+              this.flagFirstOpen = true;
+              this.formId = value.id;
+            },
+            error => {
+              this.messageError = error.error.message
+            }
+          )
+        }
+        
+        this.form.enable()
       }
-      
-      this.form.enable()
     }
 
     delete(data: IpPps) {
-      const decision = window.confirm("Удалить?")
-      if (decision) {
-        this.ipPpsService.deleteIpPps(data).subscribe(
-          () => this.getData(),
-          error => {
-            this.noti.toast(error.error.message)
-          }
-        )
+      if (this.flagEditPossibility) {
+        this.noti.toast('Внесение изменений в утвержденный план невозможно!');
+      } else {
+        const decision = window.confirm("Удалить?")
+        if (decision) {
+          this.ipPpsService.deleteIpPps(data).subscribe(
+            () => this.getData(),
+            error => {
+              this.noti.toast(error.error.message)
+            }
+          )
+        }
       }
     }
 }

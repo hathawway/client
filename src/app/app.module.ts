@@ -66,6 +66,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { TuiTableBarsHostModule } from '@taiga-ui/addon-tablebars';
 import {TuiAutoFocusModule, TuiLetModule} from "@taiga-ui/cdk";
+import { IpSurveyComponent } from './components/zavkaf/ip-survey/ip-survey.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import {TuiAutoFocusModule, TuiLetModule} from "@taiga-ui/cdk";
     UnitTableComponent,
     EditPpComponent,
     ToNumberPipe,
+    IpSurveyComponent,
   ],
     imports: [
         BrowserModule,

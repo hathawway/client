@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { TuiDay, TUI_LAST_DAY } from '@taiga-ui/cdk';
 import { TuiNamedDay } from '@taiga-ui/kit';
 import { Observable } from 'rxjs';
 import { Ip } from 'src/app/interfaces/interfaces';
 import { IpService } from 'src/app/services/ip.service';
+import { IpPpsService } from 'src/app/services/ipPps.service';
 
 @Component({
   selector: 'app-ip',
@@ -35,7 +37,9 @@ export class IpComponent implements OnInit {
 	  ),
 	];
 
-  constructor(private ipService: IpService) {
+  constructor(private ipService: IpService,
+    private router: Router,
+    private ipPpsService: IpPpsService,) {
       this.ipService.onClick.subscribe(cnt=>this.data = cnt);
     }
 
@@ -63,6 +67,11 @@ export class IpComponent implements OnInit {
     this.from = ip.data_agreement === null ? null : new TuiDay(Number(dataAgr[0]), Number(dataAgr[1]), Number(dataAgr[2]));
 	  this.to = ip.data_implementation === null ? null : new TuiDay(Number(dataImpl[0]), Number(dataImpl[1]), Number(dataImpl[2]));
 
+  }
+
+  look(ip:Ip) {
+    this.ipPpsService.setId(ip.id);
+    this.router.navigate([`/dashboard/zavkaf/ip-survey`])
   }
 
   onSubmit() {
