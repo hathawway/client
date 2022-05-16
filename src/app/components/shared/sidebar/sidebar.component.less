@@ -1,81 +1,21 @@
-/* .nav-link {
-    color: #000;
-    font-weight: 500;
-}
-
-.nav-link:active {
-    color:  #007bff;
-}
-
-.nav-link:hover {
-    color:  #007bff;
-}
-
-.nav-link:focus {
-    color:  #007bff;
-}
-
-.nav-link:focus-visible {
-    color:  #007bff;
-}
-
-
-.sidebar {
-    background: #f8f9fa!important;
-    box-shadow: inset -1px 0 0 rgb(0 0 0 / 10%);
-
-}
-
-.sidebar-sticky{
-    top: 0;
-    height: calc(100vh - 48px);
-    padding-top: 0.5rem;
-    padding-left: 0.5rem;
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-
-.col-md-2  {
-    width: auto;
-    display: block;
-}
-
-.col {
-    width: 80%;
-}
-
-.row-container{
-    display: flex;
-}
-
-.col-container {
-    flex-grow: 3;
-}
-
-nav {
-    flex-grow: 1;
-}
-
- */
-
- .class {
+.class {
     display: flex;
 }
 
 .class-sidebar {
     box-shadow: inset -1px 0 0 var(--tui-base-03);
-    height: calc(100vh - 48px);
+    min-height: calc(100vh - 48px);
     display: flex;
     flex-direction: column;
+    position: relative;
+    max-height: 100%;
 }
 
 .class-main {
     display: flex;
     flex-direction: column;
-    margin-left: 10px;
-    margin-top: 10px;
-    max-width: 1000px;
-    min-width: 400px;
+    padding:10px;
+    overflow: scroll;
 }
 
 .class-sidebar__link {

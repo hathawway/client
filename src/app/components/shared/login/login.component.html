@@ -1,6 +1,6 @@
 <div class="container">
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <img src="./assets/images/1.png" alt="логотип агасу">
+        <!-- <img src="./../../../../assets/images/1.png" alt="логотип агасу"> -->
         <h1>Индивидуальный план работы преподавателя</h1>
 
         <div class="tui-form__row">
@@ -37,8 +37,9 @@
             <tui-error formControlName="password" [error]="[] | tuiFieldError | async"></tui-error>
         </div>
 
-        <button tuiButton
-        class="tui-space_top-3"
+        <button 
+        tuiButton
+        class="tui-space_top-5"
         type="submit"
         size="m"
         [disabled]="form.invalid"
@@ -46,7 +47,7 @@
         Войти
         </button>
 
-        <p>&copy; АГАСУ, 2022</p>
+        <p class="tui-space_top-4">&copy; АГАСУ, 2022</p>
     </form>
 
 </div>

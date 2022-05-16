@@ -1,8 +1,8 @@
 <nav class="nav">
-    <p class="nav__header">ИС «Индивидуальный план ППС»</p>
-    <div class="nav__content">
-        <p class="nav__content__name" *ngIf="users$ | async as user">{{user.second}} {{user.first}} {{user.third}} {{user.login}}</p>
-        <button class="nav__content__btn" type="button" (click)="logout($event)">Выход</button>
+    <p class="tui-space_left-5">ИС «Индивидуальный план ППС»</p>
+    <div class="nav-content">
+        <p class="tui-space_left-2" *ngIf="users$ | async as user">{{user.second}} {{user.first}} {{user.third}} {{user.login}}</p>
+        <button class="tui-space_right-5 tui-space_left-3" tuiButton type="button" size="s" (click)="logout($event)">Выход</button>
     </div>
 </nav>
 
