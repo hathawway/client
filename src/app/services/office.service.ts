@@ -26,9 +26,9 @@ export class OfficeService {
         //     return this._offices;
         // }
 
-        init() {
-            return this.getOffice()
-        }
+        // init() {
+        //     return this.getOffice()
+        // }
 
         addOffice(office: BookOffice): Observable<void> {
             return this.http.post<void>(`${environment.api}/api/office/`, office)
