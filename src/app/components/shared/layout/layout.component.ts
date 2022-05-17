@@ -2,8 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { Role, User } from 'src/app/interfaces/interfaces';
-import { Observable } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { RoleService } from 'src/app/services/role.service';
+
+
 
 @Component({
   selector: 'app-layout',
@@ -12,11 +14,12 @@ import { RoleService } from 'src/app/services/role.service';
 })
 export class LayoutComponent implements OnInit {
 
-  users$: Observable<User> | undefined;
+  user$: Observable<string> | undefined;
 
   roles$: Observable<Role[]> | undefined;
 
   num: number = 0;
+
 
   link = [
     {id: 1, url: '/dashboard/admin'},
@@ -30,11 +33,16 @@ export class LayoutComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.users$ = this.auth.getUserByHeader()
-    this.roles$ = this.role.getCurrentUserRoles()
-    this.roles$.subscribe(value => {
-      this.router.navigate([this.url(value[0].book_role.id)])
-    })
+    this.user$ = this.auth.getUserByHeader().pipe(map(({login, first, second, third}: User) => {
+      return `${login} ${second} ${first} ${third}`
+    }))
+    this.roles$ = this.role.getCurrentUserRoles().pipe(tap(roles => {
+      this.router.navigate([this.url(roles[0].book_role.id)])
+    }))
+    // this.roles$.subscribe(value => {
+    //   this.router.navigate([this.url(value[0].book_role.id)])
+    // })
+    
   }
 
   logout(event: Event): void {

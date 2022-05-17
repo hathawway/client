@@ -3,10 +3,10 @@
         <ul
         class="tui-space_top-2 tui-space_left-2"
         >
-            <ng-container *ngFor="let link of links[num].resources">
+            <ng-container *ngFor="let link of links[idRole].resources">
               <li class="class-sidebar__link">
                 <a class="tui-space_horizontal-1 tui-space_vertical-1"
-                 [routerLink]="[links[num].url +'/'+ link.resourceName]">
+                 [routerLink]="[links[idRole].url +'/'+ link.resourceName]">
                 {{link.displayedName}}
                 </a>
               </li>
