@@ -1,3 +1,4 @@
+<tui-scrollbar>
 <div class="container-search">
     <div class="tui-form__row">
         <tui-input
@@ -17,8 +18,11 @@
       <tr class="tui-table__tr">
         <th class="tui-table__th">ФИО</th>
         <th class="tui-table__th">Должность по кафедре</th>
+        <th class="tui-table__th">Дата начала</th>
+        
         <th class="tui-table__th">Согласован</th>
         <th class="tui-table__th">Дата согласования</th>
+        <th class="tui-table__th">Дата конец</th>
         <th class="tui-table__th">Выполнен</th>
         <th class="tui-table__th">Дата выполнения</th>
       </tr>
@@ -27,8 +31,11 @@
       <tr class="tui-table__tr">
         <td class="tui-table__td" *ngIf="data.kafedra.user; else something">{{data.kafedra.user.second}} {{data.kafedra.user.first}} {{data.kafedra.user.third}}</td>
         <td class="tui-table__td" *ngIf="data.kafedra.book_post; else something">{{data.kafedra.book_post.name}}</td>
+        <td class="tui-table__td" *ngIf="data.data_start; else something">{{data.data_start}}</td>
+        
         <td class="tui-table__td" *ngIf="data.isagreement; else somethingElse">Да</td>
         <td class="tui-table__td" *ngIf="data.data_agreement; else something">{{data.data_agreement}}</td>
+        <td class="tui-table__td" *ngIf="data.data_end; else something">{{data.data_end}}</td>
         <td class="tui-table__td" *ngIf="data.isimplementation; else somethingElse">Да</td>
         <td class="tui-table__td" *ngIf="data.data_implementation; else something">{{data.data_implementation}}</td>
       </tr>
@@ -73,7 +80,7 @@
       </tr>
     </tbody>
     </table>
-  
+  </tui-scrollbar>  
     <ng-template #somethingElse>
         <td class="tui-table__td">Нет</td>
       </ng-template>

@@ -58,8 +58,8 @@ export class EditPpComponent implements OnInit {
 
   flag = false;
 
-  from: TuiDay | null = null;
-	to: TuiDay | null = null;
+  from = TuiDay.currentLocal();
+	to = TuiDay.currentLocal();
 
   fromEdit: TuiDay | null = null;
 	toEdit: TuiDay | null = null;
@@ -83,7 +83,14 @@ export class EditPpComponent implements OnInit {
 
   flagFirstOpen = false;
 
-  flagEditPossibility = true;
+  flagEditPossibility!: boolean;
+
+  valueHourPlan: string | undefined;
+  valueUnitPlan: string | undefined;
+  valueActivityNorma: string | undefined;
+
+  valueHourFact: string | undefined;
+  valueUnitFact: string | undefined;
 
 
   constructor(private kafedraService: KafedraService,
@@ -131,16 +138,14 @@ export class EditPpComponent implements OnInit {
           this.valueKafedra = value.kafedra === null ? null : Number(value.kafedra.id);
           const dataStart = value.data_start.toString().split('-')
           const dataEnd = value.data_end.toString().split('-')
-          this.from = value.data_start === null ? null : new TuiDay(Number(dataStart[0]), Number(dataStart[1]), Number(dataStart[2]));
-          this.to = value.data_end === null ? null : new TuiDay(Number(dataEnd[0]), Number(dataEnd[1]), Number(dataEnd[2]));
+          this.from = new TuiDay(Number(dataStart[0]), Number(dataStart[1])-1, Number(dataStart[2]));
+          this.to = new TuiDay(Number(dataEnd[0]), Number(dataEnd[1])-1, Number(dataEnd[2]));
         })
       }
-
 
     }
 
     getData() {
-      //this.ipService.setReqSearch("office")
       this.ipPpsService.doClick()
     }
 
@@ -176,8 +181,18 @@ export class EditPpComponent implements OnInit {
 
         this.fromEdit = null;
         this.toEdit = null;
-        }
+
+      }
       
+      
+    }
+
+    onChangeActivity() {
+      this.activityService.getActivityById(Number(this.valueActivity)).subscribe( (value) => {
+        this.valueActivityNorma = value === null ? '' : value.norma;
+        this.onNormaChangePlan();
+        this.onNormaChangeFact();
+      })
       
     }
 
@@ -203,6 +218,13 @@ export class EditPpComponent implements OnInit {
           idip: new FormControl(null),
         })
 
+        this.valueHourPlan = data.hourPlan;
+        this.valueUnitPlan = data.unitPlan;
+        this.valueActivityNorma = data.activity.norma;
+
+        this.valueHourFact = data.hourFact;
+        this.valueUnitFact = data.unitFact;
+
         this.valueSemester = data.semester;
         this.valueKind = data.kind_activity === null ? null : Number(data.kind_activity.id);
         this.valueActivity = data.activity === null ? null : Number(data.activity.id);
@@ -211,8 +233,8 @@ export class EditPpComponent implements OnInit {
         const dataStart = data.datePlan === null ? '' : data.datePlan.toString().split('-')
         const dataEnd = data.dateFact === null ? '' : data.dateFact.toString().split('-')
 
-        this.fromEdit = data.datePlan === null ? null : new TuiDay(Number(dataStart[0]), Number(dataStart[1]), Number(dataStart[2]));
-        this.toEdit = data.dateFact === null ? null : new TuiDay(Number(dataEnd[0]), Number(dataEnd[1]), Number(dataEnd[2]));
+        this.fromEdit = data.datePlan === null ? null : new TuiDay(Number(dataStart[0]), Number(dataStart[1])-1, Number(dataStart[2]));
+        this.toEdit = data.dateFact === null ? null : new TuiDay(Number(dataEnd[0]), Number(dataEnd[1])-1, Number(dataEnd[2]));
       }
     }
 
@@ -302,5 +324,14 @@ export class EditPpComponent implements OnInit {
           )
         }
       }
+    }
+
+    
+    onNormaChangePlan() {
+      this.valueHourPlan = (Number(this.valueUnitPlan) * Number(this.valueActivityNorma)).toString();
+    }
+
+    onNormaChangeFact() {
+      this.valueHourFact = (Number(this.valueUnitFact) * Number(this.valueActivityNorma)).toString();
     }
 }

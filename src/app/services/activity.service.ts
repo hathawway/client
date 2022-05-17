@@ -36,7 +36,7 @@ export class ActivityService {
         return this.http.get<Activity[]>(`${environment.api}/api/norma/activity`)
     }
 
-    getActivityById(data: Activity): Observable<Activity> {
-        return this.http.get<Activity>(`${environment.api}/api/norma/activity/${data.id}`)
+    getActivityById(id: Number): Observable<Activity> {
+        return this.http.get<Activity>(`${environment.api}/api/norma/activity/${id}`)
     }
 }

@@ -62,9 +62,7 @@
                     </ng-container>
                 </tui-data-list>
             </ng-template>
-            <ng-template #loading>
-              <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
-            </ng-template>
+            
           </tui-select>
           </div>
 	        <p class="message">{{ messageError }}</p>
@@ -90,7 +88,7 @@
 	        </p>
 	    </form>
 	</ng-template>
-
+<tui-scrollbar>
 <table class="tui-table">
 <thead>
   <tr class="tui-table__tr">
@@ -133,8 +131,11 @@
 </tbody>
 
 </table>
-
+</tui-scrollbar>
 <ng-template #somethingElse>
   <td class="tui-table__td"></td>
 </ng-template>
 
+<ng-template #loading>
+  <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
+</ng-template>
