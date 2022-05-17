@@ -20,6 +20,8 @@ export class IpComponent implements OnInit {
   term!: string;
   data: Observable<Ip[]> | undefined;
 
+  ipPpsDate: Ip | undefined;
+
   form!: FormGroup;
   open = false;
 
@@ -27,7 +29,7 @@ export class IpComponent implements OnInit {
 
   from: TuiDay | null = null;
 	to: TuiDay | null = null;
-	min = new TuiDay(2017, 9, 4);
+	min = new TuiDay(2017, 9, 1);
 	max = TuiDay.currentLocal();
 	items = [
 	  new TuiNamedDay(
@@ -64,9 +66,19 @@ export class IpComponent implements OnInit {
     })
     const dataAgr = ip.data_agreement === null ? '' : ip.data_agreement.toString().split('-')
     const dataImpl = ip.data_implementation === null ? '' : ip.data_implementation.toString().split('-')
-    this.from = ip.data_agreement === null ? null : new TuiDay(Number(dataAgr[0]), Number(dataAgr[1]), Number(dataAgr[2]));
-	  this.to = ip.data_implementation === null ? null : new TuiDay(Number(dataImpl[0]), Number(dataImpl[1]), Number(dataImpl[2]));
+    this.from = ip.data_agreement === null ? null : new TuiDay(Number(dataAgr[0]), Number(dataAgr[1])-1, Number(dataAgr[2]));
+	  this.to = ip.data_implementation === null ? null : new TuiDay(Number(dataImpl[0]), Number(dataImpl[1])-1, Number(dataImpl[2]));
 
+    this.ipService.getIpById(ip.id).subscribe( (value) => {
+      this.ipPpsDate = value;
+      console.log(value);
+
+      const dataStart = value.data_start.toString().split('-');
+      const dataEnd = value.data_end.toString().split('-');
+
+      this.min = new TuiDay(Number(dataStart[0]), Number(dataStart[1])-1, Number(dataStart[2]));
+      this.max = new TuiDay(Number(dataEnd[0]), Number(dataEnd[1])-1, Number(dataEnd[2]));
+    })
   }
 
   look(ip:Ip) {

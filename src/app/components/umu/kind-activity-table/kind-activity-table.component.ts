@@ -62,7 +62,6 @@ export class KindActivityTableComponent implements OnInit {
       iduser: new FormControl(data.user === null ? null : data.user.id)
     })
     this.value = data.user === null ? null : Number(data.user.id);
-
 	}
 
   onSubmit() {
