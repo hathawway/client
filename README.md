@@ -1,27 +1,40 @@
-# MyFirstApp
+# Web-приложение «Индивидуальный план внеучебной деятельности ППС»
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.3.
+## Курсовой проект на курсе Tinkoff Fintech School, Frontend, весна 2022
+Выполнила: Окладникова Ольга Дмитриевна  
+https://github.com/TFSchool/coursework-hathawway
 
-## Development server
+## Описание проекта
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Задача проекта: автоматизация бизнес - процесса в образовательных организациях по формированию и заполнению ППС индивидуальных планов внеучебной деятельности.
 
-## Code scaffolding
+Целевая аудитория проекта: ППС образовательных организаций.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Функциональные возможности проекта:
+1.	Регистрация пользователей в соответствии с ролью.
+    Роли: администратор, сотрудник УМУ, завкаф., ППС. Для обеспечения безопасности данных в БД пароль хранится в виде хэшированного значения.
 
-## Build
+Функция - Роль.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Администрирование учетных записей пользователя (регистрация+редактирование) - Администратор.
 
-## Running unit tests
+Заполнение и корректировка справочников - Администратор, Сотрудник УМУ.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Формирование штатного расписания - Завкаф.
 
-## Running end-to-end tests
+Мониторинг ИП - Завкаф.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Заполнение ИП - ППС.
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+2.	Авторизация пользователей.
+    Аутентификация пользователя реализована посредством jwt токена.
+3.	Обработка, хранение и управление данными:
+    a.	Заполнение справочников.
+    b.	Формирование штатного расписания кафедры
+    c.	Формирование индивидуального плана
+
+Ввод и редактирование информации осуществляется через пользовательский интерфейс и сохраняется в БД.
+Используемый стэк-технологий: Express.js + Angular + Postgresql.
+
+Примечание: ППС – профессорско-преподавательский состав
