@@ -1,0 +1,408 @@
+<div class="container-search">
+  <div class="tui-form__row">
+      <tui-input
+      class="b-from search"
+      type="search" 
+      [(ngModel)]="term"
+      tuiTextfieldSize="m"
+      [tuiTextfieldCleaner]="true"
+  >
+  Поиск
+  </tui-input>
+  </div>
+  
+  <button tuiButton
+  class="tui-space_left-2"
+  size="s"
+  type="button" 
+  (click)="add()"
+  >
+  Добавить
+</button>
+</div>
+
+<ng-template
+	    let-observer
+	    [tuiDialogOptions]="$any({ label: 'Пользователи', size: 'l' })"
+	    [(tuiDialog)]="open"
+	>
+	    <form [formGroup]="form" *ngIf="form" (ngSubmit)="onSubmit()">
+	        <p>{{formTypeMessage}}</p>
+          <div class="tui-form__row">
+            <tui-input
+	            
+              tuiHintContent="Логином должен быть email"
+              tuiTextfieldSize="m"
+              formControlName="login"
+              [tuiTextfieldCleaner]="true"
+	        >
+          Логин/email*
+	        </tui-input>
+          <tui-error class="tui-space_bottom-3"
+           formControlName="login" [error]="[] | tuiFieldError | async"></tui-error>
+          </div>
+
+          <div class="tui-form__row" *ngIf="showPassword">
+            <tui-input-password (change)="onPasswordChange()"
+	            
+              type="password"
+              tuiTextfieldSize="m"
+              tuiHintContent
+              tuiHintDirection="right"
+              tuiHintMode="onDark"
+              formControlName="password"
+              [tuiTextfieldCleaner]="true"
+	        >
+          Пароль*
+	        </tui-input-password>
+          <tui-error class="tui-space_bottom-3"
+           formControlName="password" [error]="[] | tuiFieldError | async"></tui-error>
+          </div>
+
+          <div class="tui-form__row" *ngIf="showPassword">
+            <tui-input-password (change)="onPasswordChange()"
+	            
+              type="password"
+              tuiTextfieldSize="m"
+              tuiHintContent
+              tuiHintDirection="right"
+              tuiHintMode="onDark"
+              formControlName="passwordTwo"
+              [tuiTextfieldCleaner]="true"
+	        >
+          Подтверждение пароля*
+	        </tui-input-password>
+          <tui-error class="tui-space_bottom-3"
+           formControlName="passwordTwo" [error]="[] | tuiFieldError | async"></tui-error>
+          </div>
+
+          <div class="tui-form__row">
+            <tui-input
+	            
+              tuiTextfieldSize="m"
+              formControlName="second"
+              [tuiTextfieldCleaner]="true"
+	        >
+          Фамилия*
+	        </tui-input>
+          <tui-error class="tui-space_bottom-3"
+           formControlName="second" [error]="[] | tuiFieldError | async"></tui-error>
+          </div>
+
+          <div class="tui-form__row">
+            <tui-input
+	            
+              tuiTextfieldSize="m"
+              formControlName="first"
+              [tuiTextfieldCleaner]="true"
+	        >
+          Имя*
+	        </tui-input>
+          <tui-error class="tui-space_bottom-3"
+           formControlName="first" [error]="[] | tuiFieldError | async"></tui-error>
+          </div>
+
+          <div class="tui-form__row">
+            <tui-input
+	            
+              tuiTextfieldSize="m"
+              formControlName="third"
+              [tuiTextfieldCleaner]="true"
+	        >
+          Отчество
+	        </tui-input>
+          </div>
+
+          <div class="tui-form__row">
+            <tui-input
+	            
+              tuiTextfieldSize="m"
+              formControlName="snils"
+              tuiHintContent="Снилс состоит из 11 цифр"
+              [tuiTextfieldCleaner]="true"
+	        >
+          Снилс*
+	        </tui-input>
+          <tui-error class="tui-space_bottom-3"
+           formControlName="snils" [error]="[] | tuiFieldError | async"></tui-error>
+          </div>
+
+          <div class="tui-form__row">
+            <tui-input-phone
+	            
+              tuiTextfieldSize="m"
+              formControlName="tel"
+              [tuiTextfieldCleaner]="true"
+	        >
+          Телефон
+	        </tui-input-phone>
+          <tui-error class="tui-space_bottom-3"
+           formControlName="tel" [error]="[] | tuiFieldError | async"></tui-error>
+          </div>
+
+          <div class="tui-form__row">
+            <tui-select
+            *ngIf="offices$ | async as items"
+            class="b-form"
+            tuiTextfieldSize="m"
+            formControlName="idbook_office"
+            [valueContent]="items ? this.str.stringifyName(items) : loading"
+            [(ngModel)]="valueOffice"
+            >Структурное подразделение*
+            <ng-template tuiDataList>
+                <tui-data-list *ngIf="items else loading">
+                    <ng-container
+                        *ngFor="let item of items"
+                    >
+                      <button
+                      tuiOption
+                        [value]="item.id | toNumber">
+                        {{item.name}}
+                    </button>
+
+                    </ng-container>
+                </tui-data-list>
+            </ng-template>
+            
+          </tui-select>
+          <tui-error class="tui-space_bottom-3"
+           formControlName="idbook_office" [error]="[] | tuiFieldError | async"></tui-error>
+          </div>
+
+          <div class="tui-form__row">
+            <tui-select
+            *ngIf="posts$ | async as items"
+            class="b-form"
+            tuiTextfieldSize="m"
+            formControlName="idbook_post"
+            [valueContent]="items ? this.str.stringifyName(items) : loading"
+            [(ngModel)]="valuePost"
+            >Должность*
+            <ng-template tuiDataList>
+                <tui-data-list *ngIf="items else loading">
+                    <ng-container
+                        *ngFor="let item of items"
+                    >
+                      <button
+                      tuiOption
+                        [value]="item.id | toNumber">
+                        {{item.name}}
+                    </button>
+
+                    </ng-container>
+                </tui-data-list>
+            </ng-template>
+            
+          </tui-select>
+          <tui-error class="tui-space_bottom-3"
+           formControlName="idbook_post" [error]="[] | tuiFieldError | async"></tui-error>
+          </div>
+
+          <div class="tui-form__row">
+            <tui-select
+            *ngIf="works$ | async as items"
+            class="b-form"
+            tuiTextfieldSize="m"
+            formControlName="idbook_work"
+            [valueContent]="items ? this.str.stringifyName(items) : loading"
+            [(ngModel)]="valueWork"
+            >Совместительство*
+            <ng-template tuiDataList>
+                <tui-data-list *ngIf="items else loading">
+                    <ng-container
+                        *ngFor="let item of items"
+                    >
+                      <button
+                      tuiOption
+                        [value]="item.id | toNumber">
+                        {{item.name}}
+                    </button>
+
+                    </ng-container>
+                </tui-data-list>
+            </ng-template>
+            
+          </tui-select>
+          <tui-error class="tui-space_bottom-3"
+           formControlName="idbook_work" [error]="[] | tuiFieldError | async"></tui-error>
+          </div>
+
+          <div class="tui-form__row">
+            <tui-select
+            *ngIf="statuses$ | async as items"
+            class="b-form"
+            tuiTextfieldSize="m"
+            formControlName="idbook_status"
+            [valueContent]="items ? this.str.stringifyName(items) : loading"
+            [(ngModel)]="valueStatus"
+            >Статус*
+            <ng-template tuiDataList>
+                <tui-data-list *ngIf="items else loading">
+                    <ng-container
+                        *ngFor="let item of items"
+                    >
+                      <button
+                      tuiOption
+                        [value]="item.id | toNumber">
+                        {{item.name}}
+                    </button>
+
+                    </ng-container>
+                </tui-data-list>
+            </ng-template>
+            
+          </tui-select>
+          <tui-error class="tui-space_bottom-3"
+           formControlName="idbook_status" [error]="[] | tuiFieldError | async"></tui-error>
+          </div>
+
+          <div class="tui-form__row">
+            <tui-select
+            *ngIf="stepens$ | async as items"
+            class="b-form"
+            tuiTextfieldSize="m"
+            formControlName="idbook_stepen"
+            [valueContent]="items ? this.str.stringifyName(items) : loading"
+            [(ngModel)]="valueStepen"
+            >Степень
+            <ng-template tuiDataList>
+                <tui-data-list *ngIf="items else loading">
+                    <ng-container
+                        *ngFor="let item of items"
+                    >
+                      <button
+                      tuiOption
+                        [value]="item.id | toNumber">
+                        {{item.name}}
+                    </button>
+
+                    </ng-container>
+                </tui-data-list>
+            </ng-template>
+            
+          </tui-select>
+
+          </div>
+
+          <div class="tui-form__row">
+            <tui-select
+            *ngIf="zvanies$ | async as items"
+            class="b-form"
+            tuiTextfieldSize="m"
+            formControlName="idbook_zvanie"
+            [valueContent]="items ? this.str.stringifyName(items) : loading"
+            [(ngModel)]="valueZvanie"
+            >Звание
+            <ng-template tuiDataList>
+                <tui-data-list *ngIf="items else loading">
+                    <ng-container
+                        *ngFor="let item of items"
+                    >
+                      <button
+                      tuiOption
+                        [value]="item.id | toNumber">
+                        {{item.name}}
+                    </button>
+
+                    </ng-container>
+                </tui-data-list>
+            </ng-template>
+            
+          </tui-select>
+
+          </div>
+
+        <div class="tui-form__row">
+          <tui-multi-select
+            class="b-form"
+            formControlName="role"
+            tuiTextfieldSize="m"
+            [editable]="false"
+            [(search)]="search"
+          >Роли*
+            <tui-data-list-wrapper
+              *tuiDataList
+              tuiMultiSelectGroup
+              [items]="filter(search)"
+            ></tui-data-list-wrapper>
+
+            <ng-template #loading>
+              <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
+            </ng-template>
+          </tui-multi-select>
+        </div>
+
+        <p class="message">{{ messageError }}</p>
+
+	        <p>
+	            <button
+	                tuiButton
+	                type="submit"
+                  size="s"
+                  [disabled]="form.invalid"
+	            >
+	                Сохранить
+	            </button>
+
+              <button
+	                tuiButton
+                  class="tui-space_left-3"
+	                type="button"
+                  size="s"
+	                (click)="close()"
+	            >
+	                Закрыть
+	            </button>
+	        </p>
+	    </form>
+</ng-template>
+<tui-scrollbar>
+<table class="tui-table">
+  <thead>
+      <tr class="tui-table__tr">
+          <th class="tui-table__th">#</th>
+          <th class="tui-table__th">Логин</th>
+          <th class="tui-table__th">ФИО</th>
+          <th class="tui-table__th">Редактировать</th>
+          <th class="tui-table__th">Удалить</th>
+      </tr>
+  </thead>
+
+<tbody *ngIf="data$ | async as users">
+  <tr class="tui-table__tr" *ngFor="let user of users | filter:term; let i = index">
+      <th class="tui-table__td">{{i+1}}</th>
+      <td class="tui-table__td" *ngIf="user; else somethingElse">{{user.login}}</td>
+      <td class="tui-table__td" *ngIf="user; else somethingElse">{{user.second}} {{user.first}} {{user.third}}</td>
+      <td class="tui-table__td">
+      <button
+      tuiIconButton
+      size="xs"
+      type="button"
+      class="tui-space_right-3 tui-space_bottom-3"
+      icon="tuiIconDraft"
+      (click)="edit(user.id)"
+      >
+      </button>
+    </td>
+      <td class="tui-table__td">
+      <button
+      tuiIconButton
+      size="xs"
+      type="button"
+      class="tui-space_right-3 tui-space_bottom-3"
+      icon="tuiIconTrash"
+      (click)="delete(user)"
+      >
+      </button>
+    </td>
+  </tr>
+</tbody>
+
+</table>
+</tui-scrollbar>
+<ng-template #somethingElse>
+  <td class="tui-table__td"></td>
+</ng-template>
+<ng-template #loading>
+  <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
+</ng-template>

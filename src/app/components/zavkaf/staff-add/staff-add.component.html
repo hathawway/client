@@ -1,0 +1,99 @@
+
+<div class="container-search">
+  <div class="tui-form__row">
+      <tui-input
+      class="b-from search"
+      type="search" 
+      [(ngModel)]="term"
+      tuiTextfieldSize="m"
+      [tuiTextfieldCleaner]="true"
+  >
+  Поиск
+  </tui-input>
+  </div>
+
+  <button
+	    tuiButton
+	    type="button"
+      class="tui-space_left-2"
+	    size="s"
+	    (click)="showTableBar()"
+      *ngIf="!isChecked"
+	>
+	    Добавить
+	</button>
+</div>
+<tui-table-bars-host ngProjectAs="tuiOverAlerts">
+<ng-template
+	    #tableBarTemplate
+	    let-close
+	>
+	    <div
+	        tuiMode="onDark"
+	        class="content"
+	    >
+	        <button
+	            tuiButton
+	            type="button"
+	            size="s"
+              (click)="save()"
+	        >
+	            Сохранить
+	        </button>
+	        <button
+	            tuiButton
+	            type="button"
+	            appearance="outline"
+	            size="s"
+              class="close-button"
+              (click)="closeTableBar()"
+	        >
+	            Закрыть
+	        </button>
+	    </div>
+	</ng-template>
+</tui-table-bars-host>
+
+<table class="tui-table">
+  <thead>
+    <tr class="tui-table__tr">
+      <th class="tui-table__th">#</th>
+      <th class="tui-table__th">ФИО</th>
+      <th class="tui-table__th">Стуктурное подразделение</th>
+      <th class="tui-table__th">Должность</th>
+      <th class="tui-table__th" *ngIf="isChecked">Выбрать</th>
+    </tr>
+  </thead>
+
+  <tbody *ngIf="users$ | async as users">
+    <tr class="tui-table__tr" *ngFor="let user of users | filter:term; let i = index">
+      <th class="tui-table__td">{{i+1}}</th>
+      <td class="tui-table__td" *ngIf="user; else somethingElse">{{user.second}} {{user.first}} {{user.third}}</td>
+      <td class="tui-table__td" *ngIf="user.book_office; else somethingElse">{{user.book_office.name}}</td>
+      <td class="tui-table__td" *ngIf="user.book_post; else somethingElse">{{user.book_post.name}}</td>
+      <td class="tui-table__td">
+        <div
+          *ngIf="isChecked"
+          >
+          <input
+            *ngIf="kafedra.get(user.id); else elseCheckboxBlockShow"
+            type="checkbox"
+            checked
+            (click)="toggleUserToKafedra(user)">
+          <ng-template #elseCheckboxBlockShow>
+            <input type="checkbox"
+                   (click)="toggleUserToKafedra(user)">
+
+          </ng-template>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #somethingElse>
+  <td class="tui-table__td"></td>
+</ng-template>
+
+
+

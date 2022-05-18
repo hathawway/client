@@ -1,0 +1,21 @@
+#STAGE 1
+FROM node:16.10.0 AS build
+WORKDIR /usr/src/app
+COPY package.json package-lock.json ./
+RUN npm install
+COPY . .
+RUN npm run build --build
+
+#STAGE 2
+FROM nginx:1.19.0-alpine
+COPY nginx/nginx.conf /etc/nginx/nginx.conf
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+
+COPY --from=build /usr/src/app/dist/agasu-frontend /usr/share/nginx/html
+
+COPY ./certs/cert /etc/nginx/frontend.cert
+COPY ./certs/key /etc/nginx/frontend.key
+
+EXPOSE 443
+# start app
+CMD ["nginx", "-g", "daemon off;"]
