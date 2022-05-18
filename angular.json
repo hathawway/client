@@ -77,6 +77,10 @@
             },
             "development": {
               "browserTarget": "agasu-frontend:build:development"
+            },
+            "options": {
+              "browserTarget": "agasu-frontend:build",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
