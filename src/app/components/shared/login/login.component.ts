@@ -96,7 +96,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     @Inject(TuiAlertService)
     private readonly alertService: TuiAlertService,) {
-      
+
     }
 
   ngOnDestroy(): void {
@@ -154,7 +154,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       idbook_zvanie: new FormControl(null),
       snils: new FormControl(null, [Validators.required, Validators.pattern(/^\d{3}-\d{3}-\d{3} \d{2}$/)]),
       tel: new FormControl(null, Validators.minLength(12)),
-      role: new FormControl([]),
+      role: new FormControl([], Validators.required),
     })
     this.valueOffice = null;
     this.valuePost = null;
@@ -199,8 +199,8 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.messageError = error.error.message
         }
       )
-    
-   
+
+
     this.formRegistration.enable();
 
     if (this.formRegistration.value['id'] == this.authService.getLoggedUserId()) {

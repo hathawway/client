@@ -6,13 +6,13 @@ import { IpPpsService } from 'src/app/services/ipPps.service';
 
 @Component({
   selector: 'app-ip-survey',
-  templateUrl: './ip-survey.component.html',
-  styleUrls: ['./ip-survey.component.less']
+    templateUrl: './ip-survey.component.html',
+  styleUrls: ['./ip-survey.component.less'],
 })
 export class IpSurveyComponent implements OnInit {
 
   constructor(private ipPpsService: IpPpsService,
-    private ipService: IpService,) { }
+              private ipService: IpService,) { }
 
   idIp!: string;
 

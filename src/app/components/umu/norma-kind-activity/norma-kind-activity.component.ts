@@ -91,7 +91,8 @@ export class NormaKindActivityComponent implements OnInit {
           () => {
             this.normaKindActivityService.doClick(),
             this.form.reset();
-          },
+            this.messageError = "";
+            },
           error => {
             this.messageError = error.error.message
           }

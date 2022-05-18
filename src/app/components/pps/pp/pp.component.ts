@@ -17,10 +17,10 @@ export class PpComponent implements OnInit {
   data: Observable<Ip[]> | undefined;
 
   constructor(private ipService: IpService,
-    private ipPpsService: IpPpsService,
-    private router: Router,
-    private noti: NotiService) {
-      this.ipService.onClick.subscribe(cnt=>this.data = cnt);
+              private ipPpsService: IpPpsService,
+              private router: Router,
+              private noti: NotiService) {
+    this.ipService.onClick.subscribe(cnt=>this.data = cnt);
   }
 
   ngOnInit(): void {
@@ -33,7 +33,7 @@ export class PpComponent implements OnInit {
   }
 
   delete(data:Ip) {
-    const decision = window.confirm("Удалить?")
+    const decision = window.confirm("РЈРґР°Р»РёС‚СЊ?")
     if (decision) {
       this.ipService.deleteIp(data).subscribe(
         () => this.getData(),

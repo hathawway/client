@@ -2,7 +2,7 @@
   <div class="tui-form__row">
       <tui-input
       class="b-from search"
-      type="search" 
+      type="search"
       [(ngModel)]="term"
       tuiTextfieldSize="m"
       [tuiTextfieldCleaner]="true"
@@ -10,11 +10,11 @@
   Поиск
   </tui-input>
   </div>
-  
+
   <button tuiButton
   class="tui-space_left-2"
   size="s"
-  type="button" 
+  type="button"
   (click)="add()"
   >
   Добавить
@@ -30,7 +30,6 @@
 	        <p> </p>
           <div class="tui-form__row">
             <tui-input
-	            tuiAutoFocus
               tuiTextfieldSize="l"
               formControlName="name"
               [tuiTextfieldCleaner]="true"
