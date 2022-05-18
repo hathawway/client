@@ -33,8 +33,8 @@ export class LayoutComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.user$ = this.auth.getUserByHeader().pipe(map(({login, first, second, third}: User) => {
-      return `${login} ${second} ${first} ${third}`
+    this.user$ = this.auth.getUserByHeader().pipe(map(({login, first, second}: User) => {
+      return `${login} ${second} ${first}`
     }))
     this.roles$ = this.role.getCurrentUserRoles().pipe(tap(roles => {
       this.router.navigate([this.url(roles[0].book_role.id)])
@@ -42,7 +42,7 @@ export class LayoutComponent implements OnInit {
     // this.roles$.subscribe(value => {
     //   this.router.navigate([this.url(value[0].book_role.id)])
     // })
-    
+
   }
 
   logout(event: Event): void {

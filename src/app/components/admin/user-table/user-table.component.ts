@@ -14,7 +14,7 @@ import { ZvanieService } from 'src/app/services/zvanie.service';
 import { NotiService } from 'src/app/utils/noti.service';
 import { StrService } from 'src/app/utils/stringify.service';
 import {TUI_DEFAULT_MATCHER, tuiPure} from '@taiga-ui/cdk';
-import { Role } from '../../../guards/roles'
+
 @Component({
   selector: 'app-user-table',
   templateUrl: './user-table.component.html',
