@@ -91,8 +91,8 @@ export class UserTableComponent implements OnInit {
     private stepenService: StepenService,
     private zvanieService: ZvanieService,
     private noti: NotiService) {
-      this.data$ = this.authService.getUsersShort();
-
+      //this.data$ = this.authService.getUsersShort();
+      this.authService.onClick.subscribe(cnt=>this.data$ = cnt);
       this.rolesList = new Map<string, BookRole>();
       this.roleService.getRoles().subscribe(
         value => {
@@ -217,7 +217,7 @@ export class UserTableComponent implements OnInit {
     if (this.flag) {
       this.authService.register(this.form.value).subscribe(
         () => {
-          this.authService.doClick(),
+          this.getData();
           this.form.reset();
         },
         error => {
@@ -227,9 +227,9 @@ export class UserTableComponent implements OnInit {
     }
     else {
       this.authService.updateUser(this.form.value).subscribe(
-        () => {
-          this.authService.doClick();
+        () => {        
           this.close();
+          this.getData();
         },
         error => {
           this.messageError = error.error.message
