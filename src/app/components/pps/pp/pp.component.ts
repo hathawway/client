@@ -44,6 +44,10 @@ export class PpComponent implements OnInit {
     }
   }
 
+  download(id:string) {
+
+  }
+
   edit(id:string) {
     this.ipPpsService.setId(id);
     this.router.navigate([`/dashboard/pps/edit-pp`])

@@ -85,6 +85,10 @@ export class IpComponent implements OnInit {
     this.router.navigate([`/dashboard/zavkaf/ip-survey`])
   }
 
+  download(id:string) {
+
+  }
+
   onSubmit() {
     this.form.disable()
     this.ipService.updateIp(this.form.value).subscribe(
