@@ -44,7 +44,7 @@ export class IpPpsService {
             // request: request
         }
         if (id === "") { return }
-        return this.http.get<IpPps[]>(`${environment.api}/api/ip/ip-pps/all/${id}`)    
+        return this.http.get<IpPps[]>(`${environment.api}/api/ip/ip-pps/all/${id}`)
     }
 
     updateIpPps(ip: IpPps): Observable<void> {
@@ -105,7 +105,7 @@ export class IpPpsService {
     //     return this.http.post<Ip>(`${environment.api}/api/kafedra/ip/${ip.id}`, search)
     // }
 
-    
+
 
 
 

@@ -85,8 +85,8 @@ export class EditPpComponent implements OnInit {
 
   flagEditPossibility!: boolean;
 
-  valueHourPlan: string | undefined;
-  valueUnitPlan: string | undefined;
+  valueHourPlan: string = '0';
+  valueUnitPlan: string = '0';
   valueActivityNorma: string | undefined;
 
   valueHourFact: string | undefined;
@@ -108,15 +108,16 @@ export class EditPpComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.authService.getUserByHeader().subscribe(d => this.ipService.setId(d.id))
+    this.authService.getUserByHeader().subscribe(d => this.formId = d.id)
+
     this.kafedraService.setReqSearch("user")
     this.kafedra$ = this.kafedraService.getKafedra(this.kafedraService.getReqSearch())
-    this.getData();
     const ipId = this.ipPpsService.getId()
+
     if (!ipId) {
       this.checkAdd = true
       this.formId = '';
-      this.flagFirstOpen = false;
+      this.flagFirstOpen = true;
       this.form = new FormGroup({
         data_start: new FormControl(null, Validators.required),
         data_end: new FormControl(null, Validators.required),
@@ -124,6 +125,8 @@ export class EditPpComponent implements OnInit {
       })
       this.flagEditPossibility = false;
     } else {
+      this.flagFirstOpen = false;
+      this.getData();
       this.ipService.getIpById(ipId).subscribe( (value) => {
         this.form = new FormGroup({
           id: new FormControl(value.id, Validators.required),
@@ -155,6 +158,19 @@ export class EditPpComponent implements OnInit {
   }
 
   add() {
+    if (!this.ipPpsService.getId()) {
+      this.ipService.addIp(this.form.value).subscribe(
+        (value) => {
+          this.ipService.doClick();
+          this.flagFirstOpen = true;
+          this.formId = value.id;
+          console.log(value.id)
+        },
+        error => {
+          this.noti.toast(error.error.message);
+        }
+      )
+    }
     if (this.flagEditPossibility) {
       this.noti.toast('Внесение изменений в утвержденный план невозможно!');
     } else {
@@ -181,10 +197,7 @@ export class EditPpComponent implements OnInit {
 
       this.fromEdit = null;
       this.toEdit = null;
-
     }
-
-
   }
 
   onChangeActivity() {
@@ -293,17 +306,6 @@ export class EditPpComponent implements OnInit {
             this.messageError = error.error.message
           }
         )
-      } else {
-        this.ipService.addIp(this.form.value).subscribe(
-          (value) => {
-            this.ipService.doClick();
-            this.flagFirstOpen = true;
-            this.formId = value.id;
-          },
-          error => {
-            this.messageError = error.error.message
-          }
-        )
       }
 
       this.form.enable()
@@ -325,7 +327,6 @@ export class EditPpComponent implements OnInit {
       }
     }
   }
-
 
   onNormaChangePlan() {
     this.valueHourPlan = (Number(this.valueUnitPlan) * Number(this.valueActivityNorma)).toString();

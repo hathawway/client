@@ -28,14 +28,6 @@ export class IpService {
         return this.reqSearch;
     }
 
-    setId(id: string) {
-        this.id = id;
-    }
-
-    // getId(): string {
-    //     return this.id;
-    // }
-
     doClick(){
         this.data = this.getIp(this.reqSearch)
         //this.data = this.getIp()

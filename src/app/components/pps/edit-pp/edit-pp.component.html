@@ -63,7 +63,7 @@
             type="button"
             class="b-form tui-space_left-2"
             (click)="add()"
-            *ngIf="flagFirstOpen"
+            [disabled]="form.invalid"
     >
       Добавить
     </button>
@@ -73,6 +73,7 @@
             type="submit"
             class="b-form tui-space_left-2"
             [disabled]="form.invalid"
+            (click)="save()"
     >
       Сохранить
     </button>
@@ -264,6 +265,7 @@
         type="submit"
         size="s"
         [disabled]="formIp.invalid"
+
       >
         Сохранить
       </button>
