@@ -30,7 +30,7 @@ export class NormaKindActivityComponent implements OnInit {
   term!: string;
   data: Observable<NormaKindActivity[]> | undefined;
 
-  flag = false;
+  additingFlag = false;
   form!: FormGroup;
   open = false;
 
@@ -65,7 +65,7 @@ export class NormaKindActivityComponent implements OnInit {
         idbook_post: new FormControl(null, Validators.required),
         idkind_activity: new FormControl(null, Validators.required)
       })
-      this.flag = true;
+      this.additingFlag = true;
       this.valuePost = null;
       this.valueKind = null;
     }
@@ -80,16 +80,17 @@ export class NormaKindActivityComponent implements OnInit {
       })
       this.valuePost = data.book_post === null ? null : Number(data.book_post.id);
       this.valueKind = data.kind_activity === null ? null : Number(data.kind_activity.id);
+      this.additingFlag = false;
     }
 
     onSubmit() {
 
       this.form.disable()
 
-      if (this.flag) {
+      if (this.additingFlag) {
         this.normaKindActivityService.addNormaKindActivity(this.form.value).subscribe(
           () => {
-            this.normaKindActivityService.doClick(),
+            this.normaKindActivityService.doClick()
             this.form.reset();
             this.messageError = "";
             },
@@ -97,8 +98,7 @@ export class NormaKindActivityComponent implements OnInit {
             this.messageError = error.error.message
           }
         )
-      }
-      else {
+      } else {
         this.normaKindActivityService.updateNormaKindActivity(this.form.value).subscribe(
           () => {
             this.normaKindActivityService.doClick(),
@@ -115,7 +115,7 @@ export class NormaKindActivityComponent implements OnInit {
 
     close() {
       this.open = false;
-      this.flag = false;
+      this.additingFlag = false;
       this.form.reset();
       this.messageError = "";
     }
