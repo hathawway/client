@@ -219,6 +219,7 @@ export class UserTableComponent implements OnInit {
         () => {
           this.authService.doClick(),
           this.form.reset();
+          this.messageError = "";
         },
         error => {
           this.messageError = error.error.message
