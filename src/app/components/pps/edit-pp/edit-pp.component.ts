@@ -89,8 +89,8 @@ export class EditPpComponent implements OnInit {
   valueUnitPlan: string = '0';
   valueActivityNorma: string | undefined;
 
-  valueHourFact: string | undefined;
-  valueUnitFact: string | undefined;
+  valueHourFact: string = '0';
+  valueUnitFact: string = '0';
 
 
   constructor(private kafedraService: KafedraService,
