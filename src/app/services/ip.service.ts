@@ -61,41 +61,10 @@ export class IpService {
         return this.http.get<Ip>(`${environment.api}/api/ip/${id}`)
     }
 
-    // getIp(request: Request["request"]): Observable<Ip[]> {
-    //     const search = {
-    //         id: this.getId(),
-    //         request: request
-    //     }
-    //     return this.http.post<Ip[]>(`${environment.api}/api/kafedra/ip/all-ip/`, search)
-    // }
-
-
-    // updateIp(id: string, ip: Ip[], request: Request["request"]): Observable<Ip> {
-    //     const dataReq = {
-    //         request: request,
-    //         ip: ip
-    //     }
-    //     return this.http.patch<Ip>(`${environment.api}/api/kafedra/ip/${id}`, dataReq)
-    // }
-
-    // addIp(ip: Ip[], request: Request["request"]): Observable<Ip> {
-    //     const dataReq = {
-    //         request: request,
-    //         ip: ip
-    //     }
-    //     return this.http.post<Ip>(`${environment.api}/api/kafedra/ip/`, dataReq)
-    // }
-
-    // deleteIp(ip: Ip, request: Request["request"]):Observable<Ip> {
-    //     const search = {
-    //         request: request
-    //     }
-    //     return this.http.post<Ip>(`${environment.api}/api/kafedra/ip/${ip.id}`, search)
-    // }
-
-
-
-
-
-
+    download(id: string): Observable<any> {
+        return this.http.post<any>(`${environment.api}/api/ip/download`, {id: id}, {
+          headers: { Accept: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' },
+          responseType: 'blob' as 'json',
+        })
+    }
 }

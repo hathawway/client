@@ -45,7 +45,12 @@ export class PpComponent implements OnInit {
   }
 
   download(id:string) {
-
+    this.ipService.download(id).subscribe((res)=>{
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(res)
+        a.download = 'othcet.docx'
+        a.click()
+    })
   }
 
   edit(id:string) {
