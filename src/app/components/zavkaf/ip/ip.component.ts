@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { Ip } from 'src/app/interfaces/interfaces';
 import { IpService } from 'src/app/services/ip.service';
 import { IpPpsService } from 'src/app/services/ipPps.service';
+import { NotiService } from 'src/app/utils/noti.service';
 
 @Component({
   selector: 'app-ip',
@@ -40,7 +41,9 @@ export class IpComponent implements OnInit {
 
   constructor(private ipService: IpService,
               private router: Router,
-              private ipPpsService: IpPpsService,) {
+              private ipPpsService: IpPpsService,
+              private noti: NotiService,
+              ) {
     this.ipService.onClick.subscribe(cnt=>this.data = cnt);
   }
 
@@ -86,11 +89,15 @@ export class IpComponent implements OnInit {
   }
 
   download(id:string) {
-    this.ipService.download(id).subscribe((res)=> {
+    this.ipService.download(id).subscribe(res=> {
       const a = document.createElement('a');
       a.href = URL.createObjectURL(res)
       a.download = 'othcet.docx'
       a.click()
+    }, 
+    error=> {
+      console.log(error)
+      this.noti.toast(error.error.message)
     })
   }
 
