@@ -79,7 +79,7 @@ export class StaffAddComponent implements OnInit {
       this.book_office_id = value.book_office.id;
       this.users$.subscribe(users => {
         for (let u of users) {
-          if (u.book_office.id === this.book_office_id) {
+          if (u.book_office.id === this.book_office_id && u.is_active) {
             this.kafedra.set(u.id, true);
             continue
           }

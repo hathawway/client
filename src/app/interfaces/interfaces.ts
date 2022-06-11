@@ -15,6 +15,7 @@ export interface User {
     tel: string,
     snils: string,
     roles: BookRole[],
+    is_active: boolean,
 }
 
 export interface Role {
