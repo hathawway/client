@@ -54,31 +54,33 @@ export class OfficeTableComponent implements OnInit {
 
   onSubmit() {
 
-    this.form.disable()
-
-    if (this.flag) {
-      this.officeService.addOffice(this.form.value).subscribe(
-        () => {
-          this.officeService.doClick(),
-          this.form.reset();
-        },
-        error => {
-          this.messageError = error.error.message
-        }
-      )
+    if (this.form.valid) {
+        if (this.flag) {
+        this.officeService.addOffice(this.form.value).subscribe(
+          () => {
+            this.officeService.doClick();
+            this.messageError = "";
+            this.form.reset();
+          },
+          error => {
+            this.messageError = error.error.message
+          }
+        )
+      }
+      else {
+        this.officeService.updateOffice(this.form.value).subscribe(
+          () => {
+            this.officeService.doClick(),
+            this.close();
+          },
+          error => {
+            this.messageError = error.error.message
+          }
+        )
+      }
+    } else {
+      this.form.markAllAsTouched();
     }
-    else {
-      this.officeService.updateOffice(this.form.value).subscribe(
-        () => {
-          this.officeService.doClick(),
-          this.close();
-        },
-        error => {
-          this.messageError = error.error.message
-        }
-      )
-    }
-    this.form.enable()
 
   }
 

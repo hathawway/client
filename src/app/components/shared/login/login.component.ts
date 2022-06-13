@@ -222,28 +222,30 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    this.form.disable()
+    if (this.form.valid) {
 
-    this.aSub =
-      this.authService.rsaKey().subscribe(
-        (key) => {
-          const rsaKey = forge.pki.publicKeyFromPem(key);
-          // @ts-ignore
-          this.form.value.password = window.btoa(rsaKey.encrypt(this.form.value.password));
-          this.authService.login(this.form.value).subscribe(
-            () => this.router.navigate([`/dashboard/`]),
-            (error) => {
-              this.alertService.open(error.error.message,
-                {label: 'Ошибка!'}).subscribe();
-            }
-          )
-        },
-        error => {
-          this.alertService.open(error.error.message,
-            {label: 'Ошибка!'}).subscribe();
-        }
-      )
-      this.form.enable()
+      this.aSub =
+        this.authService.rsaKey().subscribe(
+          (key) => {
+            const rsaKey = forge.pki.publicKeyFromPem(key);
+            // @ts-ignore
+            this.form.value.password = window.btoa(rsaKey.encrypt(this.form.value.password));
+            this.authService.login(this.form.value).subscribe(
+              () => this.router.navigate([`/dashboard/`]),
+              (error) => {
+                this.alertService.open(error.error.message,
+                  {label: 'Ошибка!'}).subscribe();
+              }
+            )
+          },
+          error => {
+            this.alertService.open(error.error.message,
+              {label: 'Ошибка!'}).subscribe();
+          }
+        )
+    } else {
+      this.form.markAllAsTouched();
+    }
   }
 
 

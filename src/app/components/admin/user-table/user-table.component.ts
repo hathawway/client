@@ -131,11 +131,11 @@ export class UserTableComponent implements OnInit {
       idbook_post: new FormControl(null, Validators.required),
       idbook_work: new FormControl(null, Validators.required),
       idbook_status: new FormControl(null, Validators.required),
-      idbook_stepen: new FormControl(null),
-      idbook_zvanie: new FormControl(null),
+      idbook_stepen: new FormControl(null, Validators.required),
+      idbook_zvanie: new FormControl(null, Validators.required),
       snils: new FormControl(null, [Validators.required, Validators.pattern(/^\d{3}-\d{3}-\d{3} \d{2}$/)]),
       tel: new FormControl(null, Validators.minLength(12)),
-      role: new FormControl([]),
+      role: new FormControl([], Validators.required),
     })
     this.flag = true;
     this.valueOffice = null;
@@ -168,13 +168,13 @@ export class UserTableComponent implements OnInit {
           idbook_post: new FormControl(user.book_post === null ? null : user.book_post.id, Validators.required),
           idbook_work: new FormControl(user.book_work === null ? null : user.book_work.id, Validators.required),
           idbook_status: new FormControl(user.book_status === null ? null : user.book_status.id, Validators.required),
-          idbook_stepen: new FormControl(user.book_stepen === null ? null : user.book_stepen.id),
-          idbook_zvanie: new FormControl(user.book_zvanie === null ? null : user.book_zvanie.id),
+          idbook_stepen: new FormControl(user.book_stepen === null ? null : user.book_stepen.id, Validators.required),
+          idbook_zvanie: new FormControl(user.book_zvanie === null ? null : user.book_zvanie.id, Validators.required),
           snils: new FormControl(user.snils, [Validators.required, Validators.pattern(/^\d{3}-\d{3}-\d{3} \d{2}$/)]),
           tel: new FormControl(user.tel, Validators.minLength(12)),
           password: new FormControl(''),
           passwordTwo: this.passwordTwo,
-          role: new FormControl(roles),
+          role: new FormControl(roles, Validators.required),
         }
 
         this.showPassword = user.login != 'admin@gmail.com'
@@ -199,7 +199,7 @@ export class UserTableComponent implements OnInit {
   }
 
   onSubmit() {
-    this.form.disable()
+    
 
     let role = this.form.value['role'];
     if (role) {
@@ -213,7 +213,7 @@ export class UserTableComponent implements OnInit {
       }
       this.form.value['role'] = ids
     }
-
+    if (this.form.valid) {
     if (this.flag) {
       this.authService.register(this.form.value).subscribe(
         () => {
@@ -237,10 +237,13 @@ export class UserTableComponent implements OnInit {
         }
       )
     }
-    this.form.enable()
+  } else {
+    this.form.markAllAsTouched();
+  }
 
     if (this.form.value['id'] == this.authService.getLoggedUserId()) {
-      window.location.reload()
+      //window.location.reload()
+      this.authService.doClick();
     }
   }
 

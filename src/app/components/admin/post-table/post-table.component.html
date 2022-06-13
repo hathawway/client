@@ -45,8 +45,10 @@
 	            contentAlign="left"
 	            size="l"
 	        >
-	            ППС
+	            ППС*
 	        </tui-checkbox-block>
+          <tui-error class="tui-space_bottom-3"
+           formControlName="ispps" [error]="[] | tuiFieldError | async"></tui-error>
           </div>
           <p class="message">{{ messageError }}</p>
 	        <p>
@@ -54,7 +56,6 @@
 	                tuiButton
 	                type="submit"
                   size="s"
-                  [disabled]="form.invalid"
 	            >
 	                Сохранить
 	            </button>

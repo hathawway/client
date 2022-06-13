@@ -60,7 +60,6 @@ direction="right"
 	                tuiButton
 	                type="submit"
                   size="s"
-                  [disabled]="formStavka.invalid"
 	            >
 	                Сохранить
 	            </button>
@@ -101,6 +100,7 @@ direction="right"
                     >
                       <button
                       tuiOption
+                      *ngIf="item.ispps"
                         [value]="item.id | toNumber">
                         {{item.name}}
                     </button>
@@ -130,7 +130,6 @@ direction="right"
 	                tuiButton
 	                type="submit"
                   size="s"
-                  [disabled]="form.invalid"
 	            >
 	                Сохранить
 	            </button>

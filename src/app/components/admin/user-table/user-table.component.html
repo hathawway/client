@@ -264,7 +264,7 @@
             formControlName="idbook_stepen"
             [valueContent]="items ? this.str.stringifyName(items) : loading"
             [(ngModel)]="valueStepen"
-            >Степень
+            >Степень*
             <ng-template tuiDataList>
                 <tui-data-list *ngIf="items else loading">
                     <ng-container
@@ -281,9 +281,10 @@
             </ng-template>
             
           </tui-select>
-
-          </div>
-
+          <tui-error class="tui-space_bottom-3"
+          formControlName="idbook_stepen" [error]="[] | tuiFieldError | async"></tui-error>
+         </div>
+        
           <div class="tui-form__row">
             <tui-select
             *ngIf="zvanies$ | async as items"
@@ -292,7 +293,7 @@
             formControlName="idbook_zvanie"
             [valueContent]="items ? this.str.stringifyName(items) : loading"
             [(ngModel)]="valueZvanie"
-            >Звание
+            >Звание*
             <ng-template tuiDataList>
                 <tui-data-list *ngIf="items else loading">
                     <ng-container
@@ -309,8 +310,9 @@
             </ng-template>
             
           </tui-select>
-
-          </div>
+          <tui-error class="tui-space_bottom-3"
+          formControlName="idbook_zvanie" [error]="[] | tuiFieldError | async"></tui-error>
+         </div>
 
         <div class="tui-form__row">
           <tui-multi-select
@@ -330,7 +332,9 @@
               <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
             </ng-template>
           </tui-multi-select>
-        </div>
+          <tui-error class="tui-space_bottom-3"
+          formControlName="role" [error]="[] | tuiFieldError | async"></tui-error>
+         </div>
 
         <p class="message">{{ messageError }}</p>
 

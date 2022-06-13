@@ -89,7 +89,7 @@ export class StavkaTableComponent implements OnInit {
     }
 
     updateStavka() {
-      this.formStavka.disable()
+      if (this.formStavka.valid) {
       this.stavkaYearService.updateStavkaYear(this.formStavka.value).subscribe(
           () => {
             this.closeStavka();
@@ -99,7 +99,9 @@ export class StavkaTableComponent implements OnInit {
             this.messageError = error.error.message
           }
       )
-      this.formStavka.enable()
+    } else {
+      this.formStavka.markAllAsTouched();
+    }
 
     }
 
@@ -109,31 +111,34 @@ export class StavkaTableComponent implements OnInit {
     }
 
     onSubmit() {
-      this.form.disable()
+      if (this.form.valid) {
 
-      if (this.flag) {
-        this.normaStudyService.addNormaStudy(this.form.value).subscribe(
-          () => {
-            this.normaStudyService.doClick(),
-            this.form.reset();
-          },
-          error => {
-            this.messageError = error.error.message
-          }
-        )
-      }
-      else {
-        this.normaStudyService.updateNormaStudy(this.form.value).subscribe(
-          () => {
-            this.normaStudyService.doClick(),
-            this.close()
-          },
-          error => {
-            this.messageError = error.error.message
-          }
-        )
-      }
-      this.form.enable()
+        if (this.flag) {
+          this.normaStudyService.addNormaStudy(this.form.value).subscribe(
+            () => {
+              this.normaStudyService.doClick(),
+              this.messageError = "",
+              this.form.reset();
+            },
+            error => {
+              this.messageError = error.error.message
+            }
+          )
+        }
+        else {
+          this.normaStudyService.updateNormaStudy(this.form.value).subscribe(
+            () => {
+              this.normaStudyService.doClick(),
+              this.close()
+            },
+            error => {
+              this.messageError = error.error.message
+            }
+          )
+        }
+    } else {
+      this.form.markAllAsTouched();
+    }
 
     }
 

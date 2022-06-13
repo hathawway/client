@@ -25,6 +25,7 @@ export class IpSurveyComponent implements OnInit {
     this.idIp = this.ipPpsService.getId();
     this.dataIp$ = this.ipService.getIpById(this.idIp);
     this.data$ = this.ipPpsService.getIpPps(this.idIp);
+    this.ipService.getIpById(this.idIp).subscribe(data => console.log(data))
   }
 
 }

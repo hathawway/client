@@ -18,7 +18,7 @@ import { StrService } from 'src/app/utils/stringify.service';
       provide: TUI_VALIDATION_ERRORS,
       useValue: {
         required: 'Поле обязательно для заполнения!',
-        pattern: 'Только числа',
+        pattern: 'Только числа через точку',
       },
     },
 	],
@@ -62,7 +62,7 @@ export class ScheduleComponent implements OnInit {
     this.open = true;
     this.form = new FormGroup({
       id: new FormControl(kafedra.id, Validators.required),
-      norma: new FormControl(kafedra.norma === null ? null : kafedra.norma, [Validators.pattern(/^\d+(?:[,.]\d+)?$/), Validators.required]),
+      norma: new FormControl(kafedra.norma === null ? null : kafedra.norma, [Validators.pattern(/^\d+(?:[.]\d+)?$/), Validators.required]),
       book_work:  new FormControl(kafedra.book_work === null ? null : kafedra.book_work.id, Validators.required),
       book_post: new FormControl(kafedra.book_post === null ? null : kafedra.book_post.id, Validators.required)
     })
@@ -73,25 +73,26 @@ export class ScheduleComponent implements OnInit {
 
   onSubmit() {
 
-    this.form.disable()
+    if (this.form.valid) {
 
-    this.kafedraService.updateKafedra(this.form.value).subscribe(
-      () => {
-        this.kafedraService.doClick(),
-        this.close()
-      },
-      error => {
-        this.messageError = error.error.message
-      }
-    )
+      this.kafedraService.updateKafedra(this.form.value).subscribe(
+        () => {
+          this.kafedraService.doClick(),
+          this.close()
+        },
+        error => {
+          this.messageError = error.error.message
+        }
+      )
 
-    this.form.enable()
+  } else {
+    this.form.markAllAsTouched();
+  }
 
   }
 
   close() {
     this.open = false;
-    this.form.reset();
     this.messageError = "";
   }
 

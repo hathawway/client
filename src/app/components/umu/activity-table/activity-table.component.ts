@@ -19,7 +19,7 @@ import { StrService } from 'src/app/utils/stringify.service';
       provide: TUI_VALIDATION_ERRORS,
       useValue: {
         required: 'Поле обязательно для заполнения!',
-        pattern: 'Только числа',
+        pattern: 'Только целые числа!',
       },
     },
 	],
@@ -54,7 +54,7 @@ export class ActivityTableComponent implements OnInit {
       this.form = new FormGroup({
         name: new FormControl(null, Validators.required),
         kind_activity: new FormControl(null, Validators.required),
-        norma: new FormControl(null, [Validators.pattern(/^\d+(?:[,.]\d+)?$/), Validators.required]),
+        norma: new FormControl(null, [Validators.pattern(/^(0|[1-9]\d*)$/), Validators.required]),
         book_unit: new FormControl(null, Validators.required)
       })
       this.flag = true;
@@ -68,7 +68,7 @@ export class ActivityTableComponent implements OnInit {
         id: new FormControl(data.id, Validators.required),
         name: new FormControl(data.name, Validators.required),
         kind_activity: new FormControl(data.kind_activity === null ? null : data.kind_activity.id, Validators.required),
-        norma: new FormControl(data.norma === null ? null : data.norma, [Validators.pattern(/^\d+(?:[,.]\d+)?$/), Validators.required]),
+        norma: new FormControl(data.norma === null ? null : data.norma, [Validators.pattern(/^(0|[1-9]\d*)$/), Validators.required]),
         book_unit: new FormControl(data.book_unit === null ? null : data.book_unit.id, Validators.required)
       })
       this.valueUnit = data.book_unit === null ? null : Number(data.book_unit.id);
@@ -77,31 +77,34 @@ export class ActivityTableComponent implements OnInit {
 
     onSubmit() {
 
-      this.form.disable()
+      if (this.form.valid) {
 
-      if (this.flag) {
-        this.activityService.addActivity(this.form.value).subscribe(
-          () => {
-            this.activityService.doClick(),
-            this.form.reset();
-          },
-          error => {
-            this.messageError = error.error.message
-          }
-        )
-      }
-      else {
-        this.activityService.updateActivity(this.form.value).subscribe(
-          () => {
-            this.activityService.doClick(),
-            this.close()
-          },
-          error => {
-            this.messageError = error.error.message
-          }
-        )
-      }
-      this.form.enable()
+        if (this.flag) {
+          this.activityService.addActivity(this.form.value).subscribe(
+            () => {
+              this.activityService.doClick(),
+              this.messageError = "",
+              this.form.reset();
+            },
+            error => {
+              this.messageError = error.error.message
+            }
+          )
+        }
+        else {
+          this.activityService.updateActivity(this.form.value).subscribe(
+            () => {
+              this.activityService.doClick(),
+              this.close()
+            },
+            error => {
+              this.messageError = error.error.message
+            }
+          )
+        }
+    } else {
+      this.form.markAllAsTouched();
+    }
 
     }
 

@@ -54,31 +54,34 @@ export class UnitTableComponent implements OnInit {
 
     onSubmit() {
 
-      this.form.disable()
+      if (this.form.valid) {
 
-      if (this.flag) {
-        this.unitService.addBookUnit(this.form.value).subscribe(
-          () => {
-            this.unitService.doClick(),
-            this.form.reset();
-          },
-          error => {
-            this.messageError = error.error.message
-          }
-        )
-      }
-      else {
-        this.unitService.updateBookUnit(this.form.value).subscribe(
-          () => {
-            this.unitService.doClick(),
-            this.close()
-          },
-          error => {
-            this.messageError = error.error.message
-          }
-        )
-      }
-      this.form.enable()
+        if (this.flag) {
+          this.unitService.addBookUnit(this.form.value).subscribe(
+            () => {
+              this.unitService.doClick(),
+              this.messageError = "",
+              this.form.reset();
+            },
+            error => {
+              this.messageError = error.error.message
+            }
+          )
+        }
+        else {
+          this.unitService.updateBookUnit(this.form.value).subscribe(
+            () => {
+              this.unitService.doClick(),
+              this.close()
+            },
+            error => {
+              this.messageError = error.error.message
+            }
+          )
+        }
+    } else {
+      this.form.markAllAsTouched();
+    }
 
 
     }

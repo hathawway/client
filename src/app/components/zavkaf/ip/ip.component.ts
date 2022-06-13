@@ -73,7 +73,6 @@ export class IpComponent implements OnInit {
 
     this.ipService.getIpById(ip.id).subscribe( (value) => {
       this.ipPpsDate = value;
-      console.log(value);
 
       const dataStart = value.data_start.toString().split('-');
       const dataEnd = value.data_end.toString().split('-');

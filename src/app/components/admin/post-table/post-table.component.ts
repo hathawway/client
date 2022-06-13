@@ -46,7 +46,7 @@ export class PostTableComponent implements OnInit {
 	  this.open = true;
     this.form = new FormGroup({
       name: new FormControl(null, Validators.required),
-      ispps: new FormControl(null),
+      ispps: new FormControl(null, Validators.required),
     })
     this.flag = true;
 	}
@@ -62,31 +62,33 @@ export class PostTableComponent implements OnInit {
 	}
 
   onSubmit() {
-    this.form.disable()
-
-    if (this.flag) {
-      this.postService.addPost(this.form.value).subscribe(
-        () => {
-          this.postService.doClick(),
-          this.form.reset();
-        },
-        error => {
-          this.messageError = error.error.message
-        }
-      )
+    if (this.form.valid) {
+      if (this.flag) {
+        this.postService.addPost(this.form.value).subscribe(
+          () => {
+            this.postService.doClick();
+            this.messageError = "";
+            this.form.reset();
+          },
+          error => {
+            this.messageError = error.error.message
+          }
+        )
+      }
+      else {
+        this.postService.updatePost(this.form.value).subscribe(
+          () => {
+            this.postService.doClick();
+            this.close()
+          },
+          error => {
+            this.messageError = error.error.message
+          }
+        )
+      }
+    } else {
+      this.form.markAllAsTouched();
     }
-    else {
-      this.postService.updatePost(this.form.value).subscribe(
-        () => {
-          this.postService.doClick(),
-          this.close()
-        },
-        error => {
-          this.messageError = error.error.message
-        }
-      )
-    }
-    this.form.enable()
 
   }
 

@@ -66,12 +66,13 @@ export class KindActivityTableComponent implements OnInit {
 
   onSubmit() {
 
-    this.form.disable()
+    if (this.form.valid) {
 
     if (this.flag) {
       this.kindActivityService.addKindActivity(this.form.value).subscribe(
         () => {
           this.kindActivityService.doClick(),
+          this.messageError = "",
           this.form.reset();
         },
         error => {
@@ -90,7 +91,9 @@ export class KindActivityTableComponent implements OnInit {
         }
       )
     }
-    this.form.enable()
+  } else {
+    this.form.markAllAsTouched();
+  }
 
   }
 

@@ -19,7 +19,7 @@ import { StrService } from 'src/app/utils/stringify.service';
       provide: TUI_VALIDATION_ERRORS,
       useValue: {
         required: 'Поле обязательно для заполнения!',
-        pattern: 'Только числа',
+        pattern: 'Только целые числа!',
       },
     },
 	],
@@ -61,7 +61,7 @@ export class NormaKindActivityComponent implements OnInit {
     add() {
       this.open = true;
       this.form = new FormGroup({
-        norma: new FormControl(null, Validators.pattern(/^\d+(?:[,.]\d+)?$/),),
+        norma: new FormControl(null, [Validators.pattern(/^(0|[1-9]\d*)$/), Validators.required]),
         idbook_post: new FormControl(null, Validators.required),
         idkind_activity: new FormControl(null, Validators.required)
       })
@@ -74,7 +74,7 @@ export class NormaKindActivityComponent implements OnInit {
       this.open = true;
       this.form = new FormGroup({
         id: new FormControl(data.id, Validators.required),
-        norma: new FormControl(data.norma === null ? null : data.norma, Validators.pattern(/^\d+(?:[,.]\d+)?$/),),
+        norma: new FormControl(data.norma === null ? null : data.norma, [Validators.pattern(/^(0|[1-9]\d*)$/), Validators.required]),
         idbook_post: new FormControl(data.book_post === null ? null : data.book_post.id, Validators.required),
         idkind_activity: new FormControl(data.kind_activity === null ? null : data.kind_activity.id , Validators.required)
       })
@@ -85,31 +85,33 @@ export class NormaKindActivityComponent implements OnInit {
 
     onSubmit() {
 
-      this.form.disable()
+      if (this.form.valid) {
 
-      if (this.additingFlag) {
-        this.normaKindActivityService.addNormaKindActivity(this.form.value).subscribe(
-          () => {
-            this.normaKindActivityService.doClick()
-            this.form.reset();
-            this.messageError = "";
+        if (this.additingFlag) {
+          this.normaKindActivityService.addNormaKindActivity(this.form.value).subscribe(
+            () => {
+              this.normaKindActivityService.doClick()
+              this.form.reset();
+              this.messageError = "";
+              },
+            error => {
+              this.messageError = error.error.message
+            }
+          )
+        } else {
+          this.normaKindActivityService.updateNormaKindActivity(this.form.value).subscribe(
+            () => {
+              this.normaKindActivityService.doClick(),
+              this.close()
             },
-          error => {
-            this.messageError = error.error.message
-          }
-        )
-      } else {
-        this.normaKindActivityService.updateNormaKindActivity(this.form.value).subscribe(
-          () => {
-            this.normaKindActivityService.doClick(),
-            this.close()
-          },
-          error => {
-            this.messageError = error.error.message
-          }
-        )
-      }
-      this.form.enable()
+            error => {
+              this.messageError = error.error.message
+            }
+          )
+        }
+    } else {
+      this.form.markAllAsTouched();
+    }
 
     }
 
