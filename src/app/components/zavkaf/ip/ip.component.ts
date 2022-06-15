@@ -97,6 +97,7 @@ export class IpComponent implements OnInit {
       },
       (error) => {
         this.noti.toast(JSON.parse(this.ipService.blobToString(error.error)))
+        //this.noti.toast(error.error.message)
       }
     )
   }

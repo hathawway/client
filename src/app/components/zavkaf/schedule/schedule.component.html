@@ -35,6 +35,7 @@
             >
               <button
                 tuiOption
+                *ngIf="item.ispps"
                 [value]="item.id | toNumber">
                 {{item.name}}
               </button>

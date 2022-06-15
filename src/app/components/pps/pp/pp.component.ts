@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TuiAlertService } from '@taiga-ui/core';
 import { Observable } from 'rxjs';
 import { Ip } from 'src/app/interfaces/interfaces';
 import { IpService } from 'src/app/services/ip.service';
@@ -19,7 +20,9 @@ export class PpComponent implements OnInit {
   constructor(private ipService: IpService,
               private ipPpsService: IpPpsService,
               private router: Router,
-              private noti: NotiService) {
+              private noti: NotiService,
+              @Inject(TuiAlertService)
+              private readonly alertService: TuiAlertService,) {
     this.ipService.onClick.subscribe(cnt=>this.data = cnt);
   }
 
@@ -53,6 +56,7 @@ export class PpComponent implements OnInit {
     },
       (error) => {
         this.noti.toast(JSON.parse(this.ipService.blobToString(error.error)))
+        //this.noti.toast(error.error.message)
       }
     )
   }

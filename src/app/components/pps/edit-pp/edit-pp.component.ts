@@ -180,11 +180,11 @@ export class EditPpComponent implements OnInit {
         semester: new FormControl(null, Validators.required),
         kind_activity: new FormControl(null, Validators.required),
         activity: new FormControl(null, Validators.required),
-        unitPlan: new FormControl(null, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
-        hourPlan: new FormControl(null, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
+        unitPlan: new FormControl(null, Validators.pattern(/^\d+(?:[.]\d+)?$/)),
+        hourPlan: new FormControl(null, Validators.pattern(/^\d+(?:[.]\d+)?$/)),
         datePlan: new FormControl(null),
-        unitFact: new FormControl(null, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
-        hourFact: new FormControl(null, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
+        unitFact: new FormControl(null, Validators.pattern(/^\d+(?:[.]\d+)?$/)),
+        hourFact: new FormControl(null, Validators.pattern(/^\d+(?:[.]\d+)?$/)),
         dateFact: new FormControl(null),
         remark: new FormControl(null),
         idip: new FormControl(null),
@@ -221,11 +221,11 @@ export class EditPpComponent implements OnInit {
         semester: new FormControl(data.semester, Validators.required),
         kind_activity: new FormControl(data.kind_activity === null ? null : data.kind_activity.id, Validators.required),
         activity: new FormControl(data.activity === null ? null : data.activity.id, Validators.required),
-        unitPlan: new FormControl(data.unitPlan, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
-        hourPlan: new FormControl(data.hourPlan, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
+        unitPlan: new FormControl(data.unitPlan, Validators.pattern(/^\d+(?:[.]\d+)?$/)),
+        hourPlan: new FormControl(data.hourPlan, Validators.pattern(/^\d+(?:[.]\d+)?$/)),
         datePlan: new FormControl(data.datePlan),
-        unitFact: new FormControl(data.unitFact, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
-        hourFact: new FormControl(data.hourFact, Validators.pattern(/^\d+(?:[,.]\d+)?$/)),
+        unitFact: new FormControl(data.unitFact, Validators.pattern(/^\d+(?:[.]\d+)?$/)),
+        hourFact: new FormControl(data.hourFact, Validators.pattern(/^\d+(?:[.]\d+)?$/)),
         dateFact: new FormControl(data.dateFact),
         remark: new FormControl(data.remark),
         idip: new FormControl(null),
@@ -291,6 +291,7 @@ export class EditPpComponent implements OnInit {
   }
 
   save() {
+    this.messageError = '';
     if (this.flagEditPossibility) {
       this.noti.toast('Внесение изменений в утвержденный план невозможно!');
     } else {

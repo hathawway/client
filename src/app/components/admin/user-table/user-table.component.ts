@@ -67,7 +67,7 @@ export class UserTableComponent implements OnInit {
 
   roleFormControl!: FormControl | null;
 
-  showPassword!: boolean;
+  showPassword = true;
 
   offices$!: Observable<BookOffice[]>;
   posts$!: Observable<BookPost[]>;
@@ -214,29 +214,29 @@ export class UserTableComponent implements OnInit {
       this.form.value['role'] = ids
     }
     if (this.form.valid) {
-    if (this.flag) {
-      this.authService.register(this.form.value).subscribe(
-        () => {
-          this.authService.doClick(),
-          this.form.reset();
-          this.messageError = "";
-        },
-        error => {
-          this.messageError = error.error.message
-        }
-      )
-    }
-    else {
-      this.authService.updateUser(this.form.value).subscribe(
-        () => {
-          this.authService.doClick();
-          this.close();
-        },
-        error => {
-          this.messageError = error.error.message
-        }
-      )
-    }
+      if (this.flag) {
+        this.authService.register(this.form.value).subscribe(
+          () => {
+            this.authService.doClick(),
+            this.form.reset();
+            this.messageError = "";
+          },
+          error => {
+            this.messageError = error.error.message
+          }
+        )
+      }
+      else {
+        this.authService.updateUser(this.form.value).subscribe(
+          () => {
+            this.authService.doClick();
+            this.close();
+          },
+          error => {
+            this.messageError = error.error.message
+          }
+        )
+      }
   } else {
     this.form.markAllAsTouched();
   }
