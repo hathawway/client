@@ -50,7 +50,11 @@ export class PpComponent implements OnInit {
         a.href = URL.createObjectURL(res)
         a.download = 'othcet.docx'
         a.click()
-    })
+    },
+      (error) => {
+        this.noti.toast(JSON.parse(this.ipService.blobToString(error.error)))
+      }
+    )
   }
 
   edit(id:string) {

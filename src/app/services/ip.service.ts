@@ -63,8 +63,17 @@ export class IpService {
 
     download(id: string): Observable<any> {
         return this.http.post<any>(`${environment.api}/api/ip/download`, {id: id}, {
-          headers: { Accept: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' },
+          headers: { Accept: ['application/vnd.openxmlformats-officedocument.wordprocessingml.document'] },
           responseType: 'blob' as 'json',
         })
     }
+
+  blobToString(blob: any): string {
+    const url = URL.createObjectURL(blob);
+    let xmlRequest = new XMLHttpRequest();
+    xmlRequest.open('GET', url, false);
+    xmlRequest.send();
+    URL.revokeObjectURL(url);
+    return xmlRequest.responseText;
+  }
 }

@@ -3,11 +3,12 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TuiDay, TUI_LAST_DAY } from '@taiga-ui/cdk';
 import { TuiNamedDay } from '@taiga-ui/kit';
-import { Observable } from 'rxjs';
+import {catchError, Observable, retry, throwError} from 'rxjs';
 import { Ip } from 'src/app/interfaces/interfaces';
 import { IpService } from 'src/app/services/ip.service';
 import { IpPpsService } from 'src/app/services/ipPps.service';
 import { NotiService } from 'src/app/utils/noti.service';
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-ip',
@@ -88,16 +89,16 @@ export class IpComponent implements OnInit {
   }
 
   download(id:string) {
-    this.ipService.download(id).subscribe(res=> {
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(res)
-      a.download = 'othcet.docx'
-      a.click()
-    }, 
-    error=> {
-      console.log(error)
-      this.noti.toast(error.error.message)
-    })
+    this.ipService.download(id).subscribe((res) => {
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(res)
+        a.download = 'othcet.docx'
+        a.click()
+      },
+      (error) => {
+        this.noti.toast(JSON.parse(this.ipService.blobToString(error.error)))
+      }
+    )
   }
 
   onSubmit() {
