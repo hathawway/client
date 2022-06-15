@@ -55,8 +55,7 @@ export class PpComponent implements OnInit {
         a.click()
     },
       (error) => {
-        this.noti.toast(JSON.parse(this.ipService.blobToString(error.error)))
-        //this.noti.toast(error.error.message)
+        this.noti.toast(JSON.parse(this.ipService.blobToString(error.error)).message)
       }
     )
   }
