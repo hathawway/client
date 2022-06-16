@@ -51,7 +51,7 @@ export class EditPpComponent implements OnInit {
   valueActivity!: Number | null;
 
   formId!: string;
-
+  term!: string;
 
   kind_activity$: Observable<KindActivity[]> | undefined;
   activity$: Observable<Activity[]> | undefined;
