@@ -173,13 +173,13 @@ export class UserTableComponent implements OnInit {
           snils: new FormControl(user.snils, [Validators.required, Validators.pattern(/^\d{3}-\d{3}-\d{3} \d{2}$/)]),
           tel: new FormControl(user.tel, Validators.minLength(12)),
           password: new FormControl(''),
-          passwordTwo: this.passwordTwo,
+          passwordTwo: new FormControl(''),
           role: new FormControl(roles, Validators.required),
         }
 
         this.showPassword = user.login != 'admin@gmail.com'
         this.form = new FormGroup(formContent)
-        this.form.get('passwordTwo')?.setValue('');
+        //this.form.get('passwordTwo')?.setValue('');
         this.valueOffice = user.book_office === null ? null : Number(user.book_office.id);
         this.valuePost = user.book_post === null ? null : Number(user.book_post.id);
         this.valueStatus = user.book_status === null ? null : Number(user.book_status.id);
@@ -218,6 +218,7 @@ export class UserTableComponent implements OnInit {
         this.authService.register(this.form.value).subscribe(
           () => {
             this.authService.doClick(),
+            this.data$ = this.authService.getUsersShort(),
             this.form.reset();
             this.messageError = "";
           },
@@ -231,13 +232,14 @@ export class UserTableComponent implements OnInit {
           () => {
             this.close();
             this.authService.doClick();
+            this.data$ = this.authService.getUsersShort();
             
           },
           error => {
             this.messageError = error.error.message
           }
         )
-        window.location.reload();
+        //window.location.reload();
       }
   } else {
     this.form.markAllAsTouched();

@@ -94,6 +94,7 @@
     <th class="tui-table__th">#</th>
     <th class="tui-table__th">Вид деятельности</th>
     <th class="tui-table__th">Куратор</th>
+    <th class="tui-table__th">Должность куратора</th>
     <th class="tui-table__th">Редактировать</th>
     <th class="tui-table__th">Удалить</th>
   </tr>
@@ -104,6 +105,7 @@
     <th class="tui-table__td">{{i+1}}</th>
     <td class="tui-table__td" *ngIf="data.name; else somethingElse">{{data.name}}</td>
     <td class="tui-table__td" *ngIf="data.user; else somethingElse">{{data.user.second}} {{data.user.first}} {{data.user.third}}</td>
+    <td class="tui-table__td" *ngIf="data.user.book_post; else somethingElse">{{data.user.book_post.name}}</td>
     <td class="tui-table__td">
       <button
           tuiIconButton
