@@ -50,7 +50,7 @@ export class EditPpComponent implements OnInit {
   valueKind!: Number | null;
   valueActivity!: Number | null;
 
-  formId!: string | undefined;
+  formId!: string;
 
 
   kind_activity$: Observable<KindActivity[]> | undefined;
@@ -161,7 +161,8 @@ export class EditPpComponent implements OnInit {
     if (!this.ipPpsService.getId()) {
       this.ipService.addIp(this.form.value).subscribe(
         (value) => {
-          this.ipService.doClick();
+          //this.ipService.doClick();
+          this.ipPpsService.doClick();
           this.flagFirstOpen = true;
           this.formId = value.id;
           console.log(value.id)
@@ -255,11 +256,13 @@ export class EditPpComponent implements OnInit {
     this.formIp.disable()
 
     this.formIp.get('idip')?.setValue(this.formId);
+    this.ipPpsService.setId(this.formId);
     if (this.flag) {
       this.ipPpsService.addIpPps(this.formIp.value).subscribe(
         () => {
+          
           this.ipPpsService.doClick();
-          this.ipService.doClick();
+          //this.ipService.doClick();
           this.close();
         },
         error => {
@@ -270,7 +273,7 @@ export class EditPpComponent implements OnInit {
       this.ipPpsService.updateIpPps(this.formIp.value).subscribe(
         () => {
           this.ipPpsService.doClick();
-          this.ipService.doClick();
+          //this.ipService.doClick();
           this.close();
         },
         error => {
@@ -281,6 +284,7 @@ export class EditPpComponent implements OnInit {
     }
     this.form.enable()
 
+    this.ipPpsService.doClick();
   }
 
   close() {

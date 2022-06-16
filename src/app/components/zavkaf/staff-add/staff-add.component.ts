@@ -75,6 +75,7 @@ export class StaffAddComponent implements OnInit {
   updateUsersInfo() {
     this.kafedra = new Map<string, boolean>();
     this.users$ = this.authService.getUsersWithCafedraList();
+    //this.authService.getUsersWithCafedraList().subscribe(value => console.log(value))
     this.authService.getUserByHeader().subscribe(value => {
       this.book_office_id = value.book_office.id;
       this.users$.subscribe(users => {

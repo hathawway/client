@@ -124,8 +124,9 @@
     <tr class="tui-table__tr">
       <th class="tui-table__th">#</th>
       
-      <th class="tui-table__th">Должность ППС</th>
+      
       <th class="tui-table__th">Вид деятельности</th>
+      <th class="tui-table__th">Должность ППС</th>
       <th class="tui-table__th">Норма времени (ак.ч.)</th>
       <th class="tui-table__th">Редактировать</th>
       <th class="tui-table__th">Удалить</th>
@@ -136,8 +137,9 @@
       <tr class="tui-table__tr">
         <th class="tui-table__td">{{i+1}}</th>
         
-        <td class="tui-table__td" *ngIf="data.book_post; else somethingElse">{{data.book_post.name}}</td>
+        
         <td class="tui-table__td" *ngIf="data.kind_activity; else somethingElse">{{data.kind_activity.name}}</td>
+        <td class="tui-table__td" *ngIf="data.book_post; else somethingElse">{{data.book_post.name}}</td>
         <td class="tui-table__td" *ngIf="data.norma; else somethingElse">{{data.norma}}</td>   
         <td class="tui-table__td">
           <button

@@ -118,6 +118,7 @@
       <th class="tui-table__th">ФИО</th>
       <th class="tui-table__th">Должность по основному месту работы</th>
       <th class="tui-table__th">Условие принятие на работу</th>
+      <th class="tui-table__th">Статус</th>
       <th class="tui-table__th">Структурное подразделение</th>
       <th class="tui-table__th">Должность по кафедре</th>
       <th class="tui-table__th">Ставка</th>
@@ -134,6 +135,7 @@
           *ngIf="data.user; else somethingElse">{{data.user.second}} {{data.user.first}} {{data.user.third}}</td>
       <td class="tui-table__td" *ngIf="data.user.book_post else somethingElse">{{data.user.book_post.name}}</td>
       <td class="tui-table__td" *ngIf="data.user.book_work else somethingElse">{{data.user.book_work.name}}</td>
+      <td class="tui-table__td" *ngIf="data.user.book_status else somethingElse">{{data.user.book_status.name}}</td>
       <td class="tui-table__td" *ngIf="data.user.book_office else somethingElse">{{data.user.book_office.name}}</td>
       <td class="tui-table__td" *ngIf="data.book_post; else somethingElse">{{data.book_post.name}}</td>
       <td class="tui-table__td" *ngIf="data.norma; else somethingElse">{{data.norma}}</td>

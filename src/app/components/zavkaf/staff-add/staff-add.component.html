@@ -67,7 +67,8 @@
 
   <tbody *ngIf="users$ | async as users">
     <tr class="tui-table__tr" *ngFor="let user of users | filter:term; let i = index">
-      <th class="tui-table__td">{{i+1}}</th>
+      <ng-container *ngIf="user.book_status.id === 1">
+        <th class="tui-table__td">{{i+1}}</th>
       <td class="tui-table__td" *ngIf="user; else somethingElse">{{user.second}} {{user.first}} {{user.third}}</td>
       <td class="tui-table__td" *ngIf="user.book_office; else somethingElse">{{user.book_office.name}}</td>
       <td class="tui-table__td" *ngIf="user.book_post; else somethingElse">{{user.book_post.name}}</td>
@@ -87,6 +88,8 @@
           </ng-template>
         </div>
       </td>
+      </ng-container>
+      
     </tr>
   </tbody>
 </table>

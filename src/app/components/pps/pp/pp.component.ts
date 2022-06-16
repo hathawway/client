@@ -36,7 +36,7 @@ export class PpComponent implements OnInit {
   }
 
   delete(data:Ip) {
-    const decision = window.confirm("РЈРґР°Р»РёС‚СЊ?")
+    const decision = window.confirm("Удалить?")
     if (decision) {
       this.ipService.deleteIp(data).subscribe(
         () => this.getData(),

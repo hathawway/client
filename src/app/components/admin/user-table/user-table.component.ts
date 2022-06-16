@@ -229,13 +229,15 @@ export class UserTableComponent implements OnInit {
       else {
         this.authService.updateUser(this.form.value).subscribe(
           () => {
-            this.authService.doClick();
             this.close();
+            this.authService.doClick();
+            
           },
           error => {
             this.messageError = error.error.message
           }
         )
+        window.location.reload();
       }
   } else {
     this.form.markAllAsTouched();
@@ -245,6 +247,7 @@ export class UserTableComponent implements OnInit {
       //window.location.reload()
       this.authService.doClick();
     }
+    
   }
 
   close() {

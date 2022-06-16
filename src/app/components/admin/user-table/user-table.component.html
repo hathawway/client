@@ -206,7 +206,7 @@
             formControlName="idbook_work"
             [valueContent]="items ? this.str.stringifyName(items) : loading"
             [(ngModel)]="valueWork"
-            >Совместительство*
+            >Условие принятие на работу*
             <ng-template tuiDataList>
                 <tui-data-list *ngIf="items else loading">
                     <ng-container
@@ -214,6 +214,7 @@
                     >
                       <button
                       tuiOption
+                      *ngIf="item.id !== '2'"
                         [value]="item.id | toNumber">
                         {{item.name}}
                     </button>
@@ -367,6 +368,10 @@
           <th class="tui-table__th">#</th>
           <th class="tui-table__th">Логин</th>
           <th class="tui-table__th">ФИО</th>
+          <th class="tui-table__th">Структурное подразделение</th>
+          <th class="tui-table__th">Должность</th>
+          <th class="tui-table__th">Условие принятие на работу</th>
+          <th class="tui-table__th">Статус</th>
           <th class="tui-table__th">Редактировать</th>
           <th class="tui-table__th">Удалить</th>
       </tr>
@@ -377,6 +382,11 @@
       <th class="tui-table__td">{{i+1}}</th>
       <td class="tui-table__td" *ngIf="user; else somethingElse">{{user.login}}</td>
       <td class="tui-table__td" *ngIf="user; else somethingElse">{{user.second}} {{user.first}} {{user.third}}</td>
+      <td class="tui-table__td" *ngIf="user.book_office; else somethingElse">{{user.book_office.name}}</td>
+      <td class="tui-table__td" *ngIf="user.book_post; else somethingElse">{{user.book_post.name}}</td>
+      <td class="tui-table__td" *ngIf="user.book_work else somethingElse">{{user.book_work.name}}</td>
+      <td class="tui-table__td" *ngIf="user.book_status; else somethingElse">{{user.book_status.name}}</td>
+      
       <td class="tui-table__td">
       <button
       tuiIconButton
