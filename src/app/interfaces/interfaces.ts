@@ -142,3 +142,17 @@ export interface Message {
     error: any;
     message: string
 }
+
+export interface PpStatistic {
+  kind_activity_name: string,
+  norma_po_doljnosti: string,
+  norma_na_kaf: string,
+  semestr_1_plan: string,
+  semestr_2_plan: string,
+  itog_plan: string,
+  ostatok_plan: string,
+  semestr_1_fact: string,
+  semestr_2_fact: string,
+  itog_fact: string,
+  ostatok_fact: string
+}

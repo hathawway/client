@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TuiDay, TUI_LAST_DAY } from '@taiga-ui/cdk';
 import { TuiNamedDay, TUI_VALIDATION_ERRORS } from '@taiga-ui/kit';
 import { Observable } from 'rxjs';
-import { Activity, Ip, IpPps, Kafedra, KindActivity } from 'src/app/interfaces/interfaces';
+import {Activity, Ip, IpPps, Kafedra, KindActivity, PpStatistic} from 'src/app/interfaces/interfaces';
 import { ActivityService } from 'src/app/services/activity.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { IpService } from 'src/app/services/ip.service';
@@ -58,7 +58,7 @@ export class EditPpComponent implements OnInit {
 
   flag = false;
 
-  dataStatistika: Observable<[]> | undefined;
+  dataStatistika: Observable<PpStatistic[]> | undefined;
   from = TuiDay.currentLocal();
   to = TuiDay.currentLocal();
 
@@ -102,9 +102,9 @@ export class EditPpComponent implements OnInit {
               private ipService: IpService,
               public str: StrService,
               private noti: NotiService) {
+    this.formId = this.ipPpsService.getId()
     this.ipPpsService.onClick.subscribe(cnt=>this.data = cnt);
     this.ipService.onClick.subscribe(cnt=>this.dataIp = cnt);
-
   }
 
   ngOnInit(): void {
@@ -266,7 +266,7 @@ export class EditPpComponent implements OnInit {
     if (this.flag) {
       this.ipPpsService.addIpPps(this.formIp.value).subscribe(
         () => {
-          
+
           this.ipPpsService.doClick();
           //this.ipService.doClick();
           this.close();

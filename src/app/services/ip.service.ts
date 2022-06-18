@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { EventEmitter, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment.prod";
-import { Ip, Request } from "../interfaces/interfaces";
+import {Ip, PpStatistic, Request} from "../interfaces/interfaces";
 
 @Injectable({
     providedIn:'root'
@@ -72,7 +72,7 @@ export class IpService {
         return this.http.post<any>(`${environment.api}/api/ip/statistika/`, data)
     }
 
-    getStatistikaForPps(id: string): Observable<any> {
+    getStatistikaForPps(id: string): Observable<PpStatistic[]> {
         return this.http.get<any>(`${environment.api}/api/ip/statistika-pps/${id}`)
     }
 
