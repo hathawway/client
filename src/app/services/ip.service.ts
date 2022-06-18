@@ -73,7 +73,7 @@ export class IpService {
     }
 
     getStatistikaForPps(id: string): Observable<PpStatistic[]> {
-        return this.http.get<any>(`${environment.api}/api/ip/statistika-pps/${id}`)
+        return this.http.get<PpStatistic[]>(`${environment.api}/api/ip/statistika-pps/${id}`)
     }
 
     blobToString(blob: any): string {

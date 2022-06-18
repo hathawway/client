@@ -81,6 +81,45 @@
     </tbody>
   </table>
 </tui-scrollbar>
+
+<tui-scrollbar>
+  <table class="tui-table tui-space_top-5">
+    <thead>
+    <tr class="tui-table__tr">
+      <th class="tui-table__th">Вид деятельности</th>
+      <th class="tui-table__th">Норма на 1 ставку</th>
+      <th class="tui-table__th">Норма</th>
+      <th class="tui-table__th">1 семестр (план)</th>
+      <th class="tui-table__th">2 семестр (план)</th>
+      <th class="tui-table__th">Итого (план)</th>
+      <th class="tui-table__th">Остаток (план)</th>
+      <th class="tui-table__th">1 семестр (факт)</th>
+      <th class="tui-table__th">2 семестр (факт)</th>
+      <th class="tui-table__th">Итого (факт)</th>
+      <th class="tui-table__th">Остаток (факт)</th>
+    </tr>
+    </thead>
+    <tbody *ngIf="dataStatistika | async as data" >
+    <tr class="tui-table__th" *ngFor="let d of data | filter:term; let i = index">
+      <td class="tui-table__td">{{d.kind_activity_name}}</td>
+      <td class="tui-table__td">{{d.norma_po_doljnosti}}</td>
+      <td class="tui-table__td">{{d.norma_na_kaf}}</td>
+      <td class="tui-table__td">{{d.semestr_1_plan}}</td>
+      <td class="tui-table__td">{{d.semestr_2_plan}}</td>
+      <td class="tui-table__td">{{d.itog_plan}}</td>
+      <td class="tui-table__td">{{d.ostatok_plan}}</td>
+      <td class="tui-table__td">{{d.semestr_1_fact}}</td>
+      <td class="tui-table__td">{{d.semestr_2_fact}}</td>
+      <td class="tui-table__td">{{d.itog_fact}}</td>
+      <td class="tui-table__td">{{d.ostatok_fact}}</td>
+
+
+      
+    </tr>
+    </tbody>
+  </table>
+</tui-scrollbar>
+
 <ng-template #somethingElse>
   <td class="tui-table__td">Нет</td>
 </ng-template>

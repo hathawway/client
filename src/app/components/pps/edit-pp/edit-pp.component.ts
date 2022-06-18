@@ -165,6 +165,7 @@ export class EditPpComponent implements OnInit {
         (value) => {
           //this.ipService.doClick();
           this.ipPpsService.doClick();
+          //this.dataStatistika = this.ipService.getStatistikaForPps(this.formId)
           this.flagFirstOpen = true;
           this.formId = value.id;
           console.log(value.id)
@@ -238,6 +239,7 @@ export class EditPpComponent implements OnInit {
         idip: new FormControl(null),
       })
 
+      this.dataStatistika = this.ipService.getStatistikaForPps(this.formId)
       this.valueHourPlan = data.hourPlan;
       this.valueUnitPlan = data.unitPlan;
       this.valueActivityNorma = data.activity.norma;
@@ -268,6 +270,7 @@ export class EditPpComponent implements OnInit {
         () => {
 
           this.ipPpsService.doClick();
+          this.dataStatistika = this.ipService.getStatistikaForPps(this.formId)
           //this.ipService.doClick();
           this.close();
         },
@@ -279,6 +282,7 @@ export class EditPpComponent implements OnInit {
       this.ipPpsService.updateIpPps(this.formIp.value).subscribe(
         () => {
           this.ipPpsService.doClick();
+          this.dataStatistika = this.ipService.getStatistikaForPps(this.formId)
           //this.ipService.doClick();
           this.close();
         },
@@ -311,6 +315,7 @@ export class EditPpComponent implements OnInit {
         this.ipService.updateIp(this.form.value).subscribe(
           () => {
             this.ipService.doClick();
+            this.dataStatistika = this.ipService.getStatistikaForPps(this.formId)
             this.flagFirstOpen = true;
           },
           error => {
@@ -330,7 +335,10 @@ export class EditPpComponent implements OnInit {
       const decision = window.confirm("Удалить?")
       if (decision) {
         this.ipPpsService.deleteIpPps(data).subscribe(
-          () => this.getData(),
+          () => {
+            this.getData(),
+            this.dataStatistika = this.ipService.getStatistikaForPps(this.formId)
+        },
           error => {
             this.noti.toast(error.error.message)
           }
