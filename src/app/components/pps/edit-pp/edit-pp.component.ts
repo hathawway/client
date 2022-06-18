@@ -93,6 +93,8 @@ export class EditPpComponent implements OnInit {
   valueHourFact: string = '0';
   valueUnitFact: string = '0';
 
+  flagFildsIsagreement!: boolean;
+
 
   constructor(private kafedraService: KafedraService,
               private kindActivityService: KindActivityService,
@@ -137,6 +139,7 @@ export class EditPpComponent implements OnInit {
         })
 
         this.flagEditPossibility = !!value.isimplementation;
+        this.flagFildsIsagreement = !!value.isagreement;
         this.flagFirstOpen = true;
         this.formId = value.id;
         this.valueKafedra = value.kafedra === null ? null : Number(value.kafedra.id);
@@ -160,14 +163,16 @@ export class EditPpComponent implements OnInit {
   }
 
   add() {
+    console.log(this.ipPpsService.getId())
     if (!this.ipPpsService.getId()) {
       this.ipService.addIp(this.form.value).subscribe(
         (value) => {
           //this.ipService.doClick();
           this.ipPpsService.doClick();
-          //this.dataStatistika = this.ipService.getStatistikaForPps(this.formId)
+          
           this.flagFirstOpen = true;
           this.formId = value.id;
+          //this.dataStatistika = this.ipService.getStatistikaForPps(this.formId)
           console.log(value.id)
         },
         error => {
@@ -214,7 +219,13 @@ export class EditPpComponent implements OnInit {
   }
 
   onChangeKindActivity() {
-    this.activity$ = this.activityService.getActivitysByKindActivity(Number(this.valueKind))
+    this.activity$ = this.activityService.getActivitysByKindActivity(Number(0))
+    if (this.valueKind === undefined) {
+      this.activity$ = this.activityService.getActivitysByKindActivity(Number(0))
+    } else {
+      this.activity$ = this.activityService.getActivitysByKindActivity(Number(this.valueKind))
+    }
+    
   }
 
   edit(data: IpPps) {
@@ -268,11 +279,11 @@ export class EditPpComponent implements OnInit {
     if (this.flag) {
       this.ipPpsService.addIpPps(this.formIp.value).subscribe(
         () => {
-
+          this.close();
           this.ipPpsService.doClick();
           this.dataStatistika = this.ipService.getStatistikaForPps(this.formId)
           //this.ipService.doClick();
-          this.close();
+          
         },
         error => {
           this.messageError = error.error.message;
@@ -281,10 +292,11 @@ export class EditPpComponent implements OnInit {
     } else {
       this.ipPpsService.updateIpPps(this.formIp.value).subscribe(
         () => {
+          this.close();
           this.ipPpsService.doClick();
           this.dataStatistika = this.ipService.getStatistikaForPps(this.formId)
           //this.ipService.doClick();
-          this.close();
+          
         },
         error => {
           this.messageError = error.error.message;
@@ -294,7 +306,7 @@ export class EditPpComponent implements OnInit {
     }
     this.form.enable()
 
-    this.ipPpsService.doClick();
+    //this.ipPpsService.doClick();
   }
 
   close() {
@@ -336,7 +348,7 @@ export class EditPpComponent implements OnInit {
       if (decision) {
         this.ipPpsService.deleteIpPps(data).subscribe(
           () => {
-            this.getData(),
+            this.ipPpsService.doClick(),
             this.dataStatistika = this.ipService.getStatistikaForPps(this.formId)
         },
           error => {

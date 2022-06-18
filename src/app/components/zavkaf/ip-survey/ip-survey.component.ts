@@ -28,7 +28,11 @@ export class IpSurveyComponent implements OnInit {
     this.dataIp$ = this.ipService.getIpById(this.idIp);
     this.data$ = this.ipPpsService.getIpPps(this.idIp);
     this.ipService.getIpById(this.idIp).subscribe(data => console.log(data));
-    this.dataStatistika = this.ipService.getStatistikaForPps(Number(this.idIp).toString());
+    if (this.idIp === undefined) {
+      this.dataStatistika = this.ipService.getStatistikaForPps(Number(0).toString());
+    } else {
+      this.dataStatistika = this.ipService.getStatistikaForPps(this.idIp);
+    }
   }
 
 }

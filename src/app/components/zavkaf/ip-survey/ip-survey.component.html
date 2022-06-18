@@ -76,7 +76,7 @@
       <td class="tui-table__td" *ngIf="data.unitFact; else something">{{data.unitFact}}</td>
       <td class="tui-table__td" *ngIf="data.hourFact; else something">{{data.hourFact}}</td>
       <td class="tui-table__td" *ngIf="data.dateFact; else something">{{data.dateFact}}</td>
-      <td class="tui-table__td" *ngIf="data.remark; else somethingElse">{{data.remark}}</td>
+      <td class="tui-table__td" *ngIf="data.remark; else something">{{data.remark}}</td>
     </tr>
     </tbody>
   </table>
@@ -87,7 +87,7 @@
     <thead>
     <tr class="tui-table__tr">
       <th class="tui-table__th">Вид деятельности</th>
-      <th class="tui-table__th">Норма на 1 ставку</th>
+      <!-- <th class="tui-table__th">Норма на 1 ставку</th> -->
       <th class="tui-table__th">Норма</th>
       <th class="tui-table__th">1 семестр (план)</th>
       <th class="tui-table__th">2 семестр (план)</th>
@@ -102,7 +102,7 @@
     <tbody *ngIf="dataStatistika | async as data" >
     <tr class="tui-table__th" *ngFor="let d of data | filter:term; let i = index">
       <td class="tui-table__td">{{d.kind_activity_name}}</td>
-      <td class="tui-table__td">{{d.norma_po_doljnosti}}</td>
+      <!-- <td class="tui-table__td">{{d.norma_po_doljnosti}}</td> -->
       <td class="tui-table__td">{{d.norma_na_kaf}}</td>
       <td class="tui-table__td">{{d.semestr_1_plan}}</td>
       <td class="tui-table__td">{{d.semestr_2_plan}}</td>

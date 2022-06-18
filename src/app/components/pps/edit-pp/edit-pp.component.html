@@ -105,6 +105,7 @@
       <tui-select
         formControlName="semester"
         [(ngModel)]="valueSemester"
+        [readOnly]="flagFildsIsagreement"
         class="b-form"
         tuiTextfieldSize="m"
       >Семестр*
@@ -122,6 +123,7 @@
       <tui-select
         *ngIf="kind_activity$ | async as items"
         class="b-form"
+        [readOnly]="flagFildsIsagreement"
         formControlName="kind_activity"
         [valueContent]="items ? this.str.stringifyName(items) : loading"
         [(ngModel)]="valueKind" (ngModelChange)="onChangeKindActivity()"
@@ -150,6 +152,7 @@
       <tui-select
         *ngIf="activity$ | async as items"
         class="b-form"
+        [readOnly]="flagFildsIsagreement"
         formControlName="activity"
         [valueContent]="items ? this.str.stringifyActivity(items) : loading"
         [(ngModel)]="valueActivity" (ngModelChange)="onChangeActivity()"
@@ -179,6 +182,7 @@
       <tui-input
         tuiTextfieldSize="m"
         formControlName="unitPlan"
+        [readOnly]="flagFildsIsagreement"
         [tuiTextfieldCleaner]="true"
         [(ngModel)]="valueUnitPlan" (ngModelChange)="onNormaChangePlan()"
       >
@@ -193,6 +197,7 @@
 
         tuiTextfieldSize="m"
         formControlName="hourPlan"
+        [readOnly]="flagFildsIsagreement"
         [tuiTextfieldCleaner]="true"
         [(ngModel)]="valueHourPlan" (change)="onNormaChangePlan()"
       >
@@ -206,6 +211,7 @@
       <tui-input-date
         [tuiTextfieldCleaner]="true"
         tuiTextfieldSize="m"
+        [readOnly]="flagFildsIsagreement"
         [min]="from"
         [max]="to"
         [(ngModel)]="fromEdit"
@@ -364,7 +370,7 @@
     <thead>
     <tr class="tui-table__tr">
       <th class="tui-table__th">Вид деятельности</th>
-      <th class="tui-table__th">Норма на 1 ставку</th>
+      <!-- <th class="tui-table__th">Норма на 1 ставку</th> -->
       <th class="tui-table__th">Норма</th>
       <th class="tui-table__th">1 семестр (план)</th>
       <th class="tui-table__th">2 семестр (план)</th>
@@ -379,7 +385,7 @@
     <tbody *ngIf="dataStatistika | async as data" >
     <tr class="tui-table__th" *ngFor="let d of data | filter:term; let i = index">
       <td class="tui-table__td">{{d.kind_activity_name}}</td>
-      <td class="tui-table__td">{{d.norma_po_doljnosti}}</td>
+      <!-- <td class="tui-table__td">{{d.norma_po_doljnosti}}</td> -->
       <td class="tui-table__td">{{d.norma_na_kaf}}</td>
       <td class="tui-table__td">{{d.semestr_1_plan}}</td>
       <td class="tui-table__td">{{d.semestr_2_plan}}</td>
