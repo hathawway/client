@@ -124,7 +124,7 @@
         class="b-form"
         formControlName="kind_activity"
         [valueContent]="items ? this.str.stringifyName(items) : loading"
-        [(ngModel)]="valueKind"
+        [(ngModel)]="valueKind" (ngModelChange)="onChangeKindActivity()"
         tuiTextfieldSize="m"
       >Вид деятельности*
         <ng-template tuiDataList>
@@ -358,6 +358,46 @@
     </tbody>
   </table>
 </tui-scrollbar>
+
+<tui-scrollbar>
+  <table class="tui-table tui-space_top-3">
+    <thead>
+    <tr class="tui-table__tr">
+      <th class="tui-table__th">Вид деятельности</th>
+      <th class="tui-table__th">Норма на 1 ставку</th>
+      <th class="tui-table__th">Норма</th>
+      <th class="tui-table__th">1 семестр (план)</th>
+      <th class="tui-table__th">2 семестр (план)</th>
+      <th class="tui-table__th">Итого (план)</th>
+      <th class="tui-table__th">Остаток (план)</th>
+      <th class="tui-table__th">1 семестр (факт)</th>
+      <th class="tui-table__th">2 семестр (факт)</th>
+      <th class="tui-table__th">Итого (факт)</th>
+      <th class="tui-table__th">Остаток (факт)</th>
+    </tr>
+    </thead>
+    <tbody *ngIf="dataStatistika | async as data" >
+    <!-- <tr class="tui-table__th" *ngFor="let data of data | filter:term; let i = index">
+      <td class="tui-table__td" *ngIf="data.data_start; else somethingElse">{{data.data_start}}</td>
+      <td class="tui-table__td" *ngIf="data.data_end; else somethingElse">{{data.data_end}}</td>
+      <td class="tui-table__td" *ngIf="data.kafedra; else somethingElse">{{data.kafedra.book_office.name}}</td>
+      <td class="tui-table__td" *ngIf="data.data_start; else somethingElse">{{data.data_start}}</td>
+      <td class="tui-table__td" *ngIf="data.data_end; else somethingElse">{{data.data_end}}</td>
+      <td class="tui-table__td" *ngIf="data.kafedra; else somethingElse">{{data.kafedra.book_office.name}}</td>
+      <td class="tui-table__td" *ngIf="data.data_start; else somethingElse">{{data.data_start}}</td>
+      <td class="tui-table__td" *ngIf="data.data_end; else somethingElse">{{data.data_end}}</td>
+      <td class="tui-table__td" *ngIf="data.kafedra; else somethingElse">{{data.kafedra.book_office.name}}</td>
+      <td class="tui-table__td" *ngIf="data.data_start; else somethingElse">{{data.data_start}}</td>
+      <td class="tui-table__td" *ngIf="data.data_end; else somethingElse">{{data.data_end}}</td>
+
+
+
+    </tr> -->
+    </tbody>
+  </table>
+</tui-scrollbar>
+
+
 
 
 <ng-template #somethingElse>

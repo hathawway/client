@@ -68,12 +68,20 @@ export class IpService {
         })
     }
 
-  blobToString(blob: any): string {
-    const url = URL.createObjectURL(blob);
-    let xmlRequest = new XMLHttpRequest();
-    xmlRequest.open('GET', url, false);
-    xmlRequest.send();
-    URL.revokeObjectURL(url);
-    return xmlRequest.responseText;
-  }
+    getStatistika(data: string): Observable<any> {
+        return this.http.post<any>(`${environment.api}/api/ip/statistika/`, data)
+    }
+
+    getStatistikaForPps(id: string): Observable<any> {
+        return this.http.get<any>(`${environment.api}/api/ip/statistika-pps/${id}`)
+    }
+
+    blobToString(blob: any): string {
+        const url = URL.createObjectURL(blob);
+        let xmlRequest = new XMLHttpRequest();
+        xmlRequest.open('GET', url, false);
+        xmlRequest.send();
+        URL.revokeObjectURL(url);
+        return xmlRequest.responseText;
+    }
 }

@@ -27,7 +27,7 @@ export const links = [
       {resourceName: 'staff',    displayedName: 'Сотрудники вуза'},
       {resourceName: 'schedule', displayedName: 'Штатное расписание'},
       {resourceName: 'ip',       displayedName: 'Индивидуальные планы'},
-      // {resourceName: 'report',   displayedName: 'Отчеты'},
+      {resourceName: 'report',   displayedName: 'Сводный отчет'},
     ],
   },
   {

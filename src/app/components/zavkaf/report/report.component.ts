@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { IpService } from 'src/app/services/ip.service';
 import { NotiService } from 'src/app/utils/noti.service';
 
 @Component({
@@ -8,9 +11,21 @@ import { NotiService } from 'src/app/utils/noti.service';
 })
 export class ReportComponent implements OnInit {
 
-  constructor(private noti: NotiService) { }
+  term!: string;
+  form!: FormGroup;
+  data$!: Observable<[]>;
+
+  constructor(private noti: NotiService,
+    private ipService: IpService) { }
 
   ngOnInit(): void {
+    this.form = new FormGroup({
+      data: new FormControl(null)
+    })
+  }
+
+  onSubmit() {
+    this.data$ = this.ipService.getStatistika(this.form.value)
   }
 
 }

@@ -58,6 +58,7 @@ export class EditPpComponent implements OnInit {
 
   flag = false;
 
+  dataStatistika: Observable<[]> | undefined;
   from = TuiDay.currentLocal();
   to = TuiDay.currentLocal();
 
@@ -150,6 +151,7 @@ export class EditPpComponent implements OnInit {
 
   getData() {
     this.ipPpsService.doClick()
+    this.dataStatistika = this.ipService.getStatistikaForPps(this.formId)
   }
 
   getDataModel() {
@@ -208,6 +210,10 @@ export class EditPpComponent implements OnInit {
       this.onNormaChangeFact();
     })
 
+  }
+
+  onChangeKindActivity() {
+    this.activity$ = this.activityService.getActivitysByKindActivity(Number(this.valueKind))
   }
 
   edit(data: IpPps) {

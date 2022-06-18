@@ -1,1 +1,76 @@
-<p>report works!</p>
+<div class="container-search">
+    <div class="tui-form__row">
+      <tui-input
+        class="b-from search"
+        type="search"
+        [(ngModel)]="term"
+        tuiTextfieldSize="m"
+        [tuiTextfieldCleaner]="true"
+      >
+        Поиск
+      </tui-input>
+    </div>
+  </div>
+  <div class="container-search">
+  <form class="line" [formGroup]="form" *ngIf="form" (ngSubmit)="onSubmit()">
+    <div class="tui-form__row">
+      <tui-input-date
+        formControlName="data"
+        [tuiTextfieldCleaner]="true"
+
+        tuiTextfieldSize="m"
+        class="b-form tui-space_right-2"
+      >
+        Дата начала
+      </tui-input-date>
+
+    </div>
+    <button tuiButton
+    size="s"
+    type="submit"
+    class="b-form tui-space_left-2"
+>
+Найти
+</button>
+  </form>
+  </div>
+
+<tui-scrollbar>
+    <table class="tui-table">
+      <thead>
+      <tr class="tui-table__tr">
+        <th class="tui-table__th">#</th>
+        <th class="tui-table__th">ФИО</th>
+        <th class="tui-table__th">Должность по кафедре</th>
+        <th class="tui-table__th">Доля ставки</th>
+        <th class="tui-table__th">Вид деятельности</th>
+        <th class="tui-table__th">Объем запланированных работ на год</th>
+        <th class="tui-table__th">Объем выполненных работ (1 семестр)</th>
+        <th class="tui-table__th">Объем выполненных работ (2 семестр)</th>
+        <th class="tui-table__th">Объем выполненных работ за год</th>
+      </tr>
+      </thead>
+      <!-- <tbody *ngIf="data | async as data" >
+      <tr class="tui-table__tr" *ngFor="let data of data| filter:term; let i = index">
+        <th class="tui-table__td">{{i+1}}</th>
+        <td class="tui-table__td" *ngIf="data.kafedra.user; else something">{{data.kafedra.user.second}} {{data.kafedra.user.first}} {{data.kafedra.user.third}}</td>
+        <td class="tui-table__td" *ngIf="data.kafedra.book_post; else something">{{data.kafedra.book_post.name}}</td>
+        <td class="tui-table__td" *ngIf="data.isagreement; else somethingElse">Да</td>
+        
+        <td class="tui-table__td" *ngIf="data.isagreement; else somethingElse">Да</td>
+        <td class="tui-table__td" *ngIf="data.data_agreement; else something">{{data.data_agreement}}</td>
+        <td class="tui-table__td" *ngIf="data.isimplementation; else somethingElse">Да</td>
+        <td class="tui-table__td" *ngIf="data.data_implementation; else something">{{data.data_implementation}}</td>
+
+      </tr>
+      </tbody> -->
+    </table>
+  </tui-scrollbar>
+  <!-- <ng-template #somethingElse>
+    <td class="tui-table__td">Нет</td>
+  </ng-template>
+  
+  <ng-template #something>
+    <td class="tui-table__td"></td>
+  </ng-template> -->
+  
