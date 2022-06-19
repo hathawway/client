@@ -15,13 +15,24 @@
   <form class="line" [formGroup]="form" *ngIf="form" (ngSubmit)="onSubmit()">
     <div class="tui-form__row">
       <tui-input-date
-        formControlName="data"
+        formControlName="dataStart"
         [tuiTextfieldCleaner]="true"
 
         tuiTextfieldSize="m"
         class="b-form tui-space_right-2"
       >
         Дата начала
+      </tui-input-date>
+
+
+      <tui-input-date
+        formControlName="dataEnd"
+        [tuiTextfieldCleaner]="true"
+
+        tuiTextfieldSize="m"
+        class="b-form tui-space_right-2 tui-space_top-2"
+      >
+        Дата конец
       </tui-input-date>
 
     </div>

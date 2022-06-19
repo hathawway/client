@@ -20,7 +20,8 @@ export class ReportComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      data: new FormControl(null)
+      dataStart: new FormControl(null),
+      dataEnd: new FormControl(null)
     })
   }
 
