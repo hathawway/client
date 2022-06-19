@@ -55,7 +55,7 @@
                       <button
                       tuiOption
                         [value]="item.user.id | toNumber"
-                        *ngIf="item.book_role.id === '5' && item.user.login !== 'admin@gmail.com'">
+                        *ngIf="item.user && item.book_role.id === '5' && item.user.login !== 'admin@gmail.com'">
                         {{item.user.second}} {{item.user.first}} {{item.user.third}} ({{item.user.book_office.name}}, {{item.user.book_post.name}})
                     </button>
 
@@ -102,7 +102,7 @@
 
 <tbody *ngIf="data | async as data" >
   <tr class="tui-table__tr" *ngFor="let data of data | filter:term; let i = index">
-    <th class="tui-table__td">{{i+1}}</th>
+      <th class="tui-table__td">{{i+1}}</th>
     <td class="tui-table__td" *ngIf="data.name; else somethingElse">{{data.name}}</td>
     <td class="tui-table__td" *ngIf="data.user; else somethingElse">{{data.user.second}} {{data.user.first}} {{data.user.third}}</td>
     <td class="tui-table__td" *ngIf="data.user.book_post; else somethingElse">{{data.user.book_post.name}}</td>
@@ -128,6 +128,7 @@
             >
             </button>
     </td>
+    
   </tr>
 </tbody>
 
