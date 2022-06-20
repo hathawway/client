@@ -8,6 +8,7 @@
         [max]="to"
         [(ngModel)]="from"
         tuiTextfieldSize="m"
+        [readOnly]="flagFildsIsagreement"
         class="b-form tui-space_right-3"
       >
         Дата начала
@@ -23,6 +24,7 @@
         [items]="items"
         tuiTextfieldSize="m"
         [(ngModel)]="to"
+        [readOnly]="flagFildsIsagreement"
         class="b-form tui-space_right-3"
       >
         Дата конца
@@ -36,7 +38,7 @@
         class="b-form tui-space_right-3"
         formControlName="kafedra"
         tuiTextfieldSize="m"
-
+        [readOnly]="flagFildsIsagreement"
         [valueContent]="items ? this.str.stringifyKafedra(items) : loading"
         [(ngModel)]="valueKafedra"
       >Кафедра*
@@ -68,7 +70,7 @@
       Добавить
     </button>
 
-    <!-- <button tuiButton
+    <button tuiButton
             size="s"
             type="submit"
             class="b-form tui-space_left-2"
@@ -76,7 +78,7 @@
             (click)="save()"
     >
       Сохранить
-    </button> -->
+    </button>
   </form>
 
 

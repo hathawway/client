@@ -117,7 +117,7 @@ export class EditPpComponent implements OnInit {
     this.kafedra$ = this.kafedraService.getKafedra(this.kafedraService.getReqSearch())
     const ipId = this.ipPpsService.getId()
 
-    if (!ipId) {
+    if (ipId === '') {
       this.checkAdd = true
       this.formId = '';
       this.flagFirstOpen = true;
@@ -129,6 +129,7 @@ export class EditPpComponent implements OnInit {
       this.flagEditPossibility = false;
     } else {
       this.flagFirstOpen = false;
+      this.formId = ipId;
       this.getData();
       this.ipService.getIpById(ipId).subscribe( (value) => {
         this.form = new FormGroup({
@@ -164,7 +165,7 @@ export class EditPpComponent implements OnInit {
 
   add() {
     console.log(this.ipPpsService.getId())
-    if (!this.ipPpsService.getId()) {
+    if (this.ipPpsService.getId() === '') {
       this.ipService.addIp(this.form.value).subscribe(
         (value) => {
           //this.ipService.doClick();
@@ -206,6 +207,7 @@ export class EditPpComponent implements OnInit {
 
       this.fromEdit = null;
       this.toEdit = null;
+      //this.ipService.updateIp(this.form.value)
     }
   }
 
@@ -273,7 +275,7 @@ export class EditPpComponent implements OnInit {
 
   onSubmit() {
     this.formIp.disable()
-
+    this.formId = this.ipPpsService.getId()
     this.formIp.get('idip')?.setValue(this.formId);
     this.ipPpsService.setId(this.formId);
     if (this.flag) {
@@ -304,7 +306,7 @@ export class EditPpComponent implements OnInit {
         }
       )
     }
-    this.form.enable()
+    this.formIp.enable()
 
     //this.ipPpsService.doClick();
   }
@@ -325,6 +327,18 @@ export class EditPpComponent implements OnInit {
       if (this.formId !== '') {
         this.formIp?.get('idip')?.setValue(this.formId);
         this.ipService.updateIp(this.form.value).subscribe(
+          () => {
+            this.ipService.doClick();
+            this.dataStatistika = this.ipService.getStatistikaForPps(this.formId)
+            this.flagFirstOpen = true;
+          },
+          error => {
+            this.messageError = error.error.message
+          }
+        )
+      } else {
+        //this.formIp?.get('idip')?.setValue(this.formId);
+        this.ipService.addIp(this.form.value).subscribe(
           () => {
             this.ipService.doClick();
             this.dataStatistika = this.ipService.getStatistikaForPps(this.formId)
