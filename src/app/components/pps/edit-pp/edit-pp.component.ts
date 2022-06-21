@@ -104,24 +104,25 @@ export class EditPpComponent implements OnInit {
               private ipService: IpService,
               public str: StrService,
               private noti: NotiService) {
-    this.formId = this.ipPpsService.getId()
+    //this.formId = this.ipPpsService.getId()
     this.ipPpsService.onClick.subscribe(cnt=>this.data = cnt);
     this.ipService.onClick.subscribe(cnt=>this.dataIp = cnt);
   }
 
   ngOnInit(): void {
 
-    this.authService.getUserByHeader().subscribe(d => this.formId = d.id)
+    //this.authService.getUserByHeader().subscribe(d => this.formId = d.id)
 
     this.kafedraService.setReqSearch("user")
     this.kafedra$ = this.kafedraService.getKafedra(this.kafedraService.getReqSearch())
-    const ipId = this.ipPpsService.getId()
+    //const ipId = this.ipPpsService.getId()
 
-    if (ipId === '') {
+    if (this.ipPpsService.getId() === '') {
       this.checkAdd = true
-      this.formId = '';
+      //this.formId = '';
       this.flagFirstOpen = true;
       this.form = new FormGroup({
+        id: new FormControl(null),
         data_start: new FormControl(null, Validators.required),
         data_end: new FormControl(null, Validators.required),
         kafedra: new FormControl(null, Validators.required),
@@ -129,9 +130,9 @@ export class EditPpComponent implements OnInit {
       this.flagEditPossibility = false;
     } else {
       this.flagFirstOpen = false;
-      this.formId = ipId;
+      //this.formId = ipId;
       this.getData();
-      this.ipService.getIpById(ipId).subscribe( (value) => {
+      this.ipService.getIpById(this.ipPpsService.getId()).subscribe( (value) => {
         this.form = new FormGroup({
           id: new FormControl(value.id, Validators.required),
           data_start: new FormControl(value.data_start === null ? null : value.data_start, Validators.required),
@@ -155,7 +156,7 @@ export class EditPpComponent implements OnInit {
 
   getData() {
     this.ipPpsService.doClick()
-    this.dataStatistika = this.ipService.getStatistikaForPps(this.formId)
+    this.dataStatistika = this.ipService.getStatistikaForPps(this.ipPpsService.getId())
   }
 
   getDataModel() {
@@ -172,7 +173,7 @@ export class EditPpComponent implements OnInit {
           this.ipPpsService.doClick();
           
           this.flagFirstOpen = true;
-          this.formId = value.id;
+          this.ipPpsService.setId(value.id);
           //this.dataStatistika = this.ipService.getStatistikaForPps(this.formId)
           console.log(value.id)
         },
@@ -197,7 +198,7 @@ export class EditPpComponent implements OnInit {
         hourFact: new FormControl(null, Validators.pattern(/^\d+(?:[.]\d+)?$/)),
         dateFact: new FormControl(null),
         remark: new FormControl(null),
-        idip: new FormControl(null),
+        idip: new FormControl(this.ipPpsService.getId()),
       })
       this.flag = true;
 
@@ -249,10 +250,10 @@ export class EditPpComponent implements OnInit {
         hourFact: new FormControl(data.hourFact, Validators.pattern(/^\d+(?:[.]\d+)?$/)),
         dateFact: new FormControl(data.dateFact),
         remark: new FormControl(data.remark),
-        idip: new FormControl(null),
+        idip: new FormControl(this.ipPpsService.getId()),
       })
 
-      this.dataStatistika = this.ipService.getStatistikaForPps(this.formId)
+      this.dataStatistika = this.ipService.getStatistikaForPps(this.ipPpsService.getId())
       this.valueHourPlan = data.hourPlan;
       this.valueUnitPlan = data.unitPlan;
       this.valueActivityNorma = data.activity.norma;
@@ -275,15 +276,15 @@ export class EditPpComponent implements OnInit {
 
   onSubmit() {
     this.formIp.disable()
-    this.formId = this.ipPpsService.getId()
-    this.formIp.get('idip')?.setValue(this.formId);
-    this.ipPpsService.setId(this.formId);
+    //this.formId = this.ipPpsService.getId()
+    this.formIp.get('idip')?.setValue(this.ipPpsService.getId());
+    //this.ipPpsService.setId(this.formId);
     if (this.flag) {
       this.ipPpsService.addIpPps(this.formIp.value).subscribe(
         () => {
           this.close();
           this.ipPpsService.doClick();
-          this.dataStatistika = this.ipService.getStatistikaForPps(this.formId)
+          this.dataStatistika = this.ipService.getStatistikaForPps(this.ipPpsService.getId())
           //this.ipService.doClick();
           
         },
@@ -324,24 +325,25 @@ export class EditPpComponent implements OnInit {
       this.noti.toast('Внесение изменений в утвержденный план невозможно!');
     } else {
       this.form.disable()
-      if (this.formId !== '') {
-        this.formIp?.get('idip')?.setValue(this.formId);
-        this.ipService.updateIp(this.form.value).subscribe(
-          () => {
+      if (this.ipPpsService.getId() === '') {
+        //this.formIp?.get('idip')?.setValue(this.formId);
+        this.ipService.addIp(this.form.value).subscribe(
+          (value) => {
             this.ipService.doClick();
-            this.dataStatistika = this.ipService.getStatistikaForPps(this.formId)
+            //this.dataStatistika = this.ipService.getStatistikaForPps(this.ipPpsService.getId())
             this.flagFirstOpen = true;
-          },
-          error => {
-            this.messageError = error.error.message
+            this.ipPpsService.setId(value.id)
+        },
+            error => {
+              this.messageError = error.error.message
           }
         )
       } else {
-        //this.formIp?.get('idip')?.setValue(this.formId);
-        this.ipService.addIp(this.form.value).subscribe(
+        this.form.get('id')?.setValue(this.ipPpsService.getId());
+        this.ipService.updateIp(this.form.value).subscribe(
           () => {
             this.ipService.doClick();
-            this.dataStatistika = this.ipService.getStatistikaForPps(this.formId)
+            this.dataStatistika = this.ipService.getStatistikaForPps(this.ipPpsService.getId())
             this.flagFirstOpen = true;
           },
           error => {
@@ -363,7 +365,7 @@ export class EditPpComponent implements OnInit {
         this.ipPpsService.deleteIpPps(data).subscribe(
           () => {
             this.ipPpsService.doClick(),
-            this.dataStatistika = this.ipService.getStatistikaForPps(this.formId)
+            this.dataStatistika = this.ipService.getStatistikaForPps(this.ipPpsService.getId())
         },
           error => {
             this.noti.toast(error.error.message)
