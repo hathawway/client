@@ -34,7 +34,7 @@
               formControlName="name"
               [tuiTextfieldCleaner]="true"
 	        >
-          Стуктурное подразделение*
+          Вид деятельности*
 	        </tui-input>
           <tui-error class="tui-space_bottom-3"
            formControlName="name" [error]="[] | tuiFieldError | async"></tui-error>
@@ -105,7 +105,7 @@
       <th class="tui-table__td">{{i+1}}</th>
     <td class="tui-table__td" *ngIf="data.name; else somethingElse">{{data.name}}</td>
     <td class="tui-table__td" *ngIf="data.user; else somethingElse">{{data.user.second}} {{data.user.first}} {{data.user.third}}</td>
-    <td class="tui-table__td" *ngIf="data.user.book_post; else somethingElse">{{data.user.book_post.name}}</td>
+    <td class="tui-table__td" *ngIf="data.user && data.user.book_post; else somethingElse">{{data.user.book_post.name}}</td>
     <td class="tui-table__td">
       <button
           tuiIconButton

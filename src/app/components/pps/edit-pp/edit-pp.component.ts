@@ -285,6 +285,7 @@ export class EditPpComponent implements OnInit {
           this.close();
           this.ipPpsService.doClick();
           this.dataStatistika = this.ipService.getStatistikaForPps(this.ipPpsService.getId())
+          this.activity$ = this.activityService.getActivity()
           //this.ipService.doClick();
           
         },
