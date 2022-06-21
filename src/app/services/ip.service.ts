@@ -68,8 +68,8 @@ export class IpService {
         })
     }
 
-    getStatistika(data: string): Observable<any> {
-        return this.http.post<any>(`${environment.api}/api/ip/statistika/`, data)
+    getStatistika(dates: string): Observable<any> {
+      return this.http.post<any>(`${environment.api}/api/ip/statistika`, {dates: dates})
     }
 
     getStatistikaForPps(id: string): Observable<PpStatistic[]> {

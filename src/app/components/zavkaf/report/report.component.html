@@ -61,27 +61,26 @@
         <th class="tui-table__th">Объем выполненных работ за год</th>
       </tr>
       </thead>
-      <!-- <tbody *ngIf="data | async as data" >
-      <tr class="tui-table__tr" *ngFor="let data of data| filter:term; let i = index">
+      <tbody *ngIf="data$ | async as dataFromBack" >
+      <tr class="tui-table__tr" *ngFor="let data of dataFromBack| filter:term; let i = index">
         <th class="tui-table__td">{{i+1}}</th>
-        <td class="tui-table__td" *ngIf="data.kafedra.user; else something">{{data.kafedra.user.second}} {{data.kafedra.user.first}} {{data.kafedra.user.third}}</td>
-        <td class="tui-table__td" *ngIf="data.kafedra.book_post; else something">{{data.kafedra.book_post.name}}</td>
-        <td class="tui-table__td" *ngIf="data.isagreement; else somethingElse">Да</td>
-        
-        <td class="tui-table__td" *ngIf="data.isagreement; else somethingElse">Да</td>
-        <td class="tui-table__td" *ngIf="data.data_agreement; else something">{{data.data_agreement}}</td>
-        <td class="tui-table__td" *ngIf="data.isimplementation; else somethingElse">Да</td>
-        <td class="tui-table__td" *ngIf="data.data_implementation; else something">{{data.data_implementation}}</td>
+        <td class="tui-table__td" *ngIf="data.ispolnitel; else something">{{data.ispolnitel}}</td>
+        <td class="tui-table__td" *ngIf="data.post; else something">{{data.post}}</td>
+<!--        <td class="tui-table__td" *ngIf="data.isagreement; else somethingElse">Да</td>-->
+
+<!--        <td class="tui-table__td" *ngIf="data.isagreement; else somethingElse">Да</td>-->
+<!--        <td class="tui-table__td" *ngIf="data.data_agreement; else something">{{data.data_agreement}}</td>-->
+<!--        <td class="tui-table__td" *ngIf="data.isimplementation; else somethingElse">Да</td>-->
+<!--        <td class="tui-table__td" *ngIf="data.data_implementation; else something">{{data.data_implementation}}</td>-->
 
       </tr>
-      </tbody> -->
+      </tbody>
     </table>
   </tui-scrollbar>
-  <!-- <ng-template #somethingElse>
+  <ng-template #somethingElse>
     <td class="tui-table__td">Нет</td>
   </ng-template>
-  
+
   <ng-template #something>
     <td class="tui-table__td"></td>
-  </ng-template> -->
-  
+  </ng-template>
