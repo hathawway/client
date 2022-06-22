@@ -52,20 +52,54 @@
       <tr class="tui-table__tr">
         <th class="tui-table__th">#</th>
         <th class="tui-table__th">ФИО</th>
-        <th class="tui-table__th">Должность по кафедре</th>
+        <!-- <th class="tui-table__th">Должность по кафедре</th> -->
         <th class="tui-table__th">Доля ставки</th>
-        <th class="tui-table__th">Вид деятельности</th>
+        <th class="tui-table__th">
+          <table class="tui-table__th">
+            <th class="tui-table__th">Вид деятельности</th>
+            <th class="tui-table__th">Объем запланированных работ на год %</th>
+            <th class="tui-table__th">Объем выполненных работ (1 семестр) %</th>
+            <th class="tui-table__th">Объем выполненных работ (2 семестр) %</th>
+            <th class="tui-table__th">Объем выполненных работ за год %</th>
+          </table>
+        </th>
+        
+        <!-- <th class="tui-table__th">Вид деятельности</th>
         <th class="tui-table__th">Объем запланированных работ на год</th>
         <th class="tui-table__th">Объем выполненных работ (1 семестр)</th>
         <th class="tui-table__th">Объем выполненных работ (2 семестр)</th>
-        <th class="tui-table__th">Объем выполненных работ за год</th>
+        <th class="tui-table__th">Объем выполненных работ за год</th> -->
       </tr>
       </thead>
       <tbody *ngIf="data$ | async as dataFromBack" >
       <tr class="tui-table__tr" *ngFor="let data of dataFromBack| filter:term; let i = index">
         <th class="tui-table__td">{{i+1}}</th>
         <td class="tui-table__td" *ngIf="data.ispolnitel; else something">{{data.ispolnitel}}</td>
-        <td class="tui-table__td" *ngIf="data.post; else something">{{data.post}}</td>
+        <!-- <td class="tui-table__td" *ngIf="data.post; else something">{{data.post}}</td> -->
+        <td class="tui-table__td" *ngIf="data.kafedra_norma; else something">{{data.kafedra_norma}}</td>
+        <td class="tui-table__td" *ngIf="data.json_agg; else something">
+          <ng-container *ngFor="let act of data.json_agg">     
+            <table>
+              <!-- <tr>
+                <th class="tui-table__th">Вид деятельности</th>
+                <th class="tui-table__th">Объем запланированных работ на год %</th>
+                <th class="tui-table__th">Объем выполненных работ (1 семестр) %</th>
+                <th class="tui-table__th">Объем выполненных работ (2 семестр) %</th>
+                <th class="tui-table__th">Объем выполненных работ за год %</th>
+              </tr> -->
+              <tr>
+                <td class="tui-table__td wi wi" *ngIf="act.activity_name; else something">{{act.activity_name}}</td>
+                <td class="tui-table__td wi" *ngIf="act.planned_hours_percent; else something">{{act.planned_hours_percent}}</td>
+                <td class="tui-table__td wi" *ngIf="act.first_semestr; else something">{{act.first_semestr}}</td>
+              
+                <td class="tui-table__td wi" *ngIf="act.second_semestr; else something">{{act.second_semestr}}</td>
+                <td class="tui-table__td wi" *ngIf="act.yearly; else something">{{act.yearly}}</td>
+              </tr>
+              
+            </table>   
+              
+          </ng-container>
+        </td>
 <!--        <td class="tui-table__td" *ngIf="data.isagreement; else somethingElse">Да</td>-->
 
 <!--        <td class="tui-table__td" *ngIf="data.isagreement; else somethingElse">Да</td>-->
@@ -82,5 +116,5 @@
   </ng-template>
 
   <ng-template #something>
-    <td class="tui-table__td"></td>
+    <td class="tui-table__td wi">0</td>
   </ng-template>

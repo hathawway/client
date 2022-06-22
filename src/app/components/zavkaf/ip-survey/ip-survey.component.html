@@ -23,8 +23,8 @@
       <th class="tui-table__th">Согласован</th>
       <th class="tui-table__th">Дата согласования</th>
       <th class="tui-table__th">Дата конец</th>
-      <th class="tui-table__th">Выполнен</th>
-      <th class="tui-table__th">Дата выполнения</th>
+      <th class="tui-table__th">Выполнен (утвержден)</th>
+      <th class="tui-table__th">Дата выполнения (утверждения)</th>
     </tr>
     </thead>
     <tbody *ngIf="dataIp$ | async as data" >
@@ -73,8 +73,8 @@
       <td class="tui-table__td" *ngIf="data.unitPlan; else something">{{data.unitPlan}}</td>
       <td class="tui-table__td" *ngIf="data.hourPlan; else something">{{data.hourPlan}}</td>
       <td class="tui-table__td" *ngIf="data.datePlan; else something">{{data.datePlan}}</td>
-      <td class="tui-table__td" *ngIf="data.unitFact; else something">{{data.unitFact}}</td>
-      <td class="tui-table__td" *ngIf="data.hourFact; else something">{{data.hourFact}}</td>
+      <td class="tui-table__td" *ngIf="data.unitFact; else somethingZ">{{data.unitFact}}</td>
+      <td class="tui-table__td" *ngIf="data.hourFact; else somethingZ">{{data.hourFact}}</td>
       <td class="tui-table__td" *ngIf="data.dateFact; else something">{{data.dateFact}}</td>
       <td class="tui-table__td" *ngIf="data.remark; else something">{{data.remark}}</td>
     </tr>
@@ -127,6 +127,11 @@
 <ng-template #something>
   <td class="tui-table__td"></td>
 </ng-template>
+
 <ng-template #loading>
   <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
+</ng-template>
+
+<ng-template #somethingZ>
+  <td class="tui-table__td">0</td>
 </ng-template>
