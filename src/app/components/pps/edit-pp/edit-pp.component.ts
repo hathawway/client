@@ -363,7 +363,7 @@ export class EditPpComponent implements OnInit {
       this.noti.toast('Внесение изменений в утвержденный план невозможно!');
     } else {
       const decision = window.confirm("Удалить?")
-      if (decision) {
+      if (decision && !this.flagFildsIsagreement) {
         this.ipPpsService.deleteIpPps(data).subscribe(
           () => {
             this.ipPpsService.doClick(),
