@@ -23,7 +23,7 @@ import { StrService } from 'src/app/utils/stringify.service';
       provide: TUI_VALIDATION_ERRORS,
       useValue: {
         required: 'Поле обязательно для заполнения!',
-        pattern:'Только числа!'
+        pattern:'Вводимое значение должно быть целым числом или вещественным. Разделить - точка!'
       },
     },
   ],
@@ -331,9 +331,10 @@ export class EditPpComponent implements OnInit {
         this.ipService.addIp(this.form.value).subscribe(
           (value) => {
             this.ipService.doClick();
-            //this.dataStatistika = this.ipService.getStatistikaForPps(this.ipPpsService.getId())
+            this.dataStatistika = this.ipService.getStatistikaForPps(value.id)
             this.flagFirstOpen = true;
             this.ipPpsService.setId(value.id)
+            
         },
             error => {
               this.messageError = error.error.message

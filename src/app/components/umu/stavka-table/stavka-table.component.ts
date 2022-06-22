@@ -19,7 +19,7 @@ import { StrService } from 'src/app/utils/stringify.service';
       provide: TUI_VALIDATION_ERRORS,
       useValue: {
         required: 'Поле обязательно для заполнения!',
-        pattern: 'Поле должно быть числовым',
+        pattern: 'Вводимое значение должно быть целым числом!',
       },
     },
 	],
@@ -63,7 +63,7 @@ export class StavkaTableComponent implements OnInit {
       this.open = true;
       this.form = new FormGroup({
         idbook_post: new FormControl(null, Validators.required),
-        norma: new FormControl(null, [Validators.required, Validators.pattern(/^\d+(?:[,.]\d+)?$/)]),
+        norma: new FormControl(null, [Validators.required, Validators.pattern(/^(0|[1-9]\d*)$/)]),
       })
       this.flag = true;
       this.valuePost = null;
@@ -73,7 +73,7 @@ export class StavkaTableComponent implements OnInit {
       this.open = true;
       this.form = new FormGroup({
         id: new FormControl(data.id, Validators.required),
-        norma: new FormControl(data.norma  === null ? null : data.norma, [Validators.required, Validators.pattern(/^\d+(?:[,.]\d+)?$/)]),
+        norma: new FormControl(data.norma  === null ? null : data.norma, [Validators.required, Validators.pattern(/^(0|[1-9]\d*)$/)]),
         idbook_post: new FormControl(data.book_post === null ? null : data.book_post.id, Validators.required)
       })
       this.valuePost = data.book_post === null ? null : Number(data.book_post.id);
@@ -84,7 +84,7 @@ export class StavkaTableComponent implements OnInit {
       this.openSt = true;
       this.formStavka = new FormGroup({
         id: new FormControl(stavka.id, Validators.required),
-        norma: new FormControl(stavka.norma, Validators.required)
+        norma: new FormControl(stavka.norma, [Validators.required, Validators.pattern(/^(0|[1-9]\d*)$/)])
       })
     }
 

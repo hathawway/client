@@ -19,7 +19,7 @@ import { StrService } from 'src/app/utils/stringify.service';
       provide: TUI_VALIDATION_ERRORS,
       useValue: {
         required: 'Поле обязательно для заполнения!',
-        pattern: 'Только целые числа!',
+        pattern: 'Вводимое значение должно быть целым числом!',
       },
     },
 	],

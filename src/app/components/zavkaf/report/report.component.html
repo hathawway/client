@@ -52,7 +52,7 @@
       <tr class="tui-table__tr">
         <th class="tui-table__th">#</th>
         <th class="tui-table__th">ФИО</th>
-        <!-- <th class="tui-table__th">Должность по кафедре</th> -->
+        <th class="tui-table__th">Должность по кафедре</th>
         <th class="tui-table__th">Доля ставки</th>
         <th class="tui-table__th">
           <table class="tui-table__th">
@@ -75,7 +75,7 @@
       <tr class="tui-table__tr" *ngFor="let data of dataFromBack| filter:term; let i = index">
         <th class="tui-table__td">{{i+1}}</th>
         <td class="tui-table__td" *ngIf="data.ispolnitel; else something">{{data.ispolnitel}}</td>
-        <!-- <td class="tui-table__td" *ngIf="data.post; else something">{{data.post}}</td> -->
+        <td class="tui-table__td" *ngIf="data.post; else something">{{data.post}}</td>
         <td class="tui-table__td" *ngIf="data.kafedra_norma; else something">{{data.kafedra_norma}}</td>
         <td class="tui-table__td" *ngIf="data.json_agg; else something">
           <ng-container *ngFor="let act of data.json_agg">     
